@@ -14,7 +14,8 @@ header {
 	display: inline-block;
 	width: 100%;
 	margin-top: 5px;
-	margin-bottom: 5px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-size : 12px; font-weight: bold;
 }
 
 .header-left{
@@ -136,39 +137,15 @@ a.two-menu:active{
 /* 네비 */
 .chatbot{
 	position: fixed;
-	top: 555px;
-	left: 1420px;
+	bottom : 170px;
+	right: 30px;
 }
 
 .groupchat{
 	position: fixed;
-	top: 600px;
-	left: 1420px;
+	bottom : 100px;
+	right: 30px;
 }
 
-
-footer {
-	clear: both;
-	width: 100%;
-	height: 50px;
-}
-
-iframe {
-	overflow : auto;
-	width: 100%;
-	height: 580px;
-	border:none;	
-	
-}
-
-
-
-#copy {
-	border: 1px solid #EAEAEA;
-	border-bottom: none;
-	border-left: none;
-	border-right: none;
-	font-size: 22px;
-}
 
 
