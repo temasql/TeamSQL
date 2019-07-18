@@ -2,8 +2,6 @@
 # Created by https://www.gitignore.io/api/maven,eclipse
 # Edit at https://www.gitignore.io/?templates=maven,eclipse
 
-src/main/resources/kr/or/ddit/config/mybatis/db.properties
-
 
 ### Eclipse ###
 .metadata
