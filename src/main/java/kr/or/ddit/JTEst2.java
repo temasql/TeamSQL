@@ -19,6 +19,6 @@ package kr.or.ddit;
 *
 * </pre>
 */
-public class JTEst {
+public class JTEst2 {
 
 }
