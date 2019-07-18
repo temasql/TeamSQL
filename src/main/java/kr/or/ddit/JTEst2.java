@@ -20,5 +20,5 @@ package kr.or.ddit;
 * </pre>
 */
 public class JTEst2 {
-
+	// 정력왕 이중석
 }
