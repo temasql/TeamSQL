@@ -24,5 +24,7 @@ public class JTEst2 {
 	//js
 
 	// 정력왕 이중석
+	
+	// 콩나물왕 이중석
 
 }
