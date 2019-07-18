@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+   <definition name="layout" template="/WEB-INF/views/common/layout.jsp">
+      <put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+      <put-attribute name="body" value=""/>
+      <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
+   </definition>
+   
+   <!-- admin(관리자) -->
+   <definition name="/admin/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp"/>
+   </definition>
+
+   <definition name="/admin/*/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}.jsp"/>
+   </definition>
+   
+   <definition name="/admin/*/*/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}/{3}.jsp"/>
+   </definition>
+   
+   <!-- board(게시판) -->
+   <definition name="/board/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/board/{1}.jsp"/>
+   </definition>
+   
+   <!-- chatBot(챗봇) -->
+   <definition name="/chatBot/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/chatBot/{1}.jsp"/>
+   </definition>
+
+   <!-- chatting(채팅) -->
+   <definition name="/chatting/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/chatting/{1}.jsp"/>
+   </definition>
+   
+   <!-- crew(구성원) -->
+   <definition name="/crew/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/crew/{1}.jsp"/>
+   </definition>
+   
+   <!-- history(변경이력) -->
+   <definition name="/history/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/history/{1}.jsp"/>
+   </definition>
+   
+   <!-- login(로그인) -->
+   <definition name="/login/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp"/>
+   </definition>
+   
+   <!-- notice(공지사항) -->
+   <definition name="/notice/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/notice/{1}.jsp"/>
+   </definition>
+   
+   <!-- quiz(SQL퀴즈) -->
+   <definition name="/quiz/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/quiz/{1}.jsp"/>
+   </definition>
+   
+   <!-- sqlEditor(SQL에디터) -->
+   <definition name="/sqlEditor/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/sqlEditor/{1}.jsp"/>
+   </definition>
+   
+   <!-- user(사용자) -->
+   <definition name="/user/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/user/{1}.jsp"/>
+   </definition>
+   
+   <!-- main(메인) -->
+   <definition name="*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/{1}.jsp"/>
+   </definition>
+   
+</tiles-definitions>

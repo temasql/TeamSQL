@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userTemplate">
+
+	<!-- Insert -->
+	<insert id="insert" parameterType="userTemplateVo">
+		INSERT INTO USER_TEMPLATE
+		(
+			...
+		)
+		VALUES
+		(
+			...
+		)
+	</insert>
+	
+	<!-- SelectOne -->
+	<select id="get" parameterType="String" resultType="userTemplateVo">
+		SELECT *
+		FROM USER_TEMPLATE
+		WHERE ID = #{id}
+	</select>
+	
+	<!-- SelectList -->
+	<select id="list" resultType="userTemplateVo">
+		SELECT *
+		FROM USER_TEMPLATE
+	</select>
+	
+	<select id="map" parameterType="map" resultType="userTemplateVo">
+		SELECT *
+		FROM USER_TEMPLATE
+		WHERE ID = #{map1}
+		AND .. = #{map2}
+		...
+	</select>
+	
+	<!-- update -->
+	<update id="update" parameterType="userTemplateVo">
+		UPDATE USER_TEMPLATE
+		SET COLUMN = #{..}
+		WHERE ID = #{id}
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="String">
+		DELETE
+		FROM USER_TEMPLATE
+		WHERE ID = #{id}
+	</delete>
+
+</mapper>

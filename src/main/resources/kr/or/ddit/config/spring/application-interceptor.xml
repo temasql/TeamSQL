@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- NameSpace : beans, mvc -->
+	
+	<!-- exclued-mapping path에 설정한 경로를 제외한 모든 경로에	bean에서 설정한 클래스를 거치게 한다. -->
+<!-- 	<mvc:interceptors> -->
+		<!-- 로그인한 회원인지 세션 체크 하는 InterCeptor 필요 없어질 가능성 있음 -->
+<!-- 		<mvc:interceptor> -->
+<!-- 			<mvc:mapping path="/**"/> -->
+<!-- 			<mvc:exclude-mapping path="/login"/> -->
+<!-- 			<mvc:exclude-mapping path="/js/**"/> -->
+<!-- 			<mvc:exclude-mapping path="/css/**"/> -->
+<!-- 			<mvc:exclude-mapping path="/img/**"/> -->
+<!-- 			<mvc:exclude-mapping path="/bootstrap/**"/> -->
+<!-- 			<mvc:exclude-mapping path="/error/**"/> -->
+<!-- 			<bean class="kr.or.ddit.interceptor.SessionCheckInterceptor"/> -->
+<!-- 		</mvc:interceptor> -->
+<!-- 	</mvc:interceptors> -->
+</beans>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="crew">
+
+	<!-- Insert -->
+	<insert id="insert" parameterType="crewVo">
+		INSERT INTO CREW
+		(
+			...
+		)
+		VALUES
+		(
+			...
+		)
+	</insert>
+	
+	<!-- SelectOne -->
+	<select id="get" parameterType="String" resultType="crewVo">
+		SELECT *
+		FROM CREW
+		WHERE ID = #{id}
+	</select>
+	
+	<!-- SelectList -->
+	<select id="list" resultType="crewVo">
+		SELECT *
+		FROM CREW
+	</select>
+	
+	<select id="map" parameterType="map" resultType="crewVo">
+		SELECT *
+		FROM CREW
+		WHERE ID = #{map1}
+		AND .. = #{map2}
+		...
+	</select>
+	
+	<!-- update -->
+	<update id="update" parameterType="crewVo">
+		UPDATE CREW
+		SET COLUMN = #{..}
+		WHERE ID = #{id}
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="String">
+		DELETE
+		FROM CREW
+		WHERE ID = #{id}
+	</delete>
+
+</mapper>

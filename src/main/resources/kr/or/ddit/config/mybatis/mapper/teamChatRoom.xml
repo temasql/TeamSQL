@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teamChatRoom">
+
+	<!-- Insert -->
+	<insert id="insert" parameterType="teamChatRoomVo">
+		INSERT INTO TEAM_CHAT_ROOM
+		(
+			...
+		)
+		VALUES
+		(
+			...
+		)
+	</insert>
+	
+	<!-- SelectOne -->
+	<select id="get" parameterType="String" resultType="teamChatRoomVo">
+		SELECT *
+		FROM TEAM_CHAT_ROOM
+		WHERE ID = #{id}
+	</select>
+	
+	<!-- SelectList -->
+	<select id="list" resultType="teamChatRoomVo">
+		SELECT *
+		FROM TEAM_CHAT_ROOM
+	</select>
+	
+	<select id="map" parameterType="map" resultType="teamChatRoomVo">
+		SELECT *
+		FROM TEAM_CHAT_ROOM
+		WHERE ID = #{map1}
+		AND .. = #{map2}
+		...
+	</select>
+	
+	<!-- update -->
+	<update id="update" parameterType="teamChatRoomVo">
+		UPDATE TEAM_CHAT_ROOM
+		SET COLUMN = #{..}
+		WHERE ID = #{id}
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="String">
+		DELETE
+		FROM TEAM_CHAT_ROOM
+		WHERE ID = #{id}
+	</delete>
+
+</mapper>

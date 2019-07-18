@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="kr.or.ddit.account.model.AccountVO" alias="accountVo" />
+		<typeAlias type="kr.or.ddit.blacklist.model.BlackListVO" alias="blackListVo" />
+		<typeAlias type="kr.or.ddit.board.model.BoardVO" alias="boardVo" />
+		<typeAlias type="kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO" alias="teamCalendarVo" />
+		<typeAlias type="kr.or.ddit.calendar.team_calendar_category.model.TeamCalendarCategoryVO" alias="teamCalendarCategoryVo" />
+		<typeAlias type="kr.or.ddit.chat.team_chat.model.TeamChatVO" alias="teamchatVo" />
+		<typeAlias type="kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO" alias="teamchatRoomVo" />
+		<typeAlias type="kr.or.ddit.crew.model.CrewVO" alias="crewVo" />
+		<typeAlias type="kr.or.ddit.domain.common_domain.model.CommonDomainVO" alias="commonDomainVo" />
+		<typeAlias type="kr.or.ddit.domain.user_domain.model.UserDomainVO" alias="userDomainVo" />
+		<typeAlias type="kr.or.ddit.filtering.model.FilteringVO" alias="filteringVo" />
+		<typeAlias type="kr.or.ddit.history.model.HistoryVO" alias="historyVo" />
+		<typeAlias type="kr.or.ddit.manager.model.ManagerVO" alias="managerVo" />
+		<typeAlias type="kr.or.ddit.post.model.PostVO" alias="postVo" />
+		<typeAlias type="kr.or.ddit.quiz.quiz.model.QuizVO" alias="quizVo" />
+		<typeAlias type="kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO" alias="quizAnswerVo" />
+		<typeAlias type="kr.or.ddit.quiz.quiz_example.model.QuizExampleVO" alias="quizExampleVo" />
+		<typeAlias type="kr.or.ddit.reply.model.ReplyVO" alias="replyVo" />
+		<typeAlias type="kr.or.ddit.table_lock.model.TableLockVO" alias="tableLockVo" />
+		<typeAlias type="kr.or.ddit.page.model.PageVo" alias="pageVo" />
+		<typeAlias type="kr.or.ddit.template.common_template.model.CommonTemplateVO" alias="commonTemplateVo" />
+		<typeAlias type="kr.or.ddit.template.user_template.model.UserTemplateVO" alias="userTemplateVo" />
+		<typeAlias type="kr.or.ddit.ts_file.model.TSFileVO" alias="tsFileVo" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/tsFile.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/userTemplate.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/commonTemplate.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/tableLock.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/reply.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/quizExample.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/quizAnswer.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/quiz.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/post.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/manager.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/history.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/filtering.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/userDomain.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/commonDomain.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/crew.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/teamChatRoom.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/teamChat.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/teamCalendarCategory.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/teamCalendar.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/blackList.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/account.xml" />
+	</mappers>
+</configuration>

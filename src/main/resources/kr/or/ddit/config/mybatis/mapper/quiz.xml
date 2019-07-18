@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="quiz">
+
+	<!-- Insert -->
+	<insert id="insert" parameterType="quizVo">
+		INSERT INTO QUIZ
+		(
+			...
+		)
+		VALUES
+		(
+			...
+		)
+	</insert>
+	
+	<!-- SelectOne -->
+	<select id="get" parameterType="String" resultType="quizVo">
+		SELECT *
+		FROM QUIZ
+		WHERE ID = #{id}
+	</select>
+	
+	<!-- SelectList -->
+	<select id="list" resultType="quizVo">
+		SELECT *
+		FROM QUIZ
+	</select>
+	
+	<select id="map" parameterType="map" resultType="quizVo">
+		SELECT *
+		FROM QUIZ
+		WHERE ID = #{map1}
+		AND .. = #{map2}
+		...
+	</select>
+	
+	<!-- update -->
+	<update id="update" parameterType="quizVo">
+		UPDATE QUIZ
+		SET COLUMN = #{..}
+		WHERE ID = #{id}
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="String">
+		DELETE
+		FROM QUIZ
+		WHERE ID = #{id}
+	</delete>
+
+</mapper>

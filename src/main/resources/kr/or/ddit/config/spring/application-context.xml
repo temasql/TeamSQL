@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- NameSpace 설정 : beans, context, mvc -->
+
+	<!-- kr.or.ddit 하위 Controller Scan -->
+	<context:component-scan
+		base-package="kr.or.ddit" annotation-config="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- Controller 설정 -->
+	<mvc:annotation-driven />
+
+	<!-- 요청 URL에 매핑되는 컨트롤러 검색하는 설정 -->
+	<mvc:default-servlet-handler />
+
+	<!-- Tiles 사용 셋팅 ViewResolver Order 1순위 스캔 -->
+	<bean
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:kr/or/ddit/config/tiles/tiles-config.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="1" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+
+	<!-- Controller에서 리턴하는 값과 Bean으로 등록된 ID의 값이 같은것을 찾는 ViewResolver Order 2순위 
+		스캔 -->
+	<bean
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="2" />
+	</bean>
+
+	<!-- 위의 두개의 순위를 거치고 마지막으로 찾는 ViewResolver Order 3순위 스캔 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="3" />
+	</bean>
+
+	<!-- 파일 업로드 할때 사용하는 Bean -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 파일 하나의 최대 사이즈 추후 설정 (3145728 eq 3MB) -->
+		<property name="maxUploadSizePerFile" value="3145728" />
+		<!-- 한번에 파일을 처리할수 있는 크기 (15728640 eq 15MB) -->
+		<property name="maxUploadSize" value="15728640" />
+	</bean>
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:kr/or/ddit/msg/msg</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

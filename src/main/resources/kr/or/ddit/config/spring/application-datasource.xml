@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- NameSpace : beans, context -->
+
+	<!-- 외부 설정 프로퍼티를 사용하기 위한 셋팅 위부프로퍼티 경로를 Location으로 지정 -->
+	<context:property-placeholder
+		location="classpath:kr/or/ddit/config/mybatis/db.properties" />
+
+	<!-- db.properties에 저장된 DB계정 정보 -->
+	<bean id="datasource"
+		class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean>
+
+	<!-- mybatis-config 설정 셋팅 -->
+	<bean id="sqlSessionFactoryBean"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:kr/or/ddit/config/mybatis/mybatis-config.xml" />
+		<property name="dataSource" ref="datasource" />
+	</bean>
+
+	<!-- Dao 에서 @Resource할 sqlSessionTemplate -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean" />
+	</bean>
+</beans>
