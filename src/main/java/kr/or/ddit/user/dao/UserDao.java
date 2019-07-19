@@ -16,16 +16,30 @@ public class UserDao implements IUserDao{
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
 
+	/**
+	* Method : insertUser
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 : 사용자 등록
+	*/
 	@Override
-	public int insertUser(UserVO commonsVo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertUser(UserVO userVo) {
+		return sqlSession.insert("user.insertUser", userVo);
 	}
 
+	/**
+	* Method : getUser
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : 아이디에 해당하는 사용자 정보 조회
+	*/
 	@Override
-	public UserVO getUser(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserVO getUser(String user_id) {
+		return sqlSession.selectOne("user.getUser", user_id);
 	}
 
 	@Override
@@ -40,16 +54,30 @@ public class UserDao implements IUserDao{
 		return null;
 	}
 
+	/**
+	* Method : updateUser
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 : 사용자 정보 수정
+	*/
 	@Override
-	public int updateUser(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateUser(UserVO userVo) {
+		return sqlSession.update("user.updateUser", userVo);
 	}
 
+	/**
+	* Method : deleteUser
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : 파라미터 아이디에 해당하는 회원의 탈퇴 구분을 N에서 Y로 바꿈 
+	*/
 	@Override
-	public int delete(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteUser(String user_id) {
+		return sqlSession.update("user.deleteUser", user_id);
 	}
 
 }

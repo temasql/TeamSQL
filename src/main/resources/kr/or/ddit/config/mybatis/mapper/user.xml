@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="userVo">
+		INSERT INTO USERS
+		VALUES
+		(
+			 #{user_id}
+			,'C'
+			,'N'
+			,#{user_pw}
+			,#{user_name}
+			,#{user_email}
+			,SYSDATE
+			,#{user_path, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<!-- 회원 아이디에 해당하는 사용자 정보 조회 -->
+	<select id="getUser" parameterType="String" resultType="userVo">
+		SELECT *
+		FROM USERS
+		WHERE USER_ID = #{user_id}
+	</select>
+	
+	<!-- SelectList -->
+	<select id="list" resultType="userVo">
+		SELECT *
+		FROM USERS
+	</select>
+	
+	<select id="map" parameterType="map" resultType="userVo">
+		SELECT *
+		FROM USERS
+		WHERE ID = #{map1}
+		AND .. = #{map2}
+		...
+	</select>
+	
+	<!-- update -->
+	<update id="updateUser" parameterType="userVo">
+		UPDATE USERS
+		SET  USER_PW    = #{user_pw}
+			,USER_NAME  = #{user_name}
+			,USER_EMAIL = #{user_email}
+			,USER_PATH  = #{user_path}
+		WHERE USER_ID   = #{user_id}
+	</update>
+	
+	<!-- 
+		회원 탈퇴 
+		회원 탈퇴 구분을 N에서 Y으로 바꿈 
+	-->
+	<update id="deleteUser" parameterType="String">
+		UPDATE USERS
+		SET EXIT_RIGHT = 'Y'
+		WHERE USER_ID = #{user_id}
+	</update>
+
+</mapper>

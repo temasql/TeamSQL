@@ -11,11 +11,11 @@ public interface IUserDao {
 	* Method : insertUser
 	* 작성자 : 이중석
 	* 변경이력 :
-	* @param commonsVo
+	* @param userVo
 	* @return
 	* Method 설명 : 유저 등록
 	*/
-	int insertUser(UserVO commonsVo);
+	int insertUser(UserVO userVo);
 	
 	/**
 	* Method : get
@@ -25,7 +25,7 @@ public interface IUserDao {
 	* @return
 	* Method 설명 : 아이디에 해당하는 유저의 정보
 	*/
-	UserVO getUser(String id);
+	UserVO getUser(String user_id);
 	
 	
 	/**
@@ -48,22 +48,22 @@ public interface IUserDao {
 	List<UserVO> map(Map<String, Object> map);
 	
 	/**
-	* Method : update
+	* Method : updateUser
 	* 작성자 : 이중석
 	* 변경이력 :
-	* @param id
+	* @param userVo
 	* @return
 	* Method 설명 : 사용자 정보 수정
 	*/
-	int updateUser(String id);
+	int updateUser(UserVO userVo);
 
 	/**
 	* Method : delete
 	* 작성자 : 이중석
 	* 변경이력 :
-	* @param id
+	* @param user_id
 	* @return
-	* Method 설명 : 사용자 삭제 
+	* Method 설명 : 파라미터 아이디에 해당하는 회원의 탈퇴 구분을 N에서 Y로 바꿈
 	*/
-	int delete(String id);
+	int deleteUser(String user_id);
 }
