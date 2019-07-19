@@ -11,7 +11,7 @@
 <!-- 헤더 -->
 
   <!-- Navigation -->
- <nav>
+ <nav class="navMenu">
 	<ul class="ul-header-one">
 		<li><a class="aNav" href="${cp}/sqlEditor/sqlEditorMain">SQL에디터</a></li>
   		<li><a class="aNav" href="#">DB변경이력관리</a></li>
