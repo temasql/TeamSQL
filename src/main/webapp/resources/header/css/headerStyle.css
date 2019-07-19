@@ -55,7 +55,7 @@ a.aHeader:ACTIVE{
 
 
 /* 네비 */
-nav {
+.navMenu {
 	width: 100%;
 	border: 1px solid #EAEAEA;
 	border-left: none;
@@ -92,8 +92,8 @@ line-height: 30px;
 .li-two{
 	line-height: 30px;
 	padding: 0;
-	margin: 0 !important;
-	display : block;
+	margin: 0 ;
+	display : block !important;
 	clear : both;
 	text-align: left;
 	
