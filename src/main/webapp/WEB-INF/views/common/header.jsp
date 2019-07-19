@@ -7,7 +7,6 @@
 		<a class="aHeader" href="#"><img id="user" alt="" src="${pageContext.request.contextPath}/resources/header/img/user.png">MyPage</a>
 		<a class="aHeader" href="#">로그아웃</a>
 	</div>
-</header>
 <!-- 헤더 -->
 
   <!-- Navigation -->
@@ -28,15 +27,16 @@
 
 <!-- 챗봇 -->	
 <div class="chatbot">
-<button type="button" class="img-chatbot">챗봇버튼</button>
+<a class="aRight" href="#"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇"> </a>
 </div> 
 <!-- 챗봇 -->	
-
+	
 <!-- 그룹채팅 -->
 <div class="groupchat">
-<button type="button" class="img-groupchat">그룹챗</button>
+<a class="aRight" href="#"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/groupchat.png" title="챗봇"></a>
 </div>
 <!-- 그룹채팅 -->
 
 </nav>
+</header>
 	<!-- Navigation -->

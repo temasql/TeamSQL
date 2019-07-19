@@ -57,13 +57,14 @@ a.aHeader:ACTIVE{
 /* 네비 */
 .navMenu {
 	width: 100%;
-	border: 1px solid #EAEAEA;
+	border: 1px solid;
 	border-left: none;
 	border-right: none;
 	text-align: center;
 	overflow : hidden; 
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	font-size : 20px; font-weight: bold;
+	background-color: black;
 }
 
 .ul-header-one {}
@@ -112,18 +113,18 @@ line-height: 30px;
 
 a.aNav {
 	text-decoration: none;	
-	color:black;
+	color:white;
 	line-height: 40px;
 	display:block;
 	
 }
 
-
+/* 메뉴 마우스 액션 */
 a.aNav:HOVER{
-	color:black;
+	color:white;
 }
 a.aNav:ACTIVE{
-	color:black;
+	color:white;
 }
 
 a.two-menu:HOVER{
@@ -131,7 +132,7 @@ a.two-menu:HOVER{
 }
 
 a.two-menu:active{
-	color: black;
+	color:black;
 }
 
 /* 챗봇 */
@@ -139,6 +140,26 @@ a.two-menu:active{
 	position: fixed;
 	bottom : 170px;
 	right: 30px;
+	
+}
+
+.imgRight{
+	width: 50px;
+	height: 50px;
+}
+
+/* 챗봇,그룹챗 마우스 액션 */
+.imgRight:LINK{
+	transform:scale(1.1);
+}
+.imgRight:VISITED{
+transform:scale(1.1);
+}
+.imgRight:HOVER{
+transform:scale(1.1);
+}
+.imgRight:ACTIVE{
+	transform:scale(1.1);
 }
 
 /* 그룹챗 */
