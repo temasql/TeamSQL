@@ -4,11 +4,15 @@ import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.testenv.ControllerTestEnv;
+import kr.or.ddit.user.model.UserVO;
 
 /**
 * CommonsControllerTest.java
@@ -28,42 +32,89 @@ import kr.or.ddit.testenv.ControllerTestEnv;
 */
 public class BoardControllerTest extends ControllerTestEnv{
 
-	/**
-	* Method : controllerGetTest
-	* 작성자 : OWNER
-	* 변경이력 :
-	* @throws Exception
-	* Method 설명 : Get테스트 용
-	*/
-	@Test
-	public void controllerGetTest() throws Exception {
-		/***Given***/
-		/***When***/
-		MvcResult mvcResult = mockMvc.perform(get("")).andReturn();
-		ModelAndView mav = mvcResult.getModelAndView();
-		String viewName = mav.getViewName();
-		/***Then***/
-		assertEquals("", viewName);
-
-	}
+	@Resource(name = "boardService")
+	private IBoardService boardService;
 	
 	/**
-	 * Method : controllerGetTest
-	 * 작성자 : OWNER
-	 * 변경이력 :
-	 * @throws Exception
-	 * Method 설명 : Post테스트 용
-	 */
+	* Method : boardManager
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : 게시판 관리 메인 화면 요청 테스트
+	*/
 	@Test
-	public void controllerPostTest() throws Exception {
+	public void boardManager() throws Exception {
 		/***Given***/
+		
 		/***When***/
-		MvcResult mvcResult = mockMvc.perform(post("")).andReturn();
+		MvcResult mvcResult = mockMvc.perform(get("/board/manager")).andReturn();
+	
 		ModelAndView mav = mvcResult.getModelAndView();
 		String viewName = mav.getViewName();
-		/***Then***/
-		assertEquals("", viewName);
 		
+		/***Then***/
+		assertEquals("/admin/boardMG.tiles", viewName);
+	}
+	
+	
+
+	/**
+	* Method : addBoardTest
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : 게시판 추가 테스트
+	*/
+	@Test
+	public void addBoardTest() throws Exception {
+		/***Given***/
+		UserVO userVo = new UserVO();
+		userVo.setUser_id("admin");
+		
+		/***When***/
+		MvcResult mvcResult = mockMvc.perform(post("/board/addBoard")
+																	.sessionAttr("USER_INFO", userVo)
+																	.param("board_name", "테스트게시판4")
+																	.param("board_use", "y")).andReturn();
+		
+		ModelAndView mav = mvcResult.getModelAndView();
+		String viewName = mav.getViewName();
+		
+		/***Then***/
+		assertEquals("/admin/boardMG.tiles", viewName);
 	}
 
+	
+	/**
+	* Method : modifyBoard
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : 게시판 수정 테스트
+	*/
+	@Test
+	public void modifyBoard() throws Exception {
+		/***Given***/
+		String user_id = "admin";
+		UserVO userVo = new UserVO();
+		userVo.setUser_id(user_id);
+		
+		int board_id = boardService.boardMaxCnt()-1;
+		
+		String board_id_str = new String().valueOf(board_id);
+		
+		/***When***/
+		MvcResult mvcResult = mockMvc.perform(post("/board/modifyBoard")
+																	.sessionAttr("USER_INFO", userVo)
+																	.param("board_id", board_id_str)
+																	.param("updateBoardName", "게시판수정")
+																	.param("updateBoard_use", "n")).andReturn();
+		
+		ModelAndView mav = mvcResult.getModelAndView();
+		String viewName = mav.getViewName();
+		
+		/***Then***/
+		assertEquals("/admin/boardMG.tiles", viewName);
+	}
+	
 }
