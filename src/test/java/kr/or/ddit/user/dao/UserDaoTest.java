@@ -1,12 +1,11 @@
 package kr.or.ddit.user.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.testenv.LogicTestEnv;
 import kr.or.ddit.user.model.UserVO;
@@ -15,8 +14,6 @@ public class UserDaoTest extends LogicTestEnv{
 
 	@Resource(name = "userDao")
 	private IUserDao userDao;
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserDaoTest.class);
 	
 	/**
 	* Method : signInTest

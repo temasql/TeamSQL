@@ -2,6 +2,7 @@ package kr.or.ddit.user.controller;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.util.Set;
 
@@ -12,13 +13,15 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.testenv.ControllerTestEnv;
 import kr.or.ddit.user.model.UserVO;
 
 public class UserControllerTest extends ControllerTestEnv{
 
-	private Validator validator;
+	private Validator validator; 	// Validation체크
 	
 	@Before
 	public void setup() {
@@ -27,16 +30,15 @@ public class UserControllerTest extends ControllerTestEnv{
 	}
 	
 	/**
-	* Method : signInSuccessTest
+	* Method : signInValidationSuccessTest
 	* 작성자 : 이중석
 	* 변경이력 :
 	* @throws Exception
-	* Method 설명 : 사용자 회원가입 유효성 검사 실패/성공 테스트
+	* Method 설명 : 사용자 회원가입 유효성 검사 성공 테스트
 	*/
 	@Test
-	public void signInSuccessTest() throws Exception {
+	public void signInValidationSuccessTest(){
 		/***Given***/
-		
 		// 유효성 검사에서 성공할 객체
 		UserVO successUserVo = new UserVO();
 		/***When***/
@@ -59,16 +61,15 @@ public class UserControllerTest extends ControllerTestEnv{
 	}
 
 	/**
-	 * Method : signInFailTest
+	 * Method : signInValidationFailTest
 	 * 작성자 : 이중석
 	 * 변경이력 :
 	 * @throws Exception
-	 * Method 설명 : 사용자 회원가입 유효성 검사 실패/성공 테스트
+	 * Method 설명 : 사용자 회원가입 유효성 검사 실패 테스트
 	 */
 	@Test
-	public void signInFailTest() throws Exception {
+	public void signInValidationFailTest(){
 		/***Given***/
-		
 		// 유효성 검사에서 실패할 객체
 		UserVO failUserVo = new UserVO();
 		/***When***/
@@ -88,6 +89,19 @@ public class UserControllerTest extends ControllerTestEnv{
 		Set<ConstraintViolation<UserVO>> failViolations = validator.validate(failUserVo);
 		/***Then***/
 		assertFalse(failViolations.isEmpty());
+	}
+	
+	@Test
+	public void signInTest() throws Exception {
+		/***Given***/
+		
+
+		/***When***/
+		MvcResult mvcResult = mockMvc.perform(get("")).andReturn();
+		ModelAndView mav = mvcResult.getModelAndView();
+		String viewName = mav.getViewName();
+
+		/***Then***/
 	}
 
 }
