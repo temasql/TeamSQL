@@ -26,7 +26,7 @@
 <%-- 	<tiles:insertAttribute name="right"/> --%>
 	
 	<!-- body -->
-	<div class="container">
+	<div class="mycontainer">
 		<tiles:insertAttribute name="body"/>
 	</div>
 		
