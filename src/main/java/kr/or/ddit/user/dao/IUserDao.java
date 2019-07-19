@@ -21,7 +21,7 @@ public interface IUserDao {
 	* Method : get
 	* 작성자 : 이중석
 	* 변경이력 :
-	* @param id
+	* @param user_id
 	* @return
 	* Method 설명 : 아이디에 해당하는 유저의 정보
 	*/
