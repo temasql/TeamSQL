@@ -134,13 +134,14 @@ a.two-menu:active{
 	color: black;
 }
 
-/* 네비 */
+/* 챗봇 */
 .chatbot{
 	position: fixed;
 	bottom : 170px;
 	right: 30px;
 }
 
+/* 그룹챗 */
 .groupchat{
 	position: fixed;
 	bottom : 100px;
