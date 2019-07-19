@@ -13,7 +13,7 @@
   <!-- Navigation -->
  <nav>
 	<ul class="ul-header-one">
-		<li><a class="aNav" href="index.html">SQL에디터</a></li>
+		<li><a class="aNav" href="${cp}/sqlEditor/sqlEditorMain">SQL에디터</a></li>
   		<li><a class="aNav" href="#">DB변경이력관리</a></li>
 		<li><a class="aNav" href="#">구성원관리</a></li>
 		<li class="one"><a class="aNav" href="#">게시판</a>
