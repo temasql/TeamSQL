@@ -26,7 +26,10 @@
 <%-- 	<tiles:insertAttribute name="right"/> --%>
 	
 	<!-- body -->
+	<div class="container">
 	<tiles:insertAttribute name="body"/>
+	
+	</div>
 		
 <!-- 	<!-- footer -->
 	<tiles:insertAttribute name="footer"/>

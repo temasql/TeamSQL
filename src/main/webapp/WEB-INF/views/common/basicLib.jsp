@@ -11,6 +11,10 @@
 <!-- 헤더 -->
 <link href="${pageContext.request.contextPath}/resources/header/css/style.css" rel="stylesheet">
 
+<!-- 바디 레이아웃 -->
+<!-- 푸터 -->  
+<link href="${pageContext.request.contextPath}/resources/layout/css/style.css" rel="stylesheet">
+
 <!-- 푸터 -->  
 <link href="${pageContext.request.contextPath}/resources/footer/css/style.css" rel="stylesheet">
   
