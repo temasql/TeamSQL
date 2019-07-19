@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 <!-- 공통 -->
 <link href="${pageContext.request.contextPath}/resources/basicLib/css/style.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/basicLib/css/bootstrap.css" rel="stylesheet">
@@ -16,3 +17,4 @@
 
 <!-- 푸터 -->  
 <link href="${pageContext.request.contextPath}/resources/footer/css/style.css" rel="stylesheet">
+
