@@ -1,15 +1,20 @@
 package kr.or.ddit.user.controller;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 import kr.or.ddit.user.model.UserVO;
+import kr.or.ddit.user.service.IUserService;
 
 /**
 * UserController.java
@@ -33,6 +38,9 @@ import kr.or.ddit.user.model.UserVO;
 @Controller
 public class UserController {
 
+	@Resource(name = "userService")
+	private IUserService userService;
+	
    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
    /**
@@ -43,10 +51,7 @@ public class UserController {
    * Method 설명 : 회원가입 페이지 요청
    */
    @RequestMapping(path = "/signIn", method = RequestMethod.GET)
-   public String signInGet() {
-      
-      return "/user/signIn.tiles";
-   }
+   public String signInGet() { return "/user/signIn"; }
    
    /**
    * Method : signInPost
@@ -58,15 +63,35 @@ public class UserController {
    * Method 설명 : 회원가입 페이지 응답
    */
    @RequestMapping(path = "/signIn", method = RequestMethod.POST)
-   public String signInPost(@Valid UserVO userVo, BindingResult result) {
-      
-      logger.debug("UserController userVo : {}", userVo);
+   public String signInPost(@Valid UserVO userVo, BindingResult result
+		   ,MultipartFile profile) {
       
       if(result.hasErrors()) {
-         return "/user/signIn.tiles";
+         return "/user/signIn";
       }
       
-      return "/user/login.tiles";
+      // 등록
+      if(userService.insertUser(userVo, profile) == 1)
+    	  // 로그인페이지로 이동
+    	  return "/login/login.tiles";
+      
+      return "/user/signIn";
    }
    
+   
+   /**
+	* Method : profile
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @param model
+	* @return
+	* Method 설명 : 사용자 프로필 사진
+	*/
+	@RequestMapping("/profile") 
+	public String profile(String user_id, Model model) { 
+		UserVO userVo = userService.getUser(user_id);
+		model.addAttribute("userVo", userVo);
+		return "profileView";
+	}
 }

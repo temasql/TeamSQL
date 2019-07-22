@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script src="${cp}/js/js.cookie.js"></script>
 
-<form action="${cp }/login" method="post">
-	<input type="text" name="userId"><form:errors path="userVo.userId"/>
-	<input type="password" name="password"><form:errors path="userVo.pass"/>
-	<input type="submit" value="전송">
-	
+<form id="loginForm" action="${cp }/login" method="post">
+	<input type="text" name="user_id"><br>
+	<input type="password" name="user_pw">
+	<div class="checkbox">
+		<label> <input id="rememberme" name="rememberme" type="checkbox" value="remember-me">	remember</label>
+	</div>
+	<button id="loginBtn" class="btn btn-default pull-right" type="button">login </button>
+	<a class="btn btn-default pull-right" href="${cp }/user/signIn">회원가입</a>
 </form>
+

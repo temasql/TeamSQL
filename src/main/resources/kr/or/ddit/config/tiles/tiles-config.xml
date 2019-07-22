@@ -7,6 +7,29 @@
       <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
    </definition>
    
+   <!-- 로그인을 위한 레이아웃  -->
+   <definition name="loginLayout" template="/WEB-INF/views/common/login/loginLayout.jsp">
+      <put-attribute name="loginheader" value="/WEB-INF/views/common/login/loginHeader.jsp"/>
+      <put-attribute name="loginbody" value=""/>
+      <put-attribute name="loginfooter" value="/WEB-INF/views/common/login/loginFooter.jsp"/>
+   </definition>
+   
+   <!-- login(로그인) -->
+   <definition name="/login/*.tiles" extends="loginLayout">
+      <put-attribute name="loginbody" value="/WEB-INF/views/login/{1}.jsp"/>
+   </definition>
+   
+   <!-- 회원가입을 위한 레이아웃  -->
+   <definition name="signInLayout" template="/WEB-INF/views/common/signIn/signInLayout.jsp">
+      <put-attribute name="signInheader" value="/WEB-INF/views/common/signIn/signInHeader.jsp"/>
+      <put-attribute name="signInbody" value=""/>
+      <put-attribute name="signInfooter" value="/WEB-INF/views/common/signIn/signInFooter.jsp"/>
+   </definition>
+   <!-- 회원가입(회원가입) -->
+   <definition name="/user/signIn" extends="signInLayout">
+      <put-attribute name="signInbody" value="/WEB-INF/views/signIn/signIn.jsp"/>
+   </definition>
+   
    <!-- admin(관리자) -->
    <definition name="/admin/*.tiles" extends="layout">
       <put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp"/>
@@ -43,11 +66,6 @@
    <!-- history(변경이력) -->
    <definition name="/history/*.tiles" extends="layout">
       <put-attribute name="body" value="/WEB-INF/views/history/{1}.jsp"/>
-   </definition>
-   
-   <!-- login(로그인) -->
-   <definition name="/login/*.tiles" extends="layout">
-      <put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp"/>
    </definition>
    
    <!-- notice(공지사항) -->

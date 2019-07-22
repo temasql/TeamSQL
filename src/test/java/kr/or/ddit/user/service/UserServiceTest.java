@@ -2,9 +2,15 @@ package kr.or.ddit.user.service;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.springframework.mock.web.MockMultipartFile;
 
 import kr.or.ddit.testenv.LogicTestEnv;
 import kr.or.ddit.user.dao.IUserDao;
@@ -20,9 +26,11 @@ public class UserServiceTest extends LogicTestEnv{
 	* 작성자 : 이중석
 	* 변경이력 :
 	* Method 설명 : 사용자 등록 테스트
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	*/
 	@Test
-	public void signInTest() {
+	public void signInTest() throws FileNotFoundException, IOException {
 		/***Given***/
 		UserVO userVo = new UserVO();
 		userVo.setUser_id("brown");
@@ -30,8 +38,11 @@ public class UserServiceTest extends LogicTestEnv{
 		userVo.setUser_name("브라운");
 		userVo.setUser_email("diat1450@gmail.com");
 		
+		File f = new File("src/test/resources/kr/or/ddit/testenv/sally.png");
+		MockMultipartFile profile = new MockMultipartFile("profile", f.getName(), "", new FileInputStream(f));
+		
 		/***When***/
-		int insertCount = userService.insertUser(userVo);
+		int insertCount = userService.insertUser(userVo, profile);
 		/***Then***/
 		assertEquals(1, insertCount);
 	}

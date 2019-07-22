@@ -6,15 +6,29 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.domain.user_domain.model.UserDomainVO;
 
-//@Repository
+@Repository
 public class UserDomainDao implements IUserDomainDao{
 
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
 
+	/**
+	* Method : insertCommonDomain
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : 사용자가 회원가입할때 공통 도메인을  사용자 개인 도메인에 생성하는 쿼리
+	*/
+	@Override
+	public int insertCommonDomain(String user_id) {
+		return sqlSession.insert("userDomain.insertCommonDomain", user_id);
+	}
+	
 	@Override
 	public int insert(UserDomainVO userDomainVo) {
 		return sqlSession.insert("userDomain.insert", userDomainVo);
@@ -44,6 +58,8 @@ public class UserDomainDao implements IUserDomainDao{
 	public int delete(String id) {
 		return sqlSession.delete("userDomain.delete", id);
 	}
+
+	
 
 	
 

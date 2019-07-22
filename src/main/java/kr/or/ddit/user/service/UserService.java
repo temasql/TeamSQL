@@ -6,15 +6,26 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.ddit.domain.user_domain.dao.IUserDomainDao;
+import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
+import kr.or.ddit.template.user_template.dao.IUserTemplateDao;
 import kr.or.ddit.user.dao.IUserDao;
 import kr.or.ddit.user.model.UserVO;
+import kr.or.ddit.util.ProfileUtil;
 
 @Service
 public class UserService implements IUserService{
 
 	@Resource(name =  "userDao")
 	private IUserDao userDao;
+	
+	@Resource(name = "userDomainDao")
+	private IUserDomainDao userDomainDao;
+	
+	@Resource(name = "userTemplateDao")
+	private IUserTemplateDao userTemplateDao;
 	
 	/**
 	* Method : insertUser
@@ -25,8 +36,25 @@ public class UserService implements IUserService{
 	* Method 설명 : 유저 등록
 	*/
 	@Override
-	public int insertUser(UserVO userVo) {
-		return userDao.insertUser(userVo);
+	public int insertUser(UserVO userVo, MultipartFile profile) {
+		
+		// 사용자 비밉런호 암호화 
+	    userVo.setUser_pw(KISA_SHA256.encrypt(userVo.getUser_pw()));
+	    
+	    userVo.setUser_path(ProfileUtil.insertProfile(profile, userVo));
+	    
+	    // 사용자 등록
+	    int userInsertCount = userDao.insertUser(userVo);
+	    
+	    // 등록 확인
+	    if (userInsertCount == 1) {
+	    	
+	    	// 공통 도메인, 템플릿 등록
+			userDomainDao.insertCommonDomain(userVo.getUser_id());
+			userTemplateDao.insertCommonTemplate(userVo.getUser_id());
+		}
+	    
+		return userInsertCount;
 	}
 
 	/**

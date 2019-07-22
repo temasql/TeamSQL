@@ -4,6 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userTemplate">
 
+	<!-- 사용자가 회원가입할때 공통 템플릿을  사용자 개인 템플릿에 생성하는 쿼리-->
+	<insert id="insertCommonTemplate" parameterType="String">
+		INSERT INTO USER_TEMPLATE 
+			(
+	   			SELECT USER_TEMPLATE_SEQ.NEXTVAL
+	   				  ,USER_ID
+	   				  ,CTEMPLATE_ABB
+	   				  ,CTEMPLATE_ORIGINAL
+	        	 FROM USERS,
+	        	 		(
+			        	 	SELECT DISTINCT CTEMPLATE_ABB
+			        	 		  ,CTEMPLATE_ORIGINAL
+				             FROM COMMON_TEMPLATE ,USER_TEMPLATE
+			            )
+	    	 	WHERE USER_ID = #{user_id}
+	   	 	)	
+	</insert>
+
 	<!-- Insert -->
 	<insert id="insert" parameterType="userTemplateVo">
 		INSERT INTO USER_TEMPLATE
