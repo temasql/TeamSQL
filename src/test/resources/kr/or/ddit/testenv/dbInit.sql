@@ -79,7 +79,7 @@ insert into common_template values(COMMON_TEMPLATE_SEQ.NEXTVAL, 'IIU', 'INSERT I
 insert into common_template values(COMMON_TEMPLATE_SEQ.NEXTVAL, 'USW', 'UPDATE 테이블명 SET 변경할내용 WHERE 조건');
 insert into common_template values(COMMON_TEMPLATE_SEQ.NEXTVAL, 'DFW', 'DELETE FROM 테이블명 WHERE 조건');
 
-insert into USER_template values(USER_TEMPLATE_SEQ.NEXTVAL, 'TEST_ID20','ASD', '테스트 원문', 'yes');
+insert into USER_template values(USER_TEMPLATE_SEQ.NEXTVAL, 'TEST_ID20','ASD', '테스트 원문');
 
 INSERT INTO filtering VALUES(FILTERING_SEQ.NEXTVAL, 'admin', sysdate, '시볼');
 
