@@ -2,10 +2,13 @@ package kr.or.ddit.calendar.team_calendar.service;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -26,8 +29,8 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class TeamCalendarServiceTest extends LogicTestEnv{
 
-//	@Resource(name = "서비스")
-//	private ICommonsService service;
+	@Resource(name = "teamCalendarService")
+	private ITeamCalendarService service;
 	
 	@Test
 	public void serviceTest() {
@@ -39,4 +42,16 @@ public class TeamCalendarServiceTest extends LogicTestEnv{
 		assertEquals("", "");
 	}
 
+	@Test
+	public void getList() {
+		/***Given***/
+		
+
+		/***When***/
+//		List<TeamCalendarVO> list = service.list();
+		
+		/***Then***/
+//		assertNotNull(list);
+//		assertEquals(1, list.size());
+	}
 }

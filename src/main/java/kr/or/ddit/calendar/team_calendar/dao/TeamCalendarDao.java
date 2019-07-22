@@ -6,10 +6,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 
-//@Repository
+@Repository
 public class TeamCalendarDao implements ITeamCalendarDao{
 
 	@Resource(name = "sqlSession")

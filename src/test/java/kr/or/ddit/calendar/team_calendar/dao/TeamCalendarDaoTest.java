@@ -2,10 +2,13 @@ package kr.or.ddit.calendar.team_calendar.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -26,8 +29,8 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class TeamCalendarDaoTest extends LogicTestEnv{
 
-//	@Resource(name = "다오")
-//	private ICommonsDao dao;
+	@Resource(name = "teamCalendarDao")
+	private ITeamCalendarDao dao;
 	
 	@Test
 	public void daoTest() {
@@ -38,5 +41,17 @@ public class TeamCalendarDaoTest extends LogicTestEnv{
 		/***Then***/
 		assertEquals("", "");
 	}
+	
+	@Test
+	public void calendarList() {
+		/***Given***/
+		
 
+		/***When***/
+		List<TeamCalendarVO> list = dao.list();
+
+		/***Then***/
+		assertNotNull(list);
+		assertEquals(1, list.size());
+	}
 }

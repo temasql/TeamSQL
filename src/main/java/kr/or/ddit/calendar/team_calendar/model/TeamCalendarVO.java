@@ -10,11 +10,11 @@ public class TeamCalendarVO {
 	private String account_id_fk;        // 계정아이디
 	private String user_id_fk;           // 사용자아이디
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
-	private Date calendar_start_dt;      // 일정시작일시
-	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
-	private Date calendar_end_dt;        // 일정종료일시
-	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
+//	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
+	private String calendar_start_dt;      // 일정시작일시
+//	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
+	private String calendar_end_dt;        // 일정종료일시
+	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
 	private Date calendar_dt;            // 캘린더등록일시
 	private String calendar_title;       // 캘린더제목
 	private String calendar_content;     // 캘린더내용
@@ -44,16 +44,18 @@ public class TeamCalendarVO {
 	public void setUser_id_fk(String user_id_fk) {
 		this.user_id_fk = user_id_fk;
 	}
-	public Date getCalendar_start_dt() {
+	public String getCalendar_start_dt() {
 		return calendar_start_dt;
 	}
-	public void setCalendar_start_dt(Date calendar_start_dt) {
+	public void setCalendar_start_dt(String calendar_start_dt) {
+		calendar_start_dt = calendar_start_dt.substring(0, calendar_start_dt.lastIndexOf(":"));
 		this.calendar_start_dt = calendar_start_dt;
 	}
-	public Date getCalendar_end_dt() {
+	public String getCalendar_end_dt() {
 		return calendar_end_dt;
 	}
-	public void setCalendar_end_dt(Date calendar_end_dt) {
+	public void setCalendar_end_dt(String calendar_end_dt) {
+		calendar_end_dt = calendar_end_dt.substring(0, calendar_end_dt.lastIndexOf(":"));
 		this.calendar_end_dt = calendar_end_dt;
 	}
 	public Date getCalendar_dt() {

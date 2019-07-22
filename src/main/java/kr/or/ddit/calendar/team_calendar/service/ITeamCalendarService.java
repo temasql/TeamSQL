@@ -11,7 +11,7 @@ public interface ITeamCalendarService {
 	int insert(TeamCalendarVO teamCalnedarVo);
 	TeamCalendarVO get(String id);
 	
-	List<TeamCalendarVO> list();
+	String list();
 	
 	Map<String, Object> map(Map<String, Object> map);
 	
