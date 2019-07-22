@@ -1,107 +1,66 @@
 package kr.or.ddit.user.controller;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import java.util.Set;
+import java.io.File;
+import java.io.FileInputStream;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
-import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.testenv.ControllerTestEnv;
-import kr.or.ddit.user.model.UserVO;
 
 public class UserControllerTest extends ControllerTestEnv{
 
-	private Validator validator; 	// Validation체크
-	
-	@Before
-	public void setup() {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		validator = factory.getValidator();
-	}
 	
 	/**
-	* Method : signInValidationSuccessTest
+	* Method : signInGetTest
 	* 작성자 : 이중석
 	* 변경이력 :
 	* @throws Exception
-	* Method 설명 : 사용자 회원가입 유효성 검사 성공 테스트
+	* Method 설명 : 회원가입 버튼 클릭했을때 해당 url로 넘어가는지 테스트
 	*/
 	@Test
-	public void signInValidationSuccessTest(){
+	public void signInGetTest() throws Exception {
 		/***Given***/
-		// 유효성 검사에서 성공할 객체
-		UserVO successUserVo = new UserVO();
 		/***When***/
-		
-		// 유효성 체크에 성공할 아이디값  : 영어로 시작하고 영어 포함 숫자 4~12글자 가능
-		successUserVo.setUser_id("a123456789");
-		
-		// 유효성 체크에 성공할 이메일값  : 이메일 형식에 맞게 입력
-		successUserVo.setUser_email("diat1450@gmail.com");
-		
-		// 유효성 체크에 성공할 비밀번호 값 : 숫자, 영어, 특수문자 1개이상의 8~16글자
-		successUserVo.setUser_pw("a1!asdfw123");
-		
-		// 유효성 체크에 성공할 이름 값 : 한글 2~4글자
-		successUserVo.setUser_name("하하하하");
-		
-		Set<ConstraintViolation<UserVO>> successViolations = validator.validate(successUserVo);
-		/***Then***/
-		assertTrue(successViolations.isEmpty());
-	}
-
-	/**
-	 * Method : signInValidationFailTest
-	 * 작성자 : 이중석
-	 * 변경이력 :
-	 * @throws Exception
-	 * Method 설명 : 사용자 회원가입 유효성 검사 실패 테스트
-	 */
-	@Test
-	public void signInValidationFailTest(){
-		/***Given***/
-		// 유효성 검사에서 실패할 객체
-		UserVO failUserVo = new UserVO();
-		/***When***/
-		
-		// 유효성 체크에 실패할 아이디값  : 영어로 시작하고 영어 포함 숫자 4~12글자 가능
-		failUserVo.setUser_id("123456789a");
-		
-		// 유효성 체크에 실패할 이메일값  : 이메일 형식에 맞게 입력
-		failUserVo.setUser_email("diat1450@123.231");
-		
-		// 유효성 체크에 실패할 비밀번호 값 : 숫자, 영어, 특수문자 1개이상의 8~16글자
-		failUserVo.setUser_pw("a1asdfw123");
-		
-		// 유효성 체크에 실패할 이름 값 : 한글 2~4글자
-		failUserVo.setUser_name("하");
-		
-		Set<ConstraintViolation<UserVO>> failViolations = validator.validate(failUserVo);
-		/***Then***/
-		assertFalse(failViolations.isEmpty());
-	}
-	
-	@Test
-	public void signInTest() throws Exception {
-		/***Given***/
-		
-
-		/***When***/
-		MvcResult mvcResult = mockMvc.perform(get("")).andReturn();
+		MvcResult mvcResult = mockMvc.perform(get("/user/signIn")).andReturn();
 		ModelAndView mav = mvcResult.getModelAndView();
 		String viewName = mav.getViewName();
-
 		/***Then***/
+		assertEquals("/user/signIn.tiles", viewName);
 	}
+	
+	
+	/**
+	* Method : signInPostTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : 회원가입에 필요한 정보를 입력 후 가입 테스트
+	*/
+	@Test
+	public void signInPostTest() throws Exception {
+		/***Given***/
+		File f = new File("src/test/resources/kr/or/ddit/testenv/sally.png");
+		MockMultipartFile file = new MockMultipartFile("profile", f.getName(), "", new FileInputStream(f));
+		/***When***/
+		MvcResult mvcResult = mockMvc.perform(fileUpload("/user/signIn").file(file)
+										.param("user_id", "js1450")
+										.param("user_pw", "as12345@!as1")
+										.param("user_name", "가가")
+										.param("user_email", "js1450@gmail.com")).andReturn();
+		ModelAndView mav = mvcResult.getModelAndView();
+		String viewName = mav.getViewName();
+		/***Then***/
+		assertEquals("/user/login.tiles", viewName);
+	}
+	
+	
 
 }

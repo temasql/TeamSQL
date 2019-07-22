@@ -52,6 +52,9 @@
 		<property name="order" value="3" />
 	</bean>
 
+	<!-- profile 이미지를 처리해주는 view -->
+	<bean id="profileView" class="kr.or.ddit.view.ProfileView"/>
+
 	<!-- 파일 업로드 할때 사용하는 Bean -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

@@ -7,6 +7,8 @@ import kr.or.ddit.template.user_template.model.UserTemplateVO;
 
 public interface IUserTemplateDao {
 
+	int insertCommonTemplate(String user_id);
+	
 	int insert(UserTemplateVO userTemplateVo);
 	
 	UserTemplateVO get(String id);

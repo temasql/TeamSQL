@@ -26,17 +26,22 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class UserTemplateDaoTest extends LogicTestEnv{
 
-//	@Resource(name = "다오")
-//	private ICommonsDao dao;
+	@Resource(name = "userTemplateDao")
+	private IUserTemplateDao userTemplateDao;
 	
+	/**
+	* Method : insertCommonTemplateTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 
+	*/
 	@Test
-	public void daoTest() {
+	public void insertCommonTemplateTest() {
 		/***Given***/
-
 		/***When***/
-		
+		int commonInsertCount = userTemplateDao.insertCommonTemplate("TEST_ID20");
 		/***Then***/
-		assertEquals("", "");
+		assertEquals(10, commonInsertCount);
 	}
 
 }

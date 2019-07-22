@@ -3,9 +3,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 헤더 -->
 <header>
+<script>
+	$(document).ready(function () {
+		// 문서로딩이 완료되고 나서 실행되는 부분
+		// rememberme checkbox
+		// 1. rememberme cookie가 있는지  있으면 값이 true인지
+		// 1-1. rememberme가 true이면 input id="rememberme" 체크박스를 체크
+		
+		var rememberme = Cookies.get("rememberme");
+		if(rememberme == "true"){
+			$("#rememberme").prop("checked", true);
+			$("#userId").val(Cookies.get("userId"));
+			$("#password").focus();
+		}
+		
+		// login button 클릭시 실행되는 핸들러
+		$("#loginBtn").on("click", function() {
+			//로그인 요청을 서버로 전송
+			$("#loginForm").submit();
+			
+		});
+	});
+</script>
+
 	<div class="header-right">
-		<a class="aHeader"  href="#"><img id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" alt="Mypage" title="Mypage">MyPage</a>
-		<a class="aHeader" href="#">로그아웃</a>
 	</div>
 <!-- 헤더 -->
 
@@ -41,32 +62,8 @@
 		</c:choose>
 	</ul>
 
-
-<!-- 챗봇 -->	
-<div class="chatbot">
-<a class="aRight" id="chatBotPopup" href="javascript:openWin('${cp }/chatBot/chatBot','0')"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇"> </a>
-</div> 
-<!-- 챗봇 -->	
-	
-<!-- 그룹채팅 -->
-<div class="groupchat">
-<a class="aRight" href="#"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/groupchat.png" title="챗봇"></a>
-</div>
-<!-- 그룹채팅 -->
-
 </nav>
 
-<!-- 허접한 우클릭 -->
-<script type="text/javascript">
-$(document).bind("contextmenu", function(event) { 
-    event.preventDefault();
-    $("<div class='custom-menu'><ul><li><a href='#'>save<a></li><li>exit</li></ul></div>")
-        .appendTo("body")
-        .css({top: event.pageY + "px", left: event.pageX + "px"});
-}).bind("click", function(event) {
-    $("div.custom-menu").hide();
-});
-</script>
 </header>
 
 	<!-- Navigation -->

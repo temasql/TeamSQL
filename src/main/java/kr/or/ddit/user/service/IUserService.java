@@ -3,6 +3,8 @@ package kr.or.ddit.user.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.or.ddit.user.model.UserVO;
 
 public interface IUserService {
@@ -11,10 +13,11 @@ public interface IUserService {
 	* 작성자 : 이중석
 	* 변경이력 :
 	* @param userVo
+	 * @param profile 
 	* @return
 	* Method 설명 : 유저 등록
 	*/
-	int insertUser(UserVO userVo);
+	int insertUser(UserVO userVo, MultipartFile profile);
 	
 	/**
 	* Method : get

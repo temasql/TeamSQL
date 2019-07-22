@@ -1,11 +1,13 @@
 package kr.or.ddit.login.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,7 @@ import kr.or.ddit.util.ReMemberMeCookieUtil;
 @Controller
 public class LoginController {
 	
+	@Resource(name = "userService")
 	private IUserService userService;
 	
 	/**
@@ -59,9 +62,10 @@ public class LoginController {
 			
 			// 로그인한 사용자의 정보를 세션에 저장
 			session.setAttribute("USER_INFO", loginUserVo);
+			return "main.tiles";
 		}
 		
-		return"main.tiles";
+		return "/login/login.tiles";
 		
 	}
 	

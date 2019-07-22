@@ -4,6 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userDomain">
 
+	<!-- 사용자가 회원가입할때 공통 도메인을  사용자 개인 템플릿에 생성하는 쿼리-->
+	<insert id="insertCommonDomain" parameterType="String">
+		INSERT INTO USER_DOMAIN 
+			(
+	   			SELECT USER_DOMAIN_SEQ.NEXTVAL
+	   				  ,USER_ID
+	   				  ,CDOMAIN_NAME
+	   				  ,CDOMAIN_TYPE
+	        	 FROM USERS,
+	        	 		(
+			        	 	SELECT DISTINCT CDOMAIN_NAME
+			        	 		  ,CDOMAIN_TYPE
+				             FROM COMMON_DOMAIN ,USER_DOMAIN
+			            )
+	    	 	WHERE USER_ID = #{user_id}
+	   	 	)
+	</insert>
+
+
 	<!-- Insert -->
 	<insert id="insert" parameterType="userDomainVo">
 		INSERT INTO USER_DOMAIN

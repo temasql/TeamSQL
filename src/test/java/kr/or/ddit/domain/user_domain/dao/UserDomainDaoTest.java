@@ -26,17 +26,16 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class UserDomainDaoTest extends LogicTestEnv{
 
-//	@Resource(name = "다오")
-//	private ICommonsDao dao;
+	@Resource(name = "userDomainDao")
+	private IUserDomainDao userDomainDao;
 	
 	@Test
 	public void daoTest() {
 		/***Given***/
-
 		/***When***/
-		
+		int insertCommonDomainCount = userDomainDao.insertCommonDomain("TEST_ID20");
 		/***Then***/
-		assertEquals("", "");
+		assertEquals(8, insertCommonDomainCount);
 	}
 
 }
