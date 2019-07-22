@@ -83,6 +83,20 @@ public class UserVO {
 				+ "]";
 	}
 	
+	public UserVO() {
+		
+	}
 	
+	public UserVO(String user_id, String user_right, String exit_right, String user_pw, String user_name,
+			String user_email, String user_path) {
+		super();
+		this.user_id = user_id;
+		this.user_right = user_right;
+		this.exit_right = exit_right;
+		this.user_pw = user_pw;
+		this.user_name = user_name;
+		this.user_email = user_email;
+		this.user_path = user_path;
+	}
 	
 }
