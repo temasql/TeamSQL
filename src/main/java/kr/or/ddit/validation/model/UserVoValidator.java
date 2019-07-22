@@ -1,7 +1,9 @@
-package kr.or.ddit.user.model;
+package kr.or.ddit.validation.model;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import kr.or.ddit.user.model.UserVO;
 
 public class UserVoValidator implements Validator{
 
