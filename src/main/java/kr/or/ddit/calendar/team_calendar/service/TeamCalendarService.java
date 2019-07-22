@@ -6,10 +6,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import kr.or.ddit.calendar.team_calendar.dao.ITeamCalendarDao;
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 
-//@Service
+@Service
 public class TeamCalendarService implements ITeamCalendarService{
 
 	@Resource(name = "teamCalendarDao")
@@ -26,8 +28,22 @@ public class TeamCalendarService implements ITeamCalendarService{
 	}
 	
 	@Override
-	public List<TeamCalendarVO> list() {
-		return teamCalendarDao.list();
+	public String list() {
+		List<TeamCalendarVO> list = teamCalendarDao.list();
+		String jsonData = "[";
+		for(TeamCalendarVO calVO : list) {
+			jsonData += "{"
+					 + "_id :"+ calVO.getCalendar_id() + "," 
+					 + "title : " + calVO.getCalendar_title() + "," 
+					 + "start : " + calVO.getCalendar_start_dt()  + ","
+					 + "end : " +  calVO.getCalendar_end_dt() + ","
+					 + "username: " + calVO.getUser_id_fk() + "," 
+					 + "textColor : " + "#ffffff" + ","
+					 + "backgroundColor : "  + "#9775fa" + "}";
+			
+		}
+		jsonData += "]";
+		return jsonData;
 	}
 
 	@Override
@@ -46,5 +62,4 @@ public class TeamCalendarService implements ITeamCalendarService{
 	public int delete(String id) {
 		return teamCalendarDao.delete(id);
 	}
-
 }

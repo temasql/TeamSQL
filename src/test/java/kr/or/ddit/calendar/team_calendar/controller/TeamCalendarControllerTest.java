@@ -4,10 +4,18 @@ import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.or.ddit.calendar.team_calendar.dao.ITeamCalendarDao;
+import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 import kr.or.ddit.testenv.ControllerTestEnv;
 
 /**
@@ -27,6 +35,7 @@ import kr.or.ddit.testenv.ControllerTestEnv;
 * </pre>
 */
 public class TeamCalendarControllerTest extends ControllerTestEnv{
+	private static final Logger logger = LoggerFactory.getLogger(TeamCalendarControllerTest.class);
 
 	/**
 	* Method : controllerGetTest
@@ -65,5 +74,5 @@ public class TeamCalendarControllerTest extends ControllerTestEnv{
 		assertEquals("", viewName);
 		
 	}
-
+	
 }

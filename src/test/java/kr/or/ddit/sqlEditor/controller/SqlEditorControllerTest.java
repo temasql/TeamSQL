@@ -65,5 +65,4 @@ public class SqlEditorControllerTest extends ControllerTestEnv{
 		assertEquals("", viewName);
 		
 	}
-
 }

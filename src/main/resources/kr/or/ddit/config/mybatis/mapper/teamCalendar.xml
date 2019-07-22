@@ -5,16 +5,16 @@
 <mapper namespace="teamCalendar">
 
 	<!-- Insert -->
-	<insert id="insert" parameterType="teamCalendarVo">
-		INSERT INTO TEAM_CALENDAR
-		(
-			...
-		)
-		VALUES
-		(
-			...
-		)
-	</insert>
+<!-- 	<insert id="insert" parameterType="teamCalendarVo"> -->
+<!-- 		INSERT INTO TEAM_CALENDAR -->
+<!-- 		( -->
+<!-- 			... -->
+<!-- 		) -->
+<!-- 		VALUES -->
+<!-- 		( -->
+<!-- 			... -->
+<!-- 		) -->
+<!-- 	</insert> -->
 	
 	<!-- SelectOne -->
 	<select id="get" parameterType="String" resultType="teamCalendarVo">
