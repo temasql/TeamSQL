@@ -4,13 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-//@RequestMapping("/chatBot")
-//@Controller
+@RequestMapping("/chatBot")
+@Controller
 public class ChatBotController {
 
-	@RequestMapping(path =  "/view", method = RequestMethod.GET)
+	@RequestMapping(path =  "/chatBot", method = RequestMethod.GET)
 	public String viewGet() {
-		return "";
+		return "/chatBot/chatBot.tiles";
 	}
 	
 	@RequestMapping(path =  "/view", method = RequestMethod.POST)

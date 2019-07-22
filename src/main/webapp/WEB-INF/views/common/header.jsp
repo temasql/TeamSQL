@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!-- 헤더 -->
 <header>
 	<div class="header-right">
-		<a class="aHeader"  href="#"><img id="thumbnail" src="${cp }/resources/header/img/user.jpg" alt="Mypage" title="Mypage">MyPage</a>
+		<a class="aHeader"  href="#"><img id="thumbnail" src="${cp }/resources/header/img/user.png" alt="Mypage" title="Mypage">MyPage</a>
 		<a class="aHeader" href="#">로그아웃</a>
 	</div>
 <!-- 헤더 -->
@@ -45,7 +44,7 @@
 
 <!-- 챗봇 -->	
 <div class="chatbot">
-<a class="aRight" href="#"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇"> </a>
+<a class="aRight" id="chatBotPopup" href="javascript:openWin('${cp }/chatBot/chatBot','0')"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇"> </a>
 </div> 
 <!-- 챗봇 -->	
 	
