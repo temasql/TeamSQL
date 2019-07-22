@@ -1,8 +1,5 @@
 @CHARSET "UTF-8";
 
-body {
-	margin: 3px;
-}
 
 ul, ol, dl, li, dd, dt {margin:0; margin:0}
 a:link {text-decoration: none;}
@@ -11,32 +8,52 @@ a:visited {text-decoration: none;}
 
 /* 헤더 */
 header {
+	background-color : white;
 	display: inline-block;
 	width: 100%;
 	margin-top: 5px;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	font-size : 12px; font-weight: bold;
+	
 }
 
-.header-left{
+.header-right{
 	margin-right : 20px;
 	word-spacing : 10px;
 	float: right;
-	clear: both;	
+	clear: both;
+	
 }
+
+/* MyPage, 로그아웃 */
 .aHeader{
 	text-decoration: none;	
 	color: silver;
 }
 
+/* 프로필사진 */
+#thumbnail{
+	width : 25px;
+	height : 25px;
+	margin-right : 3px;
+	margin-bottom : 5px;
+	background-size: cover;
+	background-repeat : no-repeat; 
+	background-position: center center;
+	border-radius: 100%;
+}
+
+
 a.aHeader:LINK{
-	color: black;
+	color: silver;
 }
 a.aHeader:VISITED{
 	color: silver;
 }
 a.aHeader:HOVER{
 	color:black;
+	padding-bottom : 5px;
+	border-bottom: 2px solid black;
 }
 a.aHeader:ACTIVE{
 	color:black;
@@ -47,7 +64,6 @@ a.aHeader:ACTIVE{
 
 
 #user{
-	
 	width: 20px;
 	height: 20px;
 	display: inline-block;
@@ -57,18 +73,15 @@ a.aHeader:ACTIVE{
 /* 네비 */
 .navMenu {
 	width: 100%;
-	border: 1px solid;
-	border-left: none;
-	border-right: none;
+	border-bottom : 1px solid silver;
 	text-align: center;
 	overflow : hidden; 
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	font-size : 20px; font-weight: bold;
-	background-color: black;
 }
 
 .ul-header-one {}
-.ul-header-one:after {content:''; display:block; zoom:1; clear:both}
+.ul-header-one:after {content:''; display:block; zoom:1; clear:both;}
 .one:hover ul{display: block;}
 
 .ul-header-two{display: none;height:auto;
@@ -113,7 +126,7 @@ line-height: 30px;
 
 a.aNav {
 	text-decoration: none;	
-	color:white;
+	color:black;
 	line-height: 40px;
 	display:block;
 	
@@ -121,14 +134,17 @@ a.aNav {
 
 /* 메뉴 마우스 액션 */
 a.aNav:HOVER{
-	color:white;
-}
+	color:black;
+	padding-bottom : 2px;
+	border-bottom: 2px solid black;
+	}
 a.aNav:ACTIVE{
-	color:white;
+	color:black;
 }
 
 a.two-menu:HOVER{
 	color:black;
+	padding-bottom : 5px;
 }
 
 a.two-menu:active{
@@ -168,3 +184,18 @@ transform:scale(1.1);
 	bottom : 100px;
 	right: 30px;
 }
+
+/* 허접한 우클릭 */
+.custom-menu {
+    z-index:1000;
+    position: absolute;
+    background-color:#C0C0C0;
+    border: 1px solid black;
+    padding: 2px;
+}
+
+.custom-menu ul{
+    list-style: none;
+}
+
+/* 허접한 우클릭 */
