@@ -5,7 +5,6 @@ public class UserTemplateVO {
 	private String user_id_fk;          // 사용자아이디
 	private String utemplate_abb;       // 템플릿약어
 	private String utemplate_original;  // 템플릿쿼리원문
-	private String utemplate_use;		// 템플릿사용여부
 	
 	public int getUtemplate_id() {
 		return utemplate_id;
@@ -31,17 +30,10 @@ public class UserTemplateVO {
 	public void setUtemplate_original(String utemplate_original) {
 		this.utemplate_original = utemplate_original;
 	}
-	public String getUtemplate_use() {
-		return utemplate_use;
-	}
-	public void setUtemplate_use(String utemplate_use) {
-		this.utemplate_use = utemplate_use;
-	}
 	@Override
 	public String toString() {
 		return "UserTemplateVO [utemplate_id=" + utemplate_id + ", user_id_fk=" + user_id_fk + ", utemplate_abb="
-				+ utemplate_abb + ", utemplate_original=" + utemplate_original + ", utemplate_use=" + utemplate_use
-				+ "]";
+				+ utemplate_abb + ", utemplate_original=" + utemplate_original + ", utemplate_use=" + "]";
 	}
 	
 	
