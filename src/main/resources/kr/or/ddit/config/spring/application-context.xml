@@ -10,7 +10,7 @@
 
 	<!-- kr.or.ddit 하위 Controller Scan -->
 	<context:component-scan
-		base-package="kr.or.ddit" annotation-config="false">
+		base-package="kr.or.ddit" use-default-filters="false">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
