@@ -55,18 +55,4 @@
 <!-- 그룹채팅 -->
 
 </nav>
-
-<!-- 허접한 우클릭 -->
-<script type="text/javascript">
-$(document).bind("contextmenu", function(event) { 
-    event.preventDefault();
-    $("<div class='custom-menu'><ul><li><a href='#'>save<a></li><li>exit</li></ul></div>")
-        .appendTo("body")
-        .css({top: event.pageY + "px", left: event.pageX + "px"});
-}).bind("click", function(event) {
-    $("div.custom-menu").hide();
-});
-</script>
-</header>
-
 	<!-- Navigation -->
