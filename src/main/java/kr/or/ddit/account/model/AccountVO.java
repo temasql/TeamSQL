@@ -1,6 +1,9 @@
 package kr.or.ddit.account.model;
 
+import javax.validation.constraints.Pattern;
+
 public class AccountVO {
+	
 	private String account_id; // 계정아이디
 	private String user_id_fk; // 사용자아이디
 	private String account_pw; // 계정비밀번호
@@ -28,5 +31,15 @@ public class AccountVO {
 		return "AccountVO [account_id=" + account_id + ", user_id_fk=" + user_id_fk + ", account_pw=" + account_pw
 				+ "]";
 	}
+	public AccountVO(String account_id, String user_id_fk, String account_pw) {
+		super();
+		this.account_id = account_id;
+		this.user_id_fk = user_id_fk;
+		this.account_pw = account_pw;
+	}
+	public AccountVO() {
+		
+	}
+	
 	
 }
