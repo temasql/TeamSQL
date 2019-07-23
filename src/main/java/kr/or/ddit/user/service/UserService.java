@@ -41,7 +41,9 @@ public class UserService implements IUserService{
 		// 사용자 비밉런호 암호화 
 	    userVo.setUser_pw(KISA_SHA256.encrypt(userVo.getUser_pw()));
 	    
-	    userVo.setUser_path(ProfileUtil.insertProfile(profile, userVo));
+	    // Oauth계정의 프로필 사진이 있으면 서버 profile폴더에 따로 이미지를 생성하지 않는다.
+	    if(userVo.getUser_path().equals(""))
+	    	userVo.setUser_path(ProfileUtil.insertProfile(profile, userVo));
 	    
 	    // 사용자 등록
 	    int userInsertCount = userDao.insertUser(userVo);
