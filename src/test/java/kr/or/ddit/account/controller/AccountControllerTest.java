@@ -39,11 +39,11 @@ public class AccountControllerTest extends ControllerTestEnv{
 	public void controllerGetTest() throws Exception {
 		/***Given***/
 		/***When***/
-		MvcResult mvcResult = mockMvc.perform(get("")).andReturn();
+		MvcResult mvcResult = mockMvc.perform(get("/sqlEditor/sqlEditorMain")).andReturn();
 		ModelAndView mav = mvcResult.getModelAndView();
 		String viewName = mav.getViewName();
 		/***Then***/
-		assertEquals("", viewName);
+		assertEquals("/sqlEditor/sqlEditorMain.tiles", viewName);
 
 	}
 	

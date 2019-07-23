@@ -29,6 +29,12 @@
 		<typeAlias type="kr.or.ddit.template.common_template.model.CommonTemplateVO" alias="commonTemplateVo" />
 		<typeAlias type="kr.or.ddit.template.user_template.model.UserTemplateVO" alias="userTemplateVo" />
 		<typeAlias type="kr.or.ddit.ts_file.model.TSFileVO" alias="tsFileVo" />
+		<typeAlias type="kr.or.ddit.dbObject.model.TableVO" alias="tableVo" />
+		<typeAlias type="kr.or.ddit.dbObject.model.ViewVO" alias="viewVo" />
+		<typeAlias type="kr.or.ddit.dbObject.model.IndexVO" alias="indexVo" />
+		<typeAlias type="kr.or.ddit.dbObject.model.TriggerVO" alias="triggerVo" />
+		<typeAlias type="kr.or.ddit.dbObject.model.SequenceVO" alias="sequenceVo" />
+		<typeAlias type="kr.or.ddit.dbObject.model.FuncProceVO" alias="funcProceVo" />
 	</typeAliases>
 	
 	<mappers>

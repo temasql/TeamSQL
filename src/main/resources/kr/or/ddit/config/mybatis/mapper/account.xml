@@ -5,50 +5,68 @@
 <mapper namespace="account">
 
 	<!-- Insert -->
-	<insert id="insert" parameterType="accountVo">
+	<insert id="insertAccount" parameterType="accountVo">
 		INSERT INTO ACCOUNT
-		(
-			...
-		)
-		VALUES
-		(
-			...
-		)
+		VALUES (#{account_id}, #{user_id_fk}, #{account_pw})
 	</insert>
 	
 	<!-- SelectOne -->
-	<select id="get" parameterType="String" resultType="accountVo">
-		SELECT *
-		FROM ACCOUNT
-		WHERE ID = #{id}
+	<select id="getAccountList" parameterType="String" resultType="accountVo">
+		SELECT	*
+		FROM	ACCOUNT
+		WHERE	USER_ID_FK = #{user_id}
 	</select>
 	
-	<!-- SelectList -->
-	<select id="list" resultType="accountVo">
-		SELECT *
-		FROM ACCOUNT
-	</select>
-	
-	<select id="map" parameterType="map" resultType="accountVo">
-		SELECT *
-		FROM ACCOUNT
-		WHERE ID = #{map1}
-		AND .. = #{map2}
-		...
-	</select>
-	
-	<!-- update -->
-	<update id="update" parameterType="accountVo">
-		UPDATE ACCOUNT
-		SET COLUMN = #{..}
-		WHERE ID = #{id}
+	<update id="createAccount" parameterType="map">
+		CREATE USER ${name} IDENTIFIED BY ${pass}
 	</update>
 	
-	<!-- delete -->
-	<delete id="delete" parameterType="String">
-		DELETE
-		FROM ACCOUNT
-		WHERE ID = #{id}
-	</delete>
-
+	<update id="grantAccount" parameterType="map">
+		GRANT CONNECT, RESOURCE TO ${name}
+	</update>
+	
+	<select id="getAccountAllTable" parameterType="String" resultType="tableVo">
+		SELECT OWNER, TABLE_NAME
+		FROM SYS.ALL_TABLES
+		WHERE OWNER = #{account_id}
+	</select>
+	
+	<select id="getAccountAllView" parameterType="String" resultType="viewVo">
+		SELECT OWNER, VIEW_NAME
+		FROM SYS.ALL_VIEWS
+		WHERE OWNER = #{account_id}
+	</select>
+	
+	<select id="getAccountAllIndex" parameterType="String" resultType="indexVo">
+		SELECT OWNER, INDEX_NAME
+		FROM SYS.ALL_INDEXES
+		WHERE OWNER = #{account_id}
+	</select>
+	
+	<select id="getAccountAllTrigger" parameterType="String" resultType="triggerVo">
+		SELECT OWNER, TRIGGER_NAME
+		FROM SYS.ALL_TRIGGERS
+		WHERE OWNER = #{account_id}
+	</select>
+	
+	<select id="getAccountAllSequence" parameterType="String" resultType="sequenceVo">
+		SELECT SEQUENCE_OWNER, SEQUENCE_NAME
+		FROM SYS.ALL_SEQUENCES
+		WHERE SEQUENCE_OWNER = #{account_id}
+	</select>
+	
+	<select id="getAccountAllFunction" parameterType="String" resultType="funcProceVo">
+		SELECT OWNER, OBJECT_NAME
+		FROM SYS.ALL_PROBE_OBJECTS
+		WHERE OWNER = #{account_id}
+		AND OBJECT_TYPE = 'FUNCTION'
+	</select>
+	
+	<select id="getAccountAllProcedure" parameterType="String" resultType="funcProceVo">
+		SELECT OWNER, OBJECT_NAME
+		FROM SYS.ALL_PROBE_OBJECTS
+		WHERE OWNER = #{account_id}
+		AND OBJECT_TYPE = 'PROCEDURE'
+	</select>
+	
 </mapper>

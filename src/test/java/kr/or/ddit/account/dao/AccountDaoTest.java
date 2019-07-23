@@ -2,10 +2,21 @@ package kr.or.ddit.account.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.account.model.AccountVO;
+import kr.or.ddit.dbObject.model.FuncProceVO;
+import kr.or.ddit.dbObject.model.IndexVO;
+import kr.or.ddit.dbObject.model.SequenceVO;
+import kr.or.ddit.dbObject.model.TableVO;
+import kr.or.ddit.dbObject.model.TriggerVO;
+import kr.or.ddit.dbObject.model.ViewVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -26,17 +37,202 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class AccountDaoTest extends LogicTestEnv{
 
-//	@Resource(name = "다오")
-//	private ICommonsDao dao;
+	@Resource(name = "accountDao")
+	private IAccountDao accountDao;
 	
+	/**
+	 * 
+	* Method : getAccountListTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : user_id를 통해 DB계정 리스트 정보 가져오기 테스트
+	 */
 	@Test
-	public void daoTest() {
+	public void getAccountListTest() {
 		/***Given***/
 
 		/***When***/
+		List<AccountVO> accountList = accountDao.getAccountList("TEST_ID20");
+		/***Then***/
+		assertNotNull(accountList);
+		assertEquals(accountList.get(0).getAccount_id(), "testDB");
+		assertEquals(1, accountList.size());
+	}
+	
+	/**
+	 * 
+	* Method : insertAccountTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정 추가 테스트
+	 */
+	@Test
+	public void insertAccountTest() {
+		/***Given***/
+		AccountVO accountVO = new AccountVO("testDBDB", "TEST_ID2", "java");
+		/***When***/
+		int result = accountDao.insertAccount(accountVO);
+		/***Then***/
+		assertEquals(result, 1);
+	}
+	
+	/**
+	 * 
+	* Method : createAccountTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정 '실제' 생성 테스트
+	 */
+	@Test
+	public void createAccountTest() {
+		/***Given***/
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name", "bumper1");
+		map.put("pass", "java");
+		/***When***/
+		int result = accountDao.createAccount(map);
 		
 		/***Then***/
-//		assertEquals("", "");
+		assertEquals(0, result);
+		
+	}
+	
+	/**
+	 * 
+	* Method : grantAccountTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정 '실제' 권한주기
+	 */
+	@Test
+	public void grantAccountTest() {
+		/***Given***/
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name", "bumper1");
+		map.put("pass", "java");
+		/***When***/
+		int result = accountDao.grantAccount(map);
+		/***Then***/
+		assertEquals(0, result);
+	}
+	
+	/**
+	 * 
+	* Method : getAccountAllTableTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정의 테이블 모두 가져오기 테스트
+	 */
+	@Test
+	public void getAccountAllTableTest() {
+		/***Given***/
+		String account_id = "BUM_TEST_ID20";
+		/***When***/
+		List<TableVO> tableList = accountDao.getAccountAllTable(account_id);
+		/***Then***/
+		assertEquals(5, tableList.size());
+	}
+	
+	/**
+	 * 
+	* Method : getAccountAllView
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정의 테이블 모두 가져오기 테스트
+	 */
+	@Test
+	public void getAccountAllViewTest() {
+		/***Given***/
+		String account_id = "BUM_TEST_ID20";
+		/***When***/
+		List<ViewVO> viewList = accountDao.getAccountAllView(account_id);
+		/***Then***/
+		assertEquals(viewList.size(), 1);
 	}
 
+	/**
+	 * 
+	* Method : getAccountAllIndex
+	* 작성자 : PC06
+	* 변경이력 :
+	* Method 설명 : DB계정의 인덱스 모두 가져오기 테스트
+	 */
+	@Test
+	public void getAccountAllIndexTest() {
+		/***Given***/
+		String account_id = "BUM_TEST_ID20";
+		/***When***/
+		List<IndexVO> indexList = accountDao.getAccountAllIndex(account_id);
+		/***Then***/
+		assertEquals(indexList.size(), 1);
+	}
+	
+	/**
+	 * 
+	* Method : getAccountAllTriggerTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정의 트리거 모두 가져오기 테스트
+	 */
+	@Test
+	public void getAccountAllTriggerTest() {
+		/***Given***/
+		String account_id = "BUM_TEST_ID20";
+		/***When***/
+		List<TriggerVO> indexList = accountDao.getAccountAllTrigger(account_id);
+		/***Then***/
+		assertEquals(indexList.size(), 1);
+	}
+	
+	/**
+	 * 
+	* Method : getAccountAllSequenceTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정의 트리거 모두 가져오기 테스트
+	 */
+	@Test
+	public void getAccountAllSequenceTest() {
+		/***Given***/
+		String account_id = "BUM_TEST_ID20";
+		/***When***/
+		List<SequenceVO> sequenceList = accountDao.getAccountAllSequence(account_id);
+		/***Then***/
+		assertEquals(sequenceList.size(), 1);
+	}
+	
+	/**
+	 * 
+	* Method : getAccountAllFunctionTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정의 함수 모두 가져오기 테스트
+	 */
+	@Test
+	public void getAccountAllFunctionTest() {
+		/***Given***/
+		String account_id = "BUM_TEST_ID20";
+		/***When***/
+		List<FuncProceVO> functionList = accountDao.getAccountAllFunction(account_id);
+		/***Then***/
+		assertEquals(functionList.size(), 1);
+	}
+	
+	/**
+	 * 
+	* Method : getAccountAllProcedureTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정의 프로시저 모두 가져오기 테스트
+	 */
+	@Test
+	public void getAccountAllProcedureTest() {
+		/***Given***/
+		String account_id = "BUM_TEST_ID20";
+		/***When***/
+		List<FuncProceVO> procedureList = accountDao.getAccountAllProcedure(account_id);
+		/***Then***/
+		assertEquals(procedureList.size(), 1);
+	}
+	
 }
