@@ -16,7 +16,7 @@
 	        	 		(
 			        	 	SELECT DISTINCT CDOMAIN_NAME
 			        	 		  ,CDOMAIN_TYPE
-				             FROM COMMON_DOMAIN ,USER_DOMAIN
+				             FROM COMMON_DOMAIN
 			            )
 	    	 	WHERE USER_ID = #{user_id}
 	   	 	)

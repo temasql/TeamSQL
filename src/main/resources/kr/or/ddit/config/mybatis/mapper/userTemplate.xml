@@ -16,7 +16,7 @@
 	        	 		(
 			        	 	SELECT DISTINCT CTEMPLATE_ABB
 			        	 		  ,CTEMPLATE_ORIGINAL
-				             FROM COMMON_TEMPLATE ,USER_TEMPLATE
+				             FROM COMMON_TEMPLATE
 			            )
 	    	 	WHERE USER_ID = #{user_id}
 	   	 	)	
