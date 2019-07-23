@@ -44,6 +44,7 @@
 		<property name="order" value="2" />
 	</bean>
 	
+	<bean id="profileView" class="kr.or.ddit.view.ProfileView"/>
 	
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 	<!-- 위의 두개의 순위를 거치고 마지막으로 찾는 ViewResolver Order 3순위 스캔 -->
