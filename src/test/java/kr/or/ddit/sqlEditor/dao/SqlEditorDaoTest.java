@@ -2,9 +2,13 @@ package kr.or.ddit.sqlEditor.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.testenv.LogicTestEnv;
 
@@ -26,17 +30,29 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class SqlEditorDaoTest extends LogicTestEnv{
 
-//	@Resource(name = "다오")
-//	private ICommonsDao dao;
+	private static final Logger logger = LoggerFactory.getLogger(SqlEditorDaoTest.class);
 	
+	@Resource(name = "sqlEditorDao")
+	private ISqlEditorDao sqlEditorDao;
+	
+	/**
+	 * 
+	* Method : runPlanViewTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : 실행계획 등록 후 화면에 출력 테스트
+	 */
 	@Test
-	public void daoTest() {
+	public void runPlanViewTest() {
 		/***Given***/
-
+		String value1 = "EXPLAIN PLAN FOR SELECT * FROM users";
 		/***When***/
-		
+		sqlEditorDao.runPlan(value1);
+		List<String> list = sqlEditorDao.runPlanView();
 		/***Then***/
-		assertEquals("", "");
+		logger.debug("map : {}", list);
+		assertNotNull(list);
+		assertEquals(list.get(0), "Plan hash value: 3461732445");
 	}
 
 }

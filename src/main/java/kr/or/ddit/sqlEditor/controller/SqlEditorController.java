@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.account.model.AccountVO;
 import kr.or.ddit.account.service.IAccountService;
@@ -27,6 +28,7 @@ import kr.or.ddit.dbObject.model.SequenceVO;
 import kr.or.ddit.dbObject.model.TableVO;
 import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
+import kr.or.ddit.sqlEditor.service.ISqlEditorService;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.util.FindAccountPwByMail;
@@ -48,9 +50,11 @@ public class SqlEditorController {
 	@Resource(name = "teamChatRoomService")
 	private ITeamChatRoomService teamChatRoomService;
 	
+	@Resource(name = "sqlEditorService")
+	private ISqlEditorService sqlEditorService;
+	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
-		
 		List<TableVO> tableList = new ArrayList<TableVO>();
 		List<ViewVO> viewList = new ArrayList<ViewVO>();
 		List<IndexVO> indexList = new ArrayList<IndexVO>();
@@ -247,6 +251,26 @@ public class SqlEditorController {
 		
 		model.addAttribute("msg", msg);
 		return sqlEditorMain(session, model);
+	}
+	
+	@RequestMapping(path = "/runPlan", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> runPlan(String dragText, HttpSession session, Model model) {
+		logger.debug("runPlan 안뇽");
+		logger.debug("dragText : {}", dragText);
+		
+		if(dragText.contains(";")) {
+			int end = dragText.indexOf(";");
+			dragText = dragText.substring(0, end);
+		}
+		
+		String plan = "EXPLAIN PLAN FOR " + dragText;
+		sqlEditorService.runPlan(plan);
+		List<String> planList = sqlEditorService.runPlanView();
+		
+		if(planList == null) logger.debug("김범휘");
+		
+		return planList;
 	}
 	
 //	@RequestMapping(path = "/test")

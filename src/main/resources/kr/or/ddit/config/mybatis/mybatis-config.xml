@@ -63,5 +63,6 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/blackList.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/account.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/user.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/plan.xml" />
 	</mappers>
 </configuration>

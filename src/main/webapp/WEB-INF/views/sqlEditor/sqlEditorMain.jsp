@@ -23,7 +23,9 @@
 				<li class="breadcrumb-item">
 					<img class="imgBtn" title="템플릿" src="${cp}/resources/img/template.png"></li>
 				<li class="breadcrumb-item">
-					<img class="imgBtn" title="쿼리매니저 실행" src="${cp}/resources/img/qmanager.png"></li>
+					<img class="imgBtn" title="쿼리매니저" src="${cp}/resources/img/qmanager.png"></li>
+				<li class="breadcrumb-item">
+					<img class="imgBtn" id="runPlan" title="실행계획" src="${cp}/resources/img/explain.png"></li>
 			</ol>
 		</div>
 		<nav id="dbAccountView">
@@ -116,7 +118,7 @@
 	<section id="worksheet">
 		<textarea class="form-control" id="worksheetView" rows="16" cols="229"></textarea> <br>
 		<span class="badge badge-dark" id="resultViewSpan">Result View</span> <br>
-		<textarea class="form-control" id="resultView" rows="7" cols="229" readonly>readonly test</textarea>
+		<textarea class="form-control" id="resultView" rows="6" cols="229" readonly></textarea>
 	</section>
 </div>
 
