@@ -35,9 +35,11 @@
 		<typeAlias type="kr.or.ddit.dbObject.model.TriggerVO" alias="triggerVo" />
 		<typeAlias type="kr.or.ddit.dbObject.model.SequenceVO" alias="sequenceVo" />
 		<typeAlias type="kr.or.ddit.dbObject.model.FuncProceVO" alias="funcProceVo" />
+		<typeAlias type="kr.or.ddit.invite.model.InviteVO" alias="inviteVo" />
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/invite.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/tsFile.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/userTemplate.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/commonTemplate.xml" />
