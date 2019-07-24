@@ -4,13 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-//@RequestMapping("/history")
-//@Controller
+@RequestMapping("/history")
+@Controller
 public class HistoryController {
 
-	@RequestMapping(path =  "/view", method = RequestMethod.GET)
+	@RequestMapping(path =  "/historyList", method = RequestMethod.GET)
 	public String viewGet() {
-		return "";
+		return "/history/historyList.tiles";
 	}
 	
 	@RequestMapping(path =  "/view", method = RequestMethod.POST)
