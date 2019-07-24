@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="${cp}/resources/header/js/headerJs.js"></script>
+<!-- 헤더 -->
+<div class="header-right">
+	<a class="aHeader"  href="#"><img id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" alt="Mypage" title="Mypage">MyPage</a>
+	<a class="aHeader" href="#">로그아웃</a>
+</div>
 <!-- 헤더 -->
 <header>
-	<div class="header-right">
-		<a class="aHeader"  href="#"><img id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" alt="Mypage" title="Mypage">MyPage</a>
-		<a class="aHeader" href="#">로그아웃</a>
-	</div>
-<!-- 헤더 -->
-
   <!-- Navigation -->
  <nav class="navMenu">
 	<ul class="ul-header-one">
@@ -44,15 +44,20 @@
 
 <!-- 챗봇 -->	
 <div class="chatbot">
-<a class="aRight" id="chatBotPopup" href="javascript:openWin('${cp }/chatBot/chatBot','0')"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇"> </a>
+	<p class="rightImg">
+		<a href='javascript:;' class="aRight" id="chatBotPopup">
+			<img class="imgRight" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇">
+		</a>
+	</p>
 </div> 
 <!-- 챗봇 -->	
 	
 <!-- 그룹채팅 -->
 <div class="groupchat">
-<a class="aRight" href="#"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/groupchat.png" title="챗봇"></a>
+<p class="rightImg"><a class="aRight" id="groupChat" href="#"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/groupchat.png" title="챗봇"></a></p>
 </div>
 <!-- 그룹채팅 -->
 
 </nav>
-	<!-- Navigation -->
+</header>
+<!-- Navigation -->
