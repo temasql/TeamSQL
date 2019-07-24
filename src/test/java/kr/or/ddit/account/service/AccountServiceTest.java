@@ -234,4 +234,55 @@ public class AccountServiceTest extends LogicTestEnv{
 		assertEquals(procedureList.size(), 1);
 	}
 	
+	/**
+	 * 
+	* Method : getAccountCntTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정이름으로 등록된 계정 수 얻어오기 테스트
+	 */
+	@Test
+	public void getAccountCntTest() {
+		/***Given***/
+		String account_id = "testDB";
+		/***When***/
+		int result = accountService.getAccountCnt(account_id);
+		/***Then***/
+		assertEquals(1, result);
+	}
+	
+	/**
+	 * 
+	* Method : getAccountOneTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정 한개의 정보 조회
+	 */
+	@Test
+	public void getAccountOneTest() {
+		/***Given***/
+		String account_id = "testDB";
+		/***When***/
+		AccountVO accountVO = accountService.getAccountOne(account_id);
+		/***Then***/
+		assertNotNull(accountVO);
+	}
+	
+	/**
+	 * 
+	* Method : deleteAccountByTableTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정 테이블에서 삭제
+	 */
+	@Test
+	public void deleteAccountByTableTest() {
+		/***Given***/
+		String account_id = "testDB";
+		/***When***/
+		int result = accountService.deleteAccountByTable(account_id);
+		/***Then***/
+		assertEquals(result, 1);
+	}
+	
 }

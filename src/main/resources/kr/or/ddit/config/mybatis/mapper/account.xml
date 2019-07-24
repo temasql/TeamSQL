@@ -69,4 +69,26 @@
 		AND OBJECT_TYPE = 'PROCEDURE'
 	</select>
 	
+	<select id="getAccountCnt" parameterType="string" resultType="int">
+		SELECT	COUNT(*)
+		FROM	ACCOUNT
+		WHERE	ACCOUNT_ID = #{account_id}
+	</select>
+	
+	<select id="getAccountOne" parameterType="string" resultType="accountVo">
+		SELECT	*
+		FROM	ACCOUNT
+		WHERE	ACCOUNT_ID = #{account_id}
+	</select>
+	
+	<delete id="deleteAccount" parameterType="String">
+		DROP USER ${value} CASCADE
+	</delete>
+	
+	<delete id="deleteAccountByTable" parameterType="String">
+		DELETE
+		FROM	ACCOUNT
+		WHERE	ACCOUNT_ID = #{account_id}
+	</delete>
+	
 </mapper>
