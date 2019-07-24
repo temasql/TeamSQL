@@ -6,8 +6,6 @@ import java.util.regex.Pattern;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,13 +40,19 @@ public class UserController {
 
 	@Resource(name = "userService")
 	private IUserService userService;
-	
-   private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-   @RequestMapping("naverCallback")
-   public String naverCall() {
-	   return "callback";
-   }
+	
+    /**
+    * Method : naverCall
+    * 작성자 : 이중석
+    * 변경이력 :
+    * @return
+    * Method 설명 : 네이버로 회원가입 시 네이버 정보를 리턴해줄 jsp로 이동
+    */
+    @RequestMapping("naverCallback")
+    public String naverCall() {
+    	return "callback";
+    }
    
    /**
    * Method : signInGet
@@ -117,13 +121,20 @@ public class UserController {
 	@RequestMapping("/idCheck")
 	public String idCheck(UserVO userVo, Model model) {
 		
+		// 입력한 아이디에 해당하는 회원정보
 		UserVO checkUser = userService.getUser(userVo.getUser_id());
+		
+		// 입력한 아이디의 정규식 검사
 		Pattern pattern = Pattern.compile("^[a-zA-Z]+[a-zA-Z0-9]{4,12}");  
         Matcher match = pattern.matcher(userVo.getUser_id()); 
         boolean bool = match.matches();
+        
         String msg = "형식에 맞게 아이디를 입력해주세요";
         
+        // 아이디가 정규식에 맞다면
         if(bool) {
+        	
+        	// 입력한 아이뎅 해당하는 회원정보가 없으면
         	if(checkUser == null) {
         		msg = "사용가능한 아이디입니다.";
         		model.addAttribute("btnSignIn", "true");

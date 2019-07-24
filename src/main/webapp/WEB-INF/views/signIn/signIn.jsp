@@ -18,16 +18,24 @@
       <input type="hidden" id="idCheckMsg" value="${msg}">
       <script>
       	$(function(){
+      		// id 체크 버튼을 클릭시
       		$("#idcheck").on("click", function(){
+      			// form의 요청경로를 변경 후 전송
       			$("#signInForm").attr("action", "${cp}/user/idCheck");
       			$("#signInForm").submit();
       		});
+      		
+      		// id체크 후 상황에 따라 변하는 메시지
       		var msg = $("#idCheckMsg").val();
-   			alert(msg);
+   			if(msg != ""){
+   				alert(msg)
+   			}
+   			
+   			// 비밀번호 재확인에서 포커스 아웃됐을 때
    			$('#pwCheck').focusout(function() {
-	   			  if($(this).val() == $("#pw").val()){
-	   				  
-	   			  }else{
+   				
+   				// 비밀번호가 다르면 비밀번호가 지워짐
+	   			  if($(this).val() != $("#pw").val()){
 	   				  $(this).val("");
 	   				  $("#pw").val("");
 	   			  }

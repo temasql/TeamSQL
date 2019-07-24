@@ -17,12 +17,15 @@
 			$("#userId").val(Cookies.get("userId"));
 			$("#password").focus();
 		}
-		
+		var user_id = $("#user_id").val();
+		var user_pw = $("#user_pw").val();
+		if(user_id > 0 || user_pw > 0){
+			alert("아이디 또는 비밀번호를 맞게 입력해 주세요.")
+		}
 		// login button 클릭시 실행되는 핸들러
 		$("#loginBtn").on("click", function() {
 			//로그인 요청을 서버로 전송
 			$("#loginForm").submit();
-			
 		});
 	});
 </script>
