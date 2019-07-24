@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="${cp}/resources/chatBot/js/chatBotJS.js"></script>
 <link href="${cp}/resources/chatBot/css/chatBotStyle.css" rel="stylesheet">
 <link href="${cp}/resources/basicLib/css/basicLibStyle.css" rel="stylesheet">
-<script src="${cp}/resources/chatBot/js/chatBotJS.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<head>
+</head>
+<body>
 
 <section class="chatBotRoom">
   <header class="chatBotHeader">
@@ -215,4 +222,5 @@ SELECT절 뒤에 *를 사용하면 모든 데이터를 조회합니다.
 을 사용하시면 됩니다.
 </p>
 </div>
-
+</body>
+</html>

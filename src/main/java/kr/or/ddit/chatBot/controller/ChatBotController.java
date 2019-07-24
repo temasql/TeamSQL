@@ -10,7 +10,7 @@ public class ChatBotController {
 
 	@RequestMapping(path =  "/chatBot", method = RequestMethod.GET)
 	public String viewGet() {
-		return "/chatBot/chatBot.tiles";
+		return "/chatBot/chatBot";
 	}
 	
 	@RequestMapping(path =  "/view", method = RequestMethod.POST)
