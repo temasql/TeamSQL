@@ -110,5 +110,32 @@ public class ProfileUtil {
 			return req.getServletContext().getRealPath(File.separator + "resources" + File.separator + "img"+ File.separator +"user.png");
 		}
 	}
+	
+	public static String updateProfile(MultipartFile profile, UserVO userVo) {
+		if (profile.getSize() > 0 && profile != null) {
+			String fileName = profile.getOriginalFilename();
+			String ext = getExt(fileName);
+			String sp = File.separator;
+			
+			Map<String, Object> resultMap = setMkdir();
+			String uploadPath =  (String) resultMap.get("uploadPath");
+			
+			// 파일 디스크에 쓰기
+			String filePath = uploadPath + sp + UUID.randomUUID().toString() + ext;
+			userVo.setUser_path(filePath);
+			try {
+				profile.transferTo(new File(filePath));
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			return filePath;
+		}else if(userVo.getUser_path() != null && !(userVo.getUser_path().equals(""))) {
+			return userVo.getUser_path();
+		}else {
+			HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+			
+			return req.getServletContext().getRealPath(File.separator + "resources" + File.separator + "img"+ File.separator +"user.png");
+		}
+	}
 
 }

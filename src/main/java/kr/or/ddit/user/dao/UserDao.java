@@ -71,13 +71,52 @@ public class UserDao implements IUserDao{
 	* Method : deleteUser
 	* 작성자 : 이중석
 	* 변경이력 :
-	* @param user_id
+	* @param userVo
 	* @return
 	* Method 설명 : 파라미터 아이디에 해당하는 회원의 탈퇴 구분을 N에서 Y로 바꿈 
 	*/
 	@Override
-	public int deleteUser(String user_id) {
-		return sqlSession.update("user.deleteUser", user_id);
+	public int deleteUser(UserVO userVo) {
+		return sqlSession.update("user.deleteUser", userVo);
+	}
+
+	/**
+	* Method : findUserId
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public String findUserId(UserVO userVo) {
+		return sqlSession.selectOne("user.findUserId", userVo);
+	}
+
+	/**
+	* Method : findUserPw
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 : 사용자의 아이디와 이메일을 입력하여 아이디 조회
+	*/
+	@Override
+	public String findUserPw(UserVO userVo) {
+		return sqlSession.selectOne("user.findUserPw", userVo);
+	}
+
+	/**
+	* Method : temporaryUpdateUserPw
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 : PW찾기 후 발송한 임시비밀번호를 암호화
+	*/
+	@Override
+	public int temporaryUpdateUserPw(UserVO userVo) {
+		return sqlSession.update("user.temporaryUpdateUserPw", userVo);
 	}
 
 }
