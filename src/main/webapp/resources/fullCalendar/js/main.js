@@ -1,5 +1,6 @@
 var draggedEventIsAllDay;
 var activeInactiveWeekends = true;
+var readCal;
 
 function getDisplayEventDate(event) {
 
@@ -84,7 +85,6 @@ function calDateWhenDragnDrop(event) {
   return newDates;
 }
 
-
 var calendar = $('#calendar').fullCalendar({
 
   eventRender: function (event, element, view) {
@@ -157,17 +157,32 @@ var calendar = $('#calendar').fullCalendar({
   /* ****************
    *  일정 받아옴 
    * ************** */
-  events: function (start, end, timezone, callback) {
+  events: readCal = function (start, end, timezone, callback) {
     $.ajax({
       type: "get",
 //      url: "resources/fullCalendar/data.json",
-      url: "/list",
+      url: "/readCal",
 //      data: {
 //        // 실제 사용시, 날짜를 전달해 일정기간 데이터만 받아오기를 권장
 //      },
       success: function (response) {
+    	  console.log(response.list);
+    	  console.log(JSON.stringify(response.list));
+    	  
+    	  // json형태의 데이터를 문자열 형태로 변환
+    	  var obj = JSON.stringify(response.list);
+    	  
+    	  // 문자열에서 역슬래시 없애기(\)
+    	  obj = obj.replace(/\\/gi, "");
+    	  console.log(obj);
+    	  obj = obj.substring(obj.indexOf("\"")+1, obj.lastIndexOf("\""));
+    	  console.log(obj);
+    	  
+    	  // 문자열 형태의 데이터를 JSON형태로 변환
+    	  // 반드시 response객체에 넣어줘야 밑에 map함수가 실행된다.
+    	  response = JSON.parse(obj);
     	  console.log(response);
-    	  console.log(JSON.stringify(response));
+    	  
         var fixedDate = response.map(function (array) {
           if (array.allDay && array.start !== array.end) {
             // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력

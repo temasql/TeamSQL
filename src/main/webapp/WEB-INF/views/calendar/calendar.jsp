@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-16" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>FullCalendar Example</title>
     <link rel=" shortcut icon" href="image/favicon.ico">
@@ -142,7 +142,7 @@
                 	<!-- 사용자(유저) -->
                     <label for="calendar_view">등록자별</label>
                     <div class="input-group">
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="정연" checked>정연</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="TEST_ID1" checked>TEST_ID1</label>
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="다현" checked>다현</label>
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="사나" checked>사나</label>
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="나연" checked>나연</label>

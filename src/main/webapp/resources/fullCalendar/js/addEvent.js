@@ -14,8 +14,8 @@ var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
 
-nameArray = userName.split(".jsp");
-name = nameArray[0];
+var nameArray = userName.split(".jsp");
+var name = nameArray[0];
 
 /* ****************
  *  새로운 일정 생성
@@ -47,38 +47,33 @@ var newEvent = function (start, end, eventType) {
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
     	
-    	/*
-    	 	시퀀스 번호,
-    	 	제목,
-    	 	일정 시작일,
-    	 	일정 마무리일,
-    	 	내용(설명),
-    	 	그룹(생일, 업무, 행사)
-    	 */
-        var eventData = {
-            id: eventId,				
-            title: editTitle.val(),		
-            start: editStart.val(),		
-            end: editEnd.val(),
-            description: editDesc.val(),
-            type: editType.val(),
-            username: name,
-            backgroundColor: editColor.val(),
-            textColor: '#ffffff',
-            allDay: false
+    	
+//        var eventData = {
+//        	  calendar_id: eventId,				
+//            calendar_title: editTitle.val(),		
+//            calendar_start_dt: editStart.val(),		
+//            calendar_end_dt: editEnd.val(),
+//            calendar_content: editDesc.val(),
+//            calendar_type: editType.val(),
+//            user_id_fk: name,
+//            calendar_background: editColor.val(),
+//            textColor: '#ffffff',
+//            allDay: false
+//        };
+    	var eventData = {
+                _id: eventId,
+                title: editTitle.val(),
+                start: editStart.val(),
+                end: editEnd.val(),
+                description: editDesc.val(),
+                type: editType.val(),
+                username: name,
+                backgroundColor: editColor.val(),
+                textColor: '#ffffff',
+                allDay: false
         };
         
         
-        $.ajax({
-        	url: "/ajax/test",					// 새로운 일정 저장 버튼 클릭 시 보내지는 URL
-        	method : "post",
-        	data : JSON.stringify(eventData),	// Controller에서는 Map형태로 받는다, serialize도 가능
-        	contentType: "application/json",
-        	dataType : "json",
-        	success: function () {
-        		alert("dd");
-        	}
-        });
         
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
@@ -106,5 +101,27 @@ var newEvent = function (start, end, eventType) {
         eventModal.find('input, textarea').val('');
         editAllDay.prop('checked', false);
         eventModal.modal('hide');
+        
+        /*
+	 	시퀀스 번호,
+	 	제목,
+	 	일정 시작일,
+	 	일정 마무리일,
+	 	내용(설명),
+	 	그룹(생일, 업무, 행사)
+        */
+        //새로운 일정 저장
+        $.ajax({
+        	url: "/insertCal",					// 새로운 일정 저장 버튼 클릭 시 보내지는 URL
+        	method : "post",
+        	data : JSON.stringify(eventData),	// Controller에서는 Map형태로 받는다, serialize도 가능
+        	contentType: "application/json",
+        	dataType : "json",
+        	success: function (response) {
+        		alert(response);
+        		alert("일정 등록 성공");
+        		readCal();
+        	}
+        });
     });
 };
