@@ -1,50 +1,31 @@
 package kr.or.ddit.crew.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 
 import kr.or.ddit.crew.dao.ICrewDao;
 import kr.or.ddit.crew.model.CrewVO;
 
-//@Service
+@Service
 public class CrewService implements ICrewService{
-
+	
 	@Resource(name = "crewDao")
 	private ICrewDao crewDao;
-
-	@Override
-	public int insert(CrewVO crewVo) {
-		return crewDao.insert(crewVo);
-	}
 	
+	/**
+	 * 
+	* Method : insertCrew
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param crewVO
+	* @return
+	* Method 설명 : 구성원 추가
+	 */
 	@Override
-	public CrewVO get(String id) {
-		return crewDao.get(id);
-	}
-	
-	@Override
-	public List<CrewVO> list() {
-		return crewDao.list();
-	}
-
-	@Override
-	public Map<String, Object> map(Map<String, Object> map) {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<CrewVO> mapList =  crewDao.map(map);
-		return resultMap;
+	public int insertCrew(CrewVO crewVO) {
+		return crewDao.insertCrew(crewVO);
 	}
 
-	@Override
-	public int update(String id) {
-		return crewDao.update(id);
-	}
-	
-	@Override
-	public int delete(String id) {
-		return crewDao.delete(id);
-	}
 
 }

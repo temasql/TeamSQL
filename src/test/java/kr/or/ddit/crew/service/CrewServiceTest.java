@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -26,17 +27,24 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class CrewServiceTest extends LogicTestEnv{
 
-//	@Resource(name = "서비스")
-//	private ICommonsService service;
+	@Resource(name = "crewService")
+	private ICrewService crewService;
 	
+	/**
+	 * 
+	* Method : insertCrewTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : 구성원 추가 테스트
+	 */
 	@Test
-	public void serviceTest() {
+	public void insertCrewTest() {
 		/***Given***/
-
+		CrewVO crewVO = new CrewVO("testDB", "TEST_ID19");
 		/***When***/
-		
+		int result = crewService.insertCrew(crewVO);
 		/***Then***/
-		assertEquals("", "");
+		assertEquals(result, 1);
 	}
 
 }

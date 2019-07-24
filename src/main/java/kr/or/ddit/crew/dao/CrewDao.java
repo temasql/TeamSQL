@@ -1,50 +1,31 @@
 package kr.or.ddit.crew.dao;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.crew.model.CrewVO;
 
-//@Repository
+@Repository
 public class CrewDao implements ICrewDao{
 
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
-
-	@Override
-	public int insert(CrewVO crewVo) {
-		return sqlSession.insert("crew.insert", crewVo);
-	}
 	
+	/**
+	 * 
+	* Method : insertCrew
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param crewVO
+	* @return
+	* Method 설명 : 구성원 추가
+	 */
 	@Override
-	public CrewVO get(String id) {
-		return sqlSession.selectOne("crew.get", id);
+	public int insertCrew(CrewVO crewVO) {
+		return sqlSession.insert("crew.insertCrew", crewVO);
 	}
-	
-	@Override
-	public List<CrewVO> list() {
-		return sqlSession.selectList("crew.list");
-	}
-
-	@Override
-	public List<CrewVO> map(Map<String, Object> map) {
-		return sqlSession.selectList("crew.map", map);
-	}
-	
-	@Override
-	public int update(String id) {
-		return sqlSession.update("crew.update", id);
-	}
-
-	@Override
-	public int delete(String id) {
-		return sqlSession.delete("crew.delete", id);
-	}
-
 	
 
 }

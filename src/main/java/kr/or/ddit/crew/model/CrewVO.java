@@ -20,5 +20,12 @@ public class CrewVO {
 	public String toString() {
 		return "CrewVO [account_id_fk=" + account_id_fk + ", user_id_fk=" + user_id_fk + "]";
 	}
-	
+	public CrewVO(String account_id_fk, String user_id_fk) {
+		super();
+		this.account_id_fk = account_id_fk;
+		this.user_id_fk = user_id_fk;
+	}
+	public CrewVO() {
+		
+	}
 }

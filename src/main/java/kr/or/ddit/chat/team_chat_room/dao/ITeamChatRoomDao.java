@@ -7,7 +7,16 @@ import kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO;
 
 public interface ITeamChatRoomDao {
 
-	int insert(TeamChatRoomVO teamChatRoomVo);
+	/**
+	 * 
+	* Method : insertTeamChatRoom
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param teamChatRoomVo
+	* @return
+	* Method 설명 : 채팅방 추가
+	 */
+	int insertTeamChatRoom(TeamChatRoomVO teamChatRoomVo);
 	
 	TeamChatRoomVO get(String id);
 	
