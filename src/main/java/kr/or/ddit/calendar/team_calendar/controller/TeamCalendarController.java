@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
@@ -84,9 +85,9 @@ public class TeamCalendarController {
 	* @return
 	* Method 설명 : 일정 등록 메서드
 	*/
-	@RequestMapping(path = "/insertCal", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertCal(Model model, @RequestBody Map<String, Object> map, HttpSession session) {
+	@RequestMapping(path = "/insertCal", method = RequestMethod.POST)
+	public int insertCal(Model model, @RequestBody Map<String, Object> map, HttpSession session) {
 		logger.debug("map : {}", map);
 		TeamCalendarVO vo = new TeamCalendarVO();
 		CrewVO crewVO = (CrewVO) session.getAttribute("CREW_INFO");
@@ -146,11 +147,91 @@ public class TeamCalendarController {
 		logger.debug("teamCalendar : {}", vo);
 		
 		int result = service.insertCal(vo);
+		int maxSequence = service.maxSequence();
 		if(result>0) {
 			logger.debug("등록 성공");
+			logger.debug("시퀀스 값 : {}", result);
+		}
+		return maxSequence;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "/deleteCal", method = RequestMethod.POST)
+	public int deleteCal(int id) {
+		logger.debug("삭제 int : {}", id);
+		int result = service.deleteCal(id);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "updateCal", method = RequestMethod.POST)
+	public int updateCal(@RequestBody Map<String, Object> map) {
+		logger.debug("map update: {}", map);
+		
+		String dataInt = (String) map.get("id");
+		int id = Integer.parseInt(dataInt);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		Date start = null;
+		Date end = null;
+		try {
+			start = sdf.parse((String) map.get("start"));
+			end = sdf.parse((String) map.get("end"));
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		
-		model.addAttribute("insertResult", result);
-		return "jsonView";
+		TeamCalendarVO tcVO = new TeamCalendarVO();
+		tcVO.setCalendar_title((String) map.get("title"));
+		tcVO.setCalendar_id(id);
+		tcVO.setCalendar_start_dt(start);
+		tcVO.setCalendar_end_dt(end);
+		tcVO.setCalendar_type((String) map.get("type"));
+		tcVO.setCalendar_background((String) map.get("backgroundColor"));
+		
+		int result = service.updateCal(tcVO);
+		
+		return result;
+	}
+	
+	/**
+	* Method : updateDropCal
+	* 작성자 : PC19
+	* 변경이력 :
+	* @return
+	* Method 설명 : 기간만 수정하는 메서드
+	*/
+	@ResponseBody
+	@RequestMapping(path="/updateDropCal", method = RequestMethod.POST)
+	public int updateDropCal(@RequestBody Map<String, Object> map) {
+		logger.debug("drop map : {}", map);
+//		logger.debug("drop int : {}", id);
+		TeamCalendarVO tcVO = new TeamCalendarVO();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		
+		String id_1 = (String) map.get("id");
+		int id = Integer.parseInt(id_1);
+		
+		logger.debug("map id : {}", id);
+		
+		Date start = null;
+		Date end = null;
+		try {
+			start = sdf.parse((String) map.get("start"));
+			end = sdf.parse((String) map.get("end"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		tcVO.setCalendar_start_dt(start);
+		tcVO.setCalendar_end_dt(end);
+		tcVO.setCalendar_id(id);
+		
+		logger.debug("tcVO : {}", tcVO);
+		
+		int result = service.updateDropCal(tcVO);
+		return result;
 	}
 }

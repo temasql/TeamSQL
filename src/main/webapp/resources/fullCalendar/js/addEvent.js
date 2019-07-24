@@ -17,6 +17,11 @@ var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 var nameArray = userName.split(".jsp");
 var name = nameArray[0];
 
+/*
+ 	밑에서 insert 성공 후 성공한 id 값을 담을 변수
+ */
+var idData = 0;
+
 /* ****************
  *  새로운 일정 생성
  * ************** */
@@ -60,8 +65,9 @@ var newEvent = function (start, end, eventType) {
 //            textColor: '#ffffff',
 //            allDay: false
 //        };
-    	var eventData = {
+    	
 //                _id: eventId,
+    	var eventData = {
                 title: editTitle.val(),
                 start: editStart.val(),
                 end: editEnd.val(),
@@ -118,9 +124,8 @@ var newEvent = function (start, end, eventType) {
         	contentType: "application/json",
         	dataType : "json",
         	success: function (response) {
+        		idData = response;
         		alert(response);
-        		alert("일정 등록 성공");
-        		readCal();
         	}
         });
     });

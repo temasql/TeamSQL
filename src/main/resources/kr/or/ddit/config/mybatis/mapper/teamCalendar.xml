@@ -36,6 +36,11 @@
 		)
 	</insert>
 	
+	<select id="maxSequence" resultType="int">
+		SELECT	MAX(CALENDAR_ID)
+		FROM	TEAM_CALENDAR
+	</select>
+	
 	<!-- SelectOne -->
 	<select id="get" parameterType="String" resultType="teamCalendarVo">
 		SELECT *
@@ -68,17 +73,29 @@
 	</select>
 	
 	<!-- update -->
-	<update id="update" parameterType="teamCalendarVo">
-		UPDATE TEAM_CALENDAR
-		SET COLUMN = #{..}
-		WHERE ID = #{id}
+	<update id="updateCal" parameterType="teamCalendarVo">
+		UPDATE 	TEAM_CALENDAR
+		SET 	CALENDAR_TITLE = #{calendar_title},
+				CALENDAR_START_DT = #{calendar_start_dt},
+				CALENDAR_END_DT = #{calendar_end_dt},
+				CALENDAR_TYPE = #{calendar_type},
+				CALENDAR_BACKGROUND = #{calendar_background}
+		WHERE 	CALENDAR_ID = #{calendar_id}
+	</update>
+	
+	<!-- updateDropCal -->
+	<update id="updateDropCal" parameterType="teamCalendarVo">
+		UPDATE 	TEAM_CALENDAR
+		SET 	CALENDAR_START_DT = #{calendar_start_dt},
+				CALENDAR_END_DT = #{calendar_end_dt}
+		WHERE 	CALENDAR_ID = #{calendar_id}
 	</update>
 	
 	<!-- delete -->
-	<delete id="delete" parameterType="String">
+	<delete id="deleteCal" parameterType="int">
 		DELETE
 		FROM TEAM_CALENDAR
-		WHERE ID = #{id}
+		WHERE CALENDAR_ID = #{calendar_id}
 	</delete>
 
 </mapper>
