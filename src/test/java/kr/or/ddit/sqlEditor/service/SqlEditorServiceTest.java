@@ -2,9 +2,13 @@ package kr.or.ddit.sqlEditor.service;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.testenv.LogicTestEnv;
 
@@ -26,17 +30,29 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class SqlEditorServiceTest extends LogicTestEnv{
 
-//	@Resource(name = "서비스")
-//	private ICommonsService service;
+	private static final Logger logger = LoggerFactory.getLogger(SqlEditorServiceTest.class);
 	
+	@Resource(name = "sqlEditorService")
+	private ISqlEditorService sqlEditorService;
+	
+	/**
+	 * 
+	* Method : runPlanViewTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : 실행계획 등록 후 화면에 출력 테스트
+	 */
 	@Test
-	public void serviceTest() {
+	public void runPlanViewTest() {
 		/***Given***/
-
+		String value1 = "EXPLAIN PLAN FOR SELECT * FROM users";
 		/***When***/
-		
+		sqlEditorService.runPlan(value1);
+		List<String> list = sqlEditorService.runPlanView();
 		/***Then***/
-		assertEquals("", "");
+		logger.debug("map : {}", list);
+		assertNotNull(list);
+		assertEquals(list.get(0), "Plan hash value: 3461732445");
 	}
 
 }
