@@ -286,4 +286,40 @@ public class AccountDaoTest extends LogicTestEnv{
 		assertEquals(result, 1);
 	}
 	
+	/**
+	 * 
+	* Method : updateAccountTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정 비밀번호 수정
+	 */
+	@Test
+	public void updateAccountTest() {
+		/***Given***/
+		String value = "ALTER USER KIM_TEST_ID20 IDENTIFIED by test";
+		/***When***/
+		int result = accountDao.updateAccount(value);
+		/***Then***/
+		assertEquals(result, 0);
+	}
+	
+	/**
+	 * 
+	* Method : updateAccountByTableTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : DB계정 테이블에서 비밀번호 수정
+	 */
+	@Test
+	public void updateAccountByTableTest() {
+		/***Given***/
+		AccountVO accountVO = new AccountVO();
+		accountVO.setAccount_id("testDB");
+		accountVO.setAccount_pw("test");
+		/***When***/
+		int result = accountDao.updateAccountByTable(accountVO);
+		/***Then***/
+		assertEquals(result, 1);
+	}
+	
 }
