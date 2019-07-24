@@ -197,10 +197,36 @@
   </div>
 </div>
 
+<!-- Account PW Find Modal -->
+<div id="accountPwUpdateModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<span class="close">&times;</span>
+  	<br><br>
+  	<form action="${cp}/sqlEditor/updatePwAccount" method="post" id="accountPwUpdateFrm">
+	  <fieldset>
+	    <legend>DB계정 비밀번호 변경</legend>
+	    <br><br>
+	    <label for="exampleInputEmail1">기존 비밀번호</label>
+	    <input type="password" class="form-control" id="originalPw" name="originalPw" placeholder="기존 비밀번호">
+	    <br><br>
+	    <label for="exampleInputEmail1">변경 비밀번호</label>
+	    <input type="password" class="form-control" id="updatePw" name="updatePw" placeholder="변경 비밀번호">
+	    <br><br>
+	    <label for="exampleInputEmail1">변경 비밀번호 확인</label>
+	    <input type="password" class="form-control" id="reUpdatePw" name="reUpdatePw" placeholder="변경 비밀번호 확인">
+	    <br><br>
+	    <button type="button" id="accountPwUpdateBtn" class="btn btn-secondary">확인</button>
+	    <input type="hidden" id="updateId" name="updateId"/>
+  	 </fieldset>
+	</form>
+  </div>
+</div>
+
 <!-- 우클릭 -->
 <ul class="contextmenu">
   <li><span id="accountDeleteSpan">DB계정 삭제</span></li>
   <li><span id="accountPwFindSpan">DB계정 PW찾기</span></li>
-  <li><span>DB계정 PW수정</span></li>
+  <li><span id="accountPwUpdateSpan">DB계정 PW변경</span></li>
   <li><span>팀 일정관리</span></li>
 </ul>

@@ -18,6 +18,7 @@ $(document).ready(function(){
   $(".accounts").contextmenu(function(e){
 	$("#deleteId").val($(this).text()); 
 	$("#findId").val($(this).text());
+	$("#updateId").val($(this).text());
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();

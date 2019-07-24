@@ -91,4 +91,14 @@
 		WHERE	ACCOUNT_ID = #{account_id}
 	</delete>
 	
+	<update id="updateAccountByTable" parameterType="accountVo">
+		UPDATE	ACCOUNT
+		SET		ACCOUNT_PW = #{account_pw}
+		WHERE	ACCOUNT_ID = #{account_id}
+	</update>
+	
+	<update id="updateAccount" parameterType="String">
+		${value}
+	</update>
+	
 </mapper>

@@ -17,10 +17,15 @@ $(document).ready(function() {
 		$("#accountPwFindModal").css("display", "block");
 	});
 	
+	$("#accountPwUpdateSpan").on("click", function() {
+		$("#accountPwUpdateModal").css("display", "block");
+	});
+	
 	$(".close").on("click", function() {
 		$("#accountModal").css("display", "none");
 		$("#accountDeleteModal").css("display", "none");
 		$("#accountPwFindModal").css("display", "none");
+		$("#accountPwUpdateModal").css("display", "none");
 	});
 	
 	$("#addAccountBtn").on("click", function() {
@@ -61,6 +66,24 @@ $(document).ready(function() {
 			return;
 		}
 		$("#accountPwFindFrm").submit();
+	});
+	
+	$("#accountPwUpdateBtn").on("click", function() {
+		if($("#originalPw").val().trim().length <= 0) {
+			$("#originalPw").focus();
+			return;
+		}
+		
+		if($("#updatePw").val().trim().length <= 0) {
+			$("#updatePw").focus();
+			return;
+		}
+		
+		if($("#reUpdatePw").val().trim().length <= 0) {
+			$("#reUpdatePw").focus();
+			return;
+		}
+		$("#accountPwUpdateFrm").submit();
 	});
 	
 });

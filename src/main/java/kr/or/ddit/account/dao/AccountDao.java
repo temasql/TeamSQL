@@ -232,4 +232,32 @@ public class AccountDao implements IAccountDao{
 		return sqlSession.delete("account.deleteAccountByTable", account_id);
 	}
 
+	/**
+	 * 
+	* Method : updateAccount
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param value
+	* @return
+	* Method 설명 : DB계정 비밀번호 수정
+	 */
+	@Override
+	public int updateAccount(String value) {
+		return sqlSession.update("account.updateAccount", value);
+	}
+
+	/**
+	 * 
+	* Method : updateAccountByTable
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param accountVO
+	* @return
+	* Method 설명 : DB계정 테이블에서 비밀번호 수정
+	 */
+	@Override
+	public int updateAccountByTable(AccountVO accountVO) {
+		return sqlSession.update("account.updateAccountByTable", accountVO);
+	}
+
 }

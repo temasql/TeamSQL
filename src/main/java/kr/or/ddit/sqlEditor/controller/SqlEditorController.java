@@ -212,6 +212,42 @@ public class SqlEditorController {
 		model.addAttribute("msg", msg);
 		return sqlEditorMain(session, model);
 	}
+
+	@RequestMapping(path = "/updatePwAccount", method = RequestMethod.POST)
+	public String updatePwAccount(String originalPw, String updatePw, String reUpdatePw, String updateId, 
+									HttpSession session, Model model) {
+		String msg = "";
+		
+		if(!updatePw.equals(reUpdatePw)) {
+			msg = "변경 비밀번호와 변경 비밀번호 확인이 일치하지 않습니다.";
+			model.addAttribute("msg", msg);
+			return sqlEditorMain(session, model);
+		}
+		
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		String update_id = updateId + "_" + userVO.getUser_id();
+		AccountVO accountVO = accountService.getAccountOne(update_id);
+		
+		if(accountVO.getAccount_pw().equals(originalPw)) {
+			String value = "ALTER USER " + update_id + " IDENTIFIED BY " + updatePw;
+			int updateCnt = accountService.updateAccount(value);
+			
+			accountVO.setAccount_pw(updatePw);
+			int updateTableCnt =  accountService.updateAccountByTable(accountVO);
+			
+			if(updateCnt == 0 && updateTableCnt == 1) {
+				msg = "비밀번호가 변경되었습니다.";
+			}else {
+				msg = "비밀번호 변경을 실패하였습니다.";
+			}
+			
+		}else {
+			msg = "현재 비밀번호가 일치하지 않습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		return sqlEditorMain(session, model);
+	}
 	
 //	@RequestMapping(path = "/test")
 //	public String test() {
