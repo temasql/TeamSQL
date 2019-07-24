@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 import kr.or.ddit.calendar.team_calendar.service.ITeamCalendarService;
+import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.user.model.UserVO;
 
 //@RequestMapping("/teamCalendar")
@@ -41,10 +42,12 @@ public class TeamCalendarController {
 	*/
 	@RequestMapping("/cal")
 	public String calendar(HttpSession session) {
-		UserVO userVO = new UserVO("TEST_ID1", "C", "N", "TEST_PW1", "TEST_NAME1", "TEST_MAIL1@TEST.COM", null);
-		session.setAttribute("USER_INFO", userVO);
+		CrewVO crewVO = new CrewVO();
+		crewVO.setAccount_id_fk("테스트 계정");
+		crewVO.setUser_id_fk("TEST_ID1");
+		session.setAttribute("CREW_INFO", crewVO);
 		
-		return "calendar/calendar.jsp?name="+userVO.getUser_id();
+		return "calendar/calendar.jsp?name="+crewVO.getUser_id_fk();
 	}
 	
 	/**
@@ -86,18 +89,16 @@ public class TeamCalendarController {
 	public String insertCal(Model model, @RequestBody Map<String, Object> map, HttpSession session) {
 		logger.debug("map : {}", map);
 		TeamCalendarVO vo = new TeamCalendarVO();
-		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		CrewVO crewVO = (CrewVO) session.getAttribute("CREW_INFO");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
-		vo.setAccount_id_fk("테스트 계정");
-		
 		//-------------------필 히 바꿀것!!!-------------------
-		vo.setUser_id_fk(userVO.getUser_id());
+		vo.setUser_id_fk(crewVO.getUser_id_fk());
 		//-------------------필 히 바꿀것!!!-------------------
 		
-		logger.debug("변환 전 start : {}", (String) map.get("calendar_start_dt"));
-		logger.debug("변환 전 end : {}", (String) map.get("calendar_end_dt"));
+		logger.debug("변환 전 start : {}", (String) map.get("start"));
+		logger.debug("변환 전 end : {}", (String) map.get("end"));
 		
 //		String start = (String) map.get("calendar_start_dt");
 //		String end = (String) map.get("calendar_end_dt");
@@ -132,12 +133,12 @@ public class TeamCalendarController {
 //		vo.setCalendar_type((String) map.get("calendar_type"));
 //		vo.setUser_id_fk(userVO.getUser_id());
 		
-		vo.setCalendar_id((int) map.get("_id"));
-		vo.setUser_id_fk("username");
-		vo.setAccount_id_fk("테스트 계정");
+//		vo.setCalendar_id((int) map.get("_id"));
+		vo.setUser_id_fk((String) map.get("username"));
+		vo.setAccount_id_fk(crewVO.getAccount_id_fk());
 		vo.setCalendar_title((String) map.get("title"));
 		vo.setCalendar_content((String) map.get("description"));
-		vo.setCalendar_background((String) map.get("calendar_background"));
+		vo.setCalendar_background((String) map.get("backgroundColor"));
 		vo.setCalendar_type((String) map.get("type"));
 		
 //		VARCHAR2(20 BYTE) user_id
