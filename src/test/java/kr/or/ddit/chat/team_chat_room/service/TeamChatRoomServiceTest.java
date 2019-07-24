@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -26,17 +27,24 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class TeamChatRoomServiceTest extends LogicTestEnv{
 
-//	@Resource(name = "서비스")
-//	private ICommonsService service;
+	@Resource(name = "teamChatRoomService")
+	private ITeamChatRoomService teamChatRoomService;
 	
+	/**
+	 * 
+	* Method : insertTeamChatRoomTest
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* Method 설명 : 채팅방 추가 테스트
+	 */
 	@Test
-	public void serviceTest() {
+	public void insertTeamChatRoomTest() {
 		/***Given***/
-
+		TeamChatRoomVO teamChatRoomVo = new TeamChatRoomVO("testDB", "TEST_ID20", "TEST CHAT ROOM");
 		/***When***/
-		
+		int result = teamChatRoomService.insertTeamChatRoom(teamChatRoomVo);
 		/***Then***/
-		assertEquals("", "");
+		assertEquals(result, 1);
 	}
 
 }

@@ -5,15 +5,9 @@
 <mapper namespace="crew">
 
 	<!-- Insert -->
-	<insert id="insert" parameterType="crewVo">
+	<insert id="insertCrew" parameterType="crewVo">
 		INSERT INTO CREW
-		(
-			...
-		)
-		VALUES
-		(
-			...
-		)
+		VALUES (#{account_id_fk}, #{user_id_fk})
 	</insert>
 	
 	<!-- SelectOne -->

@@ -27,6 +27,7 @@
   color: black;
   text-decoration: none;
   transition: ease .2s;
+  cursor: pointer;
 }
 
 .contextmenu li:hover {

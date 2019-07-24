@@ -5,15 +5,9 @@
 <mapper namespace="teamChatRoom">
 
 	<!-- Insert -->
-	<insert id="insert" parameterType="teamChatRoomVo">
+	<insert id="insertTeamChatRoom" parameterType="teamChatRoomVo">
 		INSERT INTO TEAM_CHAT_ROOM
-		(
-			...
-		)
-		VALUES
-		(
-			...
-		)
+		VALUES (TEAM_CHAT_ROOM_SEQ.NEXTVAL, #{account_id_fk}, #{user_id_fk}, #{chat_room_name} )
 	</insert>
 	
 	<!-- SelectOne -->

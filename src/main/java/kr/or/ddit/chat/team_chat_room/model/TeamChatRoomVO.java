@@ -36,6 +36,13 @@ public class TeamChatRoomVO {
 		return "TeamChatRoomVO [chat_room_id=" + chat_room_id + ", account_id_fk=" + account_id_fk + ", user_id_fk="
 				+ user_id_fk + ", chat_room_name=" + chat_room_name + "]";
 	}
-	
-	
+	public TeamChatRoomVO(String account_id_fk, String user_id_fk, String chat_room_name) {
+		super();
+		this.account_id_fk = account_id_fk;
+		this.user_id_fk = user_id_fk;
+		this.chat_room_name = chat_room_name;
+	}
+	public TeamChatRoomVO() {
+		
+	}
 }

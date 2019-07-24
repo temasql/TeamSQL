@@ -6,18 +6,28 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO;
 
-//@Repository
+@Repository
 public class TeamChatRoomDao implements ITeamChatRoomDao{
 
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
 
+	/**
+	 * 
+	* Method : insertTeamChatRoom
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param teamChatRoomVo
+	* @return
+	* Method 설명 : 채팅방 추가
+	 */
 	@Override
-	public int insert(TeamChatRoomVO teamChatRoomVo) {
-		return sqlSession.insert("teamChatRoom.insert", teamChatRoomVo);
+	public int insertTeamChatRoom(TeamChatRoomVO teamChatRoomVo) {
+		return sqlSession.insert("teamChatRoom.insertTeamChatRoom", teamChatRoomVo);
 	}
 	
 	@Override

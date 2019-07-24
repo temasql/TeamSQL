@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.or.ddit.account.model.AccountVO;
 import kr.or.ddit.account.service.IAccountService;
+import kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO;
+import kr.or.ddit.chat.team_chat_room.service.ITeamChatRoomService;
+import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.dbObject.model.FuncProceVO;
 import kr.or.ddit.dbObject.model.IndexVO;
 import kr.or.ddit.dbObject.model.SequenceVO;
@@ -37,6 +41,12 @@ public class SqlEditorController {
 	
 	@Resource(name = "userService")
 	private IUserService userService;
+	
+	@Resource(name = "crewService")
+	private ICrewService crewService;
+	
+	@Resource(name = "teamChatRoomService")
+	private ITeamChatRoomService teamChatRoomService;
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
@@ -138,7 +148,14 @@ public class SqlEditorController {
 			map.put("pass", accountVO.getAccount_pw());
 			int createRes = accountService.createAccount(map);
 			int grantRes = accountService.grantAccount(map);
-			if(createRes == 0 || grantRes == 0) {
+			
+			CrewVO crewVO = new CrewVO(real_account_id, user_id);
+			int crewCnt = crewService.insertCrew(crewVO);
+			
+			TeamChatRoomVO teamChatRoomVo = new TeamChatRoomVO(real_account_id, user_id, chatRoomName);
+			int chatRoomCnt = teamChatRoomService.insertTeamChatRoom(teamChatRoomVo);
+			
+			if(createRes == 0 && grantRes == 0 && chatRoomCnt == 1 && crewCnt == 1) {
 				msg = "DB계정이 생성되었습니다.";
 			}else {
 				msg = "DB계정 생성에 실패하였습니다.";

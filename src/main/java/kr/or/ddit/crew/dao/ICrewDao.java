@@ -1,21 +1,18 @@
 package kr.or.ddit.crew.dao;
 
-import java.util.List;
-import java.util.Map;
-
 import kr.or.ddit.crew.model.CrewVO;
 
 public interface ICrewDao {
-
-	int insert(CrewVO crewVo);
 	
-	CrewVO get(String id);
+	/**
+	 * 
+	* Method : insertCrew
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param crewVO
+	* @return
+	* Method 설명 : 구성원 추가
+	 */
+	int insertCrew(CrewVO crewVO);
 	
-	List<CrewVO> list();
-	
-	List<CrewVO> map(Map<String, Object> map);
-	
-	int update(String id);
-
-	int delete(String id);
 }

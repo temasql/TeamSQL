@@ -6,18 +6,29 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import kr.or.ddit.chat.team_chat_room.dao.ITeamChatRoomDao;
 import kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO;
 
-//@Service
+@Service
 public class TeamChatRoomService implements ITeamChatRoomService{
 
 	@Resource(name = "teamChatRoomDao")
 	private ITeamChatRoomDao teamChatRoomDao;
 
+	/**
+	 * 
+	* Method : insertTeamChatRoom
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param teamChatRoomVo
+	* @return
+	* Method 설명 : 채팅방 추가
+	 */
 	@Override
-	public int insert(TeamChatRoomVO teamChatRoomVo) {
-		return teamChatRoomDao.insert(teamChatRoomVo);
+	public int insertTeamChatRoom(TeamChatRoomVO teamChatRoomVo) {
+		return teamChatRoomDao.insertTeamChatRoom(teamChatRoomVo);
 	}
 	
 	@Override
