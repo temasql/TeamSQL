@@ -66,9 +66,11 @@ public class UserServiceTest extends LogicTestEnv{
 	* 작성자 : 이중석
 	* 변경이력 :
 	* Method 설명 : 아이디에 해당하는 유저의 정보 수정 테스트
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	*/
 	@Test
-	public void updateUserTest() {
+	public void updateUserTest() throws FileNotFoundException, IOException {
 		/***Given***/
 		UserVO userVo = userService.getUser("TEST_ID20");
 		
@@ -76,8 +78,10 @@ public class UserServiceTest extends LogicTestEnv{
 		userVo.setUser_name("TEST_ID21");
 		userVo.setUser_email("diat1450@naver.com");
 		userVo.setUser_path("TEST_PATH");
+		File f = new File("src/test/resources/kr/or/ddit/testenv/sally.png");
+		MockMultipartFile profile = new MockMultipartFile("profile", f.getName(), "", new FileInputStream(f));
 		/***When***/
-		int updateCount = userService.updateUser(userVo);
+		int updateCount = userService.updateUser(userVo, profile);
 		/***Then***/
 		assertEquals(1, updateCount);
 	}
@@ -93,10 +97,45 @@ public class UserServiceTest extends LogicTestEnv{
 		/***Given***/
 		UserVO userVo = userService.getUser("TEST_ID20");
 		/***When***/
-		int deleteCount = userService.deleteUser(userVo.getUser_id());
+		int deleteCount = userService.deleteUser(userVo);
 		/***Then***/
 		assertEquals(1, deleteCount);
 	}
 
+	/**
+	* Method : findUserId
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 사용자의 이름과 이메일을 입력하여 아이디 조회
+	*/
+	@Test
+	public void findUserId() {
+		/***Given***/
+		UserVO userVo = new UserVO();
+		userVo.setUser_name("TEST_NAME20");
+		userVo.setUser_email("TEST_MAIL20@TEST.COM");
+		/***When***/
+		String findUserId = userService.findUserId(userVo);
+		/***Then***/
+		assertEquals("TEST_ID20", findUserId);
+	}
 
+	/**
+	 * Method : findUserPw
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * Method 설명 : 사용자의 아이디와 이메일을 입력하여 아이디 조회
+	 */
+	@Test
+	public void findUserPw() {
+		/***Given***/
+		UserVO userVo = new UserVO();
+		userVo.setUser_id("TEST_ID20");
+		userVo.setUser_email("TEST_MAIL20@TEST.COM");
+		/***When***/
+		String findUserPw = userService.findUserPw(userVo);
+		/***Then***/
+		assertEquals("TEST_PW20", findUserPw);
+	}
+	
 }

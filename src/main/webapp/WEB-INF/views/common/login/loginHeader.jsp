@@ -14,9 +14,16 @@
 		var rememberme = Cookies.get("rememberme");
 		if(rememberme == "true"){
 			$("#rememberme").prop("checked", true);
-			$("#userId").val(Cookies.get("userId"));
-			$("#password").focus();
+			$("#user_id").val(Cookies.get("user_id"));
+			$("#user_pw").focus();
 		}
+		
+		
+		var msg = '${deleteMsg}';
+		if(msg != ''){
+			alert(msg);
+		}
+		
 		var user_id = $("#user_id").val();
 		var user_pw = $("#user_pw").val();
 		if(user_id > 0 || user_pw > 0){
