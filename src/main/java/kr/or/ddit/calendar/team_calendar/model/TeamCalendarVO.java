@@ -1,5 +1,6 @@
 package kr.or.ddit.calendar.team_calendar.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,16 +11,23 @@ public class TeamCalendarVO {
 	private String account_id_fk;        // 계정아이디
 	private String user_id_fk;           // 사용자아이디
 	
-//	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
-	private String calendar_start_dt;      // 일정시작일시
-//	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
-	private String calendar_end_dt;        // 일정종료일시
+	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
+	private Date calendar_start_dt;      // 일정시작일시
+	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
+	private Date calendar_end_dt;        // 일정종료일시
 	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
 	private Date calendar_dt;            // 캘린더등록일시
 	private String calendar_title;       // 캘린더제목
 	private String calendar_content;     // 캘린더내용
 	private String calendar_background;  // 캘린더배경색
 	private String calendar_type;        // 캘린더구분
+	
+	
+	public String getEnd() {
+	      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+	      return sdf.format(calendar_end_dt);
+	 }
+	
 	public int getCalendar_id() {
 		return calendar_id;
 	}
@@ -44,18 +52,18 @@ public class TeamCalendarVO {
 	public void setUser_id_fk(String user_id_fk) {
 		this.user_id_fk = user_id_fk;
 	}
-	public String getCalendar_start_dt() {
+	public Date getCalendar_start_dt() {
 		return calendar_start_dt;
 	}
-	public void setCalendar_start_dt(String calendar_start_dt) {
-		calendar_start_dt = calendar_start_dt.substring(0, calendar_start_dt.lastIndexOf(":"));
+	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
+	public void setCalendar_start_dt(Date calendar_start_dt) {
 		this.calendar_start_dt = calendar_start_dt;
 	}
-	public String getCalendar_end_dt() {
+	public Date getCalendar_end_dt() {
 		return calendar_end_dt;
 	}
-	public void setCalendar_end_dt(String calendar_end_dt) {
-		calendar_end_dt = calendar_end_dt.substring(0, calendar_end_dt.lastIndexOf(":"));
+	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm")
+	public void setCalendar_end_dt(Date calendar_end_dt) {
 		this.calendar_end_dt = calendar_end_dt;
 	}
 	public Date getCalendar_dt() {
@@ -88,6 +96,12 @@ public class TeamCalendarVO {
 	public void setCalendar_type(String calendar_type) {
 		this.calendar_type = calendar_type;
 	}
+	
+	public String getStart() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		return sdf.format(calendar_start_dt);
+	}
+	
 	@Override
 	public String toString() {
 		return "TeamCalendarVO [calendar_id=" + calendar_id + ", category_id_fk=" + category_id_fk + ", account_id_fk="
@@ -96,6 +110,4 @@ public class TeamCalendarVO {
 				+ calendar_title + ", calendar_content=" + calendar_content + ", calendar_background="
 				+ calendar_background + ", calendar_type=" + calendar_type + "]";
 	}
-	
-	
 }

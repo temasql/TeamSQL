@@ -5,16 +5,36 @@
 <mapper namespace="teamCalendar">
 
 	<!-- Insert -->
-<!-- 	<insert id="insert" parameterType="teamCalendarVo"> -->
-<!-- 		INSERT INTO TEAM_CALENDAR -->
-<!-- 		( -->
-<!-- 			... -->
-<!-- 		) -->
-<!-- 		VALUES -->
-<!-- 		( -->
-<!-- 			... -->
-<!-- 		) -->
-<!-- 	</insert> -->
+	<insert id="insertCal" parameterType="teamCalendarVo">
+		INSERT INTO TEAM_CALENDAR
+		(
+			CALENDAR_ID,
+			CATEGORY_ID_FK,
+			ACCOUNT_ID_FK,
+			USER_ID_FK,
+			CALENDAR_START_DT,
+			CALENDAR_END_DT,
+			CALENDAR_DT,
+			CALENDAR_TITLE,
+			CALENDAR_CONTENT,
+			CALENDAR_BACKGROUND,
+			CALENDAR_TYPE
+		)
+		VALUES
+		(
+			TEAM_CALENDAR_SEQ.NEXTVAL,
+			1,
+			#{account_id_fk},
+			#{user_id_fk},
+			#{calendar_start_dt},
+			#{calendar_end_dt},
+			SYSDATE,
+			#{calendar_title},
+			#{calendar_content},
+			#{calendar_background},
+			#{calendar_type}
+		)
+	</insert>
 	
 	<!-- SelectOne -->
 	<select id="get" parameterType="String" resultType="teamCalendarVo">
@@ -24,9 +44,19 @@
 	</select>
 	
 	<!-- SelectList -->
-	<select id="list" resultType="teamCalendarVo">
-		SELECT *
-		FROM TEAM_CALENDAR
+	<select id="readCal" resultType="teamCalendarVo">
+		SELECT  CALENDAR_ID,
+		        CATEGORY_ID_FK,
+		        ACCOUNT_ID_FK,
+		        USER_ID_FK,
+		        CALENDAR_START_DT,
+		        CALENDAR_END_DT,
+		        CALENDAR_DT,
+		        CALENDAR_TITLE,
+		        CALENDAR_CONTENT,
+		        CALENDAR_BACKGROUND,
+		        CALENDAR_TYPE
+		FROM    TEAM_CALENDAR
 	</select>
 	
 	<select id="map" parameterType="map" resultType="teamCalendarVo">

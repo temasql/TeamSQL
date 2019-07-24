@@ -1,21 +1,30 @@
 package kr.or.ddit.calendar.team_calendar.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 import kr.or.ddit.calendar.team_calendar.service.ITeamCalendarService;
+import kr.or.ddit.user.model.UserVO;
 
 //@RequestMapping("/teamCalendar")
+//@ResponseBody
 @Controller
 public class TeamCalendarController {
 	private static final Logger logger = LoggerFactory.getLogger(TeamCalendarController.class);
@@ -31,17 +40,25 @@ public class TeamCalendarController {
 	* Method 설명 : 캘린더 첫 접속 시 메서드
 	*/
 	@RequestMapping("/cal")
-	public String calendar() {
+	public String calendar(HttpSession session) {
+		UserVO userVO = new UserVO("TEST_ID1", "C", "N", "TEST_PW1", "TEST_NAME1", "TEST_MAIL1@TEST.COM", null);
+		session.setAttribute("USER_INFO", userVO);
 		
-		
-		return "calendar/calendar.jsp?name=정연";
+		return "calendar/calendar.jsp?name="+userVO.getUser_id();
 	}
 	
+	/**
+	* Method : readCal
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param model
+	* @return
+	* Method 설명 : 캘린더 전체 일정 조회 메서드
+	*/
 //	@ResponseBody
-	@RequestMapping("/list")
-	public String viewPost(Model model) {
-		logger.debug("===============리스트===============");
-		String calList = service.list();
+	@RequestMapping("/readCal")
+	public String readCal(Model model) {
+		String calList = service.readCal();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
 		
@@ -52,6 +69,87 @@ public class TeamCalendarController {
 //		logger.debug("date : {}", end);
 		
 		model.addAttribute("list", calList);
+		return "jsonView";
+	}
+	
+	/**
+	* Method : insertCal
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param model
+	* @param map
+	* @return
+	* Method 설명 : 일정 등록 메서드
+	*/
+	@RequestMapping(path = "/insertCal", method = RequestMethod.POST)
+	@ResponseBody
+	public String insertCal(Model model, @RequestBody Map<String, Object> map, HttpSession session) {
+		logger.debug("map : {}", map);
+		TeamCalendarVO vo = new TeamCalendarVO();
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+		vo.setAccount_id_fk("테스트 계정");
+		
+		//-------------------필 히 바꿀것!!!-------------------
+		vo.setUser_id_fk(userVO.getUser_id());
+		//-------------------필 히 바꿀것!!!-------------------
+		
+		logger.debug("변환 전 start : {}", (String) map.get("calendar_start_dt"));
+		logger.debug("변환 전 end : {}", (String) map.get("calendar_end_dt"));
+		
+//		String start = (String) map.get("calendar_start_dt");
+//		String end = (String) map.get("calendar_end_dt");
+		String start = (String) map.get("start");
+		String end = (String) map.get("end");
+//		start = start.replace(" ", "T");
+//		end = end.replace(" ", "T");
+		
+		logger.debug("start : {}", start);
+		logger.debug("end : {}", end);
+		
+		Date start_1 = null;
+		Date end_1 = null;
+		try {
+			start_1 = sdf.parse(start);
+			end_1 = sdf.parse(end);
+			
+			logger.debug("start : {}", start_1);
+			logger.debug("end : {}", end_1);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		vo.setCalendar_start_dt(start_1);
+		vo.setCalendar_end_dt(end_1);
+		
+//		vo.setUser_id_fk("user_id_fk");
+//		vo.setAccount_id_fk("테스트 계정");
+//		vo.setCalendar_title((String) map.get("calendar_title"));
+//		vo.setCalendar_content((String) map.get("calendar_content"));
+//		vo.setCalendar_background((String) map.get("calendar_background"));
+//		vo.setCalendar_type((String) map.get("calendar_type"));
+//		vo.setUser_id_fk(userVO.getUser_id());
+		
+		vo.setCalendar_id((int) map.get("_id"));
+		vo.setUser_id_fk("username");
+		vo.setAccount_id_fk("테스트 계정");
+		vo.setCalendar_title((String) map.get("title"));
+		vo.setCalendar_content((String) map.get("description"));
+		vo.setCalendar_background((String) map.get("calendar_background"));
+		vo.setCalendar_type((String) map.get("type"));
+		
+//		VARCHAR2(20 BYTE) user_id
+		
+		logger.debug("teamCalendar : {}", vo);
+		
+		int result = service.insertCal(vo);
+		if(result>0) {
+			logger.debug("등록 성공");
+		}
+		
+		model.addAttribute("insertResult", result);
 		return "jsonView";
 	}
 }

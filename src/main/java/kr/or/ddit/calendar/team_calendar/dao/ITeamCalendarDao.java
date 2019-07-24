@@ -7,15 +7,15 @@ import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 
 public interface ITeamCalendarDao {
 
-	int insert(TeamCalendarVO teamCalendarVo);
+	int insertCal(TeamCalendarVO teamCalendarVo);
 	
 	TeamCalendarVO get(String id);
 	
-	List<TeamCalendarVO> list();
+	List<TeamCalendarVO> readCal();
 	
 	List<TeamCalendarVO> map(Map<String, Object> map);
 	
-	int update(String id);
+	int updateCal(TeamCalendarVO teamCalendarVO);
 
-	int delete(String id);
+	int deleteCal(String calendar_id);
 }

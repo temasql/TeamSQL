@@ -48,7 +48,7 @@ public class TeamCalendarDaoTest extends LogicTestEnv{
 		
 
 		/***When***/
-		List<TeamCalendarVO> list = dao.list();
+		List<TeamCalendarVO> list = dao.readCal();
 
 		/***Then***/
 		assertNotNull(list);
