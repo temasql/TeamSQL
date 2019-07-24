@@ -20,16 +20,51 @@ public class TeamCalendarService implements ITeamCalendarService{
 	@Resource(name = "teamCalendarDao")
 	private ITeamCalendarDao teamCalendarDao;
 
+	/**
+	* Method : insertCal
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param teamCalendarVO
+	* @return
+	* Method 설명 : 일정 등록 메서드
+	*/
 	@Override
 	public int insertCal(TeamCalendarVO teamCalendarVO) {
 		return teamCalendarDao.insertCal(teamCalendarVO);
 	}
 	
+	/**
+	* Method : maxSequence
+	* 작성자 : PC19
+	* 변경이력 :
+	* @return
+	* Method 설명 : insert 후 sequence 최댓값을 반환하는 메서드
+	*/
+	@Override
+	public int maxSequence() {
+		return teamCalendarDao.maxSequence();
+	}
+	
+	/**
+	* Method : get
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param id
+	* @return
+	* Method 설명 : 
+	*/
 	@Override
 	public TeamCalendarVO get(String id) {
 		return teamCalendarDao.get(id);
 	}
 	
+	/**
+	* Method : readCal
+	* 작성자 : PC19
+	* 변경이력 :
+	* @return
+	* Method 설명 : 현재 모든 리스트를 반환 - 수정 예정(해당 DB계정에 대해서만 가져올 예정)
+	*/
 	@Override
 	public String readCal() {
       List<TeamCalendarVO> list = teamCalendarDao.readCal();
@@ -70,8 +105,22 @@ public class TeamCalendarService implements ITeamCalendarService{
 		return teamCalendarDao.updateCal(teamCalendarVO);
 	}
 	
+	/**
+	* Method : updateDropCal
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param teamCalendarVO
+	* @return
+	* Method 설명 : 일정만 수정 하는 메서드 (제목, 내용, 배경색, 구분 제외)
+	*/
 	@Override
-	public int deleteCal(String calendar_id) {
+	public int updateDropCal(TeamCalendarVO teamCalendarVO) {
+		return teamCalendarDao.updateDropCal(teamCalendarVO);
+	}
+	
+	@Override
+	public int deleteCal(int calendar_id) {
 		return teamCalendarDao.deleteCal(calendar_id);
 	}
+
 }

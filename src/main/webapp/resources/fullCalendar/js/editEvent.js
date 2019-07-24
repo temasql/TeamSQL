@@ -73,18 +73,28 @@ var editEvent = function (event, element, view) {
         event.type = editType.val();
         event.backgroundColor = editColor.val();
         event.description = editDesc.val();
-
+        
         $("#calendar").fullCalendar('updateEvent', event);
+        
+        var data = {
+        	id:event._id,
+        	title:event.title,
+        	start:event.start,
+        	end:event.end,
+        	type:event.type,
+        	backgroundColor:event.backgroundColor
+        }
+        
 
         //일정 업데이트
         $.ajax({
-            type: "get",
-            url: "",
-            data: {
-                //...
-            },
+            type: "post",
+            url: "/updateCal",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType:"json",
             success: function (response) {
-                alert('수정되었습니다.')
+                alert('수정했쑝');
             }
         });
     });
@@ -94,16 +104,24 @@ var editEvent = function (event, element, view) {
         $('#deleteEvent').unbind();
         $("#calendar").fullCalendar('removeEvents', [event._id]);
         eventModal.modal('hide');
+        
+        if(isNaN(event._id)){
+        	event._id = idData;
+        	event._id = Number(event._id);
+        	alert(event._id);
+        }
+        var id = event._id;
+        alert(id);
 
         //삭제시
         $.ajax({
-            type: "get",
-            url: "",
-            data: {
-                //...
-            },
+            method: "post",
+            url: "/deleteCal",
+            data: "id=" + id,	// Controller에서는 Map형태로 받는다, serialize도 가능
+//        	contentType: "application/json",
+//        	dataType : "json",
             success: function (response) {
-                alert('삭제되었습니다.');
+                alert('삭제됬쑝');
             }
         });
     });

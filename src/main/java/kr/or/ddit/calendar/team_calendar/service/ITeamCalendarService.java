@@ -10,6 +10,8 @@ public interface ITeamCalendarService {
 	
 	int insertCal(TeamCalendarVO teamCalendarVO);
 	
+	int maxSequence();
+	
 	TeamCalendarVO get(String id);
 	
 	String readCal();
@@ -18,5 +20,7 @@ public interface ITeamCalendarService {
 	
 	int updateCal(TeamCalendarVO teamCalendarVO);
 	
-	int deleteCal(String calendar_id);
+	int updateDropCal(TeamCalendarVO teamCalendarVO);
+	
+	int deleteCal(int calendar_id);
 }

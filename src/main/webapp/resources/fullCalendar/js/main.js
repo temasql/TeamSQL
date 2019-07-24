@@ -200,7 +200,11 @@ var calendar = $('#calendar').fullCalendar({
       $(".fc-content").css('height', 'auto');
     }
   },
-
+  
+  /* 
+     	일정 리사이즈를 하려면
+    	하루종일에 체크가 되어있어야 한다.
+   */
   //일정 리사이즈
   eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
     $('.popover.fade.top').remove();
@@ -242,19 +246,27 @@ var calendar = $('#calendar').fullCalendar({
 
     // 드랍시 수정된 날짜반영
     var newDates = calDateWhenDragnDrop(event);
-
+    var start = newDates.startDate;
+    var end = newDates.endDate;
+    var id = event._id;
+    
+    var data = {
+    	start : start,
+    	end : end,
+    	id : id
+    }
+    
     //드롭한 일정 업데이트
     $.ajax({
-      type: "get",
-      url: "",
-      data: {
-        //...
-      },
+      method: "post",
+      url: "/updateDropCal",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+  	  dataType : "json",
       success: function (response) {
-        alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+        alert('수정했쑝: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
     });
-
   },
 
   select: function (startDate, endDate, jsEvent, view) {

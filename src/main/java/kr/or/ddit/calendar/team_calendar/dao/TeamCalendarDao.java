@@ -29,6 +29,18 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 		return sqlSession.insert("teamCalendar.insertCal", teamCalendarVO);
 	}
 	
+	/**
+	* Method : maxSequence
+	* 작성자 : PC19
+	* 변경이력 :
+	* @return
+	* Method 설명 : insert 후 sequence 최댓값을 반환하는 메서드
+	*/
+	@Override
+	public int maxSequence() {
+		return sqlSession.selectOne("teamCalendar.maxSequence");
+	}
+	
 	@Override
 	public TeamCalendarVO get(String id) {
 		return sqlSession.selectOne("teamCalendar.get", id);
@@ -61,7 +73,20 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 	*/
 	@Override
 	public int updateCal(TeamCalendarVO teamCalendarVO) {
-		return sqlSession.update("teamCalendar.update", teamCalendarVO);
+		return sqlSession.update("teamCalendar.updateCal", teamCalendarVO);
+	}
+	
+	/**
+	 * Method : updateDropCal
+	 * 작성자 : PC19
+	 * 변경이력 :
+	 * @param teamCalendarVO
+	 * @return
+	 * Method 설명 : 기간에 해당하는 부분만 수정하는 메서드
+	 */
+	@Override
+	public int updateDropCal(TeamCalendarVO teamCalendarVO) {
+		return sqlSession.update("teamCalendar.updateDropCal", teamCalendarVO);
 	}
 
 	/**
@@ -70,13 +95,11 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 	* 변경이력 :
 	* @param id
 	* @return
-	* Method 설명 :
+	* Method 설명 : 클릭한 일정의 id를 받아서 DB에서 해당일정을 삭제하는 메서드
 	*/
 	@Override
-	public int deleteCal(String calendar_id) {
-		return sqlSession.delete("teamCalendar.delete", calendar_id);
+	public int deleteCal(int calendar_id) {
+		return sqlSession.delete("teamCalendar.deleteCal", calendar_id);
 	}
-
-	
 
 }

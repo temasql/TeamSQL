@@ -9,6 +9,8 @@ public interface ITeamCalendarDao {
 
 	int insertCal(TeamCalendarVO teamCalendarVo);
 	
+	int maxSequence();
+	
 	TeamCalendarVO get(String id);
 	
 	List<TeamCalendarVO> readCal();
@@ -16,6 +18,8 @@ public interface ITeamCalendarDao {
 	List<TeamCalendarVO> map(Map<String, Object> map);
 	
 	int updateCal(TeamCalendarVO teamCalendarVO);
+	
+	int updateDropCal(TeamCalendarVO teamCalendarVO);
 
-	int deleteCal(String calendar_id);
+	int deleteCal(int calendar_id);
 }
