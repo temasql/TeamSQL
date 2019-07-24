@@ -4,14 +4,23 @@ $(document).ready(function() {
 		alert($("#msg").val());
 	}
 	
-	var modal = $("#accountModal");
-	
+	//modal
 	$("#accountImg").on("click", function() {
-		modal.css("display", "block");
+		$("#accountModal").css("display", "block");
+	});
+	
+	$("#accountDeleteSpan").on("click", function() {
+		$("#accountDeleteModal").css("display", "block");
+	});
+	
+	$("#accountPwFindSpan").on("click", function() {
+		$("#accountPwFindModal").css("display", "block");
 	});
 	
 	$(".close").on("click", function() {
-		modal.css("display", "none");
+		$("#accountModal").css("display", "none");
+		$("#accountDeleteModal").css("display", "none");
+		$("#accountPwFindModal").css("display", "none");
 	});
 	
 	$("#addAccountBtn").on("click", function() {
@@ -31,6 +40,27 @@ $(document).ready(function() {
 		}
 		
 		$("#accountAddfrm").submit();
+	});
+	
+	$("#accountDeleteBtn").on("click", function() {
+		if($("#deletePw").val().trim().length <= 0) {
+			$("#deletePw").focus();
+			return;
+		}
+		$("#accountDeleteFrm").submit();
+	});
+	
+	$("#accountPwFindBtn").on("click", function() {
+		if($("#user_id").val().trim().length <= 0) {
+			$("#user_id").focus();
+			return;
+		}
+		
+		if($("#user_email").val().trim().length <= 0) {
+			$("#user_email").focus();
+			return;
+		}
+		$("#accountPwFindFrm").submit();
 	});
 	
 });

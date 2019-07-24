@@ -24,6 +24,8 @@ import kr.or.ddit.dbObject.model.TableVO;
 import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
 import kr.or.ddit.user.model.UserVO;
+import kr.or.ddit.user.service.IUserService;
+import kr.or.ddit.util.FindAccountPwByMail;
 
 @RequestMapping("/sqlEditor")
 @Controller
@@ -32,6 +34,9 @@ public class SqlEditorController {
 	
 	@Resource(name = "accountService")
 	private IAccountService accountService;
+	
+	@Resource(name = "userService")
+	private IUserService userService;
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
@@ -119,6 +124,13 @@ public class SqlEditorController {
 		accountVO.setUser_id_fk(user_id);
 		accountVO.setAccount_id(real_account_id);
 		
+		int cnt = accountService.getAccountCnt(real_account_id);
+		if(cnt > 0) {
+			msg = "DB계정명이 중복됩니다.";
+			model.addAttribute("msg", msg);
+			return sqlEditorMain(session, model);
+		}
+		
 		int result = accountService.insertAccount(accountVO);
 		if(result > 0) {
 			Map<String, String> map = new HashMap<String, String>();
@@ -127,21 +139,66 @@ public class SqlEditorController {
 			int createRes = accountService.createAccount(map);
 			int grantRes = accountService.grantAccount(map);
 			if(createRes == 0 || grantRes == 0) {
-				msg = "DB계정 생성 성공";
+				msg = "DB계정이 생성되었습니다.";
 			}else {
-				msg = "DB계정 생성 실패(Grant)";
+				msg = "DB계정 생성에 실패하였습니다.";
 			}
 		}else {
-			msg = "DB계정 생성 실패(Insert)";
+			msg = "DB계정 생성에 실패실패하였습니다.";
 		}
 		
 		model.addAttribute("msg", msg);
 		return sqlEditorMain(session, model);
 	}
 	
-	@RequestMapping(path = "/test")
-	public String test() {
-		return "/sqlEditor/test.tiles";
+	@RequestMapping(path = "/deleteAccount", method = RequestMethod.POST)
+	public String deleteAccount(String deletePw, String deleteId, HttpSession session, Model model) {
+		String msg = "";
+		logger.debug("deletePw : {}", deletePw);
+		logger.debug("deleteId : {}", deleteId);
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		String delete_id = deleteId + "_" + userVO.getUser_id();
+		
+		AccountVO accountVO = accountService.getAccountOne(delete_id);
+		
+		if(accountVO.getAccount_pw().equals(deletePw)) {
+			accountService.deleteAccount(delete_id);
+			int result = accountService.deleteAccountByTable(delete_id);
+			if(result > 0) {
+				msg = "DB계정이 삭제되었습니다.";
+			}else {
+				msg = "DB계정 삭제에 실패하였습니다.";
+			}
+		}else {
+			msg = "비밀번호가 일치하지 않습니다.";
+		}
+		model.addAttribute("msg", msg);
+		return sqlEditorMain(session, model);
 	}
+	
+	@RequestMapping(path = "/findPwAccount", method = RequestMethod.POST)
+	public String findPwAccount(String user_id, String user_email, String findId, HttpSession session, Model model) {
+		String msg = "";
+		UserVO userVO = userService.getUser(user_id);
+		if(userVO == null) {
+			msg = "일치하는 회원정보가 없습니다.";
+			return sqlEditorMain(session, model);
+		}
+		if(userVO.getUser_email().equals(user_email)) {
+			String find_id = findId + "_" + user_id;
+			AccountVO accountVO = accountService.getAccountOne(find_id);
+			new FindAccountPwByMail().sendMail(user_email, user_id, find_id, accountVO.getAccount_pw());
+			msg = "DB계정 비밀번호를 회원님의 메일으로 보내드렸습니다.";
+		}else {
+			msg = "일치하는 회원정보가 없습니다.";
+		}
+		model.addAttribute("msg", msg);
+		return sqlEditorMain(session, model);
+	}
+	
+//	@RequestMapping(path = "/test")
+//	public String test() {
+//		return "/sqlEditor/rightTest.tiles";
+//	}
 	
 }

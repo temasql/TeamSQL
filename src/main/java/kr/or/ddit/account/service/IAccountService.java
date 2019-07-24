@@ -131,5 +131,49 @@ public interface IAccountService {
 	* Method 설명 : DB계정의 프로시저 모두 가져오기 테스트
 	 */
 	List<FuncProceVO> getAccountAllProcedure(String account_id);
+
+	/**
+	 * 
+	* Method : getAccountCnt
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB계정이름으로 등록된 계정 수 얻어오기 
+	 */
+	int getAccountCnt(String account_id);
+
+	/**
+	 * 
+	* Method : getAccountOne
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB계정 한개의 정보 조회
+	 */
+	AccountVO getAccountOne(String account_id);
+
+	/**
+	 * 
+	* Method : deleteAccount
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB계정 삭제
+	 */
+	int deleteAccount(String account_id);
+
+	/**
+	 * 
+	* Method : deleteAccountByTable
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB계정 테이블에서 삭제
+	 */
+	int deleteAccountByTable(String account_id);
 	
 }

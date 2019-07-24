@@ -174,4 +174,60 @@ public class AccountService implements IAccountService{
 		return accountDao.getAccountAllProcedure(account_id);
 	}
 
+	/**
+	 * 
+	* Method : getAccountCnt
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB계정이름으로 등록된 계정 수 얻어오기 
+	 */
+	@Override
+	public int getAccountCnt(String account_id) {
+		return accountDao.getAccountCnt(account_id);
+	}
+
+	/**
+	 * 
+	* Method : getAccountOne
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB계정 한개의 정보 조회
+	 */
+	@Override
+	public AccountVO getAccountOne(String account_id) {
+		return accountDao.getAccountOne(account_id);
+	}
+
+	/**
+	 * 
+	* Method : deleteAccount
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB계정 삭제
+	 */
+	@Override
+	public int deleteAccount(String account_id) {
+		return accountDao.deleteAccount(account_id);
+	}
+
+	/**
+	 * 
+	* Method : deleteAccountByTable
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB계정 테이블에서 삭제
+	 */
+	@Override
+	public int deleteAccountByTable(String account_id) {
+		return accountDao.deleteAccountByTable(account_id);
+	}
+
 }
