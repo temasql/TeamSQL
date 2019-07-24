@@ -28,7 +28,8 @@
       		// id체크 후 상황에 따라 변하는 메시지
       		var msg = $("#idCheckMsg").val();
    			if(msg != ""){
-   				alert(msg)
+   				$('#idCheckMsg').after('<p>' + msg +'</p>');
+
    			}
    			
    			// 비밀번호 재확인에서 포커스 아웃됐을 때
