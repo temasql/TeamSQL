@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
+import kr.or.ddit.util.FindUserPwByMail;
 
 /**
 * UserController.java
@@ -78,9 +81,10 @@ public class UserController {
    */
    @RequestMapping(path = "/signIn", method = RequestMethod.POST)
    public String signInPost(@Valid UserVO userVo, BindingResult result
-		   ,MultipartFile profile) {
+		   ,MultipartFile profile, Model model) {
       
       if(result.hasErrors()) {
+    	  model.addAttribute("userVo", userVo);
          return "/user/signIn";
       }
       
@@ -89,6 +93,7 @@ public class UserController {
     	  // 로그인페이지로 이동
     	  return "/login/login.tiles";
       
+      model.addAttribute("userVo", userVo);
       return "/user/signIn";
    }
    
@@ -147,4 +152,132 @@ public class UserController {
 		model.addAttribute("userVo", userVo);
 		return "/user/signIn";
 	}
+	
+	/**
+	* Method : findUserId
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @param model
+	* @return
+	* Method 설명 : 아이디 찾기 ajax
+	*/
+	@RequestMapping("/findUserId")
+	public String findUserId(UserVO userVo, Model model) {
+		model.addAttribute("user_id", userService.findUserId(userVo));
+		return "jsonView";
+	}
+	
+	/**
+	* Method : findUserPw
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @param model
+	* @return
+	* Method 설명 : 비밀번호 찾기 ajax
+	*/
+	@RequestMapping("/findUserPw")
+	public String findUserPw(UserVO userVo, Model model) {
+		
+		String findUserPw = userService.findUserPw(userVo);
+		
+		if (findUserPw != null) {
+			userVo.setUser_pw(KISA_SHA256.encrypt(
+					new FindUserPwByMail().sendMail(
+							userVo.getUser_email(), userVo.getUser_id()))
+					);
+			userService.temporaryUpdateUserPw(userVo);
+		}
+		model.addAttribute("userVo", userVo);
+		return "jsonView";
+	}
+	
+	/**
+	* Method : logOut
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param session
+	* @return
+	* Method 설명 : header에 로그아웃 클릭 시 세션의 정보 삭제
+	*/
+	@RequestMapping("/logout")
+	public String logOut(HttpSession session) {
+		session.invalidate(); // session안에 있는 모든 정보를 삭제하는 메서드
+		return "/login/login.tiles";
+	}
+	
+	/**
+	* Method : myPageMain
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 마이페이지 조회
+	*/
+	@RequestMapping("/mypage")
+	public String myPageMain(HttpSession session, Model model) {
+		
+		model.addAttribute("userVo", (UserVO)session.getAttribute("USER_INFO"));
+		return "/user/myPageMain.tiles";
+	}
+	
+	/**
+	* Method : modifyUserGet
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @param model
+	* @return
+	* Method 설명 : 회원 정보 수정 요청 화면
+	*/
+	@RequestMapping(path = "/modifyUser", method = RequestMethod.GET)
+	public String modifyUserGet(String user_id, Model model) {
+		
+		UserVO userVo = userService.getUser(user_id);
+		
+		model.addAttribute("userVo", userVo);
+		return "/user/myPageModify.tiles";
+	}
+	
+	/**
+	* Method : modifyUserPost
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @param result
+	* @param model
+	* @return
+	* Method 설명 : 회원 정보 수정 응답 화면
+	*/
+	@RequestMapping(path = "/modifyUser", method = RequestMethod.POST)
+	public String modifyUserPost(@Valid UserVO userVo, BindingResult result ,
+			Model model, MultipartFile profile) {
+		
+		if(result.hasErrors()) {
+	    	  model.addAttribute("userVo", userVo);
+	         return "/user/myPageModify.tiles";
+	      }
+		if(userService.updateUser(userVo, profile) == 1) {
+			// 수정된 정보 가지고 오기
+			model.addAttribute("userVo", userService.getUser(userVo.getUser_id()));
+			return "/user/myPageMain.tiles";
+		}
+		return "/user/myPageModify.tiles";
+	}
+	
+	@RequestMapping("/deleteUser")
+	public String deleteUser(UserVO userVo, Model model, HttpSession session) {
+		
+		userVo.setUser_pw(KISA_SHA256.encrypt(userVo.getUser_pw()));
+		
+		int deleteUserCount = userService.deleteUser(userVo);
+		if (deleteUserCount == 1) {
+			session.invalidate();
+			model.addAttribute("userVo", userVo);
+		}
+		return "jsonView";
+	}
+	
 }

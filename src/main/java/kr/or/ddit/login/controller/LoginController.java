@@ -64,7 +64,8 @@ public class LoginController {
 		String encryptPassword = KISA_SHA256.encrypt(userVo.getUser_pw());
 		
 		// 입력받은 아이디에 해당하는 사용자 VO객체가 존재하고 VO에 비밀번호와 입력받은 비밀번호가 일치할 때
-		if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)) {
+		if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
+				&& loginUserVo.getExit_right().equals("N")) {
 			
 			// 로그인한 아이디에 해당하는 초대장 리스트
 			List<InviteVO> inviteList = inviteService.getInviteList(loginUserVo.getUser_id());
@@ -80,6 +81,11 @@ public class LoginController {
 			// 로그인한 사용자의 정보를 세션에 저장
 			session.setAttribute("USER_INFO", loginUserVo);
 			return "main.tiles";
+		}
+		if(loginUserVo.getExit_right().equals("Y")) {
+			System.out.println("=================!!!!!!!!!!!!===============");
+			model.addAttribute("deleteMsg", "탈퇴한 회원입니다.");
+			return "/login/login.tiles";
 		}
 		redirectAttributes.addAttribute("user_id", userVo.getUser_id());
 		redirectAttributes.addAttribute("user_pw", userVo.getUser_pw());

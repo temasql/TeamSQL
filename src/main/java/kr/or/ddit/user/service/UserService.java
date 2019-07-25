@@ -42,8 +42,8 @@ public class UserService implements IUserService{
 	    userVo.setUser_pw(KISA_SHA256.encrypt(userVo.getUser_pw()));
 	    
 	    // Oauth계정의 프로필 사진이 있으면 서버 profile폴더에 따로 이미지를 생성하지 않는다.
-	    if(userVo.getUser_path().equals(""))
-	    	userVo.setUser_path(ProfileUtil.insertProfile(profile, userVo));
+	    if(userVo.getUser_path() != null)
+    		userVo.setUser_path(ProfileUtil.insertProfile(profile, userVo));
 	    
 	    // 사용자 등록
 	    int userInsertCount = userDao.insertUser(userVo);
@@ -107,7 +107,13 @@ public class UserService implements IUserService{
 	* Method 설명 : 사용자 정보 수정
 	*/
 	@Override
-	public int updateUser(UserVO userVo) {
+	public int updateUser(UserVO userVo, MultipartFile profile) {
+		// 사용자 비밉런호 암호화 
+	    userVo.setUser_pw(KISA_SHA256.encrypt(userVo.getUser_pw()));
+	    
+	    // Oauth계정의 프로필 사진이 있으면 서버 profile폴더에 따로 이미지를 생성하지 않는다.
+		userVo.setUser_path(ProfileUtil.updateProfile(profile, userVo));
+	    
 		return userDao.updateUser(userVo);
 	}
 
@@ -120,8 +126,47 @@ public class UserService implements IUserService{
 	* Method 설명 : 파라미터 아이디에 해당하는 회원의 탈퇴 구분을 N에서 Y로 바꿈
 	*/
 	@Override
-	public int deleteUser(String user_id) {
-		return userDao.deleteUser(user_id);
+	public int deleteUser(UserVO userVo) {
+		return userDao.deleteUser(userVo);
+	}
+
+	/**
+	* Method : findUserId
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 : 사용자의 이름과 이메일을 입력하여 아이디 조회
+	*/
+	@Override
+	public String findUserId(UserVO userVo) {
+		return userDao.findUserId(userVo);
+	}
+
+	/**
+	* Method : findUserPw
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 : 사용자의 아이디와 이메일을 입력하여 아이디 조회
+	*/
+	@Override
+	public String findUserPw(UserVO userVo) {
+		return userDao.findUserPw(userVo);
+	}
+
+	/**
+	* Method : temporaryUpdateUserPw
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 : PW찾기 후 발송한 임시비밀번호를 암호화
+	*/
+	@Override
+	public int temporaryUpdateUserPw(UserVO userVo) {
+		return userDao.temporaryUpdateUserPw(userVo);
 	}
 
 }

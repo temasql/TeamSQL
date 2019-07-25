@@ -57,15 +57,46 @@ public interface IUserService {
 	* @return
 	* Method 설명 : 사용자 정보 수정
 	*/
-	int updateUser(UserVO userVo);
+	int updateUser(UserVO userVo, MultipartFile profile);
 
 	/**
 	* Method : delete
 	* 작성자 : 이중석
 	* 변경이력 :
-	* @param user_id
+	* @param userVo
 	* @return
 	* Method 설명 : 파라미터 아이디에 해당하는 회원의 탈퇴 구분을 N에서 Y로 바꿈
 	*/
-	int deleteUser(String user_id);
+	int deleteUser(UserVO userVo);
+	
+	/**
+	* Method : findUserId
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 : 사용자의 이름과 이메일을 입력하여 아이디 조회
+	*/
+	String findUserId(UserVO userVo);
+	
+	/**
+	 * Method : findUserPw
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * @param userVo
+	 * @return
+	 * Method 설명 : 사용자의 아이디와 이메일을 입력하여 아이디 조회
+	 */
+	String findUserPw(UserVO userVo);
+	
+	/**
+	* Method : temporaryUpdateUserPw
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 : PW찾기 후 발송한 임시비밀번호를 암호화
+	*/
+	int temporaryUpdateUserPw(UserVO userVo);
 }
+
