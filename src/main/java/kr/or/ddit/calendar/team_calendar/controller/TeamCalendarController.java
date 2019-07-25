@@ -47,9 +47,11 @@ public class TeamCalendarController {
 		
 		CrewVO crewVO = new CrewVO();
 		crewVO.setAccount_id_fk(account_id+"_"+userVO.getUser_id());
+//		crewVO.setAccount_id_fk("테스트 계정");
 		logger.debug("crewVO account_id : {}", crewVO.getAccount_id_fk());
 		
 		crewVO.setUser_id_fk(userVO.getUser_id());
+//		crewVO.setUser_id_fk("TEST_ID1");
 		session.setAttribute("CREW_INFO", crewVO);
 		
 		//해당 DB에 포함되어있는 사용자 리스트 반환하는 메서드
@@ -72,6 +74,7 @@ public class TeamCalendarController {
 	@RequestMapping("/readCal")
 	public String readCal(Model model, HttpSession session) {
 		CrewVO crewVO = (CrewVO) session.getAttribute("CREW_INFO");
+		logger.debug("crewVO : {}", crewVO);
 		String calList = service.readCal(crewVO);
 		
 		model.addAttribute("list", calList);
@@ -89,12 +92,12 @@ public class TeamCalendarController {
 	*/
 	@ResponseBody
 	@RequestMapping(path = "/insertCal", method = RequestMethod.POST)
-	public int insertCal(Model model, @RequestBody Map<String, Object> map, HttpSession session) {
+	public int insertCal(@RequestBody Map<String, Object> map, Model model, HttpSession session) {
 		logger.debug("map : {}", map);
 		TeamCalendarVO vo = new TeamCalendarVO();
 		CrewVO crewVO = (CrewVO) session.getAttribute("CREW_INFO");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		
 		//-------------------필 히 바꿀것!!!-------------------
 		vo.setUser_id_fk(crewVO.getUser_id_fk());
@@ -137,7 +140,7 @@ public class TeamCalendarController {
 		int maxSequence = service.maxSequence();
 		if(result>0) {
 			logger.debug("등록 성공");
-			logger.debug("시퀀스 값 : {}", result);
+			logger.debug("시퀀스 값 : {}", maxSequence);
 		}
 		return maxSequence;
 	}

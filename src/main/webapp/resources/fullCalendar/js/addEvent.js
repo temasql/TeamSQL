@@ -17,11 +17,6 @@ var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 var nameArray = userName.split(".jsp");
 var name = nameArray[0];
 
-/*
- 	밑에서 insert 성공 후 성공한 id 값을 담을 변수
- */
-var idData = 0;
-
 /* ****************
  *  새로운 일정 생성
  * ************** */
@@ -52,21 +47,7 @@ var newEvent = function (start, end, eventType) {
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
     	
-    	
-//        var eventData = {
-//        	  calendar_id: eventId,				
-//            calendar_title: editTitle.val(),		
-//            calendar_start_dt: editStart.val(),		
-//            calendar_end_dt: editEnd.val(),
-//            calendar_content: editDesc.val(),
-//            calendar_type: editType.val(),
-//            user_id_fk: name,
-//            calendar_background: editColor.val(),
-//            textColor: '#ffffff',
-//            allDay: false
-//        };
-    	
-//                _id: eventId,
+    	// json형태의 데이터
     	var eventData = {
                 title: editTitle.val(),
                 start: editStart.val(),
@@ -118,14 +99,15 @@ var newEvent = function (start, end, eventType) {
         */
         //새로운 일정 저장
         $.ajax({
-        	url: "/insertCal",					// 새로운 일정 저장 버튼 클릭 시 보내지는 URL
         	method : "post",
+        	url: "/insertCal",					// 새로운 일정 저장 버튼 클릭 시 보내지는 URL
         	data : JSON.stringify(eventData),	// Controller에서는 Map형태로 받는다, serialize도 가능
         	contentType: "application/json",
         	dataType : "json",
         	success: function (response) {
-        		idData = response;
-        		alert(response);
+        		$('#calendar').fullCalendar('removeEvents');
+        		$('#calendar').fullCalendar('refetchEvents');
+        		alert("등록 했쑝");
         	}
         });
     });
