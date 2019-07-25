@@ -19,6 +19,7 @@ $(document).ready(function(){
 	$("#deleteId").val($(this).text()); 
 	$("#findId").val($(this).text());
 	$("#updateId").val($(this).text());
+	$("#acc_id").val($(this).text());
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();

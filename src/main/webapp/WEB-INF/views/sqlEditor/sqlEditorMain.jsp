@@ -118,7 +118,7 @@
 	<section id="worksheet">
 		<textarea class="form-control" id="worksheetView" rows="16" cols="229"></textarea> <br>
 		<span class="badge badge-dark" id="resultViewSpan">Result View</span> <br>
-		<textarea class="form-control" id="resultView" rows="6" cols="229" readonly>asdjlas ajdlkasdjl</textarea>
+		<textarea class="form-control" id="resultView" rows="7" cols="229" readonly>asdjlas ajdlkasdjl</textarea>
 	</section>
 </div>
 
@@ -224,6 +224,10 @@
 	</form>
   </div>
 </div>
+
+<form id="calendarFrm">
+	<input type="hidden" id="acc_id" name="acc_id"/>
+</form>
 
 <!-- 우클릭 -->
 <ul class="contextmenu">
