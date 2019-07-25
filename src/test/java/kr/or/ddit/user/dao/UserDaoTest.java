@@ -3,6 +3,10 @@ package kr.or.ddit.user.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -146,7 +150,41 @@ public class UserDaoTest extends LogicTestEnv{
 		assertEquals(1, updateCount);
 	}
 	
+	/**
+	* Method : userListTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 회원 관리에서 일반 회원과 탈퇴하지 않고 블랙리스트가 아닌 회원만 조회 
+	*/
+	@Test
+	public void userListTest() {
+		/***Given***/
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("page", 1);
+		pageMap.put("pageSize", 10);
+		pageMap.put("search", "");
+		
+		/***When***/
+		List<UserVO>userList = userDao.userList(pageMap);
+		/***Then***/
+		assertEquals(10, userList.size());
+	}
 	
 	
+	/**
+	* Method : deleteUserMGTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 관리자가 체크박스로 사용자 탈퇴
+	*/
+	@Test
+	public void deleteUserMGTest() {
+		/***Given***/
+		String user_id = "TEST_ID20";
+		/***When***/
+		int deleteUserMGCount = userDao.deleteUserMG(user_id);
+		/***Then***/
+		assertEquals(1, deleteUserMGCount);
+	}
 
 }

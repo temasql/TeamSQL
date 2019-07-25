@@ -1,5 +1,8 @@
 package kr.or.ddit.user.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,14 +10,18 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
+import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.util.FindUserPwByMail;
@@ -278,6 +285,55 @@ public class UserController {
 			model.addAttribute("userVo", userVo);
 		}
 		return "jsonView";
+	}
+	
+	@RequestMapping(path = "/userManager", method = RequestMethod.POST)
+	public String userManager(@RequestParam(name = "searchfor", defaultValue = "") String search,
+			PageVo pageVo, Model model) {
+		
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("search", search);
+//		
+//		// 페이지 번호
+		pageMap.put("page", pageVo.getPage());
+//		
+//		// 한 페이지에 출력할 게시글 수
+		pageMap.put("pageSize", pageVo.getPageSize());
+//		
+		Map<String, Object> resultMap = userService.userList(pageMap);
+		List<UserVO>userList = (List<UserVO>) resultMap.get("userList");
+		int paginationSize = (int) resultMap.get("paginationSize");
+//		
+		model.addAttribute("userList", userList);
+		model.addAttribute("pageMap", pageMap);
+		model.addAttribute("paginationSize", paginationSize);
+		return "admin/userMGAjaxHtml";
+	}
+	
+	@RequestMapping(path = "/userManager", method = RequestMethod.GET)
+	public String userManager() {
+		
+		return "/admin/userMG.tiles";
+	}
+	
+	@RequestMapping(path = "/adminManager", method = RequestMethod.GET)
+	public String adminManager(@RequestParam(name = "searchfor", defaultValue = "") String search,
+			PageVo pageVo, Model model) {
+		return "/admin/adminMG/adminMGMain.tiles";
+	}
+	
+	@RequestMapping(path = "/adminManager", method = RequestMethod.GET)
+	public String adminManager() {
+		return "/admin/adminMG/adminMGMain.tiles";
+	}
+
+	@RequestMapping("/deleteUserMG")
+	public String deleteUserMG(String[] deleteCheck, Model model) {
+		
+		for (int i = 0; i < deleteCheck.length; i++) {
+			userService.deleteUserMG(deleteCheck[i]);
+		}
+		return userManager();
 	}
 	
 }

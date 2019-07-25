@@ -157,7 +157,7 @@ sup {
 }
 
 a {
-	color: #2196F3;
+	color: #444;
 	text-decoration: none;
 	background-color: transparent
 }
@@ -5286,7 +5286,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 	padding: 0.5rem 0.75rem;
 	margin-left: -1px;
 	line-height: 1.25;
-	color: #2196F3;
+	color: #444;
 	background-color: #fff;
 	border: 1px solid #dee2e6
 }
