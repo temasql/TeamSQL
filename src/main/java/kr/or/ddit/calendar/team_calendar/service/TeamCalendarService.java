@@ -71,7 +71,6 @@ public class TeamCalendarService implements ITeamCalendarService{
 	@Override
 	public String readCal(CrewVO crewVO) {
       List<TeamCalendarVO> list = teamCalendarDao.readCal(crewVO);
-      logger.debug("start : {}", list.get(0).getStart());
       logger.debug("End : {}", list.get(0).getEnd());
       String jsonData = "[";
       for(TeamCalendarVO calVO : list) {

@@ -32,7 +32,7 @@ $(document).ready(function() {
 		var h = 984; //팝업창의 세로크기(임의)
 		var x = screen.AvailWidth-w; //팝업창의 가로위치
 		var y = screen.AvailHeight-h; //팝업창의 세로위치 (상단에 띄우려면 0)
-		window.open("/cal?account_id"+temp, "_blank","scrollbar=no, resizeable=no, " +
+		window.open("/cal?account_id="+temp, "_blank","scrollbar=no, resizeable=no, " +
 							"top="+y+",left="+x+",width=912,height=984");
 	})
 	

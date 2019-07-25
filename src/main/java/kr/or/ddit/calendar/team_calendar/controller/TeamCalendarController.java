@@ -11,13 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
@@ -42,10 +40,16 @@ public class TeamCalendarController {
 	* Method 설명 : 캘린더 첫 접속 시 메서드
 	*/
 	@RequestMapping("/cal")
-	public String calendar(HttpSession session, Model model) {
+	public String calendar(HttpSession session, Model model, String account_id) {
+		logger.debug("account_id : {}", account_id);
+		
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		
 		CrewVO crewVO = new CrewVO();
-		crewVO.setAccount_id_fk("테스트 계정");
-		crewVO.setUser_id_fk("TEST_ID1");
+		crewVO.setAccount_id_fk(account_id+"_"+userVO.getUser_id());
+		logger.debug("crewVO account_id : {}", crewVO.getAccount_id_fk());
+		
+		crewVO.setUser_id_fk(userVO.getUser_id());
 		session.setAttribute("CREW_INFO", crewVO);
 		
 		//해당 DB에 포함되어있는 사용자 리스트 반환하는 메서드
@@ -69,8 +73,6 @@ public class TeamCalendarController {
 	public String readCal(Model model, HttpSession session) {
 		CrewVO crewVO = (CrewVO) session.getAttribute("CREW_INFO");
 		String calList = service.readCal(crewVO);
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
 		
 		model.addAttribute("list", calList);
 		return "jsonView";
