@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="DDL_HISTORY">
+<mapper namespace="history">
 
 	<!-- Insert -->
 	<insert id="insert" parameterType="historyVo">
@@ -16,18 +16,25 @@
 		)
 	</insert>
 	
-	<!-- SelectOne -->
-	<select id="get" parameterType="String" resultType="historyVo">
-		SELECT *
-		FROM DDL_HISTORY
-		WHERE ID = #{id}
+	<!-- DB계정 리스트 -->
+	<select id="accountList" parameterType="String" resultType="String">
+		select account_id
+		from account
+		where user_id_fk = #{user_id}
+		order by account_id desc
 	</select>
 	
-	<!-- SelectList -->
-	<select id="list" resultType="historyVo">
-		SELECT *
-		FROM DDL_HISTORY
+	<!-- DB계정명,마지막변경일 리스트 -->
+	<select id="changedList" parameterType="String" resultType="historyVo">
+		select object_owner,
+		       max(exec_dtm)
+		from DDL_HISTORY
+		where object_owner = #{account_id}
+		group by object_owner
+		
 	</select>
+	
+	
 	
 	<select id="map" parameterType="map" resultType="historyVo">
 		SELECT *

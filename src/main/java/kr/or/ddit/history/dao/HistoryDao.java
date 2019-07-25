@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.history.model.HistoryVO;
 
-//@Repository
+@Repository
 public class HistoryDao implements IHistoryDao{
 
 	@Resource(name = "sqlSession")
@@ -21,15 +21,34 @@ public class HistoryDao implements IHistoryDao{
 		return sqlSession.insert("history.insert", historyVo);
 	}
 	
+	/**
+	 * 
+	* Method : accountList
+	* 작성자 : PC20
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : DB계정명 리스트 조회
+	 */
 	@Override
-	public HistoryVO get(String id) {
-		return sqlSession.selectOne("history.get", id);
+	public List<String> accountList(String user_id) {
+		return sqlSession.selectList("history.accountList",user_id);
 	}
 	
+	/**
+	 * 
+	* Method : accountAndChangedList
+	* 작성자 : PC20
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB 계정명 / 변경일자 리스트 조회
+	 */
 	@Override
-	public List<HistoryVO> list() {
-		return sqlSession.selectList("history.list");
+	public List<HistoryVO> changedList(String account_id) {
+		return sqlSession.selectList("history.changedList",account_id);
 	}
+	
 
 	@Override
 	public List<HistoryVO> map(Map<String, Object> map) {
@@ -46,6 +65,5 @@ public class HistoryDao implements IHistoryDao{
 		return sqlSession.delete("history.delete", id);
 	}
 
-	
 
 }
