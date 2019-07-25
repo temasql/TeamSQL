@@ -159,6 +159,35 @@ public class UserController {
 		model.addAttribute("userVo", userVo);
 		return "/user/signIn";
 	}
+	@RequestMapping("/adminIdCheck")
+	public String adminIdCheck(UserVO userVo, Model model) {
+		
+		// 입력한 아이디에 해당하는 회원정보
+		UserVO checkUser = userService.getUser(userVo.getUser_id());
+		
+		// 입력한 아이디의 정규식 검사
+		Pattern pattern = Pattern.compile("^[a-zA-Z]+[a-zA-Z0-9]{4,12}");  
+		Matcher match = pattern.matcher(userVo.getUser_id()); 
+		boolean bool = match.matches();
+		
+		String msg = "형식에 맞게 아이디를 입력해주세요";
+		
+		// 아이디가 정규식에 맞다면
+		if(bool) {
+			
+			// 입력한 아이뎅 해당하는 회원정보가 없으면
+			if(checkUser == null) {
+				msg = "사용가능한 아이디입니다.";
+				model.addAttribute("btnSignIn", "true");
+			} else {
+				msg = "이미 사용중인 아이디입니다.";
+			}
+			
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("userVo", userVo);
+		return "/admin/adminMG/adminMGInsert.tiles";
+	}
 	
 	/**
 	* Method : findUserId
@@ -319,7 +348,24 @@ public class UserController {
 	@RequestMapping(path = "/adminManager", method = RequestMethod.POST)
 	public String adminManager(@RequestParam(name = "searchfor", defaultValue = "") String search,
 			PageVo pageVo, Model model) {
-		return "/admin/adminMG/adminMGMain.tiles";
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("search", search);
+//		
+//		// 페이지 번호
+		pageMap.put("page", pageVo.getPage());
+//		
+//		// 한 페이지에 출력할 게시글 수
+		pageMap.put("pageSize", pageVo.getPageSize());
+//		
+		Map<String, Object> resultMap = userService.adminList(pageMap);
+		List<UserVO>adminList = (List<UserVO>) resultMap.get("adminList");
+		int paginationSize = (int) resultMap.get("paginationSize");
+//		
+		model.addAttribute("adminList", adminList);
+		model.addAttribute("pageMap", pageMap);
+		model.addAttribute("paginationSize", paginationSize);
+		
+		return "/admin/adminMG/adminMGAjaxHtml";
 	}
 	
 	@RequestMapping(path = "/adminManager", method = RequestMethod.GET)
@@ -327,6 +373,39 @@ public class UserController {
 		return "/admin/adminMG/adminMGMain.tiles";
 	}
 
+	@RequestMapping("/deleteAdminMG")
+	public String deleteAdminMG(String[] deleteCheck, Model model) {
+		
+		for (int i = 0; i < deleteCheck.length; i++) {
+			userService.deleteUserMG(deleteCheck[i]);
+		}
+		return adminManager();
+	}
+	
+   @RequestMapping(path = "/insertAdmin", method = RequestMethod.GET)
+   public String insertAdminGet(UserVO userVo, Model model) { 
+	   model.addAttribute("userVo", userVo);
+	   return "/admin/adminMG/adminMGInsert.tiles"; 
+   }
+	
+   @RequestMapping(path = "/insertAdmin", method = RequestMethod.POST)
+   public String signInPost(@Valid UserVO userVo, BindingResult result, Model model) {
+      
+      if(result.hasErrors()) {
+    	  model.addAttribute("userVo", userVo);
+         return "/admin/adminMG/adminMGInsert.tiles";
+      }
+      
+      // 등록
+      if(userService.insertAdmin(userVo) == 1)
+    	  // 로그인페이지로 이동
+    	  return adminManager();
+      
+      model.addAttribute("userVo", userVo);
+      return "/admin/adminMG/adminMGInsert.tiles";
+   }
+   
+   
 	@RequestMapping("/deleteUserMG")
 	public String deleteUserMG(String[] deleteCheck, Model model) {
 		

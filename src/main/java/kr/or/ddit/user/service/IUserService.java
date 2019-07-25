@@ -19,6 +19,8 @@ public interface IUserService {
 	*/
 	int insertUser(UserVO userVo, MultipartFile profile);
 	
+	int insertAdmin(UserVO userVo);
+	
 	/**
 	* Method : get
 	* 작성자 : 이중석
@@ -38,6 +40,15 @@ public interface IUserService {
 	* Method 설명 : 유저 리스트
 	*/
 	Map<String, Object> userList(Map<String, Object> pageMap);
+	
+	/**
+	 * Method : list
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 관리자 리스트
+	 */
+	Map<String, Object> adminList(Map<String, Object> pageMap);
 	
 	/**
 	* Method : map

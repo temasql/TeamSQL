@@ -19,6 +19,21 @@
 			,#{user_path, jdbcType=VARCHAR}
 		)
 	</insert>
+
+	<insert id="insertAdmin" parameterType="userVo">
+		INSERT INTO USERS
+		VALUES
+		(
+			 #{user_id}
+			,'A'
+			,'N'
+			,#{user_pw}
+			,#{user_name}
+			,#{user_email}
+			,SYSDATE
+			,#{user_path, jdbcType=VARCHAR}
+		)
+	</insert>
 	
 	<!-- 회원 아이디에 해당하는 사용자 정보 조회 -->
 	<select id="getUser" parameterType="String" resultType="userVo">
@@ -69,6 +84,35 @@
 	    FROM USERS
 	    WHERE EXIT_RIGHT = 'N'
 	    AND USER_RIGHT = 'C'
+	    AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST )
+	    AND USER_ID LIKE '%'||#{search}||'%'
+	</select>
+	
+	<!-- 관리자 페이징 처리 -->
+	<select id="adminList" parameterType="map" resultType="userVo">
+		<![CDATA[ 
+			SELECT *
+			FROM 
+				(SELECT A.*, ROWNUM RN 
+				FROM 
+					(SELECT A.USER_ID, A.USER_EMAIL, A.USER_DT
+					FROM  USERS A
+	                   WHERE EXIT_RIGHT = 'N'
+	                   AND USER_RIGHT = 'A'
+	                   AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST )
+	                   AND USER_ID LIKE '%'||#{search}||'%'
+					ORDER BY USER_ID) A) 
+			WHERE RN >= (#{page} - 1) * #{pageSize} + 1 
+			AND   RN <=  #{page} * #{pageSize} 
+		]]>
+	</select>
+	
+	<!-- 검색한 결과의 관리자 수 -->
+	<select id="adminSearchCount" parameterType="string" resultType="int" >
+		SELECT COUNT(USER_ID)
+	    FROM USERS
+	    WHERE EXIT_RIGHT = 'N'
+	    AND USER_RIGHT = 'A'
 	    AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST )
 	    AND USER_ID LIKE '%'||#{search}||'%'
 	</select>

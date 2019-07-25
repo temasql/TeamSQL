@@ -61,6 +61,7 @@ public class UserService implements IUserService{
 	    
 		return userInsertCount;
 	}
+	
 
 	/**
 	* Method : getUser
@@ -101,6 +102,37 @@ public class UserService implements IUserService{
 		// Map객체에 페이징 처리된 게시글 리스트와 페이지의 갯수를 담아서 리턴한다
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("userList", userList);
+		resultMap.put("paginationSize", paginationSize);
+		
+		return resultMap;
+	}
+	
+	/**
+	 * Method : userList
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 관리자 리스트
+	 */
+	@Override
+	public Map<String, Object> adminList(Map<String, Object> pageMap) {
+		// 검색한 내용에 해당하는 회원이 페이징 처리 되어 리스트에 담긴다
+		List<UserVO> adminList = userDao.adminList(pageMap);
+		
+		// 검색한 내용에 해당하는 회원의 수
+		String search = (String) pageMap.get("search");
+		int adminSearchCount = userDao.adminSearchCount(search);
+		
+		// 컨트롤러에서 담아온 pageSize
+		int pageSize = (int) pageMap.get("pageSize");
+		int paginationSize = (int) Math.ceil((double)adminSearchCount/pageSize);
+		
+		// 게시글이 없어서 paginationSize가 0 일경우 임의로 1설정
+		paginationSize = paginationSize == 0 ? 1 : paginationSize;
+		
+		// Map객체에 페이징 처리된 게시글 리스트와 페이지의 갯수를 담아서 리턴한다
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("adminList", adminList);
 		resultMap.put("paginationSize", paginationSize);
 		
 		return resultMap;
@@ -215,6 +247,28 @@ public class UserService implements IUserService{
 	@Override
 	public int deleteUserMG(String user_id) {
 		return userDao.deleteUserMG(user_id);
+	}
+
+
+	/**
+	* Method : insertAdmin
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public int insertAdmin(UserVO userVo) {
+		// 사용자 비밉런호 암호화 
+	    userVo.setUser_pw(KISA_SHA256.encrypt(userVo.getUser_pw()));
+	    
+		userVo.setUser_path(ProfileUtil.insertAdminProfile());
+	    
+	    // 사용자 등록
+	    int adminInsertCount = userDao.insertAdmin(userVo);
+	    
+		return adminInsertCount;
 	}
 	
 	

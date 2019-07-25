@@ -54,6 +54,19 @@ public class UserDao implements IUserDao{
 	public List<UserVO> userList(Map<String, Object> pageMap) {
 		return sqlSession.selectList("user.userList", pageMap);
 	}
+	
+	/**
+	 * Method : userList
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * @param pageMap
+	 * @return
+	 * Method 설명 : 관리자 페이징 처리
+	 */
+	@Override
+	public List<UserVO> adminList(Map<String, Object> pageMap) {
+		return sqlSession.selectList("user.adminList", pageMap);
+	}
 
 	@Override
 	public List<UserVO> map(Map<String, Object> map) {
@@ -150,6 +163,32 @@ public class UserDao implements IUserDao{
 	@Override
 	public int deleteUserMG(String user_id) {
 		return sqlSession.update("user.deleteUserMG", user_id);
+	}
+
+	/**
+	* Method : adminSearchCount
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param search
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public int adminSearchCount(String search) {
+		return sqlSession.selectOne("user.adminSearchCount", search);
+	}
+
+	/**
+	* Method : insertAdmin
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public int insertAdmin(UserVO userVo) {
+		return sqlSession.insert("user.insertAdmin", userVo);
 	}
 
 }
