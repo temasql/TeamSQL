@@ -37,6 +37,7 @@ public class CrewController {
 			
 			// 초대장을 지운다.
 			inviteService.deleteInvite(invite.getInvite_id());
+			return "main.tiles";
 		}
 		
 		return "/crew/crewMain.tiles";
