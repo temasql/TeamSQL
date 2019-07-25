@@ -7,7 +7,7 @@
 
 		var list = new Array();
 		<c:forEach items="${inviteList}" var="invite">
-			var result = confirm("초대장이 왔습니다 수락 하시겠습니까?")
+			var result = confirm("${invite.account_id_fk}에서 초대장이 왔습니다 수락 하시겠습니까?")
 			if(result){
 				$("#inviteCheck").val("true");
 				$("#invite_id").val("${invite.invite_id}")
@@ -15,8 +15,9 @@
 				$("#user_id_fk").val("${invite.user_id_fk}")
 				$("#mainForm").submit();
 			}else{
+				$("#invite_id").val("${invite.invite_id}")
 				$("#inviteCheck").val("false");
-// 				$("#mainForm").submit();
+				$("#mainForm").submit();
 			}
 		</c:forEach>
 		
