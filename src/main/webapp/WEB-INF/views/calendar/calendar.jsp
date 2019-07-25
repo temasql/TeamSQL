@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -18,7 +19,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <link rel="stylesheet" href="/resources/fullCalendar/css/main.css">
-
 </head>
 
 <body>
@@ -142,11 +142,13 @@
                 	<!-- 사용자(유저) -->
                     <label for="calendar_view">등록자별</label>
                     <div class="input-group">
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="TEST_ID1" checked>TEST_ID1</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="다현" checked>다현</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="사나" checked>사나</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="나연" checked>나연</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효" checked>지효</label>
+                    	<c:forEach items="${userList}" var="userVO">
+	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${userVO.getUser_id()}" checked>${userVO.getUser_name()}</label>
+<!-- 	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="다현" checked>다현</label> -->
+<!-- 	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="사나" checked>사나</label> -->
+<!-- 	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="나연" checked>나연</label> -->
+<!-- 	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효" checked>지효</label> -->
+                    	</c:forEach>
                     </div>
                 </div>
             </div>

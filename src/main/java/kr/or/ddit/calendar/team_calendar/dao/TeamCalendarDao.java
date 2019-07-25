@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
+import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.user.model.UserVO;
 
 @Repository
 public class TeamCalendarDao implements ITeamCalendarDao{
@@ -54,8 +56,8 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 	* Method 설명 : DB의 모든 일정을 조회
 	*/
 	@Override
-	public List<TeamCalendarVO> readCal() {
-		return sqlSession.selectList("teamCalendar.readCal");
+	public List<TeamCalendarVO> readCal(CrewVO crewVO) {
+		return sqlSession.selectList("teamCalendar.readCal", crewVO);
 	}
 
 	@Override
@@ -102,4 +104,16 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 		return sqlSession.delete("teamCalendar.deleteCal", calendar_id);
 	}
 
+	/**
+	* Method : getUserNameList
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param crewVO
+	* @return
+	* Method 설명 : DB계정명을 입력 받아서 해당 DB계정에 있는 모든 사용자를 반환 하는 메서드 
+	*/
+	@Override
+	public List<UserVO> getUserNameList(CrewVO crewVO) {
+		return sqlSession.selectList("teamCalendar.getUserNameList", crewVO);
+	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.calendar.team_calendar.dao.ITeamCalendarDao;
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
+import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.user.model.UserVO;
 
 @Service
 public class TeamCalendarService implements ITeamCalendarService{
@@ -66,8 +69,8 @@ public class TeamCalendarService implements ITeamCalendarService{
 	* Method 설명 : 현재 모든 리스트를 반환 - 수정 예정(해당 DB계정에 대해서만 가져올 예정)
 	*/
 	@Override
-	public String readCal() {
-      List<TeamCalendarVO> list = teamCalendarDao.readCal();
+	public String readCal(CrewVO crewVO) {
+      List<TeamCalendarVO> list = teamCalendarDao.readCal(crewVO);
       logger.debug("start : {}", list.get(0).getStart());
       logger.debug("End : {}", list.get(0).getEnd());
       String jsonData = "[";
@@ -123,4 +126,16 @@ public class TeamCalendarService implements ITeamCalendarService{
 		return teamCalendarDao.deleteCal(calendar_id);
 	}
 
+	/**
+	* Method : getUserNameList
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param crewVO
+	* @return
+	* Method 설명 : DB계정명을 입력 받아서 해당 DB계정에 있는 모든 사용자를 반환 하는 메서드 
+	*/
+	@Override
+	public List<UserVO> getUserNameList(CrewVO crewVO) {
+		return teamCalendarDao.getUserNameList(crewVO);
+	}
 }
