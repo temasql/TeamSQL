@@ -36,9 +36,17 @@
 		)
 	</insert>
 	
+	<!-- calendar_seq의 최댓값을 조회하는 쿼리 -->
 	<select id="maxSequence" resultType="int">
 		SELECT	MAX(CALENDAR_ID)
 		FROM	TEAM_CALENDAR
+	</select>
+	
+	<select id="getUserNameList" parameterType="crewVO" resultType="userVo">
+		SELECT  U.USER_ID,
+				U.USER_NAME
+		FROM    USERS U, CREW C
+		WHERE   C.ACCOUNT_ID_FK = #{account_id_fk}
 	</select>
 	
 	<!-- SelectOne -->
@@ -49,7 +57,7 @@
 	</select>
 	
 	<!-- SelectList -->
-	<select id="readCal" resultType="teamCalendarVo">
+	<select id="readCal" parameterType="crewVo" resultType="teamCalendarVo">
 		SELECT  CALENDAR_ID,
 		        CATEGORY_ID_FK,
 		        ACCOUNT_ID_FK,
@@ -62,6 +70,7 @@
 		        CALENDAR_BACKGROUND,
 		        CALENDAR_TYPE
 		FROM    TEAM_CALENDAR
+		WHERE	ACCOUNT_ID_FK = #{account_id_fk}
 	</select>
 	
 	<select id="map" parameterType="map" resultType="teamCalendarVo">

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
+import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.user.model.UserVO;
 
 
 public interface ITeamCalendarService {
@@ -14,7 +16,7 @@ public interface ITeamCalendarService {
 	
 	TeamCalendarVO get(String id);
 	
-	String readCal();
+	String readCal(CrewVO crewVO);
 	
 	Map<String, Object> map(Map<String, Object> map);
 	
@@ -23,4 +25,6 @@ public interface ITeamCalendarService {
 	int updateDropCal(TeamCalendarVO teamCalendarVO);
 	
 	int deleteCal(int calendar_id);
+	
+	List<UserVO> getUserNameList(CrewVO crewVO);
 }
