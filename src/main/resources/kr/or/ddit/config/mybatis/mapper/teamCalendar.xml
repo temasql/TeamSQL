@@ -47,6 +47,7 @@
 				U.USER_NAME
 		FROM    USERS U, CREW C
 		WHERE   C.ACCOUNT_ID_FK = #{account_id_fk}
+		AND     U.USER_ID = #{user_id_fk}
 	</select>
 	
 	<!-- SelectOne -->
