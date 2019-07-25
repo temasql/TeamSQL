@@ -105,13 +105,7 @@ var editEvent = function (event, element, view) {
         $("#calendar").fullCalendar('removeEvents', [event._id]);
         eventModal.modal('hide');
         
-        if(isNaN(event._id)){
-        	event._id = idData;
-        	event._id = Number(event._id);
-        	alert(event._id);
-        }
         var id = event._id;
-        alert(id);
 
         //삭제시
         $.ajax({

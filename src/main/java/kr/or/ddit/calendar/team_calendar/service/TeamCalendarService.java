@@ -1,5 +1,6 @@
 package kr.or.ddit.calendar.team_calendar.service;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,22 +71,23 @@ public class TeamCalendarService implements ITeamCalendarService{
 	*/
 	@Override
 	public String readCal(CrewVO crewVO) {
+	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm");
       List<TeamCalendarVO> list = teamCalendarDao.readCal(crewVO);
-      logger.debug("End : {}", list.get(0).getEnd());
+      logger.debug("End : {}", list.get(0).getCalendar_start_dt());
       String jsonData = "[";
       for(TeamCalendarVO calVO : list) {
          jsonData += "{\"_id\"" + ":"+ calVO.getCalendar_id()  + ","
                 + "\"title\"" + ":" + "\"" + calVO.getCalendar_title() + "\"" + "," 
                 + "\"description\"" + ":" + "\"" + calVO.getCalendar_content() + "\"" + "," 
-                + "\"start\"" + ":" + "\"" + calVO.getStart() + "\"" + ","
-                + "\"end\"" + ":" + "\"" + calVO.getEnd() + "\"" + ","
+                + "\"start\"" + ":" + "\"" + sdf.format(calVO.getCalendar_start_dt()) + "\"" + ","
+                + "\"end\"" + ":" + "\"" + sdf.format(calVO.getCalendar_end_dt()) + "\"" + ","
                 + "\"username\"" + ":" + "\"" + calVO.getUser_id_fk() + "\"" + ","
                 + "\"type\"" + ":" + "\"" + calVO.getCalendar_type() + "\"" + ","
                 + "\"textColor\"" + ":" + "\"" + "#ffffff" + "\"" + ","
                 + "\"backgroundColor\"" + ":" + "\"" + calVO.getCalendar_background() + "\"" + ","
          		+ "\"allDay\"" + ":" + "false" + "},";
-         logger.debug("start : {}", calVO.getStart());
-         logger.debug("end : {}", calVO.getEnd());
+//         logger.debug("end : {}", calVO.getEnd());
+//         logger.debug("포맷한 것 start : {}", sdf.format(calVO.getStart()));
       }
       jsonData = jsonData.substring(0, jsonData.lastIndexOf(","));
       jsonData += "]";

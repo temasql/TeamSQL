@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,12 +69,20 @@ public class TeamCalendarControllerTest extends ControllerTestEnv{
 	@Test
 	public void readCalTest() throws Exception {
 		/***Given***/
+		CrewVO crewVO = new CrewVO();
+		crewVO.setAccount_id_fk("테스트 계정");
+		crewVO.setUser_id_fk("TEST_ID1");
+		
+		
 		/***When***/
-		MvcResult mvcResult = mockMvc.perform(post("")).andReturn();
+		MvcResult mvcResult = mockMvc.perform(get("/readCal").sessionAttr("CREW_INFO", crewVO)).andReturn();
+		HttpSession session = mvcResult.getRequest().getSession();
+		
 		ModelAndView mav = mvcResult.getModelAndView();
 		String viewName = mav.getViewName();
+		
 		/***Then***/
-		assertEquals("", viewName);
+		assertEquals("jsonView", viewName);
 		
 	}
 	
