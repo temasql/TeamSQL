@@ -184,6 +184,10 @@ $(document).ready(function() {
 				if (e.keyCode == 17) ctrlDown = false;
 				if (e.keyCode == 13) ctrlDown = false;
 			});
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/sql");
+	
 	
 });
 
