@@ -1,6 +1,10 @@
 package kr.or.ddit.user.model;
 
+import java.util.Date;
+
 import javax.validation.constraints.Pattern;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
 * UserVO.java
@@ -34,6 +38,9 @@ public class UserVO {
 	@Pattern(regexp = "^[a-z0-9_+.-]+@([a-z0-9-]+\\.)+[a-z0-9]{2,4}$")
 	private String user_email;			// 이메일
 	private String user_path;			// 사진 경로
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date user_dt; // 가입일
+	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -76,13 +83,20 @@ public class UserVO {
 	public void setUser_path(String user_path) {
 		this.user_path = user_path;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_right=" + user_right + ", exit_right=" + exit_right + ", user_pw="
 				+ user_pw + ", user_name=" + user_name + ", user_email=" + user_email + ", user_path=" + user_path
-				+ "]";
+				+ ", user_dt=" + user_dt + "]";
 	}
-	
+	public Date getUser_dt() {
+		return user_dt;
+	}
+	public void setUser_dt(Date user_dt) {
+		this.user_dt = user_dt;
+	}
 	public UserVO() {
 		
 	}

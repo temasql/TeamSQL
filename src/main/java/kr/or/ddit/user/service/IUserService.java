@@ -37,7 +37,7 @@ public interface IUserService {
 	* @return
 	* Method 설명 : 유저 리스트
 	*/
-	List<UserVO> userList();
+	Map<String, Object> userList(Map<String, Object> pageMap);
 	
 	/**
 	* Method : map
@@ -98,5 +98,27 @@ public interface IUserService {
 	* Method 설명 : PW찾기 후 발송한 임시비밀번호를 암호화
 	*/
 	int temporaryUpdateUserPw(UserVO userVo);
+	
+	/**
+	* Method : userSearchCount
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : 사용자 아이디 검색 결과에 해당하는 일반 회원 수 
+	*/
+	int userSearchCount(String user_id);
+	
+	/**
+	* Method : deleteUserMG
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : 관리자가 체크박스로 사용자 탈퇴
+	*/
+	int deleteUserMG(String user_id);
+	
 }
+
 

@@ -13,8 +13,8 @@
  <nav class="navMenu">
 	<ul class="ul-header-one">
 		<c:choose>
-			<c:when test="${user_right eq 'A' }">
-				<li><a class="aNav" href="#">회원관리</a></li>
+			<c:when test="${USER_INFO.user_right eq 'A' }">
+				<li><a class="aNav" href="${cp }/user/userManager">회원관리</a></li>
 				<li><a class="aNav" href="#">블랙릭스트관리</a></li>
 				<li><a class="aNav" href="#">공지사항</a></li>
 				<li class="one"><a class="aNav" href="#">게시판관리</a>
@@ -24,7 +24,7 @@
 					</ul>
 				</li>
 				<li><a class="aNav" href="#">퀴즈관리</a></li>
-				<li><a class="aNav" href="#">관리자관리</a></li>
+				<li><a class="aNav" href="${cp }/user/adminManager">관리자관리</a></li>
 			</c:when>
 			<c:otherwise>
 			<li><a class="aNav" href="${cp}/sqlEditor/sqlEditorMain">SQL에디터</a></li>
