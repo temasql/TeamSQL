@@ -120,13 +120,20 @@ $(document).ready(function() {
 			method : "get",
 			data : "dragText=" + dragText,
 			success : function(data) {
+				console.log(data);
 				var result = "";
 				for (var i = 0; i < data.length; i++) {
-					result += data[i] + "\n";
+					var temp = data[i].replace(/---/gi, "──");
+					result += temp + "\n";
 				}
 				$("#resultView").text(result);
 			}
 		});
+	});
+	
+	// 워크시트 예약어 css 변경
+	$(document).keyup(function(e) {
+		var temp = $("#worksheetView").val();
 	});
 	
 	// 컨트롤 + 엔터 이벤트
@@ -144,10 +151,26 @@ $(document).ready(function() {
 			
 			$.ajax({
 				url : "/worksheet/run",
+				dataType : "json",
 				method : "get",
 				data : "dragText=" + dragText,
 				success : function(data) {
+					var view = "";
+					console.log(data);
+					for (var i = 0; i < data.iterator.length; i++) {
+						view += data.iterator[i] + " | ";
+					}
+					view += "\n";
 					
+					for (var i = 0; i < data.resultList.length; i++) {
+						for (var j = 0; j < data.iterator.length; j++) {
+							var temp = data.iterator[j]; // "USER_DT"
+							view += data.resultList[i][temp] + " | ";
+						}
+						view += "\n";
+					}
+					
+					$("#resultView").text(view);
 				}
 			});
 			
