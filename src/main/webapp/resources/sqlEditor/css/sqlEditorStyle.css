@@ -26,6 +26,17 @@
 	border: 1px solid;
 }
 
+#sqlEditorView {
+	width: 100%;
+    height: 70%;
+}
+
+#editor {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 #resultViewSpan{
 	margin-left: 10px;
 }
@@ -87,4 +98,3 @@
     text-decoration: none;
     cursor: pointer;
 }
-
