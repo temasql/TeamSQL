@@ -17,6 +17,8 @@ public interface IUserDao {
 	*/
 	int insertUser(UserVO userVo);
 	
+	int insertAdmin(UserVO userVo);
+	
 	/**
 	* Method : get
 	* 작성자 : 이중석
@@ -36,6 +38,15 @@ public interface IUserDao {
 	* Method 설명 : 유저 리스트
 	*/
 	List<UserVO> userList(Map<String, Object> pageMap);
+
+	/**
+	 * Method : list
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 유저 리스트
+	 */
+	List<UserVO> adminList(Map<String, Object> pageMap);
 	
 	/**
 	* Method : map
@@ -106,6 +117,16 @@ public interface IUserDao {
 	* Method 설명 : 검색어에 해당하는 이용가능한 일반회원 수
 	*/
 	int userSearchCount(String search);
+	
+	/**
+	 * Method : userSearchCount
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * @param search
+	 * @return
+	 * Method 설명 : 검색어에 해당하는 이용가능한 일반회원 수
+	 */
+	int adminSearchCount(String search);
 	
 	/**
 	* Method : deleteUserMG

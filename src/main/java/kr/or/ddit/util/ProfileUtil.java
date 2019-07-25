@@ -111,6 +111,12 @@ public class ProfileUtil {
 		}
 	}
 	
+	public static String insertAdminProfile() {
+		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		
+		return req.getServletContext().getRealPath(File.separator + "resources" + File.separator + "img"+ File.separator +"logo.png");
+	}
+	
 	public static String updateProfile(MultipartFile profile, UserVO userVo) {
 		if (profile.getSize() > 0 && profile != null) {
 			String fileName = profile.getOriginalFilename();
