@@ -316,7 +316,7 @@ public class UserController {
 		return "/admin/userMG.tiles";
 	}
 	
-	@RequestMapping(path = "/adminManager", method = RequestMethod.GET)
+	@RequestMapping(path = "/adminManager", method = RequestMethod.POST)
 	public String adminManager(@RequestParam(name = "searchfor", defaultValue = "") String search,
 			PageVo pageVo, Model model) {
 		return "/admin/adminMG/adminMGMain.tiles";
