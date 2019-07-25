@@ -230,5 +230,5 @@
   <li><span id="accountDeleteSpan">DB계정 삭제</span></li>
   <li><span id="accountPwFindSpan">DB계정 PW찾기</span></li>
   <li><span id="accountPwUpdateSpan">DB계정 PW변경</span></li>
-  <li><span>팀 일정관리</span></li>
+  <li id="calendarPopup"><span>팀 일정관리</span></li>
 </ul>
