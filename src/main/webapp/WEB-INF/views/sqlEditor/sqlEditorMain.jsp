@@ -7,6 +7,7 @@
 <script src="${cp}/resources/sqlEditor/js/sqlEditorJS.js"></script>
 <script src="${cp}/resources/sqlEditor/js/treeMenu.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClick.js"></script>
+<script src="${cp}/resources/ace-builds-master/ace.js"></script>
 
 <div id="editorView">
 	<div id="leftBar">
@@ -116,7 +117,10 @@
 	</div>
 	
 	<section id="worksheet">
-		<textarea class="form-control" id="worksheetView" rows="16" cols="229"></textarea> <br>
+		<div id="sqlEditorView">
+<!-- 			<textarea class="form-control" id="worksheetView" rows="16" cols="229"></textarea> <br> -->
+			<pre id="editor"></pre>
+		</div>
 		<span class="badge badge-dark" id="resultViewSpan">Result View</span> <br>
 		<textarea class="form-control" id="resultView" rows="7" cols="229" readonly>asdjlas ajdlkasdjl</textarea>
 	</section>
