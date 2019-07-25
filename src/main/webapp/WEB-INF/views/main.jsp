@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<h2>main</h2>
+
+<link href="${cp}/resources/main/css/mainCss.css" rel="stylesheet">
+
 <script type="text/javascript">
+
 	$(function (){
 
 		var list = new Array();
@@ -36,6 +39,11 @@
 // 		}
 	})
 </script>
+
+<div id="mainDiv">
+	<h2>main</h2>
+</div>
+
 
 <form id="mainForm" action="${cp}/crew/crewMain">
 	<input type="hidden" id="inviteCheck" name="inviteCheck">

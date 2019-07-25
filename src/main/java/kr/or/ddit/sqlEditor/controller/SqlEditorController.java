@@ -55,6 +55,8 @@ public class SqlEditorController {
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
+		logger.debug("안녕하세요");
+		
 		List<TableVO> tableList = new ArrayList<TableVO>();
 		List<ViewVO> viewList = new ArrayList<ViewVO>();
 		List<IndexVO> indexList = new ArrayList<IndexVO>();
@@ -255,7 +257,7 @@ public class SqlEditorController {
 	
 	@RequestMapping(path = "/runPlan", method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> runPlan(String dragText, HttpSession session, Model model) {
+	public List<String> runPlan(String dragText) {
 		logger.debug("runPlan 안뇽");
 		logger.debug("dragText : {}", dragText);
 		
@@ -267,8 +269,6 @@ public class SqlEditorController {
 		String plan = "EXPLAIN PLAN FOR " + dragText;
 		sqlEditorService.runPlan(plan);
 		List<String> planList = sqlEditorService.runPlanView();
-		
-		if(planList == null) logger.debug("김범휘");
 		
 		return planList;
 	}

@@ -37,6 +37,9 @@
 
 #resultView{
 	resize: none;
+	font-weight: lighter;
+	font-size: medium;
+	color: black;
 }
 
 .imgBtn{
@@ -84,3 +87,4 @@
     text-decoration: none;
     cursor: pointer;
 }
+

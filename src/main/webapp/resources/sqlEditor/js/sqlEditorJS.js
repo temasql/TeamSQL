@@ -27,11 +27,13 @@ $(document).ready(function() {
 	
 	//일정관리 팝업창 띄우기
 	$("#calendarPopup").on("click", function(){
+		var temp = $("#acc_id").val();
 		var w = 912; //팝업창의 가로크기(임의)
 		var h = 984; //팝업창의 세로크기(임의)
 		var x = screen.AvailWidth-w; //팝업창의 가로위치
 		var y = screen.AvailHeight-h; //팝업창의 세로위치 (상단에 띄우려면 0)
-		window.open("/cal", "_blank","scrollbar=no, resizeable=no, top="+y+",left="+x+",width=912,height=984");
+		window.open("/cal?account_id"+temp, "_blank","scrollbar=no, resizeable=no, " +
+							"top="+y+",left="+x+",width=912,height=984");
 	})
 	
 	// 모달창 닫기
@@ -108,7 +110,7 @@ $(document).ready(function() {
     function selectText() {
         var selectionText = "";
         if (document.getSelection) {
-            selectionText = document.getSelection();
+            selectionText = document.getSelection().toString();
         } else if (document.selection) {
             selectionText = document.selection.createRange().text;
         }
@@ -138,11 +140,6 @@ $(document).ready(function() {
 				$("#resultView").text(result);
 			}
 		});
-	});
-	
-	// 워크시트 예약어 css 변경
-	$(document).keyup(function(e) {
-		var temp = $("#worksheetView").val();
 	});
 	
 	// 컨트롤 + 엔터 이벤트
