@@ -2,10 +2,14 @@ package kr.or.ddit.history.service;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.history.model.HistoryVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -26,17 +30,35 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class HistoryServiceTest extends LogicTestEnv{
 
-//	@Resource(name = "서비스")
-//	private ICommonsService service;
+	@Resource(name = "historyService")
+	private IHistoryService historyService;
 	
+	/**
+	 * 
+	* Method : serviceTest
+	* 작성자 : PC20
+	* 변경이력 :
+	* Method 설명 : DB변경 이력 리스트 조회 테스트
+	 */
 	@Test
-	public void serviceTest() {
+	public void serviceChangedListTest() {
 		/***Given***/
-
-		/***When***/
+		String user_id = "TEST_ID20";
+		List<HistoryVO> tempList = new ArrayList<HistoryVO>();
+		List<HistoryVO> totalList = new ArrayList<HistoryVO>();
 		
+		/***When***/
+		List<String> dbList = historyService.accountList(user_id);
+		for(String account_id : dbList ) {
+			tempList = historyService.changedList(account_id);
+			for(HistoryVO hVo : tempList) {
+				totalList.add(hVo);
+			}
+		}
 		/***Then***/
-		assertEquals("", "");
+		assertNotNull(totalList);
+		assertEquals(2, totalList.size());
+		assertEquals("TEAMSQL_TEST", totalList.get(0).getObject_owner());
 	}
 
 }

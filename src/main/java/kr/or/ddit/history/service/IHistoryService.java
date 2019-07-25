@@ -8,10 +8,27 @@ import kr.or.ddit.history.model.HistoryVO;
 public interface IHistoryService {
 	
 	int insert(HistoryVO historyVo);
+	/**
+	 * 
+	* Method : accountList
+	* 작성자 : PC20
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : DB계정명 리스트 조회
+	 */
+	List<String> accountList(String user_id);
 	
-	HistoryVO get(String id);
-	
-	List<HistoryVO> list();
+	/**
+	 * 
+	* Method : accountAndChangedList
+	* 작성자 : PC20
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : DB 계정명 / 변경일자 리스트 조회
+	 */
+	List<HistoryVO> changedList(String account_id);
 	
 	Map<String, Object> map(Map<String, Object> map);
 	
