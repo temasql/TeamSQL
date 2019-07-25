@@ -1,10 +1,13 @@
 package kr.or.ddit.user.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -80,8 +83,27 @@ public class UserService implements IUserService{
 	* Method 설명 : 유저 리스트
 	*/
 	@Override
-	public List<UserVO> userList() {
-		return userDao.userList();
+	public Map<String, Object> userList(Map<String, Object> pageMap) {
+		// 검색한 내용에 해당하는 회원이 페이징 처리 되어 리스트에 담긴다
+		List<UserVO> userList = userDao.userList(pageMap);
+		
+		// 검색한 내용에 해당하는 회원의 수
+		String search = (String) pageMap.get("search");
+		int userSearchCount = userDao.userSearchCount(search);
+		
+		// 컨트롤러에서 담아온 pageSize
+		int pageSize = (int) pageMap.get("pageSize");
+		int paginationSize = (int) Math.ceil((double)userSearchCount/pageSize);
+		
+		// 게시글이 없어서 paginationSize가 0 일경우 임의로 1설정
+		paginationSize = paginationSize == 0 ? 1 : paginationSize;
+		
+		// Map객체에 페이징 처리된 게시글 리스트와 페이지의 갯수를 담아서 리턴한다
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("userList", userList);
+		resultMap.put("paginationSize", paginationSize);
+		
+		return resultMap;
 	}
 
 	/**
@@ -168,5 +190,33 @@ public class UserService implements IUserService{
 	public int temporaryUpdateUserPw(UserVO userVo) {
 		return userDao.temporaryUpdateUserPw(userVo);
 	}
+
+	/**
+	* Method : userSearchCount
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public int userSearchCount(String search) {
+		return userDao.userSearchCount(search);
+	}
+
+	/**
+	* Method : deleteUserMG
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : 관리자가 체크박스로 사용자 탈퇴
+	*/
+	@Override
+	public int deleteUserMG(String user_id) {
+		return userDao.deleteUserMG(user_id);
+	}
+	
+	
 
 }

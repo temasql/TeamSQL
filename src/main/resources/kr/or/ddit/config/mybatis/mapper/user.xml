@@ -44,10 +44,33 @@
 	</select>
 	
 	
-	<!-- SelectList -->
-	<select id="list" resultType="userVo">
-		SELECT *
-		FROM USERS
+	<!-- 일반회원 페이징 처리 -->
+	<select id="userList" parameterType="map" resultType="userVo">
+		<![CDATA[ 
+			SELECT *
+			FROM 
+				(SELECT A.*, ROWNUM RN 
+				FROM 
+					(SELECT A.USER_ID, A.USER_NAME, A.USER_EMAIL, A.USER_DT, A.USER_PATH 
+					FROM  USERS A
+	                   WHERE EXIT_RIGHT = 'N'
+	                   AND USER_RIGHT = 'C'
+	                   AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST )
+	                   AND USER_ID LIKE '%'||#{search}||'%'
+					ORDER BY USER_ID) A) 
+			WHERE RN >= (#{page} - 1) * #{pageSize} + 1 
+			AND   RN <=  #{page} * #{pageSize} 
+		]]>
+	</select>
+	
+	<!-- 검색한 결과의 일반회원 수 -->
+	<select id="userSearchCount" parameterType="string" resultType="int" >
+		SELECT COUNT(USER_ID)
+	    FROM USERS
+	    WHERE EXIT_RIGHT = 'N'
+	    AND USER_RIGHT = 'C'
+	    AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST )
+	    AND USER_ID LIKE '%'||#{search}||'%'
 	</select>
 	
 	<select id="map" parameterType="map" resultType="userVo">
@@ -86,4 +109,10 @@
 		AND USER_PW = #{user_pw}
 	</update>
 	
+	<!-- 관리자가 체크박스로 사용자 탈퇴 -->
+	<update id="deleteUserMG" parameterType="String">
+		UPDATE USERS
+		SET EXIT_RIGHT = 'Y'
+		WHERE USER_ID = #{user_id}
+	</update>
 </mapper>

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -137,5 +138,37 @@ public class UserServiceTest extends LogicTestEnv{
 		/***Then***/
 		assertEquals("TEST_PW20", findUserPw);
 	}
+	
+	/**
+	* Method : userListTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 회원 관리에서 일반 회원과 탈퇴하지 않고 블랙리스트가 아닌 회원만 조회 
+	*/
+	@Test
+	public void userListTest() {
+		/***Given***/
+		/***When***/
+//		List<UserVO>userList = userService.userList();
+		/***Then***/
+//		assertEquals(18, userList.size());
+	}
+	
+	/**
+	* Method : deleteUserMGTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 관리자가 체크박스로 사용자 탈퇴
+	*/
+	@Test
+	public void deleteUserMGTest() {
+		/***Given***/
+		String user_id = "TEST_ID20";
+		/***When***/
+		int deleteUserMGCount = userService.deleteUserMG(user_id);
+		/***Then***/
+		assertEquals(1, deleteUserMGCount);
+	}
+
 	
 }
