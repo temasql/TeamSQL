@@ -17,6 +17,10 @@
 		FROM INVITE
 		WHERE INVITE_ID = #{invite_id}
 	</delete>
-	
+
+
+	<insert id="insertCrew" parameterType="crewVo">
+		INSERT INTO INVITE VALUES(invite_seq.nextval ,#{account_id_fk}, #{user_id_fk})
+	</insert>	
 	
 </mapper>
