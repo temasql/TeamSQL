@@ -58,9 +58,20 @@ public interface IHistoryDao {
 	* 작성자 : 강호길
 	* 변경이력 :
 	* @return
+	* Method 설명 : DB변경 계정 전체수 조회
+	 */
+	int accountCnt(String user_id);
+	
+
+	/**
+	 * 
+	* Method : historyCnt
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param object_owner
+	* @return
 	* Method 설명 : DB변경 이력 전체수 조회
 	 */
-	int historyCnt(String user_id);
-	
+	int historyCnt(String object_owner);
 	
 }

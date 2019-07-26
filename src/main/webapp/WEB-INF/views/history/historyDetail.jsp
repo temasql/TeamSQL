@@ -16,14 +16,15 @@
       <th scope="col">일시</th>
     </tr>
   </thead>
-  <tbody id="dbChangedListBody">
-  <c:forEach items="${changedList}" var="changedList">
+  
+  <tbody id="dbChangedDetailListBody">
+  <c:forEach items="${changedDetailList}" var="changedDetailList">
    <tr>
-  	<td>${changedList.action_event }</td>
-  	<td>${changedList.object_type }</td>
-  	<td>${changedList.object_name }</td>
-  	<td>${changedList.sql_text }</td>
-  	<td>${changedList.exec_dtm }</td>
+  	<td>${changedDetailList.action_event }</td>
+  	<td>${changedDetailList.object_type }</td>
+  	<td>${changedDetailList.object_name }</td>
+  	<td>${changedDetailList.sql_text }</td>
+  	<td>${changedDetailList.exec_dtm }</td>
    </tr>
    </c:forEach>
   </tbody>
