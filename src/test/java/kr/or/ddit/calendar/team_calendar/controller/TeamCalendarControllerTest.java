@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.crew.model.CrewVO;
@@ -64,7 +65,7 @@ public class TeamCalendarControllerTest extends ControllerTestEnv{
 	 * 작성자 : OWNER
 	 * 변경이력 :
 	 * @throws Exception
-	 * Method 설명 : Post테스트 용
+	 * Method 설명 : 일정 조회 테스트 메서드
 	 */
 	@Test
 	public void readCalTest() throws Exception {
@@ -86,4 +87,23 @@ public class TeamCalendarControllerTest extends ControllerTestEnv{
 		
 	}
 	
+	/**
+	* Method : deleteCalTest
+	* 작성자 : PC19
+	* 변경이력 :
+	* Method 설명 :
+	 * @throws Exception 
+	*/
+	@Test
+	public void deleteCalTest() throws Exception {
+		/***Given***/
+
+		/***When***/
+		MvcResult mvcResult = mockMvc.perform(post("/deleteCal").param("id", "1")).andReturn();
+		ModelAndView mav = mvcResult.getModelAndView();
+//		mav.;
+		
+		/***Then***/
+//		assertEquals("1", viewname);
+	}
 }

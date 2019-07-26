@@ -23,7 +23,7 @@
 						<li class="li-two"><a class="two-menu" href="#">자유게시판</a></li>
 					</ul>
 				</li>
-				<li><a class="aNav" href="#">퀴즈관리</a></li>
+				<li><a class="aNav" href="/quizMain">퀴즈관리</a></li>
 				<li><a class="aNav" href="${cp }/user/adminManager">관리자관리</a></li>
 			</c:when>
 			<c:otherwise>
@@ -36,7 +36,7 @@
 						<li class="li-two"><a class="two-menu" href="#">자유게시판</a></li>
 					</ul>
 				</li>
-				<li><a class="aNav" href="#">SQL퀴즈</a></li>
+				<li><a class="aNav" href="${cp}/quizMain">SQL퀴즈</a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>
