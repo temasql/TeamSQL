@@ -2,6 +2,7 @@ package kr.or.ddit.invite.dao;
 
 import java.util.List;
 
+import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.invite.model.InviteVO;
 
 public interface IInviteDao {
@@ -24,5 +25,15 @@ public interface IInviteDao {
 	* Method 설명 : 초대장 번호에 해당하는 초대장을 삭제
 	*/
 	int deleteInvite(int invite_id);
+
+	/**
+	* Method : insertCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param crewVo
+	* @return
+	* Method 설명 :
+	*/
+	int insertCrew(CrewVO crewVo);
 	
 }

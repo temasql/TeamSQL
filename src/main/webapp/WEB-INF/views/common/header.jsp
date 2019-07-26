@@ -15,7 +15,7 @@
 		<c:choose>
 			<c:when test="${USER_INFO.user_right eq 'A' }">
 				<li><a class="aNav" href="${cp }/user/userManager">회원관리</a></li>
-				<li><a class="aNav" href="#">블랙릭스트관리</a></li>
+				<li><a class="aNav" href="${cp }/blackList/blackListManager">블랙릭스트관리</a></li>
 				<li><a class="aNav" href="#">공지사항</a></li>
 				<li class="one"><a class="aNav" href="#">게시판관리</a>
 					<ul class="ul-header-two">
@@ -29,7 +29,7 @@
 			<c:otherwise>
 			<li><a class="aNav" href="${cp}/sqlEditor/sqlEditorMain">SQL에디터</a></li>
 		  		<li><a class="aNav" href="${cp}/history/historyList">DB변경이력관리</a></li>
-				<li><a class="aNav" href="#">구성원관리</a></li>
+				<li><a class="aNav" href="${cp}/crew/crewManager">구성원관리</a></li>
 				<li class="one"><a class="aNav" href="#">게시판</a>
 					<ul class="ul-header-two">
 						<li class="li-two"><a class="two-menu" href="#">공지사항</a></li>

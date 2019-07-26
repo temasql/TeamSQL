@@ -5,9 +5,13 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class BlackListVO {
-	
 	private int black_id;               // 블랙리스트아이디
 	private String user_id_fk;          // 사용자아이디
+	private String user_name;
+	private String user_email;
+	private String user_path;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date user_dt;
 	private String reason;              // 사유
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
@@ -60,11 +64,37 @@ public class BlackListVO {
 	public void setCancel_user_id_fk(String cancel_user_id_fk) {
 		this.cancel_user_id_fk = cancel_user_id_fk;
 	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
+	public String getUser_path() {
+		return user_path;
+	}
+	public void setUser_path(String user_path) {
+		this.user_path = user_path;
+	}
 	
+	public Date getUser_dt() {
+		return user_dt;
+	}
+	public void setUser_dt(Date user_dt) {
+		this.user_dt = user_dt;
+	}
 	@Override
 	public String toString() {
-		return "BlackListVO [black_id=" + black_id + ", user_id_fk=" + user_id_fk + ", reason=" + reason
-				+ ", register_dt=" + register_dt + ", reg_user_id_fk=" + reg_user_id_fk + ", cancel_dt=" + cancel_dt
-				+ ", cancel_user_id_fk=" + cancel_user_id_fk + "]";
+		return "BlackListVO [black_id=" + black_id + ", user_id_fk=" + user_id_fk + ", user_name=" + user_name
+				+ ", user_email=" + user_email + ", user_path=" + user_path + ", user_dt=" + user_dt + ", reason="
+				+ reason + ", register_dt=" + register_dt + ", reg_user_id_fk=" + reg_user_id_fk + ", cancel_dt="
+				+ cancel_dt + ", cancel_user_id_fk=" + cancel_user_id_fk + "]";
 	}
+	
 }

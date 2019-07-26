@@ -83,7 +83,6 @@ public class LoginController {
 			return "main.tiles";
 		}
 		if(loginUserVo.getExit_right().equals("Y")) {
-			System.out.println("=================!!!!!!!!!!!!===============");
 			model.addAttribute("deleteMsg", "탈퇴한 회원입니다.");
 			return "/login/login.tiles";
 		}

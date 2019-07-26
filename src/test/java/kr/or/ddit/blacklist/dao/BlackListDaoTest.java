@@ -2,10 +2,13 @@ package kr.or.ddit.blacklist.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.blacklist.model.BlackListVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -26,17 +29,22 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class BlackListDaoTest extends LogicTestEnv{
 
-//	@Resource(name = "다오")
-//	private ICommonsDao dao;
+	@Resource(name = "blackListDao")
+	private IBlackListDao blackListDao;
 	
+	/**
+	* Method : blackListTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 블랙리스트 조회 테스트
+	*/
 	@Test
-	public void daoTest() {
+	public void blackListTest() {
 		/***Given***/
-
 		/***When***/
-		
+//		List<BlackListVO> blackList = blackListDao.blackList();
 		/***Then***/
-		assertEquals("", "");
+//		assertEquals(2, blackList.size());
 	}
 
 }

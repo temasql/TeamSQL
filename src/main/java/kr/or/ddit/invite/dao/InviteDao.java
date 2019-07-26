@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.invite.model.InviteVO;
 
 @Repository
@@ -39,6 +40,19 @@ public class InviteDao implements IInviteDao {
 	@Override
 	public int deleteInvite(int invite_id) {
 		return sqlSession.delete("invite.deleteInvite", invite_id);
+	}
+
+	/**
+	* Method : insertCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param crewVo
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public int insertCrew(CrewVO crewVo) {
+		return sqlSession.insert("invite.insertCrew", crewVo);
 	}
 
 }
