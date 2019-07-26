@@ -1,19 +1,32 @@
 package kr.or.ddit.worksheet.service;
 
+import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 
 public interface IWorkSheetService {
 	
 	/**
 	 * 
-	* Method : selectQuery
+	* Method : selectRun
 	* 작성자 : 김범휘
 	* 변경이력 :
-	* @param value
+	* @param query
+	* @param conn
 	* @return
-	* Method 설명 : select에 관한 쿼리문 실행
+	* Method 설명 : 워크시트 select문 처리
 	 */
-	List<Map<String, String>> selectQuery(String value);
+	List<List<String>> selectRun(String query, Connection conn);
+	
+	/**
+	 * 
+	* Method : anotherRun
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param query
+	* @param conn
+	* @return
+	* Method 설명 : 워크시트 select를 제외한 쿼리문 처리(commit, rollback제외)
+	 */
+	int anotherRun(String query, Connection conn);
 	
 }

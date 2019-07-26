@@ -9,7 +9,7 @@
 
 <form id="loginForm" action="${cp }/login" method="post">
 	<input type="text" id="user_id"  value="${user_id}" name="user_id"><br>
-	<input type="password" id="user_pw" value="${user_pw}" name="user_pw">
+	<input type="password" id="user_pw" value="kbh711482!" name="user_pw">
 	<div class="checkbox">
 		<label> <input id="rememberme" name="rememberme" type="checkbox" value="remember-me">	remember</label>
 	</div>

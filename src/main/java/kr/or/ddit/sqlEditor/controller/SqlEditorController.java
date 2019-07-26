@@ -66,8 +66,8 @@ public class SqlEditorController {
 		List<FuncProceVO> procedureList = new ArrayList<FuncProceVO>();
 		
 		// 가짜 데이터 세팅
-		UserVO userInfo = new UserVO("TEST_ID20", "C", "N", "TEST_PW20", "TEST_NAME20", "TEST_MAIL20@TEST.COM", null);
-		session.setAttribute("USER_INFO", userInfo);
+//		UserVO userInfo = new UserVO("TEST_ID20", "C", "N", "TEST_PW20", "TEST_NAME20", "TEST_MAIL20@TEST.COM", null);
+//		session.setAttribute("USER_INFO", userInfo);
 		
 		// 로그인한 사용자의 DB계정 정보 가져와 model객체에 담아서 넘겨줌
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
@@ -75,31 +75,32 @@ public class SqlEditorController {
 		List<AccountVO> accountList = accountService.getAccountList(userVO.getUser_id());
 		
 		for (AccountVO accountVO : accountList) {
-			List<TableVO> tempList1 = accountService.getAccountAllTable(accountVO.getAccount_id());
+			List<TableVO> tempList1 = accountService.getAccountAllTable(accountVO.getAccount_id().toUpperCase());
+			logger.debug("김범휘 : {}", accountVO.getAccount_id());
 			for(TableVO tableVO : tempList1) {
 				tableList.add(tableVO);
 			}
-			List<ViewVO> tempList2 = accountService.getAccountAllView(accountVO.getAccount_id());
+			List<ViewVO> tempList2 = accountService.getAccountAllView(accountVO.getAccount_id().toUpperCase());
 			for(ViewVO viewVO : tempList2) {
 				viewList.add(viewVO);
 			}
-			List<IndexVO> tempList3 = accountService.getAccountAllIndex(accountVO.getAccount_id());
+			List<IndexVO> tempList3 = accountService.getAccountAllIndex(accountVO.getAccount_id().toUpperCase());
 			for(IndexVO indexVO : tempList3) {
 				indexList.add(indexVO);
 			}
-			List<TriggerVO> tempList4 = accountService.getAccountAllTrigger(accountVO.getAccount_id());
+			List<TriggerVO> tempList4 = accountService.getAccountAllTrigger(accountVO.getAccount_id().toUpperCase());
 			for(TriggerVO triggerVO : tempList4) {
 				triggerList.add(triggerVO);
 			}
-			List<SequenceVO> tempList5 = accountService.getAccountAllSequence(accountVO.getAccount_id());
+			List<SequenceVO> tempList5 = accountService.getAccountAllSequence(accountVO.getAccount_id().toUpperCase());
 			for(SequenceVO sequenceVO : tempList5) {
 				sequenceList.add(sequenceVO);
 			}
-			List<FuncProceVO> tempList6 = accountService.getAccountAllFunction(accountVO.getAccount_id());
+			List<FuncProceVO> tempList6 = accountService.getAccountAllFunction(accountVO.getAccount_id().toUpperCase());
 			for(FuncProceVO functionVO : tempList6) {
 				functionList.add(functionVO);
 			}
-			List<FuncProceVO> tempList7 = accountService.getAccountAllProcedure(accountVO.getAccount_id());
+			List<FuncProceVO> tempList7 = accountService.getAccountAllProcedure(accountVO.getAccount_id().toUpperCase());
 			for(FuncProceVO procedureVO : tempList7) {
 				procedureList.add(procedureVO);
 			}
@@ -134,19 +135,20 @@ public class SqlEditorController {
 		logger.debug("chatRoomName : {}", chatRoomName);
 		
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
-		String account_id = accountVO.getAccount_id();
+		String account_id = accountVO.getAccount_id().toUpperCase();
 		String user_id = userVO.getUser_id();
 		String real_account_id = account_id + "_" + user_id;
+		String test_account_id = account_id.toLowerCase() + "_" + user_id;
 		accountVO.setUser_id_fk(user_id);
-		accountVO.setAccount_id(real_account_id);
 		
 		int cnt = accountService.getAccountCnt(real_account_id);
-		if(cnt > 0) {
+		int cnt2 = accountService.getAccountCnt(test_account_id);
+		if(cnt > 0 || cnt2 > 0) {
 			msg = "DB계정명이 중복됩니다.";
 			model.addAttribute("msg", msg);
 			return sqlEditorMain(session, model);
 		}
-		
+		accountVO.setAccount_id(real_account_id);
 		int result = accountService.insertAccount(accountVO);
 		if(result > 0) {
 			Map<String, String> map = new HashMap<String, String>();

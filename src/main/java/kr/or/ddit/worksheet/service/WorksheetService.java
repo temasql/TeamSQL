@@ -1,5 +1,6 @@
 package kr.or.ddit.worksheet.service;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
@@ -17,18 +18,16 @@ public class WorksheetService implements IWorkSheetService {
 		worksheetDao = new WorksheetDao();
 	}
 
-	/**
-	 * 
-	* Method : selectQuery
-	* 작성자 : 김범휘
-	* 변경이력 :
-	* @param value
-	* @return
-	* Method 설명 : select에 관한 쿼리문 실행
-	 */
 	@Override
-	public List<Map<String, String>> selectQuery(String value) {
-		return worksheetDao.selectQuery(value);
+	public List<List<String>> selectRun(String query, Connection conn) {
+		return worksheetDao.selectRun(query, conn);
 	}
+
+	@Override
+	public int anotherRun(String query, Connection conn) {
+		return worksheetDao.anotherRun(query, conn);
+	}
+	
+	
 	
 }
