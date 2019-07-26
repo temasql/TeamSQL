@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.invite.dao.IInviteDao;
 import kr.or.ddit.invite.model.InviteVO;
 
@@ -38,6 +39,19 @@ public class InviteService implements IInviteService {
 	@Override
 	public int deleteInvite(int invite_id) {
 		return inviteDao.deleteInvite(invite_id);
+	}
+
+	/**
+	* Method : insertCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param crewVo
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public int insertCrew(CrewVO crewVo) {
+		return inviteDao.insertCrew(crewVo);
 	}
 
 }

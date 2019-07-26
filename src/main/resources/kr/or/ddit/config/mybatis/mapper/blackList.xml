@@ -5,14 +5,17 @@
 <mapper namespace="blackList">
 
 	<!-- Insert -->
-	<insert id="insert" parameterType="blackListVo">
+	<insert id="insertBlackList" parameterType="blackListVo">
 		INSERT INTO BLACKLIST
-		(
-			...
-		)
 		VALUES
 		(
-			...
+			 BLACKLIST_SEQ.NEXTVAL
+			,#{user_id_fk}
+			,#{reason}
+			,SYSDATE
+			,#{reg_user_id_fk}
+			,#{cancel_dt, jdbcType=DATE}
+			,#{cancel_user_id_fk, jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -23,32 +26,39 @@
 		WHERE ID = #{id}
 	</select>
 	
-	<!-- SelectList -->
-	<select id="list" resultType="blackListVo">
-		SELECT *
-		FROM BLACKLIST
+	<!-- 블랙리스트 -->
+	<select id="blackList" parameterType="map" resultType="blackListVo">
+		<![CDATA[ 
+				SELECT *
+				FROM 
+					(SELECT A.*, ROWNUM RN 
+					FROM 
+						(SELECT BLACK_ID, USER_ID_FK, USER_NAME, USER_EMAIL, USER_PATH, REASON, USER_DT
+							FROM BLACKLIST, USERS
+							WHERE USER_ID = USER_ID_FK
+							AND CANCEL_DT IS NULL
+		                   AND USER_ID_FK LIKE '%'||#{search}||'%'
+						ORDER BY USER_ID_FK) A) 
+				WHERE RN >= (#{page} - 1) * #{pageSize} + 1 
+				AND   RN <=  #{page} * #{pageSize} 
+		]]>
 	</select>
 	
-	<select id="map" parameterType="map" resultType="blackListVo">
-		SELECT *
-		FROM BLACKLIST
-		WHERE ID = #{map1}
-		AND .. = #{map2}
-		...
+	<!-- 검색한 결과의 블랙리스트 수 -->
+	<select id="blackListSearchCount" parameterType="string" resultType="int" >
+		SELECT COUNT(USER_ID_FK)
+	    FROM BLACKLIST, USERS
+	    WHERE USER_ID = USER_ID_FK
+		AND CANCEL_DT IS NULL
+	    AND USER_ID_FK LIKE '%'||#{search}||'%'
 	</select>
 	
 	<!-- update -->
-	<update id="update" parameterType="blackListVo">
+	<update id="deleteBlackListMG" parameterType="map">
 		UPDATE BLACKLIST
-		SET COLUMN = #{..}
-		WHERE ID = #{id}
+		SET  CANCEL_DT = SYSDATE
+			,CANCEL_USER_ID_FK = #{unlockUser}
+		WHERE BLACK_ID = #{black_id}
 	</update>
 	
-	<!-- delete -->
-	<delete id="delete" parameterType="String">
-		DELETE
-		FROM BLACKLIST
-		WHERE ID = #{id}
-	</delete>
-
 </mapper>

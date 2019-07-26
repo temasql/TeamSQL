@@ -6,10 +6,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 
-//@Repository
+@Repository
 public class QuizAnswerDao implements IQuizAnswerDao{
 
 	@Resource(name = "sqlSession")
