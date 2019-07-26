@@ -3,59 +3,71 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="history">
-
-	<!-- Insert -->
-	<insert id="insert" parameterType="historyVo">
-		INSERT INTO DDL_HISTORY
-		(
-			...
-		)
-		VALUES
-		(
-			...
-		)
-	</insert>
-	
-	<!-- DB계정 리스트 -->
-	<select id="accountList" parameterType="String" resultType="String">
-		select account_id
-		from account
-		where user_id_fk = #{user_id}
-		order by account_id desc
-	</select>
-	
-	<!-- DB계정명,마지막변경일 리스트 -->
-	<select id="changedList" parameterType="String" resultType="historyVo">
-		select object_owner,
-		       max(exec_dtm)
-		from DDL_HISTORY
-		where object_owner = #{account_id}
-		group by object_owner
 		
+	<!-- DB계정명,마지막변경일 리스트 -->
+	<select id="changedList" parameterType="String" resultType="historyVo">	
+		select object_owner,
+		       max(exec_dtm) exec_dtm
+		from DDL_HISTORY, crew c
+        where c.USER_ID_FK = #{user_id}
+		group by object_owner
+        order by exec_dtm desc
 	</select>
 	
-	
-	
-	<select id="map" parameterType="map" resultType="historyVo">
-		SELECT *
-		FROM DDL_HISTORY
-		WHERE ID = #{map1}
-		AND .. = #{map2}
-		...
+	<!-- DB계정명,마지막변경일 페이징리스트 -->
+	<select id="changedPagingList" parameterType="map" resultType="historyVo">
+		<![CDATA[
+		select *
+		from
+		(select a.*, rownum rn
+		from
+		(select object_owner,
+		       max(exec_dtm) exec_dtm
+		from DDL_HISTORY, crew c
+        where c.USER_ID_FK = #{user_id}
+		group by object_owner
+        order by exec_dtm desc)a)
+        where rn >= (#{page}-1) * #{pageSize} + 1 and rn <= #{page} * #{pageSize}
+        ]]>
 	</select>
 	
-	<!-- update -->
-	<update id="update" parameterType="historyVo">
-		UPDATE DDL_HISTORY
-		SET COLUMN = #{..}
-		WHERE ID = #{id}
-	</update>
+	<!-- DB변경 상세 리스트 -->
+	<select id="changedDetailList" parameterType="String" resultType="historyVo">	
+		select action_event,
+		       object_type,
+		       object_name,
+		       sql_text,
+		       exec_dtm
+		from DDL_HISTORY 
+        where object_owner = #{object_owner}
+        order by exec_dtm desc
+	</select>
 	
-	<!-- delete -->
-	<delete id="delete" parameterType="String">
-		DELETE
-		FROM DDL_HISTORY
-		WHERE ID = #{id}
-	</delete>
+	<!-- 	DB계정 전체수 조회 -->
+	<select id="historyCnt" parameterType="String" resultType="int">
+		select COUNT(*)
+		FROM crew
+		where user_id_fk = #{user_id}
+	</select>
+	
+	<!-- DB계정 상세 변경 페이징 리스트 -->
+	<select id="changedDetailPagingList" parameterType="map" resultType="historyVo">
+		<![CDATA[
+		select *
+			from
+			(select a.*, rownum rn
+			from
+			(select action_event,
+	              object_type,
+	              object_name,
+	              sql_text,
+	              exec_dtm
+        	from DDL_HISTORY 
+        	where object_owner = #{object_owner}
+        	order by exec_dtm desc)a)
+		where rn >= (#{page}-1) *#{pageSize} + 1 and rn <= #{page}*#{pageSize}
+		]]>
+	</select>
+	
 
 </mapper>

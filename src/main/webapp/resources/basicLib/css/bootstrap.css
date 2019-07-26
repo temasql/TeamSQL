@@ -1908,11 +1908,13 @@ pre code {
 
 .table-hover .table-active:hover {
   background-color: rgba(0, 0, 0, 0.075);
+      cursor: pointer;
 }
 
 .table-hover .table-active:hover > td,
 .table-hover .table-active:hover > th {
   background-color: rgba(0, 0, 0, 0.075);
+      cursor: pointer;
 }
 
 .table .thead-dark th {

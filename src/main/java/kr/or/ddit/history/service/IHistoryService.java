@@ -4,35 +4,53 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.history.model.HistoryVO;
+import kr.or.ddit.page.model.PageVo;
 
 public interface IHistoryService {
-	
-	int insert(HistoryVO historyVo);
-	/**
-	 * 
-	* Method : accountList
-	* 작성자 : PC20
-	* 변경이력 :
-	* @param user_id
-	* @return
-	* Method 설명 : DB계정명 리스트 조회
-	 */
-	List<String> accountList(String user_id);
 	
 	/**
 	 * 
 	* Method : accountAndChangedList
-	* 작성자 : PC20
+	* 작성자 : 강호길
 	* 변경이력 :
-	* @param account_id
+	* @param user_id 사용자 아이디
 	* @return
 	* Method 설명 : DB 계정명 / 변경일자 리스트 조회
 	 */
-	List<HistoryVO> changedList(String account_id);
+	List<HistoryVO> changedList(String user_id);
 	
-	Map<String, Object> map(Map<String, Object> map);
+	/**
+	 * 
+	* Method : changedPagingList
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param pageMap
+	* @return
+	* Method 설명 : DB 계정명 / 변경일자 페이징 리스트 조회
+	 */
+	Map<String, Object> changedPagingList(Map<String, Object> pageMap);
 	
-	int update(String id);
+	/**
+	 * 
+	* Method : changedDetailList
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : DB변경 상세 리스트 조회
+	 */
+	List<HistoryVO> changedDetailList(String user_id);
 	
-	int delete(String id);
+	/**
+	 * 
+	* Method : changedPagingList
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param pageVo
+	* @return
+	* Method 설명 : DB변경 이력 상세 페이징 리스트 조회
+	 */
+	Map<String, Object> changedDetailPagingList(Map<String, Object> pageMap);
+
+	
 }
