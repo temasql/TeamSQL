@@ -106,17 +106,6 @@ $(document).ready(function() {
 		$("#accountPwUpdateFrm").submit();
 	});
 	
-	// textarea 드래그 영역 text 가져오기
-    function selectText() {
-        var selectionText = "";
-        if (document.getSelection) {
-            selectionText = document.getSelection().toString();
-        } else if (document.selection) {
-            selectionText = document.selection.createRange().text;
-        }
-        return selectionText;
-    }
-	
 	// 실행계획 버튼 클릭 이벤트
 	$("#runPlan").on("click", function() {
 		var dragText = selectText();
@@ -140,6 +129,7 @@ $(document).ready(function() {
 				$("#resultView").text(result);
 			}
 		});
+		
 	});
 	
 	// 컨트롤 + 엔터 이벤트
@@ -149,45 +139,74 @@ $(document).ready(function() {
 		if(e.keyCode == 13 && ctrlDown == true) {
 			ctrlDown == false;
 			// 구현 내용 작성
-			var dragText = selectText();
+			var dragText = editor.getSelectedText();
+			console.log(dragText);
 			if(dragText == "") {
 				alert("실행시킬 쿼리문을 드래그해주세요.");
 				return;
 			}
 			
-			$.ajax({
-				url : "/worksheet/run",
-				dataType : "json",
-				method : "get",
-				data : "dragText=" + dragText,
-				success : function(data) {
-					var view = "";
-					console.log(data);
-					for (var i = 0; i < data.iterator.length; i++) {
-						view += data.iterator[i] + " | ";
-					}
-					view += "\n";
-					
-					for (var i = 0; i < data.resultList.length; i++) {
-						for (var j = 0; j < data.iterator.length; j++) {
-							var temp = data.iterator[j]; // "USER_DT"
-							view += data.resultList[i][temp] + " | ";
+			var accountId = $("#radioId").val();
+			var user_id = $("#userId").val();
+			var indexCnt = accountId.indexOf(user_id.toUpperCase());
+			var account_temp = accountId.substring(0, indexCnt);
+			var account_id = account_temp + user_id;
+			
+			if(dragText.indexOf("select") != -1 || dragText.indexOf("SELECT") != -1) {
+				$.ajax({
+					url : "/worksheet/selectRun",
+					dataType : "json",
+					method : "get",
+					data : "dragText=" + dragText + "&account_id=" + account_id,
+					success : function(data) {
+						console.log(data);
+						console.log(data.resultList);
+						var list = data.resultList;
+						var view = "";
+						for (var i = 0; i < list.length; i++) {
+							for (var j = 0; j < list[0].length; j++) {
+								view += list[i][j] + "|";
+							}
+							view += "\n";
 						}
-						view += "\n";
+						$("#resultView").text(view);
 					}
-					
-					$("#resultView").text(view);
-				}
-			});
+				});
+			}else {
+				$.ajax({
+					url : "/worksheet/anotherRun",
+					dataType : "json",
+					method : "get",
+					data : "dragText=" + dragText + "&account_id=" + account_id,
+					success : function(data) {
+						console.log(data);
+						view = data.resultCnt + "행이 " + data.queryType + "되었습니다.";
+						$("#resultView").text(view);
+					}
+				});
+			}
 			
 		}}).keyup(function(e) { 
 				if (e.keyCode == 17) ctrlDown = false;
 				if (e.keyCode == 13) ctrlDown = false;
 			});
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/twilight");
-    editor.session.setMode("ace/mode/sql");
 	
-	
+    // 라디오버튼 클릭 이벤트
+    $(".radioClass").on("click", function() {
+		var temp = $(this).attr("id");
+		$("#radioId").val(temp);
+		$.ajax({
+			url : "/worksheet/accountChange",
+			method : "get",
+			success : function(data) {}
+		});
+	});
+    
+    var acco_id = $("#dbAccountView").children(0).children(0).children(0).children(0).children(0).attr("id");
+    document.getElementById(acco_id).setAttribute('checked', 'checked');
+    $("#radioId").val(acco_id);
 });
 
+var editor = ace.edit("editor");
+editor.setTheme("ace/theme/twilight");
+editor.session.setMode("ace/mode/sql");

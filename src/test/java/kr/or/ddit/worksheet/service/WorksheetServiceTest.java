@@ -37,29 +37,5 @@ public class WorksheetServiceTest extends LogicTestEnv{
 	
 	@Resource(name = "worksheetService")
 	private IWorkSheetService worksheetService;
-	
-	/**
-	 * 
-	* Method : selectQueryTest
-	* 작성자 : 김범휘
-	* 변경이력 :
-	* Method 설명 : select에 관한 쿼리문 실행
-	 */
-	@Test
-	public void selectQueryTest() {
-		/***Given***/
-		String value = "select * from users";
-		/***When***/
-		List<Map<String, String>> resultList = worksheetService.selectQuery(value);
-		/***Then***/
-		assertNotNull(resultList);
-		logger.debug("resultList : {}", resultList);
-		logger.debug("resultList.get(0) : {}", resultList.get(0));
-		Set<String> set = resultList.get(0).keySet();
-		logger.debug("set : {}", set);
-		Iterator<String> iterator = set.iterator();
-		logger.debug("iterator : {}", iterator);
-		logger.debug("iterator.next() : {}", iterator.next());
-	}
 
 }

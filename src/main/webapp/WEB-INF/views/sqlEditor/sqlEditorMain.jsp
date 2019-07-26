@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <link href="${cp}/resources/sqlEditor/css/sqlEditorStyle.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/treeMenu.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClick.css" rel="stylesheet">
-<script src="${cp}/resources/sqlEditor/js/sqlEditorJS.js"></script>
-<script src="${cp}/resources/sqlEditor/js/treeMenu.js"></script>
-<script src="${cp}/resources/sqlEditor/js/rightClick.js"></script>
-<script src="${cp}/resources/ace-builds-master/ace.js"></script>
+
 
 <div id="editorView">
 	<div id="leftBar">
-		<div id="buttonGroup">
+		<div>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="accountImg" title="DB계정 생성" src="${cp}/resources/img/plus.png"></li>
@@ -30,12 +29,17 @@
 			</ol>
 		</div>
 		<nav id="dbAccountView">
+			<input type="hidden" id="userId" value="${USER_INFO.user_id}"/>
 			<c:forEach items="${accountList}" var="accountVO">
-				<c:set var="ac_id" value="${accountVO.account_id}_${USER_INFO.user_id}"/>
+				<c:set var="temp" value="${accountVO.account_id}_${USER_INFO.user_id}"/>
+				<c:set var="ac_id" value="${fn:toUpperCase(temp)}" />
 				<div class="tree_box">
 				    <div class="con">
 				        <ul id="tree_menu" class="tree_menu">
-				            <li class="depth_1"><strong class="accounts">${accountVO.account_id}</strong>
+				            <li class="depth_1">
+				            	<input type="radio" class="radioClass" name="radioBtn" id="${ac_id}"/>
+				            	<input type="hidden" id="radioId">
+				            	<strong class="accounts">${accountVO.account_id}</strong>
 				                <ul class="depth_2" >
 				                    <li>
 				                        <a href="#none"><em>폴더</em> 테이블</a>
@@ -118,11 +122,12 @@
 	
 	<section id="worksheet">
 		<div id="sqlEditorView">
-<!-- 			<textarea class="form-control" id="worksheetView" rows="16" cols="229"></textarea> <br> -->
 			<pre id="editor"></pre>
 		</div>
-		<span class="badge badge-dark" id="resultViewSpan">Result View</span> <br>
-		<textarea class="form-control" id="resultView" rows="7" cols="229" readonly>asdjlas ajdlkasdjl</textarea>
+		<div id="resultViewDiv">
+			<span id="resultViewSpan">Result View</span> <br>
+		</div>
+		<textarea class="form-control" id="resultView" rows="7" cols="229" readonly></textarea>
 	</section>
 </div>
 
@@ -136,6 +141,7 @@
 	  <fieldset>
 	    <legend>DB계정 생성</legend>
 	    <br><br>
+	    <input type="hidden" id="run_id" value="${accountVO.account_id}"/>
 	    <div class="form-group">
 	      <label for="exampleInputEmail1">DB계정명</label>
 	      <input type="text" class="form-control" id="accountName" name="account_id" placeholder="DB계정명">
@@ -240,3 +246,8 @@
   <li><span id="accountPwUpdateSpan">DB계정 PW변경</span></li>
   <li id="calendarPopup"><span>팀 일정관리</span></li>
 </ul>
+
+<script src="${cp}/resources/ace-builds-master/ace.js"></script>
+<script src="${cp}/resources/sqlEditor/js/sqlEditorJS.js"></script>
+<script src="${cp}/resources/sqlEditor/js/treeMenu.js"></script>
+<script src="${cp}/resources/sqlEditor/js/rightClick.js"></script>
