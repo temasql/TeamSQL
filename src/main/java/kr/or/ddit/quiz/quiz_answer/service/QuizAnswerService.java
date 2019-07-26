@@ -6,10 +6,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import kr.or.ddit.quiz.quiz_answer.dao.IQuizAnswerDao;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 
-//@Service
+@Service
 public class QuizAnswerService implements IQuizAnswerService{
 
 	@Resource(name = "quizAnswerDao")

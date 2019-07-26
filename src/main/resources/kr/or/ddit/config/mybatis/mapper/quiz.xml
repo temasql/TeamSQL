@@ -16,17 +16,27 @@
 		)
 	</insert>
 	
-	<!-- SelectOne -->
-	<select id="get" parameterType="String" resultType="quizVo">
-		SELECT *
-		FROM QUIZ
-		WHERE ID = #{id}
+	<!-- 퀴즈 별 리스트 갯수 조회 -->
+	<select id="quizListCnt" parameterType="string" resultType="int">
+		SELECT  COUNT(*)
+		FROM    QUIZ
+		WHERE   QUIZ_RIGHT = #{quiz_right}
 	</select>
 	
 	<!-- SelectList -->
-	<select id="list" resultType="quizVo">
-		SELECT *
-		FROM QUIZ
+	<select id="quizList" parameterType="map" resultType="quizVo">
+		<![CDATA[
+			select  quiz_id,
+	        quiz_question
+			from
+			(select a.*, rownum rn
+			 from 
+			(select a.*
+			 from quiz a
+			 order by quiz_id) a  )
+			where rn >= #{page} and  rn <= #{pageSize}
+			and     quiz_right=#{quiz_right}
+		]]>
 	</select>
 	
 	<select id="map" parameterType="map" resultType="quizVo">
