@@ -13,7 +13,6 @@ pageEncoding="UTF-8"%>
     </tr>
   </thead>
   <tbody id="tableQuizList">
-    
   </tbody>
 </table> 
 
@@ -23,10 +22,18 @@ pageEncoding="UTF-8"%>
 	</ul>
 </div>
 
+<!-- 퀴즈 추가 화면 이동 -->
 <div id="addBtnDiv">
 	<form id="insertFrm" action="/insertOX" method="get">
-		<button id="insertOXBtn" type="submit" class="btn btn-secondary" value="${quiz_right}">퀴즈 문제 추가</button>
+		<button id="insertOXBtn" type="submit" class="btn btn-secondary">퀴즈 추가</button>
+		<input type="hidden" name="quiz_right" value="${quiz_right}">
 	</form>
 </div>
 
-<input type="hidden" id="quiz_right" value="${quiz_right}"/>
+<!-- 퀴즈 구분자 -->
+<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}"/>
+
+<!-- 리스트에서 해당 퀴즈 클릭 시 조회화면으로 이동 -->
+<form id="readFrm" action="/readOX" >
+	<input type="hidden" id="quiz_id" name="quiz_id">
+</form>

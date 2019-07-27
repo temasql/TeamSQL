@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
+import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 
 @Repository
 public class QuizDao implements IQuizDao{
@@ -30,8 +31,26 @@ public class QuizDao implements IQuizDao{
 	* Method 설명 : 관리자가 퀴즈별로 문제를 등록 하는 메서드
 	*/
 	@Override
-	public int insert(QuizVO quizVo) {
-		return sqlSession.insert("quiz.insert", quizVo);
+	public int insert_question(QuizVO quizVo) {
+		return sqlSession.insert("quiz.insertQuestion", quizVo);
+	}
+	
+	@Override
+	public int maxQuiz_Id() {
+		return sqlSession.selectOne("quiz.maxQuiz_Id");
+	}
+	
+	/**
+	* Method : insert_answer
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizAnswerVO
+	* @return
+	* Method 설명 : 관리자가 퀴즈별로 문제에 대한 정답과 해답을 등록 하는 메서드
+	*/
+	@Override
+	public int insert_answer(QuizAnswerVO quizAnswerVO) {
+		return sqlSession.insert("quiz.insertAnswer", quizAnswerVO);
 	}
 	
 	@Override
