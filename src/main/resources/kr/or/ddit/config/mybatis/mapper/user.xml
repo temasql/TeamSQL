@@ -70,7 +70,7 @@
 					FROM  USERS A
 	                   WHERE EXIT_RIGHT = 'N'
 	                   AND USER_RIGHT = 'C'
-	                   AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST )
+	                   AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST WHERE CANCEL_USER_ID_FK IS NULL)
 	                   AND USER_ID LIKE '%'||#{search}||'%'
 					ORDER BY USER_ID) A) 
 			WHERE RN >= (#{page} - 1) * #{pageSize} + 1 
@@ -84,7 +84,7 @@
 	    FROM USERS
 	    WHERE EXIT_RIGHT = 'N'
 	    AND USER_RIGHT = 'C'
-	    AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST )
+	    AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST WHERE CANCEL_USER_ID_FK IS NULL)
 	    AND USER_ID LIKE '%'||#{search}||'%'
 	</select>
 	
@@ -99,7 +99,7 @@
 					FROM  USERS A
 	                   WHERE EXIT_RIGHT = 'N'
 	                   AND USER_RIGHT = 'A'
-	                   AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST )
+	                  AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST WHERE CANCEL_USER_ID_FK IS NULL)
 	                   AND USER_ID LIKE '%'||#{search}||'%'
 					ORDER BY USER_ID) A) 
 			WHERE RN >= (#{page} - 1) * #{pageSize} + 1 
@@ -113,7 +113,7 @@
 	    FROM USERS
 	    WHERE EXIT_RIGHT = 'N'
 	    AND USER_RIGHT = 'A'
-	    AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST )
+	    AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST WHERE CANCEL_USER_ID_FK IS NULL)
 	    AND USER_ID LIKE '%'||#{search}||'%'
 	</select>
 	

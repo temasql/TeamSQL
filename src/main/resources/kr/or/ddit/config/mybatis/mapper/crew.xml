@@ -18,9 +18,29 @@
 	</select>
 	
 	<!-- SelectList -->
-	<select id="list" resultType="crewVo">
-		SELECT *
-		FROM CREW
+	<select id="crewList" parameterType="map" resultType="crewVo">
+		<![CDATA[ 
+			SELECT *
+			FROM 
+				(SELECT A.*, ROWNUM RN 
+				FROM 
+					(SELECT ACCOUNT_ID_FK, USER_ID_FK, USER_NAME, USER_EMAIL, USER_PATH 
+					FROM  CREW A, USERS
+                    WHERE USER_ID_FK = USER_ID
+                    AND USER_ID_FK = #{user_id}
+                    AND ACCOUNT_ID_FK = #{account_id_fk, jdbcType=VARCHAR}
+                    AND USER_ID_FK LIKE '%'||#{search}||'%'
+					ORDER BY USER_ID_FK) A) 
+			WHERE RN >= (#{page} - 1) * #{pageSize} + 1 
+			AND   RN <=  #{page} * #{pageSize} 
+		]]>
+	</select>
+	
+	<select id="crewSearchCount" parameterType="map" resultType="int">
+		SELECT COUNT(USER_ID_FK)
+	    FROM CREW
+	    WHERE ACCOUNT_ID_FK = #{account_id_fk}
+	    AND USER_ID_FK LIKE '%'||#{search}||'%'
 	</select>
 	
 	<select id="map" parameterType="map" resultType="crewVo">
@@ -39,10 +59,17 @@
 	</update>
 	
 	<!-- delete -->
-	<delete id="delete" parameterType="String">
+	<delete id="deleteCrew" parameterType="crewVo">
 		DELETE
 		FROM CREW
-		WHERE ID = #{id}
+		WHERE ACCOUNT_ID_FK = #{account_id_fk}
+		AND USER_ID_FK = #{user_id_fk}
 	</delete>
+
+	<select id="crewSelectList" parameterType="string" resultType="crewVo">
+		select *
+		from crew
+		where user_id_fk = #{user_id}
+	</select>
 
 </mapper>
