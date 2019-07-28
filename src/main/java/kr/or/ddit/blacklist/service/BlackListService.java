@@ -22,10 +22,6 @@ public class BlackListService implements IBlackListService{
 		return blackListDao.insertBlackList(blackListVo);
 	}
 	
-	@Override
-	public BlackListVO get(String id) {
-		return blackListDao.get(id);
-	}
 	
 	@Override
 	public Map<String, Object> blackList(Map<String, Object> pageMap) {
@@ -51,35 +47,6 @@ public class BlackListService implements IBlackListService{
 		return resultMap;
 	}
 
-	@Override
-	public Map<String, Object> map(Map<String, Object> map) {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<BlackListVO> mapList =  blackListDao.map(map);
-		return resultMap;
-	}
-
-	@Override
-	public int update(String id) {
-		return blackListDao.update(id);
-	}
-	
-	@Override
-	public int delete(String id) {
-		return blackListDao.delete(id);
-	}
-
-	/**
-	* Method : blackListSearchCount
-	* 작성자 : 이중석
-	* 변경이력 :
-	* @param search
-	* @return
-	* Method 설명 :
-	*/
-	@Override
-	public int blackListSearchCount(String search) {
-		return blackListDao.blackListSearchCount(search);
-	}
 
 	/**
 	* Method : deleteBlackListMG

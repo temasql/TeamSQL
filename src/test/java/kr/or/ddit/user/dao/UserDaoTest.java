@@ -15,19 +15,35 @@ import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 import kr.or.ddit.testenv.LogicTestEnv;
 import kr.or.ddit.user.model.UserVO;
 
+/**
+*
+* @author 이중석
+* @version 1.0
+* @see
+*
+* <pre>
+* << 개정이력(Modification Information) >>
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 이중석 최초 생성
+*
+* </pre>
+*/
 public class UserDaoTest extends LogicTestEnv{
 
 	@Resource(name = "userDao")
 	private IUserDao userDao;
 	
+
 	/**
-	* Method : signInTest
+	* Method : insertUserTest
 	* 작성자 : 이중석
 	* 변경이력 :
 	* Method 설명 : 사용자 등록 테스트
 	*/
 	@Test
-	public void signInTest() {
+	public void insertUserTest() {
 		/***Given***/
 		UserVO userVo = new UserVO();
 		userVo.setUser_id("brown");
@@ -45,7 +61,7 @@ public class UserDaoTest extends LogicTestEnv{
 	* Method : getUserTest
 	* 작성자 : 이중석
 	* 변경이력 :
-	* Method 설명 : 아이디에 해당하는 유저의 정보 조회 테스트
+	* Method 설명 : 아이디에 해당하는 사용자의 정보 조회 테스트
 	*/
 	@Test
 	public void getUserTest() {
@@ -56,10 +72,51 @@ public class UserDaoTest extends LogicTestEnv{
 	}
 	
 	/**
+	* Method : userListTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 사용자 페이징 처리 테스트
+	* 				
+	*/
+	@Test
+	public void userListTest() {
+		/***Given***/
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("search", "");
+		pageMap.put("page", 1);
+		pageMap.put("pageSize", 10);
+		/***When***/
+		List<UserVO> userList = userDao.userList(pageMap);
+		
+		/***Then***/
+		assertEquals(10, userList.size());
+	}
+	
+	/**
+	* Method : adminListTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 관리자 페이징 처리 테스트
+	*/
+	@Test
+	public void adminListTest() {
+		/***Given***/
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("search", "");
+		pageMap.put("page", 1);
+		pageMap.put("pageSize", 10);
+		/***When***/
+		List<UserVO> userList = userDao.adminList(pageMap);
+		
+		/***Then***/
+		assertEquals(1, userList.size());
+	}
+	
+	/**
 	* Method : updateUserTest
 	* 작성자 : 이중석
 	* 변경이력 :
-	* Method 설명 : 아이디에 해당하는 유저의 정보 수정 테스트
+	* Method 설명 : 사용자 정보 수정 테스트
 	*/
 	@Test
 	public void updateUserTest() {
@@ -115,7 +172,7 @@ public class UserDaoTest extends LogicTestEnv{
 	 * Method : findUserPw
 	 * 작성자 : 이중석
 	 * 변경이력 :
-	 * Method 설명 : 사용자의 아이디와 이메일을 입력하여 아이디 조회
+	 * Method 설명 : 사용자의 아이디와 이메일을 입력하여 비밀번호 조회
 	 */
 	@Test
 	public void findUserPw() {
@@ -150,26 +207,6 @@ public class UserDaoTest extends LogicTestEnv{
 		assertEquals(1, updateCount);
 	}
 	
-	/**
-	* Method : userListTest
-	* 작성자 : 이중석
-	* 변경이력 :
-	* Method 설명 : 회원 관리에서 일반 회원과 탈퇴하지 않고 블랙리스트가 아닌 회원만 조회 
-	*/
-	@Test
-	public void userListTest() {
-		/***Given***/
-		Map<String, Object> pageMap = new HashMap<String, Object>();
-		pageMap.put("page", 1);
-		pageMap.put("pageSize", 10);
-		pageMap.put("search", "");
-		
-		/***When***/
-		List<UserVO>userList = userDao.userList(pageMap);
-		/***Then***/
-		assertEquals(10, userList.size());
-	}
-	
 	
 	/**
 	* Method : deleteUserMGTest
@@ -186,5 +223,60 @@ public class UserDaoTest extends LogicTestEnv{
 		/***Then***/
 		assertEquals(1, deleteUserMGCount);
 	}
+	
+	/**
+	* Method : userSearchCountTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 검색어에 해당하는 사용자 수 테스트
+	*/
+	@Test
+	public void userSearchCountTest() {
+		/***Given***/
+		String search = "";
+		/***When***/
+		int userSearchCount = userDao.userSearchCount(search);
+		/***Then***/
+		assertEquals(18, userSearchCount);
+	}
+	
+	/**
+	 * Method : adminSearchCountTest
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * Method 설명 : 검색어에 해당하는 관리자 수 테스트
+	 */
+	@Test
+	public void adminSearchCountTest() {
+		/***Given***/
+		String search = "";
+		/***When***/
+		int adminSearchCount = userDao.adminSearchCount(search);
+		/***Then***/
+		assertEquals(1, adminSearchCount);
+	}
+	
+	
+	/**
+	* Method : insertAdminTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 관리자 등록 테스트
+	*/
+	@Test
+	public void insertAdminTest() {
+		/***Given***/
+		UserVO adminVo = new UserVO();
+		adminVo.setUser_id("testAdminId");
+		adminVo.setUser_pw("testAdminPw1!");
+		adminVo.setUser_name("어드민");
+		adminVo.setUser_email("admin@admin.com");
+		/***When***/
+		int insertAdminCount = userDao.insertAdmin(adminVo);
+		/***Then***/
+		assertEquals(1, insertAdminCount);
+
+	}
+	
 
 }
