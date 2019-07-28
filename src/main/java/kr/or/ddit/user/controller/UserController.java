@@ -71,6 +71,8 @@ public class UserController {
    */
    @RequestMapping(path = "/signIn", method = RequestMethod.GET)
    public String signInGet(UserVO userVo, Model model) { 
+	   
+	   // 회원가입 실패 후 다시 돌아왔을때 등록한 정보가 form에 남아있게 하기위한 작업
 	   model.addAttribute("userVo", userVo);
 	   return "/user/signIn"; 
    }
@@ -116,6 +118,8 @@ public class UserController {
 	public String profile(String user_id, Model model) { 
 		UserVO userVo = userService.getUser(user_id);
 		model.addAttribute("userVo", userVo);
+	
+		// application-context에서 빈으로 등록한 profileView클래스로 사용자 정보를 가지고 이동 
 		return "profileView";
 	}
 	
@@ -126,7 +130,7 @@ public class UserController {
 	* @param user_id
 	* @param model
 	* @return
-	* Method 설명 : 아이디 중복 체크 버튼을 클릭 시 
+	* Method 설명 : 사용자 아이디 중복 체크 버튼을 클릭 시 
 	*/
 	@RequestMapping("/idCheck")
 	public String idCheck(UserVO userVo, Model model) {
@@ -157,6 +161,16 @@ public class UserController {
 		model.addAttribute("userVo", userVo);
 		return "/user/signIn";
 	}
+	
+	/**
+	* Method : adminIdCheck
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @param model
+	* @return
+	* Method 설명 : 관리자 아이디 중복체크
+	*/
 	@RequestMapping("/adminIdCheck")
 	public String adminIdCheck(UserVO userVo, Model model) {
 		
@@ -301,109 +315,89 @@ public class UserController {
 		return "/user/myPageModify.tiles";
 	}
 	
+	/**
+	* Method : deleteUser
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @param model
+	* @param session
+	* @return
+	* Method 설명 : 사용자 삭제
+	*/
 	@RequestMapping("/deleteUser")
 	public String deleteUser(UserVO userVo, Model model, HttpSession session) {
 		
+		// 삭제 전 사용자의 비밀번호를 재입력 받음
 		userVo.setUser_pw(KISA_SHA256.encrypt(userVo.getUser_pw()));
 		
+		// 사용자의 아이디와 입력한 비밀번호가 일치하면 삭제
 		int deleteUserCount = userService.deleteUser(userVo);
 		if (deleteUserCount == 1) {
+			
+			// 삭제 후 세션을 비움
 			session.invalidate();
+			
+			// userVo의 Null여부에 따라 ajax에서 응답하는 메시지가 달라짐
 			model.addAttribute("userVo", userVo);
 		}
 		return "jsonView";
 	}
 	
-	@RequestMapping(path = "/userManager", method = RequestMethod.POST)
-	public String userManager(@RequestParam(name = "searchfor", defaultValue = "") String search,
-			PageVo pageVo, Model model) {
-		
-		Map<String, Object> pageMap = new HashMap<String, Object>();
-		pageMap.put("search", search);
-//		
-//		// 페이지 번호
-		pageMap.put("page", pageVo.getPage());
-//		
-//		// 한 페이지에 출력할 게시글 수
-		pageMap.put("pageSize", pageVo.getPageSize());
-//		
-		Map<String, Object> resultMap = userService.userList(pageMap);
-		List<UserVO>userList = (List<UserVO>) resultMap.get("userList");
-		int paginationSize = (int) resultMap.get("paginationSize");
-//		
-		model.addAttribute("userList", userList);
-		model.addAttribute("pageMap", pageMap);
-		model.addAttribute("paginationSize", paginationSize);
-		return "admin/userMGAjaxHtml";
-	}
 	
+	/**
+	* Method : userManager
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 회원 관리 메인 요청 화면
+	*/
 	@RequestMapping(path = "/userManager", method = RequestMethod.GET)
 	public String userManager() {
 		
 		return "/admin/userMG.tiles";
 	}
 	
-	@RequestMapping(path = "/adminManager", method = RequestMethod.POST)
-	public String adminManager(@RequestParam(name = "searchfor", defaultValue = "") String search,
+	/**
+	* Method : userManager
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param search
+	* @param pageVo
+	* @param model
+	* @return
+	* Method 설명 : 관리자 회원관리 메인 페이징 처리 응답 화면
+	*/
+	@RequestMapping(path = "/userManager", method = RequestMethod.POST)
+	public String userManager(@RequestParam(name = "searchfor", defaultValue = "") String search,
 			PageVo pageVo, Model model) {
+		
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 		pageMap.put("search", search);
-//		
-//		// 페이지 번호
+		
 		pageMap.put("page", pageVo.getPage());
-//		
-//		// 한 페이지에 출력할 게시글 수
+		
 		pageMap.put("pageSize", pageVo.getPageSize());
-//		
-		Map<String, Object> resultMap = userService.adminList(pageMap);
-		List<UserVO>adminList = (List<UserVO>) resultMap.get("adminList");
+		Map<String, Object> resultMap = userService.userList(pageMap);
+		
+		List<UserVO>userList = (List<UserVO>) resultMap.get("userList");
 		int paginationSize = (int) resultMap.get("paginationSize");
-//		
-		model.addAttribute("adminList", adminList);
+		
+		model.addAttribute("userList", userList);
 		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("paginationSize", paginationSize);
-		
-		return "/admin/adminMG/adminMGAjaxHtml";
+		return "admin/userMGAjaxHtml";
 	}
 	
-	@RequestMapping(path = "/adminManager", method = RequestMethod.GET)
-	public String adminManager() {
-		return "/admin/adminMG/adminMGMain.tiles";
-	}
-
-	@RequestMapping("/deleteAdminMG")
-	public String deleteAdminMG(String[] deleteCheck, Model model) {
-		
-		for (int i = 0; i < deleteCheck.length; i++) {
-			userService.deleteUserMG(deleteCheck[i]);
-		}
-		return adminManager();
-	}
-	
-   @RequestMapping(path = "/insertAdmin", method = RequestMethod.GET)
-   public String insertAdminGet(UserVO userVo, Model model) { 
-	   model.addAttribute("userVo", userVo);
-	   return "/admin/adminMG/adminMGInsert.tiles"; 
-   }
-	
-   @RequestMapping(path = "/insertAdmin", method = RequestMethod.POST)
-   public String signInPost(@Valid UserVO userVo, BindingResult result, Model model) {
-      
-      if(result.hasErrors()) {
-    	  model.addAttribute("userVo", userVo);
-         return "/admin/adminMG/adminMGInsert.tiles";
-      }
-      
-      // 등록
-      if(userService.insertAdmin(userVo) == 1)
-    	  // 로그인페이지로 이동
-    	  return adminManager();
-      
-      model.addAttribute("userVo", userVo);
-      return "/admin/adminMG/adminMGInsert.tiles";
-   }
-   
-   
+	/**
+	* Method : deleteUserMG
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param deleteCheck
+	* @param model
+	* @return
+	* Method 설명 : 관리자 회원 삭제 
+	*/
 	@RequestMapping("/deleteUserMG")
 	public String deleteUserMG(String[] deleteCheck, Model model) {
 		
@@ -411,6 +405,109 @@ public class UserController {
 			userService.deleteUserMG(deleteCheck[i]);
 		}
 		return userManager();
+	}
+	
+	/**
+	* Method : adminManager
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관리자 관리 메인 요청 화면
+	*/
+	@RequestMapping(path = "/adminManager", method = RequestMethod.GET)
+	public String adminManager() {
+		return "/admin/adminMG/adminMGMain.tiles";
+	}
+	
+	/**
+	* Method : adminManager
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param search
+	* @param pageVo
+	* @param model
+	* @return
+	* Method 설명 : 관리자 관리 메인 페이징 처리 응답화면
+	*/
+	@RequestMapping(path = "/adminManager", method = RequestMethod.POST)
+	public String adminManager(@RequestParam(name = "searchfor", defaultValue = "") String search,
+			PageVo pageVo, Model model) {
+		
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+
+		pageMap.put("search", search);
+		pageMap.put("page", pageVo.getPage());
+		pageMap.put("pageSize", pageVo.getPageSize());
+
+		Map<String, Object> resultMap = userService.adminList(pageMap);
+		List<UserVO>adminList = (List<UserVO>) resultMap.get("adminList");
+		int paginationSize = (int) resultMap.get("paginationSize");
+
+		model.addAttribute("adminList", adminList);
+		model.addAttribute("pageMap", pageMap);
+		model.addAttribute("paginationSize", paginationSize);
+		
+		return "/admin/adminMG/adminMGAjaxHtml";
+	}
+
+	/**
+	* Method : insertAdminGet
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param userVo
+	* @param model
+	* @return
+	* Method 설명 : 관리자 추가 요청화면
+	*/
+	@RequestMapping(path = "/insertAdmin", method = RequestMethod.GET)
+	public String insertAdminGet(UserVO userVo, Model model) { 
+		model.addAttribute("userVo", userVo);
+		return "/admin/adminMG/adminMGInsert.tiles"; 
+	}
+	
+	/**
+	 * Method : insertAdminPost
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * @param userVo
+	 * @param result
+	 * @param model
+	 * @return
+	 * Method 설명 : 관리자 추가 응답화면
+	 */
+	@RequestMapping(path = "/insertAdmin", method = RequestMethod.POST)
+	public String insertAdminPost(@Valid UserVO userVo, BindingResult result, Model model) {
+		
+		if(result.hasErrors()) {
+			model.addAttribute("userVo", userVo);
+			return "/admin/adminMG/adminMGInsert.tiles";
+		}
+		
+		// 등록
+		if(userService.insertAdmin(userVo) == 1)
+			// 로그인페이지로 이동
+			return adminManager();
+		
+		model.addAttribute("userVo", userVo);
+		return "/admin/adminMG/adminMGInsert.tiles";
+	}
+
+	/**
+	* Method : deleteAdminMG
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param deleteCheck
+	* @param model
+	* @return
+	* Method 설명 : 관리자 삭제
+	*/
+	@RequestMapping("/deleteAdminMG")
+	public String deleteAdminMG(String[] deleteCheck, Model model) {
+		
+		for (int i = 0; i < deleteCheck.length; i++) {
+			userService.deleteUserMG(deleteCheck[i]);
+		}
+		return adminManager();
 	}
 	
 }

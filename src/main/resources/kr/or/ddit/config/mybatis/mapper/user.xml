@@ -20,6 +20,7 @@
 		)
 	</insert>
 
+	<!-- 관리자 등록 -->
 	<insert id="insertAdmin" parameterType="userVo">
 		INSERT INTO USERS
 		VALUES
@@ -115,14 +116,6 @@
 	    AND USER_RIGHT = 'A'
 	    AND USER_ID NOT IN( SELECT USER_ID_FK FROM BLACKLIST WHERE CANCEL_USER_ID_FK IS NULL)
 	    AND USER_ID LIKE '%'||#{search}||'%'
-	</select>
-	
-	<select id="map" parameterType="map" resultType="userVo">
-		SELECT *
-		FROM USERS
-		WHERE ID = #{map1}
-		AND .. = #{map2}
-		...
 	</select>
 	
 	<!-- PW찾기 후 발송한 임시비밀번호를 암호화 -->

@@ -56,7 +56,7 @@ public class UserDao implements IUserDao{
 	}
 	
 	/**
-	 * Method : userList
+	 * Method : adminList
 	 * 작성자 : 이중석
 	 * 변경이력 :
 	 * @param pageMap
@@ -66,12 +66,6 @@ public class UserDao implements IUserDao{
 	@Override
 	public List<UserVO> adminList(Map<String, Object> pageMap) {
 		return sqlSession.selectList("user.adminList", pageMap);
-	}
-
-	@Override
-	public List<UserVO> map(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	/**
@@ -171,7 +165,7 @@ public class UserDao implements IUserDao{
 	* 변경이력 :
 	* @param search
 	* @return
-	* Method 설명 :
+	* Method 설명 : 검색어에 해당하는 관리자 수 테스트
 	*/
 	@Override
 	public int adminSearchCount(String search) {
@@ -184,7 +178,7 @@ public class UserDao implements IUserDao{
 	* 변경이력 :
 	* @param userVo
 	* @return
-	* Method 설명 :
+	* Method 설명 : 관리자 등록 테스트
 	*/
 	@Override
 	public int insertAdmin(UserVO userVo) {
