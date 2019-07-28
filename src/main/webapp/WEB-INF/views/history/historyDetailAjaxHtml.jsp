@@ -3,12 +3,15 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:forEach items="${changedList}" var="changedList">
-  <tr class="table-active clickEvent">
-    <td class="object_owners">${changedList.object_owner }</td>
-    <td><fmt:formatDate value="${changedList.exec_dtm }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-  </tr>
-</c:forEach>
+<c:forEach items="${changedDetailList}" var="changedDetailList">
+   <tr>
+  	<td>${changedDetailList.action_event }</td>
+  	<td>${changedDetailList.object_type }</td>
+  	<td>${changedDetailList.object_name }</td>
+  	<td>${changedDetailList.sql_text }</td>
+  	<td>${changedDetailList.exec_dtm }</td>
+   </tr>
+   </c:forEach>
 
 
 SEPERATORSEPERATOR

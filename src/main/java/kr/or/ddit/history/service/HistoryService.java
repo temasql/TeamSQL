@@ -49,7 +49,7 @@ public class HistoryService implements IHistoryService{
 		
 		// 해당 회원의 DB변경계정 수
 		String user_id = (String) pageMap.get("user_id");
-		int changedCnt = historyDao.historyCnt(user_id);
+		int changedCnt = historyDao.accountCnt(user_id);
 		
 		// 컨트롤러에서 담아온 pageSize
 		int pageSize = (int) pageMap.get("pageSize");
@@ -77,18 +77,37 @@ public class HistoryService implements IHistoryService{
 	public List<HistoryVO> changedDetailList(String user_id) {
 		return historyDao.changedDetailList(user_id);
 	}
+	
+	
 
+	/**
+	 * 
+	* Method : changedDetailPagingList
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param pageMap
+	* @return
+	* Method 설명 : DB변경 상세 페이징 리스트 조회
+	 */
 	@Override
 	public Map<String, Object> changedDetailPagingList(Map<String, Object> pageMap) {
 		
+		// 회원 페이징 처리
+		List<HistoryVO> changedDetailList = historyDao.changedDetailPagingList(pageMap);
 		
-//		List<HistoryVO> changedDetailList = historyDao.changedDetailPagingList(pageMap);
+		// 해당 DB변경 이력 수
+		String object_owner = (String) pageMap.get("object_owner");
+		int changedCnt = historyDao.historyCnt(object_owner);
+		
+		// 컨트롤러에서 담아온 pageSize
+		int pageSize = (int) pageMap.get("pageSize");
+		int paginationSize = (int) Math.ceil((double)changedCnt / pageSize);
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("changedList", historyDao.changedDetailPagingList(pageMap));
 		resultMap.put("object_owner", pageMap);
 		
-//		int cnt = historyDao.historyCnt();
+		int cnt = historyDao.historyCnt(object_owner);
 		
 		return resultMap;
 	}

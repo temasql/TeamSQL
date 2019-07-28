@@ -44,10 +44,17 @@
 	</select>
 	
 	<!-- 	DB계정 전체수 조회 -->
-	<select id="historyCnt" parameterType="String" resultType="int">
+	<select id="accountCnt" parameterType="String" resultType="int">
 		select COUNT(*)
 		FROM crew
 		where user_id_fk = #{user_id}
+	</select>
+	
+	<!-- 	DB변경이력 전체수 조회 -->
+	<select id="historyCnt" parameterType="String" resultType="int">
+		select count(*)
+		from ddl_history
+		where object_owner = #{object_owner}
 	</select>
 	
 	<!-- DB계정 상세 변경 페이징 리스트 -->
