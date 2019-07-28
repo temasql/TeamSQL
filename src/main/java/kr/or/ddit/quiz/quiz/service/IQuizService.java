@@ -5,10 +5,11 @@ import java.util.Map;
 
 import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
+import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 
 public interface IQuizService {
 	
-	int insert(QuizVO quizVo);
+	int insert_question(QuizVO quizVO, QuizAnswerVO quizAnswerVO);
 	
 	QuizVO get(String id);
 	
