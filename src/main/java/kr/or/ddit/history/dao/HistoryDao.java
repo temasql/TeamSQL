@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.history.model.ChangedVO;
 import kr.or.ddit.history.model.HistoryVO;
-import kr.or.ddit.page.model.PageVo;
 
 @Repository
 public class HistoryDao implements IHistoryDao{
@@ -84,8 +84,8 @@ public class HistoryDao implements IHistoryDao{
 	* Method 설명 : DB변경 계정 전체수 조회
 	 */
 	@Override
-	public int accountCnt(String user_id) {
-		return sqlSession.selectOne("history.accountCnt",user_id);
+	public int accountCnt(String user_id_fk) {
+		return sqlSession.selectOne("history.accountCnt",user_id_fk);
 	}
 
 	/**
@@ -101,5 +101,21 @@ public class HistoryDao implements IHistoryDao{
 	public int historyCnt(String object_owner) {
 		return sqlSession.selectOne("history.historyCnt",object_owner);
 	}
+
+	/**
+	 * 
+	* Method : changedMain
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param user_id_fk
+	* @return
+	* Method 설명 : DB계정, 마지막 변경일시, DB계정 생성자 조회 
+	 */
+	@Override
+	public List<ChangedVO> changedMainList(String user_id_fk) {
+		return sqlSession.selectList("history.changedMainList", user_id_fk);
+	}
+
+	
 
 }

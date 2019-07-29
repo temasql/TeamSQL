@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.history.dao.IHistoryDao;
+import kr.or.ddit.history.model.ChangedVO;
 import kr.or.ddit.history.model.HistoryVO;
-import kr.or.ddit.page.model.PageVo;
 
 @Service
 public class HistoryService implements IHistoryService{
@@ -109,21 +109,20 @@ public class HistoryService implements IHistoryService{
 		
 		return resultMap;
 		
-//		// 회원 페이징 처리
-//		List<HistoryVO> changedPagingList = historyDao.changedPagingList(pageMap);
-//		
-//		// 해당 회원의 DB변경계정 수
-//		String user_id = (String) pageMap.get("user_id");
-//		int changedCnt = historyDao.accountCnt(user_id);
-//		
-//		// 컨트롤러에서 담아온 pageSize
-//		int pageSize = (int) pageMap.get("pageSize");
-//		int paginationSize = (int) Math.ceil((double)changedCnt / pageSize);
-//		
-//		// Map 객체에 페이징 처리된 게시글 리스트와 페이지 갯수를 담아서 리턴한다.
-//		Map<String, Object> resultMap = new HashMap<String, Object>();
-//		resultMap.put("changedPagingList", changedPagingList);
-//		resultMap.put("paginationSize", paginationSize);
+	}
+
+	/**
+	 * 
+	* Method : changedMain
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param user_id_fk
+	* @return
+	* Method 설명 : DB계정, 마지막 변경일시, DB계정 생성자 조회 
+	 */
+	@Override
+	public List<ChangedVO> changedMainList(String user_id_fk) {
+		return historyDao.changedMainList(user_id_fk);
 	}
 
 

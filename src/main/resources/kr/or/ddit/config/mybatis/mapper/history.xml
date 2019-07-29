@@ -46,8 +46,8 @@
 	<!-- 	DB계정 전체수 조회 -->
 	<select id="accountCnt" parameterType="String" resultType="int">
 		select COUNT(*)
-		FROM crew
-		where user_id_fk = #{user_id}
+		from crew
+		where user_id_fk = #{user_id_fk}
 	</select>
 	
 	<!-- 	DB변경이력 전체수 조회 -->
@@ -74,6 +74,20 @@
         	order by exec_dtm desc)a)
 		where rn >= (#{page}-1) *#{pageSize} + 1 and rn <= #{page}*#{pageSize}
 		]]>
+	</select>
+	
+	<!-- DB계정, 마지막 변경일시, DB계정 생성자 조회 -->
+	<select id="changedMainList" parameterType="String" resultType="changedVo">
+		SELECT C.OBJECT_OWNER 
+			   , MAX(C.EXEC_DTM) EXEC_DTM 
+			   , (SELECT USERS.USER_NAME FROM ACCOUNT E, USERS WHERE C.OBJECT_OWNER = E.ACCOUNT_ID AND E.USER_ID_FK = USERS.USER_ID) USER_NAME
+		FROM
+				(SELECT  A.EXEC_DTM
+			          ,  A.OBJECT_OWNER
+			   	FROM DDL_HISTORY A, (SELECT * FROM CREW WHERE USER_ID_FK = #{user_id_fk})B
+				WHERE B.ACCOUNT_ID_FK = A.OBJECT_OWNER)C, ACCOUNT D
+		WHERE C.OBJECT_OWNER = D.ACCOUNT_ID
+		GROUP BY OBJECT_OWNER
 	</select>
 	
 

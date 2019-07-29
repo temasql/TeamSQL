@@ -2,7 +2,6 @@ package kr.or.ddit.history.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +12,8 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.history.model.ChangedVO;
 import kr.or.ddit.history.model.HistoryVO;
-import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -111,6 +110,23 @@ public class HistoryDaoTest extends LogicTestEnv{
 	
 	/**
 	 * 
+	* Method : daoAccountCntTest
+	* 작성자 : 강호길
+	* 변경이력 :
+	* Method 설명 : DB변경 계정 전체수 조회
+	 */
+	@Test
+	public void daoAccountCntTest() {
+		/***Given***/
+		String user_id_fk = "TEST_ID20";
+		/***When***/
+		int accountCnt = historyDao.accountCnt(user_id_fk);
+		/***Then***/
+		assertNotNull(accountCnt);
+		assertEquals(1, accountCnt);
+	}
+	/**
+	 * 
 	* Method : daoHistoryCntTest
 	* 작성자 : 강호길
 	* 변경이력 :
@@ -119,11 +135,12 @@ public class HistoryDaoTest extends LogicTestEnv{
 	@Test
 	public void daoHistoryCntTest() {
 		/***Given***/
-		String user_id = "TEST_ID20";
+		String object_owner= "TEAMSQL";
 		/***When***/
-		int historyCnt = historyDao.historyCnt(user_id);
+		int historyCnt = historyDao.historyCnt(object_owner);
 		/***Then***/
-		assertEquals(1, historyCnt);
+		assertNotNull(historyCnt);
+		assertEquals(4, historyCnt);
 	}
 	
 	/**
@@ -147,6 +164,23 @@ public class HistoryDaoTest extends LogicTestEnv{
 		assertEquals(7, historyList.size());
 	}
 	
+	/**
+	 * 
+	* Method : daoChangedMainTest
+	* 작성자 : 강호길
+	* 변경이력 :
+	* Method 설명 : DB계정, 마지막 변경일시, DB계정 생성자 조회 테스트
+	 */
+	@Test
+	public void daoChangedMainTest() {
+		/***Given***/
+		String user_id_fk = "TEST_ID20";
+		/***When***/
+		List<ChangedVO> changedMainList = historyDao.changedMainList(user_id_fk); 
+		/***Then***/
+		assertNotNull(changedMainList);
+		assertEquals(2, changedMainList.size());
+	}
 	
 
 }

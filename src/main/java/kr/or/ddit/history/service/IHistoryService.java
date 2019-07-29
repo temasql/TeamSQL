@@ -3,8 +3,8 @@ package kr.or.ddit.history.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.history.model.ChangedVO;
 import kr.or.ddit.history.model.HistoryVO;
-import kr.or.ddit.page.model.PageVo;
 
 public interface IHistoryService {
 	
@@ -52,5 +52,14 @@ public interface IHistoryService {
 	 */
 	Map<String, Object> changedDetailPagingList(Map<String, Object> pageMap);
 
-	
+	/**
+	 * 
+	* Method : changedMain
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param user_id_fk
+	* @return
+	* Method 설명 : DB계정, 마지막 변경일시, DB계정 생성자 조회 
+	 */
+	List<ChangedVO> changedMainList (String user_id_fk);
 }

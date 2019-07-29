@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class HistoryVO {
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
 	private Date exec_dtm;          // 변경일시
 	private String username;        // 실행DB계정명
 	private String action_event;    // 발생이벤트
