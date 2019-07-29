@@ -28,6 +28,8 @@
 					<img class="imgBtn" title="쿼리매니저" src="${cp}/resources/img/qmanager.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="runPlan" title="실행계획" src="${cp}/resources/img/explain.png"></li>
+				<li class="breadcrumb-item">
+					<img class="imgBtn" id="refresh" title="새로고침" src="${cp}/resources/img/refresh.png"></li>
 			</ol>
 		</div>
 		<nav id="dbAccountView">
@@ -127,9 +129,19 @@
 			<pre id="editor"></pre>
 		</div>
 		<div id="resultViewDiv">
-			<span id="resultViewSpan">Result View</span> <br>
+			<span id="clearSpan">CLEAR</span>|
+			<span class="resultSpans" id="resultViewSpan">Result View</span>|
+			<span class="resultSpans" id="scriptViewSpan">Script View</span>|
+			<br>
 		</div>
-		<textarea class="form-control" id="resultView" rows="7" cols="229" readonly></textarea>
+		<div id="groupDives">
+			<div class="groupDiv" id="firstDiv">
+				<textarea class="form-control" id="resultViewArea" rows="10" cols="229" readonly></textarea>
+			</div>
+			<div class="groupDiv" id="seconedDiv">
+				<textarea class="form-control" id="scriptViewArea" rows="10" cols="229" readonly></textarea>
+			</div>
+		</div>
 	</section>
 </div>
 
