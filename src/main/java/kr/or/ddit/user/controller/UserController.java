@@ -1,5 +1,7 @@
 package kr.or.ddit.user.controller;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -251,6 +253,14 @@ public class UserController {
 	*/
 	@RequestMapping("/logout")
 	public String logOut(HttpSession session) {
+		Connection conn =  (Connection) session.getAttribute("conn");
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		session.invalidate(); // session안에 있는 모든 정보를 삭제하는 메서드
 		return "/login/login.tiles";
 	}
