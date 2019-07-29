@@ -24,19 +24,6 @@
 			}
 		</c:forEach>
 		
-// 		for(var i = 0; i < list.length; i++){
-			
-// 			var result = confirm("초대장이 왔습니다 수락 하시겠습니까?")
-// 			if(result){
-// 				$("#inviteCheck").val("true");
-// 				$("#invite").val(list[i].account_id_fk)
-// 				alert()
-// 				$("#mainForm").submit();
-// 			}else{
-// 				$("#inviteCheck").val("false");
-// // 				$("#mainForm").submit();
-// 			}
-// 		}
 	})
 </script>
 

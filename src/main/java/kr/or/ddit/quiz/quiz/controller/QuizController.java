@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz.service.IQuizService;
+import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 import kr.or.ddit.user.model.UserVO;
 
 //@RequestMapping("/quiz")
@@ -52,7 +54,7 @@ public class QuizController {
 	@RequestMapping("/quizOX")
 	public String quizOX(HttpSession session, Model model, String quiz_right) {
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
-		logger.debug("quiz_right : {}", quiz_right);
+		logger.debug("quizOX quiz_right : {}", quiz_right);
 		
 		//로그인한 사람이 관리자일때 OX퀴즈 리스트로 이동하는 조건문
 		if(userVO.getUser_right().equals("A")) {
@@ -77,6 +79,8 @@ public class QuizController {
 	*/
 	@RequestMapping(path = "/quizOX", method = RequestMethod.POST)
 	public String quizOX(Model model, String quiz_right) {
+		logger.debug("quizOX post quiz_right : {}", quiz_right);
+		
 		PageVo pageVO = new PageVo();
 		
 		List<QuizVO> quizList = service.quizList(quiz_right, pageVO);
@@ -84,6 +88,7 @@ public class QuizController {
 		
 		int paginationSize = (int) Math.ceil((double)quizCnt/quizList.size());
 		
+		model.addAttribute("quiz_right", quiz_right);
 		model.addAttribute("quizList", quizList);
 		model.addAttribute("pagination", paginationSize);
 		model.addAttribute("pageVO", pageVO);
@@ -91,11 +96,59 @@ public class QuizController {
 		return "admin/quizMG/quizListAjaxHtml";
 	}
 	
+	/**
+	* Method : insertOX
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param model
+	* @param quiz_right
+	* @return
+	* Method 설명 : OX퀴즈 추가 화면으로 이동
+	*/
 	@RequestMapping(path = "/insertOX", method=RequestMethod.GET)
-	public String insertOX() {
+	public String insertOX(Model model, String quiz_right) {
+		logger.debug("insertOX get quiz_right : {}", quiz_right);
+		
+		model.addAttribute("quiz_right", quiz_right);
 		
 		return "/admin/quizMG/quizOX/quizOXInsert.tiles";
 	}
+	
+	/**
+	* Method : insertOX
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizVO
+	* @param quizAnswerVO
+	* @return
+	* Method 설명 : 퀴즈 추가 버튼 클릭시 DB에 추가되는 메서드
+	*/
+	@RequestMapping(path = "/insertOX", method=RequestMethod.POST)
+	public String insertOX(Model model, HttpSession session, QuizVO quizVO, QuizAnswerVO quizAnswerVO) {
+		logger.debug("quizVO : {}", quizVO);
+		logger.debug("quizAnswerVO : {}", quizAnswerVO);
+		
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		
+		quizVO.setUser_id_fk(userVO.getUser_id());
+		
+		int result = service.insert_question(quizVO, quizAnswerVO);
+		
+		logger.debug("등록 성공 : {}", result);
+		
+		model.addAttribute("quiz_right", quizVO.getQuiz_right());
+		model.addAttribute("quizName", "OX 퀴즈");
+		
+		return "/admin/quizMG/quizList.tiles";
+	}
+	
+	@RequestMapping(path="/readOX", method = RequestMethod.GET)
+	public String readOX(int quiz_id) {
+		logger.debug("quiz_id : {}", quiz_id);
+		
+		return "";
+	}
+	
 	/**
 	* Method : quizShort
 	* 작성자 : PC19

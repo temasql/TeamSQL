@@ -16,35 +16,32 @@ public class BlackListDao implements IBlackListDao{
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
 
+	/**
+	* Method : insertBlackList
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param blackListVo
+	* @return
+	* Method 설명 : 블랙리스트 등록
+	*/
 	@Override
 	public int insertBlackList(BlackListVO blackListVo) {
 		return sqlSession.insert("blackList.insertBlackList", blackListVo);
 	}
 	
-	@Override
-	public BlackListVO get(String id) {
-		return sqlSession.selectOne("blackList.get", id);
-	}
-	
+	/**
+	* Method : blackList
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param pageMap
+	* @return
+	* Method 설명 : 블랙리스트 페이징 처리
+	*/
 	@Override
 	public List<BlackListVO> blackList(Map<String, Object> pageMap) {
 		return sqlSession.selectList("blackList.blackList", pageMap);
 	}
 
-	@Override
-	public List<BlackListVO> map(Map<String, Object> map) {
-		return sqlSession.selectList("blackList.map", map);
-	}
-	
-	@Override
-	public int update(String id) {
-		return sqlSession.update("blackList.update", id);
-	}
-
-	@Override
-	public int delete(String id) {
-		return sqlSession.delete("blackList.delete", id);
-	}
 
 	/**
 	* Method : blackListSearchCount
@@ -52,7 +49,7 @@ public class BlackListDao implements IBlackListDao{
 	* 변경이력 :
 	* @param user_id_fk
 	* @return
-	* Method 설명 :
+	* Method 설명 : 블랙리스트 수
 	*/
 	@Override
 	public int blackListSearchCount(String search) {
@@ -65,7 +62,7 @@ public class BlackListDao implements IBlackListDao{
 	* 변경이력 :
 	* @param userMap
 	* @return
-	* Method 설명 :
+	* Method 설명 : 블랙리스트 해제
 	*/
 	@Override
 	public int deleteBlackListMG(Map<String, Object> userMap) {

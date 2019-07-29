@@ -18,8 +18,24 @@ public interface ICrewService {
 	 */
 	int insertCrew(CrewVO crewVO);
 	
+	/**
+	* Method : crewList
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param pageMap
+	* @return
+	* Method 설명 : 구성원 리스트 페이징 처리
+	*/
 	Map<String, Object> crewList(Map<String, Object> pageMap);
 
+	/**
+	* Method : crewSelectList
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : 해당 계정의 팀 리스트
+	*/
 	List<CrewVO> crewSelectList(String user_id);
 
 	/**

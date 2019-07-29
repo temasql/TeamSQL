@@ -3,19 +3,21 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:forEach items="${changedDetailList}" var="changedDetailList">
-   <tr>
-  	<td>${changedDetailList.action_event }</td>
-  	<td>${changedDetailList.object_type }</td>
-  	<td>${changedDetailList.object_name }</td>
-  	<td>${changedDetailList.sql_text }</td>
-  	<td>${changedDetailList.exec_dtm }</td>
+<!-- DB 상세 변경 이력 테이블 -->
+<c:forEach items="${changedDetailPagingList}" var="changedDetailPagingList">
+   <tr class="table-active.none">
+  	<td>${changedDetailPagingList.action_event }</td>
+  	<td>${changedDetailPagingList.object_type }</td>
+  	<td>${changedDetailPagingList.object_name }</td>
+  	<td>${changedDetailPagingList.sql_text }</td>
+  	<td><fmt:formatDate value="${changedDetailList.exec_dtm }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
    </tr>
    </c:forEach>
 
 
 SEPERATORSEPERATOR
 
+<!--  페이지네이션 -->
 <c:choose>
 	<c:when test="${pageMap.page  == 1}">
 		<li class="page-link disabled"><span>«</span></li>
@@ -23,9 +25,9 @@ SEPERATORSEPERATOR
 	</c:when>
 	<c:otherwise>
 		<li class="page-link"><a
-			href="javascript:historyPagingListAjaxHtml(1,${pageMap.pageSize});">«</a></li>
+			href="javascript:historyDetailPagingListAjaxHtml(1,${pageMap.pageSize});">«</a></li>
 		<li class="page-link"><a
-			href="javascript:historyPagingListAjaxHtml(${pageMap.page - 1 },${pageMap.pageSize});">Previous</a></li>
+			href="javascript:historyDetailPagingListAjaxHtml(${pageMap.page - 1 },${pageMap.pageSize});">Previous</a></li>
 	</c:otherwise>
 </c:choose>
 
@@ -36,7 +38,7 @@ SEPERATORSEPERATOR
 			</c:when>
 			<c:when test="${pageMap.page != i}">
 				<a class="page-link"
-					href="javascript:historyPagingListAjaxHtml(${i},${pageMap.pageSize});">${i}</a>
+					href="javascript:historyDetailPagingListAjaxHtml(${i},${pageMap.pageSize});">${i}</a>
 			</c:when>
 		</c:choose></li>
 </c:forEach>
@@ -48,8 +50,8 @@ SEPERATORSEPERATOR
 	</c:when>
 	<c:otherwise>
 		<li class="page-link"><a
-			href="javascript:historyPagingListAjaxHtml(${pageMap.page + 1 },${pageMap.pageSize});">next</a></li>
+			href="javascript:historyDetailPagingListAjaxHtml(${pageMap.page + 1 },${pageMap.pageSize});">next</a></li>
 		<li class="page-link"><a
-			href="javascript:historyPagingListAjaxHtml(${paginationSize},${pageMap.pageSize});">»</a></li>
+			href="javascript:historyDetailPagingListAjaxHtml(${paginationSize},${pageMap.pageSize});">»</a></li>
 	</c:otherwise>
 </c:choose>

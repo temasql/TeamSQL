@@ -28,7 +28,7 @@
 
 <button id="btnDeleteUser" class="btn btn-default pull-right">회원 탈퇴</button>
 
-<!-- 비밀번호 찾기 Modal -->
+<!-- 회원탈퇴 Modal -->
 <div id="deleteUserModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">

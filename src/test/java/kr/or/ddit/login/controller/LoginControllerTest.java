@@ -1,12 +1,11 @@
 package kr.or.ddit.login.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.testenv.ControllerTestEnv;
 
@@ -23,9 +22,11 @@ public class LoginControllerTest extends ControllerTestEnv{
 	public void loginGetTest() throws Exception {
 		/***Given***/
 		/***When***/
-//		mockMvc.perform(get("/signIn")).andExpect(view().name("tiles.login"));
+		MvcResult mvcResult = mockMvc.perform(get("/login")).andReturn();
+		ModelAndView mav = mvcResult.getModelAndView();
+		String viewName = mav.getViewName();
 		/***Then***/
-//		assertEquals("", "");
+		assertEquals("/login/login.tiles", viewName);
 
 	}
 

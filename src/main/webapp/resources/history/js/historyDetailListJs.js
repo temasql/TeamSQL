@@ -1,11 +1,11 @@
 $(document).ready(function(){
-
+	historyDetailPagingListAjaxHtml(1,10);
 });
-function userPagingListAjaxHtml(page, pageSize){
+function historyDetailPagingListAjaxHtml(page, pageSize){
 	$.ajax({
-			url    : "/history/historyList"
+			url    : "/history/historyDetail"
 			,method : "post"
-			,data   : "page=" + page + "&pageSize=" + pageSize + "&user_id=" + $("#user_id").val()
+			,data   : "page=" + page + "&pageSize=" + pageSize + "&object_owner=" + $("#object_owner").val()
 			,success : function(data){
 				// html
 				var html = data.split("SEPERATORSEPERATOR");

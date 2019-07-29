@@ -6,21 +6,38 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.quiz.quiz.dao.IQuizDao;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
+import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 
 @Service
 public class QuizService implements IQuizService{
+	private static final Logger logger = LoggerFactory.getLogger(QuizService.class);
 
 	@Resource(name = "quizDao")
 	private IQuizDao quizDao;
 
+	/**
+	* Method : insert_question
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizVO
+	* @param quizAnswerVO
+	* @return
+	* Method 설명 : 관리자가 문제와 해답을 등록 하는 메서드
+	*/
 	@Override
-	public int insert(QuizVO quizVo) {
-		return quizDao.insert(quizVo);
+	public int insert_question(QuizVO quizVO, QuizAnswerVO quizAnswerVO) {
+		int questionResult = quizDao.insert_question(quizVO);
+		
+		int answerResult = quizDao.insert_answer(quizAnswerVO);
+		
+		return questionResult+answerResult;
 	}
 	
 	@Override

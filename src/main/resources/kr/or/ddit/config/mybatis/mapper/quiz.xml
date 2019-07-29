@@ -4,16 +4,51 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="quiz">
 
-	<!-- Insert -->
-	<insert id="insert" parameterType="quizVo">
+	<!-- 문제 등록 -->
+	<insert id="insertQuestion" parameterType="quizVo">
 		INSERT INTO QUIZ
 		(
-			...
+			QUIZ_ID,
+			USER_ID_FK,
+			QUIZ_RIGHT,
+			QUIZ_QUESTION,
+			QUIZ_DT
 		)
 		VALUES
 		(
-			...
+			QUIZ_SEQ.NEXTVAL,
+			#{user_id_fk},
+			#{quiz_right},
+			#{quiz_question},
+			SYSDATE
 		)
+		<selectKey keyProperty="quiz_id" resultType="int" order="AFTER">
+			SELECT	QUIZ_SEQ.CURRVAL
+			AS		QUIZ_ID
+			FROM	DUAL
+		</selectKey>
+	</insert>
+	
+	<!-- 정답, 해설 등록 -->
+	<insert id="insertAnswer" parameterType="quizAnswerVo">
+		INSERT INTO QUIZ_ANSWER
+		(
+			ANSWER_ID,
+			QUIZ_ID_FK,
+			QUIZ_ANSWER,
+			QUIZ_EXPLAIN
+		)
+		VALUES
+		(
+			QUIZ_ANSWER_SEQ.NEXTVAL,
+			#{quiz_id_fk},
+			#{quiz_answer},
+			#{quiz_explain}
+		)
+		<selectKey keyProperty="quiz_id_fk" resultType="int" order="BEFORE">
+			SELECT	QUIZ_SEQ.CURRVAL
+			FROM	DUAL
+		</selectKey>
 	</insert>
 	
 	<!-- 퀴즈 별 리스트 갯수 조회 -->

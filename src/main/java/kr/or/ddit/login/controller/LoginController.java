@@ -3,7 +3,6 @@ package kr.or.ddit.login.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -90,23 +89,6 @@ public class LoginController {
 		redirectAttributes.addAttribute("user_pw", userVo.getUser_pw());
 		return "redirect:/login";
 		
-	}
-	
-	/**
-	* Method : logOut
-	* 작성자 : OWNER
-	* 변경이력 :
-	* @param request
-	* @return
-	* Method 설명 : 로그아웃 처리
-	*/
-	@RequestMapping(path = "/logOut")
-	public String logOut(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		
-		// session 모든 정보 삭제
-		session.invalidate();
-		return "/login/login.tiles";
 	}
 	
 }
