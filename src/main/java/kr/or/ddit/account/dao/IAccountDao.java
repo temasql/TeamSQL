@@ -157,6 +157,16 @@ public interface IAccountDao {
 	AccountVO getAccountOne(String account_id);
 	
 	/**
+	* Method : getAccountVo
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param accountMap
+	* @return
+	* Method 설명 : account_id와 DB 계정생성자의 아이디가 일치하는 정보 조회
+	*/
+	AccountVO getAccountVo(Map<String, Object> accountMap);
+	
+	/**
 	 * 
 	* Method : deleteAccount
 	* 작성자 : 김범휘
