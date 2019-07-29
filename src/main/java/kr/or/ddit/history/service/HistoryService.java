@@ -74,8 +74,8 @@ public class HistoryService implements IHistoryService{
 	* Method 설명 : DB변경 상세 리스트 조회
 	 */
 	@Override
-	public List<HistoryVO> changedDetailList(String user_id) {
-		return historyDao.changedDetailList(user_id);
+	public List<HistoryVO> changedDetailList(String object_owner) {
+		return historyDao.changedDetailList(object_owner);
 	}
 	
 	
@@ -104,12 +104,26 @@ public class HistoryService implements IHistoryService{
 		int paginationSize = (int) Math.ceil((double)changedCnt / pageSize);
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("changedList", historyDao.changedDetailPagingList(pageMap));
-		resultMap.put("object_owner", pageMap);
-		
-		int cnt = historyDao.historyCnt(object_owner);
+		resultMap.put("changedDetailPagingList", historyDao.changedDetailPagingList(pageMap));
+		resultMap.put("paginationSize", paginationSize);
 		
 		return resultMap;
+		
+//		// 회원 페이징 처리
+//		List<HistoryVO> changedPagingList = historyDao.changedPagingList(pageMap);
+//		
+//		// 해당 회원의 DB변경계정 수
+//		String user_id = (String) pageMap.get("user_id");
+//		int changedCnt = historyDao.accountCnt(user_id);
+//		
+//		// 컨트롤러에서 담아온 pageSize
+//		int pageSize = (int) pageMap.get("pageSize");
+//		int paginationSize = (int) Math.ceil((double)changedCnt / pageSize);
+//		
+//		// Map 객체에 페이징 처리된 게시글 리스트와 페이지 갯수를 담아서 리턴한다.
+//		Map<String, Object> resultMap = new HashMap<String, Object>();
+//		resultMap.put("changedPagingList", changedPagingList);
+//		resultMap.put("paginationSize", paginationSize);
 	}
 
 

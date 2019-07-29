@@ -39,7 +39,7 @@ public interface IHistoryService {
 	* @return
 	* Method 설명 : DB변경 상세 리스트 조회
 	 */
-	List<HistoryVO> changedDetailList(String user_id);
+	List<HistoryVO> changedDetailList(String object_owner);
 	
 	/**
 	 * 

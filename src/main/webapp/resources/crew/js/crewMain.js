@@ -1,12 +1,11 @@
 $(function (){
-	
 	$(document).on("change", "#select", function (){
 		$("#accountSelect").val($(this).val());
 		crewPagingListAjaxHtml(1,10);
 	});
 	
 	// modal
-	$("#btnInviteCrew").on("click", function() {
+	$(document).on("click","#btnInviteCrew", function() {
 		$("#inviteModal").css("display", "block");
 	});
 	
@@ -15,9 +14,8 @@ $(function (){
 		$("#inviteModal").css("display", "none");
 	});
 	
-	$("#btnInviteCrewOk").on("click", function(){
+	$(document).on("click","#btnInviteCrewOk", function(){
 		var user_id = $("#user_id").val();
-		alert()
 		var account_id_fk = $("#select").val();
 		
 		if(user_id.length == 0){
@@ -29,9 +27,11 @@ $(function (){
 						,data : "user_id=" + user_id +"&ac_id=" +account_id_fk
 						,success : function(data){
 							console.log(data)
-							if(data.user_id == null){
+							if(data.overCrew == "true"){
+								alert(user_id + "이미 존재하는 구성원입니다.")
+							}else if(data.overCrew != "true" &&data.user_id == null){
 								$("legend").html("입력하신 아이디와 일치하는 계정이 없습니다.")
-							}else{
+							}else if(data.overCrew != "true" &&data.user_id != null){
 								$("#inviteModal").css("display", "none");
 								alert(user_id + "님을 초대하였습니다.")
 							}
@@ -49,7 +49,7 @@ $(function (){
         }
 	})
 	
-	$("#deleteCrew").on("click", function (){
+	$(document).on("click", "#deleteCrew", function (){
 		if($(".deleteChecked").length == 0){
 			alert("탈퇴 시킬 회원을 선택 해 주세요")
 		}else{
@@ -71,8 +71,9 @@ function crewPagingListAjaxHtml(page, pageSize){
 				,success : function(data){
 					// html
 					var html = data.split("SEPERATORSEPERATOR");
-					$("#crewListTbody").html(html[0]);
-					$(".pagination").html(html[1]);
+					$("#btnDelAndAdd").html(html[0]);
+					$("#crewListTbody").html(html[1]);
+					$(".pagination").html(html[2]);
 				}
 	});
 }
@@ -84,8 +85,9 @@ function search(){
 				,success : function(data){
 					// html
 					var html = data.split("SEPERATORSEPERATOR");
-					$("#crewListTbody").html(html[0]);
-					$(".pagination").html(html[1]);
+					$("#btnDelAndAdd").html(html[0]);
+					$("#crewListTbody").html(html[1]);
+					$(".pagination").html(html[2]);
 				}
 	});
 }

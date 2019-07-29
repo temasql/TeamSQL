@@ -81,6 +81,19 @@ public class CrewDao implements ICrewDao{
 	public int deleteCrew(CrewVO crewVO) {
 		return sqlSession.delete("crew.deleteCrew", crewVO);
 	}
+
+	/**
+	* Method : getCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param crewVo
+	* @return
+	* Method 설명 :초대전에 이미 구성원이 있는지 null체크
+	*/
+	@Override
+	public CrewVO getCrew(CrewVO crewVo) {
+		return sqlSession.selectOne("crew.getCrew", crewVo);
+	}
 	
 
 }

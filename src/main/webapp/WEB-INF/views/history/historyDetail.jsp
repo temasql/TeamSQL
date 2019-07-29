@@ -3,8 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="${cp}/resources/history/js/historyListJs.js"></script>
+<script type="text/javascript" src="${cp}/resources/history/js/historyDetailListJs.js"></script>
 
+<!-- DB 상세 변경 이력 테이블 -->
 <div class="tableContainer">
 <table class="table table-hover" id="tableContainer">
   <thead>
@@ -18,15 +19,6 @@
   </thead>
   
   <tbody id="dbChangedDetailListBody">
-  <c:forEach items="${changedDetailList}" var="changedDetailList">
-   <tr>
-  	<td>${changedDetailList.action_event }</td>
-  	<td>${changedDetailList.object_type }</td>
-  	<td>${changedDetailList.object_name }</td>
-  	<td>${changedDetailList.sql_text }</td>
-  	<td>${changedDetailList.exec_dtm }</td>
-   </tr>
-   </c:forEach>
   </tbody>
 </table> 
 </div>
@@ -36,3 +28,4 @@
 	<ul class="pagination">
 	</ul>
 </div>
+<input type="hidden" id= "object_owner" value = "${object_owner}">
