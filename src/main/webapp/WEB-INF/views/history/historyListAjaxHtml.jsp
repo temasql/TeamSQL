@@ -3,16 +3,17 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:forEach items="${changedList}" var="changedList">
+<!-- DB 상세 변경 이력 테이블 -->
+<c:forEach items="${changedPagingList}" var="changedPagingList">
   <tr class="table-active clickEvent">
-    <td class="object_owners">${changedList.object_owner }</td>
-    <td><fmt:formatDate value="${changedList.exec_dtm }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+    <td class="object_owners">${changedPagingList.object_owner }</td>
+    <td><fmt:formatDate value="${changedPagingList.exec_dtm }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
   </tr>
 </c:forEach>
 
 
 SEPERATORSEPERATOR
-
+<!--  페이지네이션 -->
 <c:choose>
 	<c:when test="${pageMap.page  == 1}">
 		<li class="page-link disabled"><span>«</span></li>
