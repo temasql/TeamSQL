@@ -81,6 +81,13 @@
 		WHERE	ACCOUNT_ID = #{account_id}
 	</select>
 	
+	<select id="getAccountVo" parameterType="map" resultType="accountVo">
+		SELECT *
+		FROM   ACCOUNT
+		WHERE  ACCOUNT_ID = #{account_id}
+		AND    USER_ID_FK = #{user_id_fk}
+	</select>
+	
 	<delete id="deleteAccount" parameterType="String">
 		DROP USER ${value} CASCADE
 	</delete>

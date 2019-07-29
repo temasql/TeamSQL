@@ -57,5 +57,16 @@ public interface ICrewDao {
 	* Method 설명 :구성원 삭제
 	*/
 	int deleteCrew(CrewVO crewVO);
+
+	/**
+	* Method : getCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param crewVo
+	* @return
+	* Method 설명 : 초대전에 이미 구성원이 있는지 null체크
+	*/
+	CrewVO getCrew(CrewVO crewVo);
+	
 	
 }

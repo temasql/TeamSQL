@@ -10,15 +10,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.account.dao.IAccountDao;
+import kr.or.ddit.account.model.AccountVO;
 import kr.or.ddit.crew.dao.ICrewDao;
 import kr.or.ddit.crew.model.CrewVO;
-import kr.or.ddit.user.model.UserVO;
 
 @Service
 public class CrewService implements ICrewService{
 	
 	@Resource(name = "crewDao")
 	private ICrewDao crewDao;
+	
+	@Resource(name = "accountDao")
+	private IAccountDao accountDao;
 	
 	/**
 	 * 
@@ -34,7 +38,6 @@ public class CrewService implements ICrewService{
 		return crewDao.insertCrew(crewVO);
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(CrewService.class);
 	/**
 	* Method : crewList
 	* 작성자 : 이중석
@@ -47,20 +50,10 @@ public class CrewService implements ICrewService{
 	public Map<String, Object> crewList(Map<String, Object> pageMap) {
 		// 검색한 내용에 해당하는 회원이 페이징 처리 되어 리스트에 담긴다
 		List<CrewVO> crewList = crewDao.crewList(pageMap);
-		String a = (String) pageMap.get("search");
-		String a2 = (String) pageMap.get("user_id");
-		String a3 = (String) pageMap.get("account_id_fk");
-		int a4 = (int) pageMap.get("page");
-		int a5 = (int) pageMap.get("pageSize");
-		logger.debug("crewList ===>>>[{}]", crewList);
-		logger.debug("crewList search ===>>>[{}]", a);
-		logger.debug("crewList user_id ===>>>[{}]", a2);
-		logger.debug("crewList account_id_fk ===>>>[{}]", a3);
-		logger.debug("crewList page ===>>>[{}]", a4);
-		logger.debug("crewList pageSize ===>>>[{}]", a5);
-		// 검색한 내용에 해당하는 회원의 수
-//		String search = (String) pageMap.get("search");
-		
+		Map<String, Object> accountMap = new HashMap<String, Object>();
+		accountMap.put("account_id", (String)pageMap.get("account_id_fk"));
+		accountMap.put("user_id_fk", (String)pageMap.get("user_id"));
+		AccountVO accountVo = accountDao.getAccountVo(accountMap);
 		
 		int crewSearchCount = crewDao.crewSearchCount(pageMap);
 		
@@ -75,7 +68,7 @@ public class CrewService implements ICrewService{
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("crewList", crewList);
 		resultMap.put("paginationSize", paginationSize);
-		
+		resultMap.put("accountVo", accountVo);
 		return resultMap;
 	}
 
@@ -103,6 +96,19 @@ public class CrewService implements ICrewService{
 	@Override
 	public int deleteCrew(CrewVO crewVO) {
 		return crewDao.deleteCrew(crewVO);
+	}
+
+	/**
+	* Method : getCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param crewVo
+	* @return
+	* Method 설명 :초대전에 이미 구성원이 있는지 null체크
+	*/
+	@Override
+	public CrewVO getCrew(CrewVO crewVo) {
+		return crewDao.getCrew(crewVo);
 	}
 
 

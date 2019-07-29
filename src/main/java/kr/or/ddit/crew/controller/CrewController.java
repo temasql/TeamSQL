@@ -7,18 +7,22 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.account.model.AccountVO;
 import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.invite.model.InviteVO;
 import kr.or.ddit.invite.service.IInviteService;
 import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.user.model.UserVO;
+import kr.or.ddit.user.service.IUserService;
 
 @RequestMapping("/crew")
 @Controller
@@ -29,6 +33,9 @@ public class CrewController {
 
 	@Resource(name = "crewService")
 	private ICrewService crewService;
+	
+	@Resource(name = "userService")
+	private IUserService userService;
 	
 	/**
 	* Method : mainInviteCrew
@@ -70,7 +77,7 @@ public class CrewController {
 	*/
 	@RequestMapping(path = "/crewManager", method = RequestMethod.GET)
 	public String crewManagerGet(Model model, HttpSession session) {
-
+		
 		String user_id = ((UserVO)session.getAttribute("USER_INFO")).getUser_id();
 		model.addAttribute("crewSelectList", crewService.crewSelectList(user_id));
 		String select = "";
@@ -80,6 +87,8 @@ public class CrewController {
 		model.addAttribute("selected", select);
 		return "/crew/crewMain.tiles";
 	}
+	
+	private static final Logger logger = LoggerFactory.getLogger(CrewController.class);
 	
 	/**
 	* Method : crewManager
@@ -96,23 +105,26 @@ public class CrewController {
 	@RequestMapping(path = "/crewManager", method = RequestMethod.POST)
 	public String crewManager(@RequestParam(name = "searchfor", defaultValue = "") String search,
 			PageVo pageVo, Model model, String account_id_fk, HttpSession session) {
-		
-		String user_id = ((UserVO)session.getAttribute("USER_INFO")).getUser_id();
 
+		String user_id = ((UserVO)session.getAttribute("USER_INFO")).getUser_id();
+		
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 		pageMap.put("search", search);
-		pageMap.put("user_id", user_id);
 		pageMap.put("account_id_fk", account_id_fk);
+		pageMap.put("user_id", user_id);
 		pageMap.put("page", pageVo.getPage());
 		pageMap.put("pageSize", pageVo.getPageSize());
 
 		Map<String, Object> resultMap = crewService.crewList(pageMap);
 		List<UserVO>crewList = (List<UserVO>) resultMap.get("crewList");
 		int paginationSize = (int) resultMap.get("paginationSize");
-
+		AccountVO accountVo = (AccountVO) resultMap.get("accountVo");
+		
+		logger.debug("accountVo =============================>>>>>>>>>>>>>>>>>>>>>>>[{}]", accountVo);
 		model.addAttribute("crewList", crewList);
 		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("paginationSize", paginationSize);
+		model.addAttribute("accountVo", accountVo);
 		return "crew/crewMainAjaxHtml";
 	}
 	
@@ -131,6 +143,16 @@ public class CrewController {
 	@RequestMapping(path = "/inviteCrew", method = RequestMethod.POST)
 	public String inviteCrew(String user_id, String ac_id, Model model) {
 		CrewVO crewVo = new CrewVO(ac_id, user_id);
+		if(crewService.getCrew(crewVo) != null) {
+			model.addAttribute("overCrew", "true");
+			return "jsonView";
+		}
+		
+		if(userService.getUser(user_id) == null) {
+			model.addAttribute("user_id", null);
+			return "jsonView";
+			
+		}
 		if(inviteService.insertCrew(crewVo) == 0){
 			model.addAttribute("user_id", null);
 			return "jsonView";

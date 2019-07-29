@@ -9,7 +9,7 @@
 		<td scope="row">${blackListVo.user_id_fk}</td>
 		<td scope="row">${blackListVo.user_name}</td>
 		<td scope="row">${blackListVo.user_email}</td>
-		<td scope="row"><img
+		<td scope="row"><img id="thumbnail"
 			src="${cp}/user/profile?user_id=${blackListVo.user_id_fk}"></td>
 		<td scope="row">${blackListVo.reason}</td>
 		<td scope="row"><fmt:formatDate value="${blackListVo.user_dt}"
