@@ -113,7 +113,7 @@ public class SqlEditorController {
 		model.addAttribute("sequenceList", sequenceList);
 		model.addAttribute("functionList", functionList);
 		model.addAttribute("procedureList", procedureList);
-		
+
 		for (AccountVO accountVO : accountList) {
 			String temp = accountVO.getAccount_id();
 			int end = temp.indexOf(userVO.getUser_id());
@@ -255,24 +255,6 @@ public class SqlEditorController {
 		
 		model.addAttribute("msg", msg);
 		return sqlEditorMain(session, model);
-	}
-	
-	@RequestMapping(path = "/runPlan", method = RequestMethod.GET)
-	@ResponseBody
-	public List<String> runPlan(String dragText) {
-		logger.debug("runPlan 안뇽");
-		logger.debug("dragText : {}", dragText);
-		
-		if(dragText.contains(";")) {
-			int end = dragText.indexOf(";");
-			dragText = dragText.substring(0, end);
-		}
-		
-		String plan = "EXPLAIN PLAN FOR " + dragText;
-		sqlEditorService.runPlan(plan);
-		List<String> planList = sqlEditorService.runPlanView();
-		
-		return planList;
 	}
 	
 //	@RequestMapping(path = "/test")
