@@ -6,6 +6,7 @@
 <script type="text/javascript" src="${cp}/resources/history/js/historyListJs.js"></script>
 <link href="${cp}/resources/history/css/historyStyle.css" rel="stylesheet">
 
+<!-- DB 상세 변경 이력 테이블 -->
 <div class="tableContainer">
 <table class="table table-hover" id="tableContainer">
   <thead>
@@ -25,6 +26,6 @@
 	<ul class="pagination">
 	</ul>
 </div>
-<form action="${cp }/history/historyDetail" id="frm" method="post">
+<form action="${cp }/history/historyDetailView" id="frm" method="POST">
 	<input type="hidden" id="object_owner" name="object_owner">
 </form>

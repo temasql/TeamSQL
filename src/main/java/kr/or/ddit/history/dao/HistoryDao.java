@@ -55,8 +55,8 @@ public class HistoryDao implements IHistoryDao{
 	* Method 설명 : DB변경 이력 상세 리스트 조회
 	 */
 	@Override
-	public List<HistoryVO> changedDetailList(String user_id) {
-		return sqlSession.selectList("history.changedDetailList",user_id);
+	public List<HistoryVO> changedDetailList(String object_owner) {
+		return sqlSession.selectList("history.changedDetailList", object_owner);
 	}
 	
 	/**
