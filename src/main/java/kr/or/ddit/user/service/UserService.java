@@ -6,8 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -138,19 +136,6 @@ public class UserService implements IUserService{
 		return resultMap;
 	}
 
-	/**
-	* Method : map
-	* 작성자 : 이중석
-	* 변경이력 :
-	* @param map
-	* @return
-	* Method 설명 :
-	*/
-	@Override
-	public List<UserVO> map(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
 	* Method : updateUser
@@ -256,16 +241,16 @@ public class UserService implements IUserService{
 	* 변경이력 :
 	* @param userVo
 	* @return
-	* Method 설명 :
+	* Method 설명 : 관리자 등록
 	*/
 	@Override
 	public int insertAdmin(UserVO userVo) {
-		// 사용자 비밉런호 암호화 
+		// 관리자 비밉런호 암호화 
 	    userVo.setUser_pw(KISA_SHA256.encrypt(userVo.getUser_pw()));
 	    
 		userVo.setUser_path(ProfileUtil.insertAdminProfile());
 	    
-	    // 사용자 등록
+	    // 관리자 등록
 	    int adminInsertCount = userDao.insertAdmin(userVo);
 	    
 		return adminInsertCount;

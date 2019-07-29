@@ -25,3 +25,6 @@
 	<ul class="pagination">
 	</ul>
 </div>
+<form action="${cp }/history/historyDetail" id="frm" method="post">
+	<input type="hidden" id="object_owner" name="object_owner">
+</form>

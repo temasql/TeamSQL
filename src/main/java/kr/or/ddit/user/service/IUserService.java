@@ -1,6 +1,5 @@
 package kr.or.ddit.user.service;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -49,16 +48,6 @@ public interface IUserService {
 	 * Method 설명 : 관리자 리스트
 	 */
 	Map<String, Object> adminList(Map<String, Object> pageMap);
-	
-	/**
-	* Method : map
-	* 작성자 : 이중석
-	* 변경이력 :
-	* @param map
-	* @return
-	* Method 설명 :
-	*/
-	List<UserVO> map(Map<String, Object> map);
 	
 	/**
 	* Method : updateUser

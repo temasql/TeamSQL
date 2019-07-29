@@ -6,26 +6,33 @@ import kr.or.ddit.blacklist.model.BlackListVO;
 
 public interface IBlackListService {
 	
+	/**
+	* Method : insertBlackList
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param BlackListVO
+	* @return
+	* Method 설명 : 블랙리스트 등록
+	*/
 	int insertBlackList(BlackListVO BlackListVO);
 	
-	BlackListVO get(String id);
-	
+	/**
+	* Method : blackList
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param pageMap
+	* @return
+	* Method 설명 : 블랙리스트 페이징 처리
+	*/
 	Map<String, Object> blackList(Map<String, Object> pageMap);
 	
-	int blackListSearchCount(String user_id_fk);
-	
-	Map<String, Object> map(Map<String, Object> map);
-	
-	int update(String id);
-	
-	int delete(String id);
 
 	/**
 	* Method : deleteBlacListMG
 	* 작성자 : 이중석
 	* 변경이력 :
 	* @param string
-	* Method 설명 :
+	* Method 설명 : 블랙리스트 해제
 	*/
 	int deleteBlackListMG(Map<String, Object> userMap);
 }

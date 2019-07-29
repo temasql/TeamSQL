@@ -76,22 +76,30 @@ public class HistoryDao implements IHistoryDao{
 	
 	/**
 	 * 
-	* Method : historyCnt
+	* Method : accountCnt
 	* 작성자 : 강호길
 	* 변경이력 :
 	* @param user_id
 	* @return
-	* Method 설명 : DB변경 이력 전체수 조회
+	* Method 설명 : DB변경 계정 전체수 조회
 	 */
 	@Override
-	public int historyCnt(String user_id) {
-		return sqlSession.selectOne("history.historyCnt",user_id);
+	public int accountCnt(String user_id) {
+		return sqlSession.selectOne("history.accountCnt",user_id);
 	}
 
-
-
-	
-	
-
+	/**
+	 * 
+	* Method : historyCnt
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param object_owner
+	* @return
+	* Method 설명 : DB 변경 이력 전체수 조회
+	 */
+	@Override
+	public int historyCnt(String object_owner) {
+		return sqlSession.selectOne("history.historyCnt",object_owner);
+	}
 
 }

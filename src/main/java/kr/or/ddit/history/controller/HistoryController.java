@@ -38,7 +38,7 @@ public class HistoryController {
 	* @param pageVo
 	* @param model
 	* @return
-	* Method 설명 :
+	* Method 설명 : DB변경 메인 페이지
 	 */
 	@RequestMapping(path = "/historyList", method = RequestMethod.POST)
 	public String dbChanged(HistoryVO hVo, HttpSession session,PageVo pageVo, Model model) {
@@ -73,6 +73,7 @@ public class HistoryController {
 		
 		return "history/historyListAjaxHtml";
 	}
+	
 	/**
 	 * 
 	* Method : dbChangedGet
@@ -87,11 +88,55 @@ public class HistoryController {
 		return "/history/historyList.tiles";
 	}
 	
-	@RequestMapping(path =  "/historyDetail", method = RequestMethod.GET)
-	public String dbChangedDetailView(UserVO userVO, HttpSession session, Model model) {
-		
 	
-		return "/history/historyDetail.tiles";
+	
+	/**
+	 * 
+	* Method : dbChangedDetail
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @return
+	* Method 설명 : DB변경 상세 이력 페이지
+	 */
+	@RequestMapping(path = "/historyDetail",method = RequestMethod.POST)
+	public String dbChangedDetail(HttpSession session,String object_owner,PageVo pageVo, HistoryVO hVo, Model model) {
+		logger.debug("돈코올미 : {}", object_owner );
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		
+//		String user_id = ((UserVO)session.getAttribute("USER_INFO")).getUser_id();
+		model.addAttribute("changedDetailList", historyService.changedDetailList(object_owner));
+		
+		// 해당 DB계정
+		pageMap.put("object_owner", object_owner);
+		// 페이지 번호 
+		pageMap.put("page", pageVo.getPage());
+		// 한 페이지에 출력할 게시글 수
+		pageMap.put("pageSize", pageVo.getPageSize());
+		
+		// 페이징리스트에 담기
+		Map<String, Object> resultMap = historyService.changedDetailPagingList(pageMap);
+		
+		List<HistoryVO> changedDetailPagingList = (List<HistoryVO>) resultMap.get("changedDetailPagingList");
+		int paginationSize = (int) resultMap.get("paginationSize");
+		
+		
+		model.addAttribute("object_owner",object_owner);
+		model.addAttribute("changedDetailPagingList",changedDetailPagingList);
+		model.addAttribute("pageMap",pageMap);
+		model.addAttribute("paginationSize",paginationSize);
+	
+		return "history/historyDetailAjaxHtml";
 	}
+	
+	@RequestMapping(path = "/historyDetail", method = RequestMethod.GET)
+	public String dbChangedDetailView() {
+		logger.debug("빠끄빠끄");
+		
+		return "/history/historyDetail.tiles";
+		
+	}
+	
+	
+	
 	
 }

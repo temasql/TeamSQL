@@ -75,7 +75,13 @@ public class ProfileView implements View{
 		FileInputStream fis = null; 
 		
 		// 사용자가 업로드한 파일이 존재할 경우 : path 
-		File file = new File(userVo.getUser_path()); 
+		String path = "";
+		if (userVo.getUser_path() != null) {
+			path = userVo.getUser_path();
+		}else {
+			path = request.getServletContext().getRealPath(File.separator + "resources" + File.separator + "img"+ File.separator +"user.png");
+		}
+		File file = new File(path); 
 		logger.debug("userVo.getUser_path() : [{}]", userVo.getUser_path());
 		try {
 			fis = new FileInputStream(file);

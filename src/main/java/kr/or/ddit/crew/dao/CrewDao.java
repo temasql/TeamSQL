@@ -36,7 +36,7 @@ public class CrewDao implements ICrewDao{
 	* 변경이력 :
 	* @param pageMap
 	* @return
-	* Method 설명 :
+	* Method 설명 : 구성원 리스트 페이징 처리
 	*/
 	@Override
 	public List<CrewVO> crewList(Map<String, Object> pageMap) {
@@ -49,7 +49,7 @@ public class CrewDao implements ICrewDao{
 	* 변경이력 :
 	* @param search
 	* @return
-	* Method 설명 :
+	* Method 설명 : 해당 DB계정의 구성원 수
 	*/
 	@Override
 	public int crewSearchCount(Map<String, Object> searchMap) {
@@ -62,7 +62,7 @@ public class CrewDao implements ICrewDao{
 	* 변경이력 :
 	* @param user_id
 	* @return
-	* Method 설명 :
+	* Method 설명 : 해당 계정의 팀 리스트
 	*/
 	@Override
 	public List<CrewVO> crewSelectList(String user_id) {
@@ -75,7 +75,7 @@ public class CrewDao implements ICrewDao{
 	* 변경이력 :
 	* @param crewVO
 	* @return
-	* Method 설명 :
+	* Method 설명 : 구성원 삭제
 	*/
 	@Override
 	public int deleteCrew(CrewVO crewVO) {
