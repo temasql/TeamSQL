@@ -10,7 +10,7 @@
 		<td scope="row">${userVo.user_id}</td>
 		<td scope="row">${userVo.user_name}</td>
 		<td scope="row">${userVo.user_email}</td>
-		<td scope="row"><img
+		<td scope="row"><img id="thumbnail"
 			src="${cp}/user/profile?user_id=${userVo.user_id}"></td>
 		<td scope="row"><fmt:formatDate value="${userVo.user_dt}"
 				pattern="yyyy-MM-dd" /></td>

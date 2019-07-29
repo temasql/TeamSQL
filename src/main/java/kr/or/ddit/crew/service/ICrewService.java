@@ -46,5 +46,15 @@ public interface ICrewService {
 	* Method 설명 :
 	*/
 	int deleteCrew(CrewVO crewVO);
+
+	/**
+	* Method : getCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param crewVo
+	* @return
+	* Method 설명 :초대전에 이미 구성원이 있는지 null체크
+	*/
+	CrewVO getCrew(CrewVO crewVo);
 	
 }

@@ -9,9 +9,9 @@
 		<option value="${crewVo.account_id_fk }">${crewVo.account_id_fk }</option>
 	</c:forEach>
 </select>
-<input type="hidden" id="accountSelect" id="accountSelect" name="account_id_fk" value="${selected}">
+<input type="hidden" id="accountSelect" name="account_id_fk" value="${selected}">
 <script>$("#select").val($("#accountSelect").val());</script>
-
+<input type="hidden" id="accountVo_id"  name="accountVo_id" value="${accountVo.account_id}">
 <form id="search"
 		action="${cp}/crew/crewManager" >
 		<div id="searchdiv" class="col-lg-8">
@@ -23,12 +23,9 @@
 			</div>
 		</div>
 	</form>
-	
-<form action="/crew/deleteCrew" id="deleteForm">
-		<input type="hidden" id="acc_id" name="acc_id" value="${selected}"> 
-	<button type="button" id="deleteCrew" class="btn btn-default pull-right" >구성원 탈퇴</button>
-</form>
-<button type="button" id="btnInviteCrew" class="btn btn-default pull-right" >구성원 초대</button>
+<div id="btnDelAndAdd">
+
+</div>
 <div class="tableContainer">
 	<table class="table table-hover">
 		<thead>

@@ -20,7 +20,6 @@
 					(SELECT ACCOUNT_ID_FK, USER_ID_FK, USER_NAME, USER_EMAIL, USER_PATH 
 					FROM  CREW A, USERS
                     WHERE USER_ID_FK = USER_ID
-                    AND USER_ID_FK = #{user_id}
                     AND ACCOUNT_ID_FK = #{account_id_fk, jdbcType=VARCHAR}
                     AND USER_ID_FK LIKE '%'||#{search}||'%'
 					ORDER BY USER_ID_FK) A) 
@@ -37,6 +36,12 @@
 	    AND USER_ID_FK LIKE '%'||#{search}||'%'
 	</select>
 	
+	<select id="getCrew" parameterType="crewVo" resultType="crewVo">
+		SELECT *
+		FROM CREW
+		WHERE ACCOUNT_ID_FK = #{account_id_fk}
+		AND USER_ID_FK = #{user_id_fk}
+	</select>
 	
 	<!-- 구성원 삭제 -->
 	<delete id="deleteCrew" parameterType="crewVo">
