@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.history.model.ChangedVO;
 import kr.or.ddit.history.model.HistoryVO;
 import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.testenv.LogicTestEnv;
@@ -57,28 +58,35 @@ public class HistoryServiceTest extends LogicTestEnv{
 		/***Then***/
 		assertNotNull(totalList);
 		assertEquals(2, totalList.size());
-		assertEquals("TEAMSQL", totalList.get(0).getObject_owner());
+		assertEquals("TEAMSQL_TEST", totalList.get(0).getObject_owner());
 		assertNotNull(totalList.get(0).getExec_dtm());
 	}
 	
+	/**
+	 * 
+	* Method : serviceChangedPagingListTest
+	* 작성자 : 강호길
+	* 변경이력 :
+	* Method 설명 : DB계정명
+	 */
 	@Test
 	public void serviceChangedPagingListTest() {
 		/***Given***/
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 
-		String user_id = "TEST_ID20";
+		String object_owner = "TEAMSQL_TEST";
 		PageVo pageVo = new PageVo(1, 10);
 		
-		pageMap.put("user_id", user_id);
+		pageMap.put("user_id", object_owner);
 		pageMap.put("pageVo", pageVo);
 		
 		
 		
 		/***When***/
 		List<HistoryVO> totalList = (List<HistoryVO>) historyService.changedPagingList(pageMap);
-
+		
 		/***Then***/
-
+		
 	}
 	
 	/**
@@ -102,6 +110,24 @@ public class HistoryServiceTest extends LogicTestEnv{
 		/***Then***/
 		assertNotNull(totalList);
 		assertEquals(11, totalList.size());
+	}
+	
+	/**
+	 * 
+	* Method : serviceChangedMainTest
+	* 작성자 : 강호길
+	* 변경이력 :
+	* Method 설명 : DB계정, 마지막 변경일시, DB계정 생성자 조회 테스트
+	 */
+	@Test
+	public void serviceChangedMainTest() {
+		/***Given***/
+		String user_id_fk = "TEST_ID20";
+		/***When***/
+		List<ChangedVO> changedMainList = historyService.changedMainList(user_id_fk); 
+		/***Then***/
+		assertNotNull(changedMainList);
+		assertEquals(2, changedMainList.size());
 	}
 	
 

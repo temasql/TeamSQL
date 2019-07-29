@@ -18,6 +18,7 @@
 		<typeAlias type="kr.or.ddit.domain.user_domain.model.UserDomainVO" alias="userDomainVo" />
 		<typeAlias type="kr.or.ddit.filtering.model.FilteringVO" alias="filteringVo" />
 		<typeAlias type="kr.or.ddit.history.model.HistoryVO" alias="historyVo" />
+		<typeAlias type="kr.or.ddit.history.model.ChangedVO" alias="changedVo" />
 		<typeAlias type="kr.or.ddit.manager.model.ManagerVO" alias="managerVo" />
 		<typeAlias type="kr.or.ddit.post.model.PostVO" alias="postVo" />
 		<typeAlias type="kr.or.ddit.quiz.quiz.model.QuizVO" alias="quizVo" />

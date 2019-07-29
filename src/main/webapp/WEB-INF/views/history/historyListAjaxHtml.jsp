@@ -7,7 +7,7 @@
 <c:forEach items="${changedPagingList}" var="changedPagingList">
   <tr class="table-active clickEvent">
     <td class="object_owners">${changedPagingList.object_owner }</td>
-    <td><fmt:formatDate value="${changedPagingList.exec_dtm }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+    <td><fmt:formatDate value="${changedPagingList.exec_dtm }" pattern="yyyy-MM-dd a hh:mm:ss"/></td>
   </tr>
 </c:forEach>
 
