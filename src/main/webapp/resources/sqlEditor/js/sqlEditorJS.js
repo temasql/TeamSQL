@@ -108,21 +108,30 @@ $(document).ready(function() {
 	
 	// 실행계획 버튼 클릭 이벤트
 	$("#runPlan").on("click", function() {
-		var dragText = selectText();
+		var dragText = editor.getSelectedText();
 		
 		if(dragText == "") {
 			alert("실행계획을 보고싶은 쿼리를 드래그해주세요.");
 			return;
 		}
 		
+		var accountId = $("#radioId").val();
+		var user_id = $("#userId").val();
+		var indexCnt = accountId.indexOf(user_id.toUpperCase());
+		var account_temp = accountId.substring(0, indexCnt);
+		var account_id = account_temp + user_id;
+		
 		$.ajax({
-			url : "/sqlEditor/runPlan",
+			url : "/worksheet/planRun",
 			method : "get",
-			data : "dragText=" + dragText,
+			data : "dragText=" + dragText + "&account_id=" + account_id,
 			success : function(data) {
 				console.log(data);
 				var result = "";
 				for (var i = 0; i < data.length; i++) {
+					if(data[i].indexOf("ORA") != -1) {
+						result = "작업 실패\nERROR) ";
+					}
 					var temp = data[i].replace(/---/gi, "──");
 					result += temp + "\n";
 				}
@@ -161,15 +170,65 @@ $(document).ready(function() {
 					success : function(data) {
 						console.log(data);
 						console.log(data.resultList);
-						var list = data.resultList;
-						var view = "";
-						for (var i = 0; i < list.length; i++) {
-							for (var j = 0; j < list[0].length; j++) {
-								view += list[i][j] + "|";
+						
+						if(data.errorMsg == null) {
+							var list = data.resultList;
+							var view = "";
+							for (var i = 0; i < list.length; i++) {
+								for (var j = 0; j < list[0].length; j++) {
+									view += list[i][j] + "|";
+								}
+								view += "\n";
 							}
-							view += "\n";
+							$("#resultView").text(view);
+						}else {
+							var error = "작업 실패\n";
+							error += "ERROR) " + data.errorMsg;
+							$("#resultView").text(error);
 						}
-						$("#resultView").text(view);
+						
+					}
+				});
+			}else if(dragText.indexOf("create") != -1 || dragText.indexOf("CREATE") != -1 || 
+					 dragText.indexOf("alter") != -1 || dragText.indexOf("ALTER") != -1 || 
+					 dragText.indexOf("drop") != -1 || dragText.indexOf("DROP") != -1 || 
+					 dragText.indexOf("rename") != -1 || dragText.indexOf("RENAME") != -1) {
+				$.ajax({
+					url : "/worksheet/ddlRun",
+					dataType : "json",
+					method : "get",
+					data : "dragText=" + dragText + "&account_id=" + account_id,
+					success : function(data) {
+						if(data.resultMap.result == "Y") {
+							var view = data.resultMap.objectType + " " + data.resultMap.resultStr + " 성공";
+							$("#resultView").text(view);
+						}else {
+							var error = "작업 실패\n";
+							error += "ERROR) " + data.resultMap.result;
+							$("#resultView").text(error);
+						}
+					}
+				});
+			}else if(dragText.indexOf("commit") != -1 || dragText.indexOf("COMMIT") != -1) {
+				$.ajax({
+					url : "/worksheet/commitRun",
+					dataType : "json",
+					method : "get",
+					data : "dragText=" + dragText + "&account_id=" + account_id,
+					success : function(data) {
+						if(data.resultCnt == 1) $("#resultView").text("COMMIT 완료");
+						else $("#resultView").text("COMMIT 실패");
+					}
+				});
+			}else if(dragText.indexOf("rollback") != -1 || dragText.indexOf("ROLLBACK") != -1){
+				$.ajax({
+					url : "/worksheet/rollbackRun",
+					dataType : "json",
+					method : "get",
+					data : "dragText=" + dragText + "&account_id=" + account_id,
+					success : function(data) {
+						if(data.resultCnt == 1) $("#resultView").text("ROLLBACK 완료");
+						else $("#resultView").text("ROLLBACK 실패");
 					}
 				});
 			}else {
@@ -179,13 +238,17 @@ $(document).ready(function() {
 					method : "get",
 					data : "dragText=" + dragText + "&account_id=" + account_id,
 					success : function(data) {
-						console.log(data);
-						view = data.resultCnt + "행이 " + data.queryType + "되었습니다.";
-						$("#resultView").text(view);
+						if(data.resultMap.result == "Y") {
+							var view = data.resultMap.resultCnt + "건이 " + data.resultMap.resultStr + "되었습니다.";
+							$("#resultView").text(view);
+						}else {
+							var error = "작업 실패\n";
+							error += "ERROR) " + data.resultMap.result;
+							$("#resultView").text(error);
+						}
 					}
 				});
 			}
-			
 		}}).keyup(function(e) { 
 				if (e.keyCode == 17) ctrlDown = false;
 				if (e.keyCode == 13) ctrlDown = false;

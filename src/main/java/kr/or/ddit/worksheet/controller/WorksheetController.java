@@ -2,6 +2,7 @@ package kr.or.ddit.worksheet.controller;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.account.model.AccountVO;
 import kr.or.ddit.account.service.IAccountService;
@@ -33,6 +35,15 @@ public class WorksheetController {
 	@Resource(name = "accountService")
 	IAccountService accountServcie;
 	
+	/**
+	 * 
+	* Method : accountChange
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param session
+	* @return
+	* Method 설명 : 워크시트 변경(라디오버튼 클릭시)
+	 */
 	@RequestMapping(path = "/accountChange", method = RequestMethod.GET)
 	public String accountChange(HttpSession session) {
 		Connection conn = (Connection) session.getAttribute("conn");
@@ -45,6 +56,18 @@ public class WorksheetController {
 		return "jsonView";
 	}
 	
+	/**
+	 * 
+	* Method : selectRun
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param dragText
+	* @param account_id
+	* @param model
+	* @param session
+	* @return
+	* Method 설명 : select 쿼리문 조회
+	 */
 	@RequestMapping(path = "/selectRun", method = RequestMethod.GET)
 	public String selectRun(String dragText, String account_id, Model model, HttpSession session) {
 		logger.debug("account_id : {}", account_id);
@@ -58,53 +81,154 @@ public class WorksheetController {
 		}
 		
 		List<List<String>> resultList = worksheetService.selectRun(dragText, conn);
+		for (int i = 0; i < resultList.size(); i++) {
+			for (int j = 0; j < resultList.get(i).size(); j++) {
+				String temp = resultList.get(i).get(j);
+				if(temp.contains("ORA")) {
+					logger.debug("에로로로 : {}", temp);
+					model.addAttribute("errorMsg", temp);
+				}
+			}
+		}
+		
 		model.addAttribute("resultList", resultList);
 		
 		return "jsonView";
 	}
 	
+	/**
+	 * 
+	* Method : anotherRun
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param dragText
+	* @param account_id
+	* @param model
+	* @param session
+	* @return
+	* Method 설명 : select문, commit, rollback 제외한 쿼리문 실행
+	 */
 	@RequestMapping(path = "/anotherRun", method = RequestMethod.GET)
-	public String anotherRun(String dragText, String account_id, Model model) {
-//		logger.debug("anotherRun");
-//		logger.debug("dragText : {}", dragText);
-//		
-//		String queryType = "";
-//		
-//		if(dragText.contains(";")) {
-//			int end = dragText.indexOf(";");
-//			dragText = dragText.substring(0, end);
-//		}
-//		
-//		StringBuffer sb = new StringBuffer();
-//		
-//		if(dragText.contains("insert") || dragText.contains("INSERT")) {
-//			queryType = "삽입";
-//			
-//			String[] tempArry = dragText.split("into");
-//			sb.append(tempArry[0]);
-//			sb.append(" into ");
-//			String temp = account_id + "." + tempArry[1];
-//			sb.append(temp);
-//			
-//		}else if(dragText.contains("update") || dragText.contains("UPDATE")) {
-//			queryType = "변경";
-//		}else if(dragText.contains("delete") || dragText.contains("DELETE")) {
-//			queryType = "삭제";
-//		}else if(dragText.contains("commit") || dragText.contains("COMMIT")) {
-//			sb.append(dragText);
-//			queryType = "커밋";
-//		}else if(dragText.contains("rollback") || dragText.contains("ROLLBACK")) {
-//			sb.append(dragText);
-//			queryType = "롤백";
-//		}
-//		
-//		logger.debug("sb.toString() : {}", sb.toString());
-//		int resultCnt = worksheetService.anotherQuery(sb.toString());
-//		
-//		model.addAttribute("queryType", queryType);
-//		model.addAttribute("resultCnt", resultCnt);
+	public String anotherRun(String dragText, String account_id, Model model, HttpSession session) {
+		AccountVO accountVO = accountServcie.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		
+		if(dragText.contains(";")) {
+			int end = dragText.indexOf(";");
+			dragText = dragText.substring(0, end);
+		}
+		
+		Map<String, Object> resultMap = worksheetService.anotherRun(dragText, conn);
+		model.addAttribute("resultMap", resultMap);
 		
 		return "jsonView";
+	}
+	
+	/**
+	 * 
+	* Method : ddlRun
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param dragText
+	* @param account_id
+	* @param model
+	* @param session
+	* @return
+	* Method 설명 : DDL문 실행
+	 */
+	@RequestMapping(path = "/ddlRun", method = RequestMethod.GET)
+	public String ddlRun(String dragText, String account_id, Model model, HttpSession session) {
+		AccountVO accountVO = accountServcie.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		
+		if(dragText.contains(";")) {
+			int end = dragText.indexOf(";");
+			dragText = dragText.substring(0, end);
+		}
+		
+		Map<String, String> resultMap = worksheetService.ddlRun(dragText, conn);
+		model.addAttribute("resultMap", resultMap);
+		
+		return "jsonView";
+	}
+	
+	/**
+	 * 
+	* Method : commitRun
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param dragText
+	* @param account_id
+	* @param model
+	* @param session
+	* @return
+	* Method 설명 : commit문 실행
+	 */
+	@RequestMapping(path = "/commitRun", method = RequestMethod.GET)
+	public String commitRun(String dragText, String account_id, Model model, HttpSession session) {
+		AccountVO accountVO = accountServcie.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		
+		if(dragText.contains(";")) {
+			int end = dragText.indexOf(";");
+			dragText = dragText.substring(0, end);
+		}
+		
+		int resultCnt = worksheetService.commitRun(dragText, conn);
+		model.addAttribute("resultCnt", resultCnt);
+		
+		return "jsonView";
+	}
+	
+	/**
+	 * 
+	* Method : rollbackRun
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param dragText
+	* @param account_id
+	* @param model
+	* @param session
+	* @return
+	* Method 설명 : rollback문 실행
+	 */
+	@RequestMapping(path = "/rollbackRun", method = RequestMethod.GET)
+	public String rollbackRun(String dragText, String account_id, Model model, HttpSession session) {
+		AccountVO accountVO = accountServcie.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		
+		if(dragText.contains(";")) {
+			int end = dragText.indexOf(";");
+			dragText = dragText.substring(0, end);
+		}
+		
+		int resultCnt = worksheetService.rollbackRun(dragText, conn);
+		model.addAttribute("resultCnt", resultCnt);
+		
+		return "jsonView";
+	}
+	
+	@RequestMapping(path = "/planRun", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> planRun(String dragText, String account_id, Model model, HttpSession session) {
+		AccountVO accountVO = accountServcie.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		List<String> resultList = new ArrayList<String>();
+		
+		if(dragText.contains(";")) {
+			int end = dragText.indexOf(";");
+			dragText = dragText.substring(0, end);
+		}
+		
+		String plan = "EXPLAIN PLAN FOR " + dragText;
+		String result = worksheetService.planInsert(plan, conn);
+		
+		if(result.equals("Y"))
+			resultList = worksheetService.planRun(conn);
+		else
+			resultList.add(result);
+		
+		return resultList;
 	}
 
 }
