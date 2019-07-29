@@ -5,6 +5,42 @@ $(document).ready(function() {
 		alert($("#msg").val());
 	}
 	
+	$("#refresh").on("click", function() {
+		$.ajax({
+			url : "/sqlEditor/sqlEditorMain",
+			method : "get",
+			success : function(data) {
+				console.log(data);
+				alert("성공");
+			}
+		});
+	});
+	
+	// 결과하면 클리어
+	$("#clearSpan").on("click", function() {
+		if($("#resultViewArea").css("display") == "block") {
+			$("#resultViewArea").text("");
+		}else {
+			$("#scriptViewArea").text("");
+		}
+	});
+	
+	// 결과창으로 바꾸기
+	$("#resultViewSpan").on("click", function() {
+		$("#resultViewArea").css("display", "block");
+		$("#scriptViewArea").css("display", "none");
+		$("#resultViewSpan").css("color", "red");
+		$("#scriptViewSpan").css("color", "black");
+	});
+	
+	// 스크립트 창으로 바꾸기
+	$("#scriptViewSpan").on("click", function() {
+		$("#scriptViewArea").css("display", "block");
+		$("#resultViewArea").css("display", "none");
+		$("#scriptViewSpan").css("color", "red");
+		$("#resultViewSpan").css("color", "black");
+	});
+	
 	// DB계정 생성 모달창 띄우기
 	$("#accountImg").on("click", function() {
 		$("#accountModal").css("display", "block");
@@ -128,14 +164,20 @@ $(document).ready(function() {
 			success : function(data) {
 				console.log(data);
 				var result = "";
-				for (var i = 0; i < data.length; i++) {
-					if(data[i].indexOf("ORA") != -1) {
-						result = "작업 실패\nERROR) ";
+				if(data[0].indexOf("ORA") != -1) {
+					result = "\n\n작업 실패\nERROR) " + data[0];
+					changeScript();
+					$("#scriptViewArea").append(result);
+					$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
+				}else {
+					for (var i = 0; i < data.length; i++) {
+						var temp = data[i].replace(/---/gi, "──");
+						result += temp + "\n";
 					}
-					var temp = data[i].replace(/---/gi, "──");
-					result += temp + "\n";
+					changeResult();
+					$("#resultViewArea").text(result);
+					$("#resultViewArea").scrollTop($("#resultViewArea")[0].scrollHeight);
 				}
-				$("#resultView").text(result);
 			}
 		});
 		
@@ -180,11 +222,15 @@ $(document).ready(function() {
 								}
 								view += "\n";
 							}
-							$("#resultView").text(view);
+							changeResult();
+							$("#resultViewArea").text(view);
+							$("#resultViewArea").scrollTop($("#resultViewArea")[0].scrollHeight);
 						}else {
-							var error = "작업 실패\n";
+							var error = "\n\n작업 실패\n";
 							error += "ERROR) " + data.errorMsg;
-							$("#resultView").text(error);
+							changeScript();
+							$("#scriptViewArea").append(error);
+							$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 						}
 						
 					}
@@ -201,11 +247,15 @@ $(document).ready(function() {
 					success : function(data) {
 						if(data.resultMap.result == "Y") {
 							var view = data.resultMap.objectType + " " + data.resultMap.resultStr + " 성공";
-							$("#resultView").text(view);
+							changeResult();
+							$("#resultViewArea").text(view);
+							$("#resultViewArea").scrollTop($("#resultViewArea")[0].scrollHeight);
 						}else {
-							var error = "작업 실패\n";
+							var error = "\n\n작업 실패\n";
 							error += "ERROR) " + data.resultMap.result;
-							$("#resultView").text(error);
+							changeScript();
+							$("#scriptViewArea").append(error);
+							$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 						}
 					}
 				});
@@ -216,8 +266,15 @@ $(document).ready(function() {
 					method : "get",
 					data : "dragText=" + dragText + "&account_id=" + account_id,
 					success : function(data) {
-						if(data.resultCnt == 1) $("#resultView").text("COMMIT 완료");
-						else $("#resultView").text("COMMIT 실패");
+						if(data.resultCnt == 1) {
+							changeScript();
+							$("#scriptViewArea").append("\n\nCOMMIT 완료");
+							$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
+						}else {
+							changeScript();
+							$("#scriptViewArea").append("\n\nCOMMIT 실패");
+							$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
+						}
 					}
 				});
 			}else if(dragText.indexOf("rollback") != -1 || dragText.indexOf("ROLLBACK") != -1){
@@ -227,8 +284,16 @@ $(document).ready(function() {
 					method : "get",
 					data : "dragText=" + dragText + "&account_id=" + account_id,
 					success : function(data) {
-						if(data.resultCnt == 1) $("#resultView").text("ROLLBACK 완료");
-						else $("#resultView").text("ROLLBACK 실패");
+						if(data.resultCnt == 1) {
+							changeScript();
+							$("#scriptViewArea").append("\n\nROLLBACK 완료");
+							$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
+						}
+						else {
+							changeScript();
+							$("#scriptViewArea").append("\n\nROLLBACK 실패");
+							$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
+						}
 					}
 				});
 			}else {
@@ -239,12 +304,16 @@ $(document).ready(function() {
 					data : "dragText=" + dragText + "&account_id=" + account_id,
 					success : function(data) {
 						if(data.resultMap.result == "Y") {
-							var view = data.resultMap.resultCnt + "건이 " + data.resultMap.resultStr + "되었습니다.";
-							$("#resultView").text(view);
+							var view = "\n\n" + data.resultMap.resultCnt + "건이 " + data.resultMap.resultStr + "되었습니다.";
+							changeScript();
+							$("#scriptViewArea").append(view);
+							$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 						}else {
-							var error = "작업 실패\n";
+							var error = "\n\n작업 실패\n";
 							error += "ERROR) " + data.resultMap.result;
-							$("#resultView").text(error);
+							changeScript();
+							$("#scriptViewArea").append(error);
+							$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 						}
 					}
 				});
@@ -268,8 +337,25 @@ $(document).ready(function() {
     var acco_id = $("#dbAccountView").children(0).children(0).children(0).children(0).children(0).attr("id");
     document.getElementById(acco_id).setAttribute('checked', 'checked');
     $("#radioId").val(acco_id);
+    
 });
 
 var editor = ace.edit("editor");
 editor.setTheme("ace/theme/twilight");
 editor.session.setMode("ace/mode/sql");
+
+// 결과창 보기
+function changeResult() {
+	$("#resultViewArea").css("display", "block");
+	$("#scriptViewArea").css("display", "none");
+	$("#resultViewSpan").css("color", "red");
+	$("#scriptViewSpan").css("color", "black");
+}
+
+// 스크립트창 보기
+function changeScript() {
+	$("#scriptViewArea").css("display", "block");
+	$("#resultViewArea").css("display", "none");
+	$("#scriptViewSpan").css("color", "red");
+	$("#resultViewSpan").css("color", "black");
+}
