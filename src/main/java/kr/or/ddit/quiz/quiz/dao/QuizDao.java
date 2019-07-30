@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.page.model.PageVo;
+import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 
@@ -94,14 +95,55 @@ public class QuizDao implements IQuizDao{
 		return sqlSession.selectList("quiz.map", map);
 	}
 	
+	/**
+	* Method : deleteQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param id
+	* @return
+	* Method 설명 : 선택한 퀴즈의 시퀀스 값을 받아서 해당 퀴즈 삭제 메서드
+	*/
 	@Override
-	public int update(String id) {
-		return sqlSession.update("quiz.update", id);
+	public int deleteQuiz(int quiz_id) {
+		return sqlSession.delete("quiz.deleteQuiz", quiz_id);
 	}
 
+	/**
+	* Method : readQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quiz_id
+	* @return
+	* Method 설명 : 선택한 퀴즈의 정보를 반환하는 메서드
+	*/
 	@Override
-	public int delete(String id) {
-		return sqlSession.delete("quiz.delete", id);
+	public QuizAndAnswerVO readQuiz(QuizVO quizVO) {
+		return sqlSession.selectOne("quiz.readQuiz", quizVO);
 	}
 
+	/**
+	* Method : updateQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizAndAnswerVO
+	* @return
+	* Method 설명 : 선택한 퀴즈의 문제를 수정하는 메서드
+	*/
+	@Override
+	public int updateQuiz(QuizAndAnswerVO quizAndAnswerVO) {
+		return sqlSession.update("quiz.updateQuiz", quizAndAnswerVO);
+	}
+
+	/**
+	* Method : updateQuizAnswer
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizAndAnswerVO
+	* @return
+	* Method 설명 : 선택한 퀴즈의 정답과 해설을 수정하는 메서드
+	*/
+	@Override
+	public int updateQuizAnswer(QuizAndAnswerVO quizAndAnswerVO) {
+		return sqlSession.update("quiz.updateQuizAnswer", quizAndAnswerVO);
+	}
 }

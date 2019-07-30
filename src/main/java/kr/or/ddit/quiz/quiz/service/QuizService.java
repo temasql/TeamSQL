@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.quiz.quiz.dao.IQuizDao;
+import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 
@@ -69,15 +70,46 @@ public class QuizService implements IQuizService{
 	public int quizListCnt(String quiz_right) {
 		return quizDao.quizListCnt(quiz_right);
 	}
-
-	@Override
-	public int update(String id) {
-		return quizDao.update(id);
-	}
 	
+	/**
+	* Method : deleteQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param id
+	* @return
+	* Method 설명 : 선택한 퀴즈의 시퀀스 값을 받아서 해당 퀴즈 삭제 메서드
+	*/
 	@Override
-	public int delete(String id) {
-		return quizDao.delete(id);
+	public int deleteQuiz(int quiz_id) {
+		return quizDao.deleteQuiz(quiz_id);
 	}
 
+	/**
+	* Method : readQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quiz_id
+	* @return
+	* Method 설명 : 선택한 퀴즈의 정보를 반환하는 메서드
+	*/
+	@Override
+	public QuizAndAnswerVO readQuiz(QuizVO quizVO) {
+		return quizDao.readQuiz(quizVO);
+	}
+
+	/**
+	* Method : updateQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizAndAnswerVO
+	* @return
+	* Method 설명 : 선택한 퀴즈의 문제와 정답 해설을 수정하는 메서드
+	*/
+	@Override
+	public int updateQuiz(QuizAndAnswerVO quizAndAnswerVO) {
+		int quizResult = quizDao.updateQuiz(quizAndAnswerVO);
+		int quizAnswerResult = quizDao.updateQuizAnswer(quizAndAnswerVO);
+		
+		return quizResult + quizAnswerResult; 
+	}
 }

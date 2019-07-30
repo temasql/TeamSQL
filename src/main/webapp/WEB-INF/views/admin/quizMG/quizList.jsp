@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="${cp}/resources/quiz/css/quizAdminList.css"  rel="stylesheet">
 <script src="${cp}/resources/quiz/js/quizList.js"></script>
+
 
 <div id="quizAdminHeader">${quizName} 리스트</div>
 
@@ -10,11 +12,19 @@ pageEncoding="UTF-8"%>
     <tr>
       <th scope="col" style="width:5%;">No.</th>
       <th scope="col" style="width:50%; text-align: center">문제</th>
+      <th scope="col" style="width:20%; text-align: center">퀴즈 작성자</th>
+      <th scope="col" style="width:20%; text-align: center">작성 날짜</th>
     </tr>
   </thead>
   <tbody id="tableQuizList">
   </tbody>
-</table> 
+</table>
+ 
+<!-- 퀴즈 조회 화면으로 이동 -->
+<form id="readOXFrm" action="/readOX">
+  <input type="hidden" id="quizId" name="quiz_id">
+  <input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
+</form>
 
 <div>
 	<ul style="width:50%; margin:0px auto;" class="pagination">
@@ -24,14 +34,30 @@ pageEncoding="UTF-8"%>
 
 <!-- 퀴즈 추가 화면 이동 -->
 <div id="addBtnDiv">
-	<form id="insertFrm" action="/insertOX" method="get">
-		<button id="insertOXBtn" type="submit" class="btn btn-secondary">퀴즈 추가</button>
-		<input type="hidden" name="quiz_right" value="${quiz_right}">
-	</form>
+<%-- 		<c:if test="${quiz_right==01}"> --%>
+<!-- 			<button id="insertBtn" type="submit" class="btn btn-secondary">객관식 퀴즈 추가</button> -->
+<%-- 			<input type="hidden" name="quiz_right" value="${quiz_right}"> --%>
+<%-- 		</c:if> --%>
+	<c:if test="${quiz_right==02}">
+		<form id="insertFrm" action="/insertOX" method="get">
+			<button id="insertBtn" type="submit" class="btn btn-secondary">OX 퀴즈 추가</button>
+			<input type="hidden" name="quiz_right" value="${quiz_right}">
+		</form>
+	</c:if>
+	<c:if test="${quiz_right==03}">
+		<form action="/insertShort">
+			<button id="insertBtn" type="submit" class="btn btn-secondary">단답식 퀴즈 추가</button>
+			<input type="hidden" name="quiz_right" value="${quiz_right}">
+		</form>
+	</c:if>
+		<c:if test="">
+			<button id="insertBtn" type="submit" class="btn btn-secondary">주관식 퀴즈 추가</button>
+			<input type="hidden" name="quiz_right" value="${quiz_right}">
+		</c:if>
 </div>
 
 <!-- 퀴즈 구분자 -->
-<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}"/>
+<input type="hidden" id="quiz_right1" name="quiz_right" value="${quiz_right}"/>
 
 <!-- 리스트에서 해당 퀴즈 클릭 시 조회화면으로 이동 -->
 <form id="readFrm" action="/readOX" >

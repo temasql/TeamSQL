@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.page.model.PageVo;
+import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 
@@ -19,7 +20,10 @@ public interface IQuizService {
 	
 	Map<String, Object> map(Map<String, Object> map);
 	
-	int update(String id);
+	int deleteQuiz(int quiz_id);
 	
-	int delete(String id);
+	QuizAndAnswerVO readQuiz(QuizVO quizVO);
+	
+	int updateQuiz(QuizAndAnswerVO quizAndAnswerVO);
+	
 }
