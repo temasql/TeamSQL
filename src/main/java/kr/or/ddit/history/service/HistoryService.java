@@ -37,8 +37,9 @@ public class HistoryService implements IHistoryService{
 		List<ChangedVO> changedMainList= historyDao.changedMainList(user_id_fk);
 		
 		for(ChangedVO cVo : changedMainList) {
-			if(changedMainList.size() <= 4)
 			totalList.add(cVo);
+			if(changedMainList.size() >= 4);
+			return totalList;
 		}
 		return totalList;
 		
