@@ -41,7 +41,7 @@ public class HistoryController {
 	* Method 설명 : DB변경 메인 페이지
 	 */
 	@RequestMapping(path = "/historyList", method = RequestMethod.POST)
-	public String dbChanged(HistoryVO hVo, HttpSession session,PageVo pageVo, Model model) {
+	public String dbChanged(HttpSession session,PageVo pageVo, Model model) {
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
 		// 회원 아이디
@@ -125,7 +125,6 @@ public class HistoryController {
 	
 	@RequestMapping(path = "/historyDetailView", method = RequestMethod.POST)
 	public String dbChangedDetailView(String object_owner, Model model) {
-		logger.debug("빠끄빠끄");
 		
 		// DB계정명
 		model.addAttribute("object_owner", object_owner);
