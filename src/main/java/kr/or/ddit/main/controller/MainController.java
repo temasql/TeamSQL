@@ -30,16 +30,14 @@ public class MainController {
 	 */
 	@RequestMapping(path = "/main", method = RequestMethod.GET)
 	public String main(HttpSession session, Model model) {
-		
+		// 유저아이디
 		String user_id_fk = ((UserVO) session.getAttribute("USER_INFO")).getUser_id();
 		
 		// 메인페이지내 DB변경이력 리스트를 출력
 		List<ChangedVO> changedMainList = historyService.changedMainList(user_id_fk);
 		
-		// DB변경 이력 5개만 출력
-		if(changedMainList.size() < 4) {
+		// DB변경이력
 		model.addAttribute("changedMainList", changedMainList);
-		}
 		return "main.tiles";
 	}
 	

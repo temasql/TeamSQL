@@ -1,5 +1,6 @@
 package kr.or.ddit.history.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,18 @@ public class HistoryService implements IHistoryService{
 	 */
 	@Override
 	public List<ChangedVO> changedMainList(String user_id_fk) {
-		return historyDao.changedMainList(user_id_fk);
+		
+		List<ChangedVO> totalList = new ArrayList<ChangedVO>();
+		
+		List<ChangedVO> changedMainList= historyDao.changedMainList(user_id_fk);
+		
+		for(ChangedVO cVo : changedMainList) {
+			if(changedMainList.size() <= 4)
+			totalList.add(cVo);
+		}
+		return totalList;
+		
+		
 	}
 	
 	
