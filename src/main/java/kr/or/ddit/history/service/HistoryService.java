@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.history.dao.IHistoryDao;
@@ -15,7 +17,9 @@ import kr.or.ddit.history.model.HistoryVO;
 
 @Service
 public class HistoryService implements IHistoryService{
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(HistoryService.class);
+	
 	@Resource(name = "historyDao")
 	private IHistoryDao historyDao;
 	
@@ -35,11 +39,12 @@ public class HistoryService implements IHistoryService{
 		List<ChangedVO> totalList = new ArrayList<ChangedVO>();
 		
 		List<ChangedVO> changedMainList= historyDao.changedMainList(user_id_fk);
+		logger.debug("서비스DB변경이력 갯수 : {}", changedMainList.size());
 		
+		// 최대 5개 출력
 		for(ChangedVO cVo : changedMainList) {
+			if(totalList.size() > 4) break;
 			totalList.add(cVo);
-			if(changedMainList.size() >= 4);
-			return totalList;
 		}
 		return totalList;
 		
