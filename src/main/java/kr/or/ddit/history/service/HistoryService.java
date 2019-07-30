@@ -18,19 +18,21 @@ public class HistoryService implements IHistoryService{
 	@Resource(name = "historyDao")
 	private IHistoryDao historyDao;
 	
+	
 	/**
 	 * 
-	* Method : accountAndChangedList
+	* Method : changedMainList
 	* 작성자 : 강호길
 	* 변경이력 :
-	* @param account_id
+	* @param user_id_fk
 	* @return
 	* Method 설명 : DB 계정명 / 변경일자 리스트 조회
 	 */
 	@Override
-	public List<HistoryVO> changedList(String user_id) {
-		return historyDao.changedList(user_id);
+	public List<ChangedVO> changedMainList(String user_id_fk) {
+		return historyDao.changedMainList(user_id_fk);
 	}
+	
 	
 	/**
 	 * 
@@ -64,19 +66,6 @@ public class HistoryService implements IHistoryService{
 	}
 	
 	
-	/**
-	 * 
-	* Method : changedDetailList
-	* 작성자 : 강호길
-	* 변경이력 :
-	* @param user_id
-	* @return
-	* Method 설명 : DB변경 상세 리스트 조회
-	 */
-	@Override
-	public List<HistoryVO> changedDetailList(String object_owner) {
-		return historyDao.changedDetailList(object_owner);
-	}
 	
 	
 
@@ -92,8 +81,6 @@ public class HistoryService implements IHistoryService{
 	@Override
 	public Map<String, Object> changedDetailPagingList(Map<String, Object> pageMap) {
 		
-		// 회원 페이징 처리
-		List<HistoryVO> changedDetailList = historyDao.changedDetailPagingList(pageMap);
 		
 		// 해당 DB변경 이력 수
 		String object_owner = (String) pageMap.get("object_owner");
@@ -109,20 +96,6 @@ public class HistoryService implements IHistoryService{
 		
 		return resultMap;
 		
-	}
-
-	/**
-	 * 
-	* Method : changedMain
-	* 작성자 : 강호길
-	* 변경이력 :
-	* @param user_id_fk
-	* @return
-	* Method 설명 : DB계정, 마지막 변경일시, DB계정 생성자 조회 
-	 */
-	@Override
-	public List<ChangedVO> changedMainList(String user_id_fk) {
-		return historyDao.changedMainList(user_id_fk);
 	}
 
 

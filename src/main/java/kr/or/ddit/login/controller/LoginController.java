@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
+import kr.or.ddit.history.model.ChangedVO;
+import kr.or.ddit.history.service.IHistoryService;
 import kr.or.ddit.invite.model.InviteVO;
 import kr.or.ddit.invite.service.IInviteService;
 import kr.or.ddit.user.model.UserVO;
@@ -22,10 +26,14 @@ import kr.or.ddit.util.ReMemberMeCookieUtil;
 @Controller
 public class LoginController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
 	@Resource(name = "userService")
 	private IUserService userService;
 	@Resource(name = "inviteService")
 	private IInviteService inviteService;
+	@Resource(name = "historyService")
+	private IHistoryService historyService;
 	
 	/**
 	* Method : userLoginGet
@@ -68,7 +76,6 @@ public class LoginController {
 			
 			// 로그인한 아이디에 해당하는 초대장 리스트
 			List<InviteVO> inviteList = inviteService.getInviteList(loginUserVo.getUser_id());
-			
 			// 초대장 리스트에 초대장이 있으면
 			if (inviteList.size() > 0) {
 				model.addAttribute("inviteList", inviteList);
@@ -79,6 +86,14 @@ public class LoginController {
 			
 			// 로그인한 사용자의 정보를 세션에 저장
 			session.setAttribute("USER_INFO", loginUserVo);
+			
+			// 메인페이지내 DB변경이력 리스트를 출력
+			List<ChangedVO> changedMainList = historyService.changedMainList(userVo.getUser_id());
+			
+			// DB변경 이력 5개만 출력
+			if(changedMainList.size() < 4) {
+			model.addAttribute("changedMainList", changedMainList);
+			}
 			return "main.tiles";
 		}
 		if(loginUserVo.getExit_right().equals("Y")) {
@@ -87,6 +102,7 @@ public class LoginController {
 		}
 		redirectAttributes.addAttribute("user_id", userVo.getUser_id());
 		redirectAttributes.addAttribute("user_pw", userVo.getUser_pw());
+		
 		return "redirect:/login";
 		
 	}

@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 	historyPagingListAjaxHtml(1,10);
 	
