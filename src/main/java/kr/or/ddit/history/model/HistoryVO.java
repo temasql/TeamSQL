@@ -2,8 +2,6 @@ package kr.or.ddit.history.model;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class HistoryVO {
 	
 	private Date exec_dtm;          // 변경일시
@@ -43,6 +41,7 @@ public class HistoryVO {
 		this.object_type = object_type;
 	}
 	public String getObject_owner() {
+		
 		return object_owner;
 	}
 	public void setObject_owner(String object_owner) {

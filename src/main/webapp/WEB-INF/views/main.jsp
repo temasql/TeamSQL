@@ -48,11 +48,11 @@
 	   				</tr>
 				</thead>
 				<tbody id="changedMainBody">
-				  <c:forEach items="${changedMainList}" var="changedMainList">
+				  <c:forEach items="${changedMainList}" var="cVO">
 				  	<tr class="table-active clickEvent">
-				  	  <td class="object_owner" scope="row">${changedMainList.object_owner}</td>
-					  <td scope="row"><fmt:formatDate value="${changedMainList.exec_dtm}" pattern="yyyy-MM-dd a hh:mm:ss"/></td>
-					  <td scope="row">${changedMainList.user_name}</td>
+				  	  <td class="object_owner" scope="row">${cVO.object_ownerSlice}</td>
+					  <td scope="row"><fmt:formatDate value="${cVO.exec_dtm}" pattern="yyyy-MM-dd a hh:mm:ss"/></td>
+					  <td scope="row">${cVO.user_name}</td>
 				  	</tr>
 				  </c:forEach>
 				</tbody>

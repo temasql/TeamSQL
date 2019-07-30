@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,6 +32,7 @@ import kr.or.ddit.dbObject.model.ViewVO;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
+import kr.or.ddit.util.DataTypeUtil;
 import kr.or.ddit.util.FindAccountPwByMail;
 
 @RequestMapping("/sqlEditor")
@@ -253,9 +255,46 @@ public class SqlEditorController {
 		return sqlEditorMain(session, model);
 	}
 	
+
 	@RequestMapping(path =  "/refresh", method = RequestMethod.GET)
 	public String refresh() {
 		return "/sqlEditor/jqGrid.tiles";
+
+	/**
+	* Method : appendDataAjax
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @return
+	* Method 설명 : ajax를 통해 DataTypeUtil 클래스를 호출하여 json으로 전송
+	*/
+	@RequestMapping("/appendDataAjax")
+	public String appendDataAjax(Model model) {
+		List<String> dataTypeList = DataTypeUtil.tableDataType();
+		model.addAttribute("dataTypeList", dataTypeList);
+		return "jsonView";
+	}
+	
+	/**
+	* Method : createTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @return
+	* Method 설명 : 테이블 생성
+	*/
+	@ResponseBody
+	@RequestMapping("/createTable")
+	public String createTable(HttpSession session,  Model model,
+			@RequestBody String[][] array) {
+		model.addAttribute("createMsg", "테이블 생성이 정상적으로 완료 되었습니다.");
+		model.addAttribute("colArray", array);
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array[i].length; j++) {
+				logger.debug("==========================!! [{}]", array[i][j]);
+			}
+		}
+		
+		return sqlEditorMain(session, model);
+
 	}
 	
 }
