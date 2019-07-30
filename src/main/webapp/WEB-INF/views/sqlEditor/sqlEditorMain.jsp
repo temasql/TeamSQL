@@ -8,7 +8,8 @@
 <link href="${cp}/resources/sqlEditor/css/rightClick.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClickTable.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClickTablePackage.css" rel="stylesheet">
-
+<link rel="stylesheet" type="text/css" media="screen" href="${cp}/resources/jquery-ui/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" media="screen" href="${cp}/resources/jqGrid/css/ui.jqgrid.css">
 
 <div id="editorView">
 	<div id="leftBar">
@@ -17,9 +18,9 @@
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="accountImg" title="DB계정 생성" src="${cp}/resources/img/plus.png"></li>
 				<li class="breadcrumb-item">
-					<img class="imgBtn" title="워크시트 저장" src="${cp}/resources/img/save.png"></li>
+					<img class="imgBtn" id="worksheetSave" title="워크시트 저장" src="${cp}/resources/img/save.png"></li>
 				<li class="breadcrumb-item">
-					<img class="imgBtn" title="워크시트 불러오기" src="${cp}/resources/img/open.png"></li>
+					<img class="imgBtn" id="worksheetLoad" title="워크시트 불러오기" src="${cp}/resources/img/open.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" title="도메인" src="${cp}/resources/img/domain.png"></li>
 				<li class="breadcrumb-item">
@@ -142,7 +143,9 @@
 				<textarea class="form-control" id="scriptViewArea" rows="10" cols="229" readonly></textarea>
 			</div>
 		</div>
+		
 	</section>
+	
 </div>
 
 <!-- Account Modal -->
@@ -195,6 +198,22 @@
 	    <button type="button" id="accountDeleteBtn" class="btn btn-secondary">확인</button>
   	 </fieldset>
 	</form>
+  </div>
+</div>
+
+<!-- File Load Modal -->
+<div id="worksheetLoadModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<span class="close">&times;</span>
+  	<br><br>
+	  <fieldset>
+	    <legend>워크시트 불러오기</legend>
+	    <br><br>
+        <input type="file" class="form-control-file" id="worksheetLoadFile">
+	    <br><br>
+	    <button type="button" id="worksheetLoadBtn" class="btn btn-secondary">확인</button>
+  	 </fieldset>
   </div>
 </div>
 
@@ -318,3 +337,5 @@
 <script src="${cp}/resources/sqlEditor/js/rightClickTable.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickTablePackage.js"></script>
 <script src="${cp}/resources/sqlEditor/js/tableManager.js"></script>
+<script src="${cp}/resources/jqGrid/js/i18n/grid.locale-kr.js"></script>
+<script src="${cp}/resources/jqGrid/js/minified/jquery.jqGrid.min.js"></script>

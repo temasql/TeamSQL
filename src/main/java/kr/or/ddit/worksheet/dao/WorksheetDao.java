@@ -93,6 +93,8 @@ public class WorksheetDao implements IWorksheetDao {
 		String result = "";
 		int resultCnt = 0;
 		
+		logger.debug("쿼리문 : {}", query);
+		
 		// enter 치환
 		if(query.contains("set")) query = query.replace("set", " set");
 		if(query.contains("SET")) query = query.replace("SET", " SET");

@@ -65,10 +65,6 @@ public class SqlEditorController {
 		List<FuncProceVO> functionList = new ArrayList<FuncProceVO>();
 		List<FuncProceVO> procedureList = new ArrayList<FuncProceVO>();
 		
-		// 가짜 데이터 세팅
-//		UserVO userInfo = new UserVO("TEST_ID20", "C", "N", "TEST_PW20", "TEST_NAME20", "TEST_MAIL20@TEST.COM", null);
-//		session.setAttribute("USER_INFO", userInfo);
-		
 		// 로그인한 사용자의 DB계정 정보 가져와 model객체에 담아서 넘겨줌
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
 		logger.debug("userVO : {}", userVO);
@@ -257,9 +253,9 @@ public class SqlEditorController {
 		return sqlEditorMain(session, model);
 	}
 	
-//	@RequestMapping(path = "/test")
-//	public String test() {
-//		return "/sqlEditor/rightTest.tiles";
-//	}
+	@RequestMapping(path =  "/refresh", method = RequestMethod.GET)
+	public String refresh() {
+		return "/sqlEditor/jqGrid.tiles";
+	}
 	
 }
