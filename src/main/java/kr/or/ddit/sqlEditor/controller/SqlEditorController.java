@@ -259,7 +259,7 @@ public class SqlEditorController {
 	@RequestMapping(path =  "/refresh", method = RequestMethod.GET)
 	public String refresh() {
 		return "/sqlEditor/jqGrid.tiles";
-
+	}
 	/**
 	* Method : appendDataAjax
 	* 작성자 : 이중석
