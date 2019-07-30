@@ -11,6 +11,10 @@
 <header>
   <!-- Navigation -->
  <nav class="navMenu">
+  <div class="divNav">
+ 	<div class="navLogo">
+ 	<a class="aLogo"  id ="mainLogo" href="${cp}/main"><img id="logo" src="${cp}/resources/img/logo.png" alt="Main" title="Main"></a>
+ 	</div>
 	<ul class="ul-header-one">
 		<c:choose>
 			<c:when test="${USER_INFO.user_right eq 'A' }">
@@ -40,7 +44,7 @@
 			</c:otherwise>
 		</c:choose>
 	</ul>
-
+	</div>
 
 <!-- 챗봇 -->	
 <div class="chatbot">
