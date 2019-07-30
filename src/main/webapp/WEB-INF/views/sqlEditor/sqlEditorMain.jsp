@@ -255,7 +255,7 @@
   <div class="modal-content">
     <span class="close">&times;</span>   
     <br><br>                  
-	<form action="${cp}/sqlEditor2/createTable" method="post" id="createTableFrm">
+	<form action="${cp}/sqlEditor/createTable" method="post" id="createTableFrm">
 	  <fieldset>
 	    <legend>테이블 생성</legend>
 <%-- 	    <input type="hidden" id="run_id" value="${accountVO.account_id}"/> --%>
