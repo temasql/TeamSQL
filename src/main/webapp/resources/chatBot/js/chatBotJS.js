@@ -5,9 +5,11 @@ $(document).ready(function() {
 
 		// textArea 입력값 가져오기
 		var userQuestion= $("#userInput").val();
+		
 		var question = userQuestion.replace(/(?:\r\n|\r|\n)/g, '<br />');
-		var defined = "정확하게 입력해주세요~";
+		var defined = "제 전문 분야가 아니에요.<br>저는 TeamSQL관련 서비스 관련 도움을 드리고 있습니다.";
 		// user입력 textArea 출력하기
+		
 		var questionInput = $(".liList").append("<div class='chatBotBox1'><div class='userBox2'><div class='userResult'><p class='pchatBot'>"+question+"</p></div></div></div>")
 		
 		// 테이블 생성
@@ -39,7 +41,7 @@ $(document).ready(function() {
 			|| str == '테이블만드는법' || str == '테이블만드는방법'
 			)
 			// 같을 경우
-			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableCreate+"</p></div></div></div>")
+			$(".liList").append("<div class='chatBotBox1'><div></div><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableCreate+"</p></div></div></div>")
 			// 테이블 삭제 비교문
 		else if(str== 'table삭제' || str == 'table삭제하기' || str == 'table삭제하는방법' || str == 'table삭제하는법'
 				|| str == 'table지우기' || str == 'table지우는법' || str == 'table지우는방법' || str == '테이블삭제' 
@@ -102,5 +104,15 @@ $(document).ready(function() {
 		$("#userInput").val("");
 	});
 	
+	// 엔터키 이벤트 전송
+	$('#userInput').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#questionBtn').click();
+	         return false;
+	     }
+	});
+	
+	
 	
 });
+
