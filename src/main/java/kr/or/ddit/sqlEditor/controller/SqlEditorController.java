@@ -70,39 +70,39 @@ public class SqlEditorController {
 		// 로그인한 사용자의 DB계정 정보 가져와 model객체에 담아서 넘겨줌
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
 		logger.debug("userVO : {}", userVO);
-		List<AccountVO> accountList = accountService.getAccountList(userVO.getUser_id());
 		
-		for (AccountVO accountVO : accountList) {
-			List<TableVO> tempList1 = accountService.getAccountAllTable(accountVO.getAccount_id().toUpperCase());
-			logger.debug("김범휘 : {}", accountVO.getAccount_id());
+		List<String> myAccountList = crewService.getMyAccountList(userVO.getUser_id());
+		for (String account_id : myAccountList) {
+			List<TableVO> tempList1 = accountService.getAccountAllTable(account_id.toUpperCase());
+			logger.debug("김범휘 : {}", account_id);
 			for(TableVO tableVO : tempList1) {
 				tableList.add(tableVO);
 			}
-			List<ViewVO> tempList2 = accountService.getAccountAllView(accountVO.getAccount_id().toUpperCase());
+			List<ViewVO> tempList2 = accountService.getAccountAllView(account_id.toUpperCase());
 			for(ViewVO viewVO : tempList2) {
 				viewList.add(viewVO);
 			}
-			List<IndexVO> tempList3 = accountService.getAccountAllIndex(accountVO.getAccount_id().toUpperCase());
+			List<IndexVO> tempList3 = accountService.getAccountAllIndex(account_id.toUpperCase());
 			for(IndexVO indexVO : tempList3) {
 				indexList.add(indexVO);
 			}
-			List<TriggerVO> tempList4 = accountService.getAccountAllTrigger(accountVO.getAccount_id().toUpperCase());
+			List<TriggerVO> tempList4 = accountService.getAccountAllTrigger(account_id.toUpperCase());
 			for(TriggerVO triggerVO : tempList4) {
 				triggerList.add(triggerVO);
 			}
-			List<SequenceVO> tempList5 = accountService.getAccountAllSequence(accountVO.getAccount_id().toUpperCase());
+			List<SequenceVO> tempList5 = accountService.getAccountAllSequence(account_id.toUpperCase());
 			for(SequenceVO sequenceVO : tempList5) {
 				sequenceList.add(sequenceVO);
 			}
-			List<FuncProceVO> tempList6 = accountService.getAccountAllFunction(accountVO.getAccount_id().toUpperCase());
+			List<FuncProceVO> tempList6 = accountService.getAccountAllFunction(account_id.toUpperCase());
 			for(FuncProceVO functionVO : tempList6) {
 				functionList.add(functionVO);
 			}
-			List<FuncProceVO> tempList7 = accountService.getAccountAllProcedure(accountVO.getAccount_id().toUpperCase());
+			List<FuncProceVO> tempList7 = accountService.getAccountAllProcedure(account_id.toUpperCase());
 			for(FuncProceVO procedureVO : tempList7) {
 				procedureList.add(procedureVO);
 			}
-		}
+		}		
 		
 		model.addAttribute("tableList", tableList);
 		model.addAttribute("viewList", viewList);
@@ -111,15 +111,9 @@ public class SqlEditorController {
 		model.addAttribute("sequenceList", sequenceList);
 		model.addAttribute("functionList", functionList);
 		model.addAttribute("procedureList", procedureList);
-
-		for (AccountVO accountVO : accountList) {
-			String temp = accountVO.getAccount_id();
-			int end = temp.indexOf(userVO.getUser_id());
-			String account_id = temp.substring(0, end - 1);
-			accountVO.setAccount_id(account_id);
-		}
-		model.addAttribute("accountList", accountList);
 		
+		model.addAttribute("myAccountList", myAccountList);
+
 		return "/sqlEditor/sqlEditorMain.tiles";
 	}
 	
@@ -223,7 +217,6 @@ public class SqlEditorController {
 	public String updatePwAccount(String originalPw, String updatePw, String reUpdatePw, String updateId, 
 									HttpSession session, Model model) {
 		String msg = "";
-		
 		if(!updatePw.equals(reUpdatePw)) {
 			msg = "변경 비밀번호와 변경 비밀번호 확인이 일치하지 않습니다.";
 			model.addAttribute("msg", msg);

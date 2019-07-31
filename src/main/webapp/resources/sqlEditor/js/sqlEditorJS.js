@@ -37,10 +37,10 @@ $(document).ready(function() {
 	
 	// 결과하면 클리어
 	$("#clearSpan").on("click", function() {
-		if($("#resultViewArea").css("display") == "block") {
-			$("#resultViewArea").text("");
-		}else {
+		if($("#scriptViewArea").css("display") == "block") {
 			$("#scriptViewArea").text("");
+		}else {
+			$("#resultTable").jqGrid('GridUnload');
 		}
 	});
 	
@@ -171,11 +171,11 @@ $(document).ready(function() {
 			return;
 		}
 		
-		var accountId = $("#radioId").val();
-		var user_id = $("#userId").val();
-		var indexCnt = accountId.indexOf(user_id.toUpperCase());
-		var account_temp = accountId.substring(0, indexCnt);
-		var account_id = account_temp + user_id;
+		var accountId = $("#radioId").val(); // BB_KKK123
+		var underBarIdx = accountId.lastIndexOf("_");
+		var accountFront = accountId.substring(0,underBarIdx); // BB
+		var accountBack = accountId.substring(underBarIdx); // _KKK123
+		var account_id = accountFront + accountBack.toLowerCase(); // BB_kkk123
 		
 		$.ajax({
 			url : "/worksheet/planRun",
@@ -194,9 +194,9 @@ $(document).ready(function() {
 						var temp = data[i].replace(/---/gi, "──");
 						result += temp + "\n";
 					}
-					changeResult();
-					$("#resultViewArea").text(result);
-					$("#resultViewArea").scrollTop($("#resultViewArea")[0].scrollHeight);
+					changeScript();
+					$("#scriptViewArea").text(result);
+					$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 				}
 			}
 		});
@@ -251,7 +251,7 @@ editor.session.setMode("ace/mode/sql");
 
 // 결과창 보기
 function changeResult() {
-	$("#resultViewArea").css("display", "block");
+	$("#resultTable").css("display", "block");
 	$("#scriptViewArea").css("display", "none");
 	$("#resultViewSpan").css("color", "red");
 	$("#scriptViewSpan").css("color", "black");
@@ -260,7 +260,7 @@ function changeResult() {
 // 스크립트창 보기
 function changeScript() {
 	$("#scriptViewArea").css("display", "block");
-	$("#resultViewArea").css("display", "none");
+	$("#resultTable").css("display", "none");
 	$("#scriptViewSpan").css("color", "red");
 	$("#resultViewSpan").css("color", "black");
 }
@@ -303,11 +303,11 @@ function sqlRun(dragText) {
 		}
 	}
 	
-	var accountId = $("#radioId").val();
-	var user_id = $("#userId").val();
-	var indexCnt = accountId.indexOf(user_id.toUpperCase());
-	var account_temp = accountId.substring(0, indexCnt);
-	var account_id = account_temp + user_id;
+	var accountId = $("#radioId").val(); // BB_KKK123
+	var underBarIdx = accountId.lastIndexOf("_");
+	var accountFront = accountId.substring(0,underBarIdx); // BB
+	var accountBack = accountId.substring(underBarIdx); // _KKK123
+	var account_id = accountFront + accountBack.toLowerCase(); // BB_kkk123
 	
 	if(dragText.indexOf("select") != -1 || dragText.indexOf("SELECT") != -1) {
 		$.ajax({
@@ -321,17 +321,49 @@ function sqlRun(dragText) {
 				console.log(data.resultList);
 				
 				if(data.errorMsg == null) {
-					var list = data.resultList;
-					var view = "";
-					for (var i = 0; i < list.length; i++) {
-						for (var j = 0; j < list[0].length; j++) {
-							view += list[i][j] + "|";
-						}
-						view += "\n";
+					var dataArray = new Array(); // 데이터 담을 배열
+					var colNameArray = new Array(); // 컬럼명 담을 배열
+					var colModelArray = new Array();
+					var reg = /'([\w\d\s]*)'/; // 싱글 쿼테이션 제거 정규식
+					
+					var colNames = data.resultList[0]; // 컬럼명들이 있는 배열
+					console.log(colNames);
+					
+					for (var i = 0; i < colNames.length; i++) { // 싱글 쿼테이션 제거한 컬럼명이 들어있는 배열 구성
+						if(colNames[i].match(reg) == null)
+							colNameArray.push(colNames[i]);
+						else
+							colNameArray.push(colNames[i].match(reg)[1]);
 					}
+					
+					$.each(colNameArray, function(idx, obj) {
+						var t = {name : obj, label : obj, align : 'center'};
+						colModelArray.push(t);
+					});
+					
+					$.each(data.resultList, function(idx, obj){
+						if(idx >= 1) {
+							var i = 0;
+							var t = new Object();
+							for (var i = 0; i < colNameArray.length; i++) {
+								t[colNameArray[i]] = obj[i];
+							}
+							dataArray.push(t);
+						}
+					});
+					
+					console.log(dataArray);
 					changeResult();
-					$("#resultViewArea").text(view);
-					$("#resultViewArea").scrollTop($("#resultViewArea")[0].scrollHeight);
+					$("#resultTable").jqGrid('GridUnload');
+					
+					$("#resultTable").jqGrid({
+						datatype : 'local',
+						styleUI: 'Foundation',
+						data : dataArray,
+						colModel :colModelArray,
+						height : '250px',
+						autowidth: true
+					});
 				}else {
 					var error = "\n\n작업 실패\n";
 					error += "ERROR) " + data.errorMsg;
@@ -354,10 +386,10 @@ function sqlRun(dragText) {
 			data : "dragText=" + dragText + "&account_id=" + account_id,
 			success : function(data) {
 				if(data.resultMap.result == "Y") {
-					var view = data.resultMap.objectType + " " + data.resultMap.resultStr + " 성공";
-					changeResult();
-					$("#resultViewArea").text(view);
-					$("#resultViewArea").scrollTop($("#resultViewArea")[0].scrollHeight);
+					var view = "\n\n" + data.resultMap.objectType + " " + data.resultMap.resultStr + " 성공";
+					changeScript();
+					$("#scriptViewArea").append(view);
+					$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 				}else {
 					var error = "\n\n작업 실패\n";
 					error += "ERROR) " + data.resultMap.result;
