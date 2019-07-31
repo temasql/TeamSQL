@@ -29,6 +29,7 @@ import kr.or.ddit.dbObject.model.SequenceVO;
 import kr.or.ddit.dbObject.model.TableVO;
 import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
+import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
@@ -54,6 +55,9 @@ public class SqlEditorController {
 	
 	@Resource(name = "sqlEditorService")
 	private ISqlEditorService sqlEditorService;
+	
+	@Resource(name = "sqlEditorTableService")
+	private ISqlEditorTableService sqlEditorTableService;
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
@@ -278,14 +282,9 @@ public class SqlEditorController {
 	@RequestMapping("/createTable")
 	public String createTable(HttpSession session,  Model model,
 			@RequestBody String[][] array) {
-		model.addAttribute("createMsg", "테이블 생성이 정상적으로 완료 되었습니다.");
-		model.addAttribute("colArray", array);
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array[i].length; j++) {
-				logger.debug("==========================!! [{}]", array[i][j]);
-			}
-		}
 		
+		sqlEditorTableService.createTable(array);
+		logger.debug("===================={}", array);
 		return sqlEditorMain(session, model);
 
 	}

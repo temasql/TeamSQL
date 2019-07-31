@@ -21,36 +21,16 @@ package kr.or.ddit.sqlEditor.model;
 * </pre>
 */
 public class SqlEditorTableVO {
-	private String table_name;
 	private String colPKChecked;
 	private String colName;
 	private String colDataType;
-	private int colSize;
+	private int    colSize;
 	private String colNullCheck;
-	private int colDefaultVal;
+	private int    colDefaultVal;
 	private String colComment;
 
 	public SqlEditorTableVO() {	}
 	
-	public SqlEditorTableVO(String table_name, String colPKChecked, String colName, String colDataType, int colSize,
-			String colNullCheck, int colDefaultVal, String colComment) {
-		this.table_name = table_name;
-		this.colPKChecked = colPKChecked;
-		this.colName = colName;
-		this.colDataType = colDataType;
-		this.colSize = colSize;
-		this.colNullCheck = colNullCheck;
-		this.colDefaultVal = colDefaultVal;
-		this.colComment = colComment;
-	}
-
-	public String getTable_name() {
-		return table_name;
-	}
-
-	public void setTable_name(String table_name) {
-		this.table_name = table_name;
-	}
 
 	public String getColPKChecked() {
 		return colPKChecked;
@@ -108,12 +88,14 @@ public class SqlEditorTableVO {
 		this.colComment = colComment;
 	}
 
+
 	@Override
 	public String toString() {
-		return "SqlEditorTableVO [table_name=" + table_name + ", colPKChecked=" + colPKChecked + ", colName=" + colName
-				+ ", colDataType=" + colDataType + ", colSize=" + colSize + ", colNullCheck=" + colNullCheck
-				+ ", colDefaultVal=" + colDefaultVal + ", colComment=" + colComment + "]";
+		return "SqlEditorTableVO [colPKChecked=" + colPKChecked + ", colName=" + colName + ", colDataType="
+				+ colDataType + ", colSize=" + colSize + ", colNullCheck=" + colNullCheck + ", colDefaultVal="
+				+ colDefaultVal + ", colComment=" + colComment + "]";
 	}
+
 
 	
 	
