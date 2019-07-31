@@ -14,50 +14,61 @@ $(document).ready(function() {
 	$(document).on("click","#createTableBtn", function() {
 //		$("#craeteTableModal").css("display", "none");
 //		$("#createTableFrm").submit();
-		var col = $(".col");
-		var array = [];
-		var count = 0;
-		var inputName = [
-				 "colPKChecked"
+		var tableName = $("#tableName").val();
+		var tableReg = /^[a-zA-Z][a-zA-Z0-9]{2,5}$/;
+		var columnReg = /^[a-zA-Z][a-zA-Z0-9]{2,19}$/;
+		if(tableReg.test(tableName)){
+			var col = $(".col");
+			$(".col").length
+			var array = [];
+			var count = 0;
+			var colNameCheck = false;
+			var inputName = [
+				"colPKChecked"
 				,"colName"
 				,"colDataType"
 				,"colSize"
 				,"colNullCheck"
 				,"colDefaultVal"
 				,"colComment"
-		];
-		// [
-		for(var objSize = 0; objSize < col.length/7; objSize++){
-			array[objSize] = []; //array{ 
-			console.log("array[objSize] : " + array[objSize])
-			for(var objVal = 0; objVal < 7; objVal++){
-				array[objSize][objVal] = '{' + inputName[objVal] + ' : "' + col.eq(count).val() + '"}'
-				count ++;
+				];
+			for(var objSize = 0; objSize < col.length/7; objSize++){
+				colNameCheck = false;
+				array[objSize] = []; 
+				console.log("array[objSize] : " + array[objSize])
+				for(var objVal = 0; objVal < 7; objVal++){
+					array[objSize][objVal] = '{' + inputName[objVal] + ' : "' + col.eq(count).val() + '"}'
+					count ++;
+					if(objVal != 0 && 7/objVal == 7){
+						colNameCheck = columnReg.test(col.eq(count - 1).val())
+					}
+				}
 			}
-			// }
+			if(colNameCheck){
+				console.log(JSON.stringify(array))
+				console.log("arrayParse : " + array)
+				console.log($("#tableSelect").val())
+				array[0][7] = $("#tableName").val()
+				$.ajax({
+					url    : "/sqlEditor/createTable"
+						,type : "post"
+							,contentType: 'application/json'
+								,data   :  JSON.stringify(array)
+								,dataType: "json"
+									,success : function(data){
+										console.log(data)
+									}
+				,	error: function(data){
+						console.log(data);
+					}
+				});
+
+			}else{
+				alert("컬럼의 이름을 입력해 주세요")
+			}
+		}else{
+			alert("테이블 이름을 형식에 맞게 입력해주세요.")
 		}
-		// ]
-		console.log(array)
-		console.log(JSON.stringify(array))
-//		array = [{'colPKChecked' : "true"},{'colName' : 'asd'},{'colDataType' : 'VARCHAR2'},{'colSize' : 'ad'},{'colNullCheck' : "true"},{'colDefaultVal' : 'te'},{'colComment' : 'at'}]
-//		if(colName.length <= 0){
-//			alert("컬럼의 이름을 입력해 주세요")
-//		}
-		console.log("arrayParse : " + array)
-		console.log($("#tableSelect").val())
-		$.ajax({
-			url    : "/sqlEditor/createTable"
-			,type : "post"
-			,contentType: 'application/json'
-			,data   :  JSON.stringify(array)
-			,dataType: "json"
-			,success : function(data){
-				console.log(data)
-			}
-		,	error: function(data){
-				console.log(data);
-			}
-		});
 	});
 	
 	$("#appendData").on("click", function(){

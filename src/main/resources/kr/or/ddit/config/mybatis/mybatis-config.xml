@@ -65,5 +65,6 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/account.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/user.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/plan.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorTable.xml" />
 	</mappers>
 </configuration>
