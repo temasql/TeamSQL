@@ -61,16 +61,20 @@
 	<!-- SelectList -->
 	<select id="quizList" parameterType="map" resultType="quizVo">
 		<![CDATA[
-			select  quiz_id,
-	        quiz_question
-			from
-			(select a.*, rownum rn
-			 from 
-			(select a.*
-			 from quiz a
-			 order by quiz_id) a  )
-			where rn >= #{page} and  rn <= #{pageSize}
-			and     quiz_right=#{quiz_right}
+			SELECT  QUIZ_ID,
+	        		QUIZ_QUESTION,
+	        		USER_ID_FK,
+	        		QUIZ_RIGHT,
+	        		QUIZ_DT
+			FROM
+			(SELECT A.*, ROWNUM RN
+			 FROM 
+			(SELECT A.*
+			 FROM QUIZ A
+			 WHERE	  QUIZ_RIGHT = #{quiz_right}
+			 ORDER BY QUIZ_ID) A  )
+			WHERE RN >= (#{page} - 1) * #{pageSize} + 1 
+			AND   RN <=  #{page} * #{pageSize} 
 		]]>
 	</select>
 	
@@ -82,18 +86,37 @@
 		...
 	</select>
 	
-	<!-- update -->
-	<update id="update" parameterType="quizVo">
-		UPDATE QUIZ
-		SET COLUMN = #{..}
-		WHERE ID = #{id}
+	<!-- updateQuiz -->
+	<update id="updateQuiz" parameterType="quizAndAnswerVO">
+		UPDATE 	QUIZ
+		SET		QUIZ_QUESTION = #{quiz_question}
+		WHERE	QUIZ_ID = #{quiz_id}		
+	</update>
+	
+	<!-- updateQuizAnswer -->
+	<update id="updateQuizAnswer" parameterType="quizAndAnswerVO">
+		UPDATE 	QUIZ_ANSWER
+		SET		QUIZ_ANSWER = #{quiz_answer},
+				QUIZ_EXPLAIN = #{quiz_explain}
+		WHERE	QUIZ_ID_FK = #{quiz_id}	
 	</update>
 	
 	<!-- delete -->
-	<delete id="delete" parameterType="String">
+	<delete id="deleteQuiz" parameterType="int">
 		DELETE
-		FROM QUIZ
-		WHERE ID = #{id}
+		FROM 	QUIZ
+		WHERE 	QUIZ_ID = #{quiz_id}
 	</delete>
 
+	<!-- 선택한 퀴즈의 정보를 반환 -->
+	<select id="readQuiz" parameterType="quizVo" resultType="quizAndAnswerVO">
+		SELECT  Q.QUIZ_QUESTION,
+				Q.QUIZ_ID,
+		        A.QUIZ_ANSWER,
+		        A.QUIZ_EXPLAIN
+		FROM    QUIZ Q, QUIZ_ANSWER A
+		WHERE   Q.QUIZ_ID = #{quiz_id}
+		AND     Q.QUIZ_RIGHT = #{quiz_right}
+		AND     A.QUIZ_ID_FK = #{quiz_id}
+	</select>
 </mapper>

@@ -22,6 +22,7 @@
 		<typeAlias type="kr.or.ddit.manager.model.ManagerVO" alias="managerVo" />
 		<typeAlias type="kr.or.ddit.post.model.PostVO" alias="postVo" />
 		<typeAlias type="kr.or.ddit.quiz.quiz.model.QuizVO" alias="quizVo" />
+		<typeAlias type="kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO" alias="quizAndAnswerVO" />
 		<typeAlias type="kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO" alias="quizAnswerVo" />
 		<typeAlias type="kr.or.ddit.quiz.quiz_example.model.QuizExampleVO" alias="quizExampleVo" />
 		<typeAlias type="kr.or.ddit.reply.model.ReplyVO" alias="replyVo" />

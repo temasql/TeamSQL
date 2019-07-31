@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:forEach items="${quizList}" var="quizVO">
 	<tr class="table-light">
       <th scope="row">${quizVO.quiz_id}</th>
       <td>${quizVO.quiz_question}</td>
+      <td style="text-align: center;">${quizVO.user_id_fk}</td>
+      <td style="text-align: center;"><fmt:formatDate value="${quizVO.quiz_dt}" pattern="yyyy-MM-dd"/></td>
     </tr>
 </c:forEach>
 
