@@ -8,6 +8,7 @@
 <link href="${cp}/resources/sqlEditor/css/rightClick.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClickTable.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClickTablePackage.css" rel="stylesheet">
+<link href="${cp}/resources/sqlEditor/css/rightClickTriggerPackage.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen" href="${cp}/resources/jquery-ui/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css" media="screen" href="${cp}/resources/jqGrid/css/ui.jqgrid.css">
 
@@ -44,14 +45,17 @@
 				            <li class="depth_1">
 				            	<input type="radio" class="radioClass" name="radioBtn" id="${ac_id}"/>
 				            	<input type="hidden" id="radioId">
-				            	<strong class="accounts">${account_id}</strong>
+				            	<strong class="accounts">
+				            		${account_id}
+				            		<input type="hidden" id="acco_id" value="${accountId}"/>
+				            	</strong>
 				                <ul class="depth_2" >
 				                    <li>
 				                        <a class="tablePackage" href="#none"><em>폴더</em> 테이블</a>
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${tableList}" var="tableVO">
 				                        		<c:if test="${tableVO.owner == ac_id}">
-						                            <li class="tables"><a href="">${tableVO.table_name}</a></li>
+						                            <li class="tables"><a href="#none">${tableVO.table_name}</a></li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
@@ -61,7 +65,7 @@
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${viewList}" var="viewVO">
 				                        		<c:if test="${viewVO.owner == ac_id}">
-						                            <li><a href="">${viewVO.view_name}</a></li>
+						                            <li><a href="#none">${viewVO.view_name}</a></li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
@@ -71,7 +75,7 @@
 				                        <ul class="depth_3">
 				                            <c:forEach items="${indexList}" var="indexVO">
 				                        		<c:if test="${indexVO.owner == ac_id}">
-						                            <li><a href="">${indexVO.index_name}</a></li>
+						                            <li><a href="#none">${indexVO.index_name}</a></li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
@@ -81,17 +85,17 @@
 				                        <ul class="depth_3">
 				                            <c:forEach items="${functionList}" var="functionVO">
 				                        		<c:if test="${functionVO.owner == ac_id}">
-						                            <li><a href="">${functionVO.object_name}</a></li>
+						                            <li><a href="#none">${functionVO.object_name}</a></li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
 				                    </li>
 				                    <li>
-				                        <a href="#none"><em>폴더</em> 트리거</a>
+				                        <a class="tiggerPackage" href="#none"><em>폴더</em> 트리거</a>
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${triggerList}" var="triggerVO">
 				                        		<c:if test="${triggerVO.owner == ac_id}">
-						                            <li><a href="">${triggerVO.trigger_name}</a></li>
+						                            <li><a href="#none">${triggerVO.trigger_name}</a></li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
@@ -101,7 +105,7 @@
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${sequenceList}" var="sequenceVO">
 				                        		<c:if test="${sequenceVO.sequence_owner == ac_id}">
-						                            <li><a href="">${sequenceVO.sequence_name}</a></li>
+						                            <li><a href="#none">${sequenceVO.sequence_name}</a></li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
@@ -111,7 +115,7 @@
 				                        <ul class="depth_3">
 				                            <c:forEach items="${procedureList}" var="procedureVO">
 				                        		<c:if test="${procedureVO.owner == ac_id}">
-						                            <li><a href="">${procedureVO.object_name}</a></li>
+						                            <li><a href="#none">${procedureVO.object_name}</a></li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
@@ -308,19 +312,75 @@
   </div>
 </div>
 
+<!-- 트리거 패키지 우클릭 모달 -->
+<div id="triggerPackageModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<span class="close">&times;</span>
+  	<br><br>
+	<form action="#" method="post" id="createTriggerFrm">
+		<fieldset>
+			<legend>트리거 생성</legend>
+			<br><br>
+			<label for="exampleInputEmail1">스키마</label>
+			<input type="text" class="form-control" value="계정아이디(슬라이스)" readonly>
+			<br><br>
+			<label for="exampleInputEmail1">이름</label>
+			<input type="text" class="form-control" placeholder="트리거 이름">
+			<br><br>
+			<label for="exampleInputEmail1">기본 유형</label>
+			<input type="text" class="form-control" value="TABLE" readonly>
+			<br><br>
+			<label for="exampleInputEmail1">기본 객체</label>
+		    <select class="form-control" id="exampleSelect1">
+		    	<option>테이블명1</option>
+		        <option>테이블명2</option>
+		        <option>테이블명3</option>
+		        <option>테이블명4</option>
+		        <option>테이블명5</option>
+		    </select>
+			<br><br>
+			<label for="exampleInputEmail1">타이밍</label>
+		    <select class="form-control" id="exampleSelect2">
+		    	<option>BEFORE</option>
+		        <option>AFTER</option>
+		    </select>
+			<br><br>
+			<label for="exampleInputEmail1">이벤트</label>
+			 <select multiple class="form-control" id="exampleSelect3">
+		        <option>DELETE</option>
+		        <option>INSERT</option>
+		        <option>UPDATE</option>
+		   	</select>
+			<br><br>
+			<label for="exampleInputEmail1">이벤트</label>
+			 <select multiple class="form-control" id="exampleSelect4">
+		        <option>컬럼명1</option>
+		        <option>컬럼명2</option>
+		        <option>컬럼명3</option>
+		   	</select>
+			<br><br>
+			<button type="button" class="btn btn-secondary">확인</button>
+		</fieldset>
+	</form>
+  </div>
+</div>
+
 <form id="calendarFrm">
 	<input type="hidden" id="acc_id" name="acc_id"/>
 </form>
 
 <!-- DB계정 우클릭 -->
 <ul class="contextmenu">
-	<c:if test="">
-	
-	</c:if>
   	<li><span id="accountDeleteSpan">DB계정 삭제</span></li>
   	<li><span id="accountPwFindSpan">DB계정 PW찾기</span></li>
   	<li><span id="accountPwUpdateSpan">DB계정 PW변경</span></li>
   	<li id="calendarPopup"><span>팀 일정관리</span></li>
+</ul>
+
+<!-- 트리거 우클릭 -->
+<ul class="triggerPackageMenu">
+  	<li><span id="createTriggerSpan">트리거 생성</span></li>
 </ul>
 
 <!-- 테이블 패키지 우클릭 -->
@@ -334,12 +394,15 @@
   <li><span id="deleteTableSpan">테이블 삭제</span></li>
 </ul>
 
+<input type="hidden" id="accou_id"/>
+
 <script src="${cp}/resources/ace-builds-master/ace.js"></script>
 <script src="${cp}/resources/sqlEditor/js/sqlEditorJS.js"></script>
 <script src="${cp}/resources/sqlEditor/js/treeMenu.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClick.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickTable.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickTablePackage.js"></script>
+<script src="${cp}/resources/sqlEditor/js/rightClickTriggerPackage.js"></script>
 <script src="${cp}/resources/sqlEditor/js/tableManager.js"></script>
 <script src="${cp}/resources/jqGrid/js/i18n/grid.locale-kr.js"></script>
 <script src="${cp}/resources/jqGrid/js/minified/jquery.jqGrid.min.js"></script>
