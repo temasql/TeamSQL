@@ -47,7 +47,7 @@ public class CrewController {
 	* Method 설명 : 메인화면에서 초대장이 있을시 이동하는 URL
 	*/
 	@RequestMapping(path =  "/crewMain")
-	public String mainInviteCrew(String inviteCheck, InviteVO invite) {
+	public String mainInviteCrew(String inviteCheck, InviteVO invite, HttpSession session, Model model) {
 		
 		if (inviteCheck.equals("true")) {
 			CrewVO crewVo = new CrewVO(invite.getAccount_id_fk(), invite.getUser_id_fk());
@@ -56,6 +56,14 @@ public class CrewController {
 			
 			// 초대장을 지운다.
 			inviteService.deleteInvite(invite.getInvite_id());
+			
+			String user_id = ((UserVO)session.getAttribute("USER_INFO")).getUser_id();
+			model.addAttribute("crewSelectList", crewService.crewSelectList(user_id));
+			String select = "";
+			if (crewService.crewSelectList(user_id) != null && crewService.crewSelectList(user_id).size() > 0) {
+				select = crewService.crewSelectList(user_id).get(0).getAccount_id_fk();
+			}
+			model.addAttribute("selected", select);
 		} else if(inviteCheck.equals("false")) {
 			
 			// 초대장을 지운다.
