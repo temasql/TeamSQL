@@ -57,5 +57,11 @@
 		from crew
 		where user_id_fk = #{user_id}
 	</select>
+	
+	<select id="getMyAccountList" parameterType="String" resultType="String">
+		select account_id_fk
+		from crew
+		where user_id_fk = #{user_id}
+	</select>
 
 </mapper>
