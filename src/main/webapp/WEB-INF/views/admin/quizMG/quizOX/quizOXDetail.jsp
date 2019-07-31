@@ -18,26 +18,28 @@
 		<input type="button" id="updateOXBtn" value="퀴즈 수정" class="btn btn-secondary" style="margin-left: 84%;">
 		<input type="button" id="deleteOXBtn" value="삭제" class="btn btn-secondary" style="display: inline-block; margin-top: 2%;">
 		
+		가나다라
+		
 		<!-- 퀴즈 수정 버튼 클릭 시 -->
 		<c:if test="${quiz_right==01}">
-			<form action="/updateOX" id="updateOXFrm">
+			<form action="/updateQuiz" id="updateOXFrm">
 				<input type="hidden" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
 				<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
 			</form>
 		</c:if>
-		<c:if test="${quiz_right!=02}">
+		<c:if test="${quiz_right==02}">
+			<form action="/updateOX" id="updateQuizFrm">
+				<input type="hidden" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
+				<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
+			</form>
+		</c:if>
+		<c:if test="${quiz_right==03}">
 			<form action="/updateQuiz" id="updateQuizFrm">
 				<input type="hidden" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
 				<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
 			</form>
 		</c:if>
-		<c:if test="${quiz_right!=03}">
-			<form action="/updateQuiz" id="updateQuizFrm">
-				<input type="hidden" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
-				<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
-			</form>
-		</c:if>
-		<c:if test="${quiz_right!=04}">
+		<c:if test="${quiz_right==04}">
 			<form action="/updateQuiz" id="updateQuizFrm">
 				<input type="hidden" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
 				<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">

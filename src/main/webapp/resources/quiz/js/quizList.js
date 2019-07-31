@@ -60,6 +60,7 @@ $(function(){
 		
 		$(function (){
 			var quiz_answer = "${quizAndAnswerVO.quiz_answer}";
+			
 			if(quiz_answer == "O"){
 				$("#oRadio").attr("checked", "checked");	
 			}else{
