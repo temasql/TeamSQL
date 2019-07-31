@@ -44,6 +44,21 @@ public class HistoryVO {
 		
 		return object_owner;
 	}
+	
+	public String getObject_ownerSlice() {
+		
+		// 구분자 체크
+		if(object_owner.contains("_")) {
+		int idx = object_owner.indexOf("_"); 
+        
+		// _ 앞부분을 추출
+        // substring은 첫번째 지정한 인덱스는 포함하지 않는다.
+        // 아래의 경우는 첫번째 문자열인 a 부터 추출된다.
+		return  object_owner.substring(0, idx);
+		}
+		return  object_owner;
+	}
+
 	public void setObject_owner(String object_owner) {
 		this.object_owner = object_owner;
 	}

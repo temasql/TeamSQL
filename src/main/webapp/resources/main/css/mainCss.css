@@ -1,40 +1,12 @@
 @charset "UTF-8";
+
 #mainDiv{
 	margin-left: 100px;
     margin-right: 100px;
-    height: 100%;
+    height: auto;
     background-color: #EAEAEA;
     
 }
 
 #mainDiv:after {content:''; clear:both; zoom:; display:block}
 
-#leftLayout{
-	background-color: blue;
-	width: 50%;
-	height: 100%;
-	float:left;
-	display: block;
-}
-
-#leftTopLayout{
-	background-color: yellow;
-	width: 100%;
-	height: 50%;
-}
-
-#bottomDiv{
-	padding: 10px 10px 10px 10px;
-}
-
-#leftBottomLayout{
-	background-color: green;
-	width: 100%;
-	height: 50%;
-}
-#rightLayout{
-	background-color: red;
-	width: 50%;
-	height: 100%;
-	float:left
-}

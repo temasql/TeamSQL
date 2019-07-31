@@ -8,4 +8,4 @@
       <span id="copyright">ⓒ 2019 TeamSQL Developer By 5D</span>
     </div>
     <!-- /.container -->
-  </footer></body>
+  </footer>

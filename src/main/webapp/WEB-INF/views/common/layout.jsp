@@ -18,7 +18,6 @@
 </head>
 
 <body>
-
 <!-- 	<!-- header --> 
 	<tiles:insertAttribute name="header"/>
 	
@@ -32,6 +31,5 @@
 		
 <!-- 	<!-- footer -->
 	<tiles:insertAttribute name="footer"/>
-	
 </body>
 </html>

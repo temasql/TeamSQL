@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	historyDetailPagingListAjaxHtml(1,10);
+	alert($("#object_owner").val());
 });
 function historyDetailPagingListAjaxHtml(page, pageSize){
 	$.ajax({
