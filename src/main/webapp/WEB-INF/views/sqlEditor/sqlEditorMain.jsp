@@ -35,16 +35,16 @@
 		</div>
 		<nav id="dbAccountView">
 			<input type="hidden" id="userId" value="${USER_INFO.user_id}"/>
-			<c:forEach items="${accountList}" var="accountVO">
-				<c:set var="temp" value="${accountVO.account_id}_${USER_INFO.user_id}"/>
-				<c:set var="ac_id" value="${fn:toUpperCase(temp)}" />
+			<c:forEach items="${myAccountList}" var="accountId">
+				<c:set var="account_id" value="${fn:substringBefore(accountId, '_')}" />
+				<c:set var="ac_id" value="${fn:toUpperCase(accountId)}" />
 				<div class="tree_box">
 				    <div class="con">
 				        <ul id="tree_menu" class="tree_menu">
 				            <li class="depth_1">
 				            	<input type="radio" class="radioClass" name="radioBtn" id="${ac_id}"/>
 				            	<input type="hidden" id="radioId">
-				            	<strong class="accounts">${accountVO.account_id}</strong>
+				            	<strong class="accounts">${account_id}</strong>
 				                <ul class="depth_2" >
 				                    <li>
 				                        <a class="tablePackage" href="#none"><em>폴더</em> 테이블</a>
@@ -136,9 +136,10 @@
 			<br>
 		</div>
 		<div id="groupDives">
-			<div class="groupDiv" id="firstDiv">
-				<textarea class="form-control" id="resultViewArea" rows="10" cols="229" readonly></textarea>
-			</div>
+<!-- 			<div class="groupDiv" id="firstDiv"> -->
+<!-- 				<textarea class="form-control" id="resultViewArea" rows="10" cols="229" readonly></textarea> -->
+<!-- 			</div> -->
+			<table id="resultTable"></table>
 			<div class="groupDiv" id="seconedDiv">
 				<textarea class="form-control" id="scriptViewArea" rows="10" cols="229" readonly></textarea>
 			</div>
@@ -158,7 +159,7 @@
 	  <fieldset>
 	    <legend>DB계정 생성</legend>
 	    <br><br>
-	    <input type="hidden" id="run_id" value="${accountVO.account_id}"/>
+	    <input type="hidden" id="run_id" value="${account_id}"/>
 	    <div class="form-group">
 	      <label for="exampleInputEmail1">DB계정명</label>
 	      <input type="text" class="form-control" id="accountName" name="account_id" placeholder="DB계정명">
@@ -311,12 +312,15 @@
 	<input type="hidden" id="acc_id" name="acc_id"/>
 </form>
 
-<!-- 우클릭 -->
+<!-- DB계정 우클릭 -->
 <ul class="contextmenu">
-  <li><span id="accountDeleteSpan">DB계정 삭제</span></li>
-  <li><span id="accountPwFindSpan">DB계정 PW찾기</span></li>
-  <li><span id="accountPwUpdateSpan">DB계정 PW변경</span></li>
-  <li id="calendarPopup"><span>팀 일정관리</span></li>
+	<c:if test="">
+	
+	</c:if>
+  	<li><span id="accountDeleteSpan">DB계정 삭제</span></li>
+  	<li><span id="accountPwFindSpan">DB계정 PW찾기</span></li>
+  	<li><span id="accountPwUpdateSpan">DB계정 PW변경</span></li>
+  	<li id="calendarPopup"><span>팀 일정관리</span></li>
 </ul>
 
 <!-- 테이블 패키지 우클릭 -->
