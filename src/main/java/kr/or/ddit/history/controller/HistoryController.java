@@ -128,6 +128,7 @@ public class HistoryController {
 		
 		// DB계정명
 		model.addAttribute("object_owner", object_owner);
+		logger.debug("겟오브젝트오너 : {}",object_owner);
 		return "/history/historyDetail.tiles";
 		
 	}

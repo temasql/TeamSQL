@@ -116,6 +116,6 @@ public class HistoryDao implements IHistoryDao{
 		return sqlSession.selectList("history.changedMainList", user_id_fk);
 	}
 
-	
 
+	
 }

@@ -6,27 +6,28 @@
 		
 	<!-- DB계정명,마지막변경일 리스트 -->
 	<select id="changedList" parameterType="String" resultType="historyVo">	
-		select object_owner,
-		       max(exec_dtm) exec_dtm
-		from DDL_HISTORY, crew c
-        where c.USER_ID_FK = #{user_id}
-		group by object_owner
-        order by exec_dtm desc
+		select a.account_id_fk, max(exec_dtm) exec_dtm
+		from
+		(select account_id_fk
+		from crew
+		where user_id_fk = 'gilho3')a, DDL_HISTORY
+		group by account_id_fk
+		order by exec_dtm desc
 	</select>
 	
 	<!-- DB계정명,마지막변경일 페이징리스트 -->
-	<select id="changedPagingList" parameterType="map" resultType="historyVo">
+	<select id="changedPagingList" parameterType="map" resultType="changedVo">
 		<![CDATA[
 		select *
 		from
-		(select a.*, rownum rn
+		(select b.*, rownum rn
 		from
-		(select object_owner,
-		       max(exec_dtm) exec_dtm
-		from DDL_HISTORY, crew c
-        where c.USER_ID_FK = #{user_id}
-		group by object_owner
-        order by exec_dtm desc)a)
+		(select a.account_id_fk,
+	  	max(exec_dtm) exec_dtm
+		from DDL_HISTORY, crew a
+		where a.USER_ID_FK = #{user_id}
+		group by a.account_id_fk
+		order by exec_dtm desc)b)
         where rn >= (#{page}-1) * #{pageSize} + 1 and rn <= #{page} * #{pageSize}
         ]]>
 	</select>
@@ -70,7 +71,7 @@
 	              sql_text,
 	              exec_dtm
         	from DDL_HISTORY 
-        	where object_owner = #{object_owner}
+        	where object_owner = upper(#{object_owner})
         	order by exec_dtm desc)a)
 		where rn >= (#{page}-1) *#{pageSize} + 1 and rn <= #{page}*#{pageSize}
 		]]>
@@ -91,7 +92,7 @@
 		WHERE C.OBJECT_OWNER = UPPER(D.ACCOUNT_ID)
         GROUP BY C.OBJECT_OWNER
         order by exec_dtm desc)
-		where rownum <=7
+		where rownum <=5
 		]]>
 	</select>
 	

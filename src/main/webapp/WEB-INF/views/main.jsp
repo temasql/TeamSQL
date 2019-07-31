@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="${cp}/resources/main/css/mainCss.css" rel="stylesheet">
+<link href="${cp}/resources/main/css/mainBodyStyle.css" rel="stylesheet">
 <script type="text/javascript" src="${cp}/resources/main/js/mainJs.js"></script>
 
 <script type="text/javascript">
@@ -50,7 +51,7 @@
 				<tbody id="changedMainBody">
 				  <c:forEach items="${changedMainList}" var="cVO">
 				  	<tr class="table-active clickEvent">
-				  	  <td class="object_owner" scope="row">${cVO.object_ownerSlice}</td>
+				  	  <td class="object_owner" scope="row">${cVO.object_ownerSlice}<input type="hidden" class="original_owners" value="${cVO.object_owner }"/></td>
 					  <td scope="row"><fmt:formatDate value="${cVO.exec_dtm}" pattern="yyyy-MM-dd a hh:mm:ss"/></td>
 					  <td scope="row">${cVO.user_name}</td>
 				  	</tr>
