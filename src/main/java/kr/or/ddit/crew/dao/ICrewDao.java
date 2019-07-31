@@ -68,5 +68,16 @@ public interface ICrewDao {
 	*/
 	CrewVO getCrew(CrewVO crewVo);
 	
+	/**
+	 * 
+	* Method : getMyAccountList
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 : 자신이 속한 DB계정 아이디 리스트 가져오기
+	 */
+	List<String> getMyAccountList(String user_id);
+	
 	
 }

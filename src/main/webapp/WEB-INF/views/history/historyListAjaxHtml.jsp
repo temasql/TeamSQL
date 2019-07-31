@@ -4,10 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- DB 상세 변경 이력 테이블 -->
-<c:forEach items="${changedPagingList}" var="changedPagingList">
+<c:forEach items="${changedPagingList}" var="cVO">
   <tr class="table-active clickEvent">
-    <td class="object_owners">${changedPagingList.object_owner }</td>
-    <td><fmt:formatDate value="${changedPagingList.exec_dtm }" pattern="yyyy-MM-dd a hh:mm:ss"/></td>
+    <td class="object_owners">${cVO.account_id_fkSlice }<input type="hidden" class="original_owners" value="${cVO.account_id_fk}"/></td>
+    
+    <td><fmt:formatDate value="${cVO.exec_dtm }" pattern="yyyy-MM-dd a hh:mm:ss"/></td>
   </tr>
 </c:forEach>
 

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+#resultTable {
+	font-size: 1.5em;
+}
+
 #resultViewSpan{
 	color: red;
 }

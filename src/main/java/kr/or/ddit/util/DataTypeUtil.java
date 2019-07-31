@@ -69,10 +69,104 @@ public class DataTypeUtil {
 		dataTypeList.add("NVARCHAR2");
 		dataTypeList.add("RAW");
 		dataTypeList.add("REAL");
+		dataTypeList.add("ROWID");
 		dataTypeList.add("SMALLINT");
 		dataTypeList.add("TIMESTAMP");
 		dataTypeList.add("UROWID");
 		dataTypeList.add("VARCHAR");
 		return dataTypeList;
 	}
+	
+	/**
+	* Method : noSizeDataType
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @return
+	* Method 설명 : 사이즈를 입력할수 없는 데이터 타입
+	*/
+	public static List<String> noSizeDataType() {
+		List<String> noSizeDataTypeList = new ArrayList<String>();
+		noSizeDataTypeList.add("DATE");
+		noSizeDataTypeList.add("CLOB");
+		noSizeDataTypeList.add("BLOB");
+		noSizeDataTypeList.add("BFILE");
+		noSizeDataTypeList.add("BINARY_DOUBLE");
+		noSizeDataTypeList.add("BINARY_FLOAT");
+		noSizeDataTypeList.add("CHAR");
+		noSizeDataTypeList.add("DOUBLE PRECISION");
+		noSizeDataTypeList.add("INT");
+		noSizeDataTypeList.add("INTEGER");
+		noSizeDataTypeList.add("LONG");
+		noSizeDataTypeList.add("LONG RAW");
+		noSizeDataTypeList.add("LONG VARCHAR");
+		noSizeDataTypeList.add("NCLOB");
+		return noSizeDataTypeList;
+	}
+	
+	/**
+	* Method : sizeDataType
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 기본 사이즈가 20인 데이터 타입
+	*/
+	public static List<String> sizeDataType() {
+		List<String> sizeDataType = new ArrayList<String>();
+		sizeDataType.add("CHAR VARYING");
+		sizeDataType.add("CHARACTER VARYING");
+		sizeDataType.add("NATIONAL CHAR VARYING");
+		sizeDataType.add("NATIONAL CHARACTER VARYING");
+		sizeDataType.add("NCHAR VARYING");
+		sizeDataType.add("RAW");
+		sizeDataType.add("REAL");
+		sizeDataType.add("ROWID");
+		sizeDataType.add("SMALLINT");
+		sizeDataType.add("TIMESTAMP");
+		sizeDataType.add("VARCHAR");
+		sizeDataType.add("VARCHAR2");
+		return sizeDataType;
+	}
+	
+	/**
+	* Method : noDefaultSize
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @return
+	* Method 설명 : 사이즈를 입력할 수 있지만 기본값 설정 안하는 데이터 타입
+	*/
+	public static List<String> noDefaultSize(){
+		List<String> noDefaultDataTypeList = new ArrayList<String>();
+		noDefaultDataTypeList.add("NUMBER");
+		noDefaultDataTypeList.add("CHAR");
+		noDefaultDataTypeList.add("CHARACTER");
+		noDefaultDataTypeList.add("DEC");
+		noDefaultDataTypeList.add("DECIMAL");
+		noDefaultDataTypeList.add("FLOAT");
+		noDefaultDataTypeList.add("INTERVAR DAY");
+		noDefaultDataTypeList.add("INTERVAR YEAR");
+		noDefaultDataTypeList.add("NATIONAL CHAR");
+		noDefaultDataTypeList.add("NATIONAL CHARACTER");
+		noDefaultDataTypeList.add("NCHAR");
+		noDefaultDataTypeList.add("NUMERIC");
+		noDefaultDataTypeList.add("UROWID");
+		return noDefaultDataTypeList;
+	}
+	
+	/**
+	* Method : noPkDataType
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @return
+	* Method 설명 : PK값으로 설정이 불가능한 데이터타입 
+	*/
+	public static List<String> noPkDataType(){
+		List<String> noPkDataTypeList = new ArrayList<String>();
+		noPkDataTypeList.add("CLOB");
+		noPkDataTypeList.add("BLOB");
+		noPkDataTypeList.add("BFILE");
+		noPkDataTypeList.add("LONG");
+		noPkDataTypeList.add("LONG RAW");
+		noPkDataTypeList.add("LONG VARCHAR");
+		return noPkDataTypeList;
+	}
+	
 }

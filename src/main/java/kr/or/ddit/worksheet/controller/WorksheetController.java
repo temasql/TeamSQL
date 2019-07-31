@@ -146,6 +146,8 @@ public class WorksheetController {
 			dragText = dragText.substring(0, end);
 		}
 		
+		logger.debug("냐냐냐 : {}", dragText);
+		
 		Map<String, String> resultMap = worksheetService.ddlRun(dragText, conn);
 		model.addAttribute("resultMap", resultMap);
 		
