@@ -51,6 +51,7 @@ public class WorksheetDao implements IWorksheetDao {
 				columnNameList.add(rs.getMetaData().getColumnName(i)); 
 			}
 			resultList.add(columnNameList);
+			logger.debug("columnNameList : {}", columnNameList);
 			
 			while(rs.next()) {
 				List<String> dataList = new ArrayList<String>();
