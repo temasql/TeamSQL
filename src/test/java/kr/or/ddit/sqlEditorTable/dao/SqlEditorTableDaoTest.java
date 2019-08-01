@@ -154,7 +154,7 @@ public class SqlEditorTableDaoTest extends LogicTestEnv{
 		selectBoxList.add("index");
 		selectBoxList.add("DDL");
 		
-		String query = SelectTableUtil.selectQuery("DDL", "USERS");
+		String query = SelectTableUtil.selectQuery("column", "USERS");
 		List<List<String>> selectList = sqlEditorTableDao.selectTable(query, conn);
 		logger.debug("selectList ==>{}", selectList);
 		try {

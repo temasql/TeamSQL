@@ -282,7 +282,7 @@ public class SqlEditorController {
 			@RequestBody String[][] array) {
 		
 		sqlEditorTableService.createTable(array);
-		return sqlEditorMain(session, model);
+		return "jsonView";
 
 	}
 	
