@@ -105,6 +105,7 @@ $(document).ready(function() {
 	});
 	
 	// 엔터키 이벤트 전송
+	
 	$('#userInput').keypress(function(event){
 	     if ( event.which == 13 ) {
 	         $('#questionBtn').click();

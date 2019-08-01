@@ -15,12 +15,7 @@ but I would appreciate an attribution from my work. I hope you enjoy it.
 
 $(document).ready(function(){
   //Show contextmenu:
-  $(".accounts").contextmenu(function(e){
-	$("#deleteId").val($(this).find("#acco_id").val());
-	$("#findId").val($(this).find("#acco_id").val());
-	$("#updateId").val($(this).find("#acco_id").val());
-	$("#accou_id").val($(this).find("#acco_id").val());
-	$("#acc_id").val($(this).text());
+  $(".tiggerPackage").contextmenu(function(e){
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();
@@ -28,8 +23,8 @@ $(document).ready(function(){
     var posX = e.pageX;
     var posY = e.pageY;
     //Get contextmenu size:
-    var menuWidth = $(".contextmenu").width();
-    var menuHeight = $(".contextmenu").height();
+    var menuWidth = $(".triggerPackageMenu").width();
+    var menuHeight = $(".triggerPackageMenu").height();
     //Security margin:
     var secMargin = 10;
     //Prevent page overflow:
@@ -55,7 +50,7 @@ $(document).ready(function(){
       posTop = posY + secMargin + "px";
     };
     //Display contextmenu:
-    $(".contextmenu").css({
+    $(".triggerPackageMenu").css({
       "left": posLeft,
       "top": posTop
     }).show();
@@ -64,6 +59,6 @@ $(document).ready(function(){
   });
   //Hide contextmenu:
   $(document).click(function(){
-    $(".contextmenu").hide();
+    $(".triggerPackageMenu").hide();
   });
 });

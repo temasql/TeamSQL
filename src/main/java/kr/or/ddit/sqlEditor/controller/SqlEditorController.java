@@ -177,14 +177,12 @@ public class SqlEditorController {
 		String msg = "";
 		logger.debug("deletePw : {}", deletePw);
 		logger.debug("deleteId : {}", deleteId);
-		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
-		String delete_id = deleteId + "_" + userVO.getUser_id();
 		
-		AccountVO accountVO = accountService.getAccountOne(delete_id);
+		AccountVO accountVO = accountService.getAccountOne(deleteId);
 		
 		if(accountVO.getAccount_pw().equals(deletePw)) {
-			accountService.deleteAccount(delete_id);
-			int result = accountService.deleteAccountByTable(delete_id);
+			accountService.deleteAccount(deleteId);
+			int result = accountService.deleteAccountByTable(deleteId);
 			if(result > 0) {
 				msg = "DB계정이 삭제되었습니다.";
 			}else {
@@ -199,6 +197,7 @@ public class SqlEditorController {
 	
 	@RequestMapping(path = "/findPwAccount", method = RequestMethod.POST)
 	public String findPwAccount(String user_id, String user_email, String findId, HttpSession session, Model model) {
+		logger.debug("findId : {}", findId);
 		String msg = "";
 		UserVO userVO = userService.getUser(user_id);
 		if(userVO == null) {
@@ -206,9 +205,8 @@ public class SqlEditorController {
 			return sqlEditorMain(session, model);
 		}
 		if(userVO.getUser_email().equals(user_email)) {
-			String find_id = findId + "_" + user_id;
-			AccountVO accountVO = accountService.getAccountOne(find_id);
-			new FindAccountPwByMail().sendMail(user_email, user_id, find_id, accountVO.getAccount_pw());
+			AccountVO accountVO = accountService.getAccountOne(findId);
+			new FindAccountPwByMail().sendMail(user_email, user_id, findId, accountVO.getAccount_pw());
 			msg = "DB계정 비밀번호를 회원님의 메일으로 보내드렸습니다.";
 		}else {
 			msg = "일치하는 회원정보가 없습니다.";
@@ -227,12 +225,10 @@ public class SqlEditorController {
 			return sqlEditorMain(session, model);
 		}
 		
-		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
-		String update_id = updateId + "_" + userVO.getUser_id();
-		AccountVO accountVO = accountService.getAccountOne(update_id);
+		AccountVO accountVO = accountService.getAccountOne(updateId);
 		
 		if(accountVO.getAccount_pw().equals(originalPw)) {
-			String value = "ALTER USER " + update_id + " IDENTIFIED BY " + updatePw;
+			String value = "ALTER USER " + updateId + " IDENTIFIED BY " + updatePw;
 			int updateCnt = accountService.updateAccount(value);
 			
 			accountVO.setAccount_pw(updatePw);
