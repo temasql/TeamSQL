@@ -3,6 +3,7 @@
  */
 package kr.or.ddit.sqlEdiotTable.service;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +12,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.sqlEdiotTable.dao.ISqlEditorTableDao;
-import kr.or.ddit.sqlEdiotTable.dao.SqlEditorTableDao;
 import kr.or.ddit.util.CreateTableUtil;
+import kr.or.ddit.util.SelectTableUtil;
 
 /**
 * SqlEditorTable.java
@@ -42,7 +43,7 @@ public class SqlEditorTableService implements ISqlEditorTableService {
 	* 변경이력 :
 	* @param query
 	* @return
-	* Method 설명 :
+	* Method 설명 : 테이블 패키지 우클릭 후 테이블 생성
 	*/
 	@Override
 	public int createTable(String[][] array) {
@@ -56,6 +57,20 @@ public class SqlEditorTableService implements ISqlEditorTableService {
 			}
 		}
 		return 0;
+	}
+	/**
+	* Method : selectTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param select
+	* @param conn
+	* @return
+	* Method 설명 : 테이블 우클릭 후 테이블 조회
+	*/
+	@Override
+	public List<List<String>> selectTable(String select, String TableName, Connection conn) {
+		String query = SelectTableUtil.selectQuery(select, TableName);
+		return sqlEditorTableDao.selectTable(query, conn);
 	}
 
 }
