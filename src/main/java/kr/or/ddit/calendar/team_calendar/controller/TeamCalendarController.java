@@ -46,7 +46,7 @@ public class TeamCalendarController {
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
 		
 		CrewVO crewVO = new CrewVO();
-		crewVO.setAccount_id_fk(account_id+"_"+userVO.getUser_id());
+		crewVO.setAccount_id_fk(account_id);
 //		crewVO.setAccount_id_fk("테스트 계정");
 		logger.debug("crewVO account_id : {}", crewVO.getAccount_id_fk());
 		

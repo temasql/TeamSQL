@@ -20,7 +20,7 @@ $(document).ready(function(){
 	$("#findId").val($(this).find("#acco_id").val());
 	$("#updateId").val($(this).find("#acco_id").val());
 	$("#accou_id").val($(this).find("#acco_id").val());
-	$("#acc_id").val($(this).text());
+	$("#acc_id").val($(this).find("#acco_id").val());
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();
