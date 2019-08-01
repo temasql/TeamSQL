@@ -18,6 +18,9 @@ public class FindAccountPwByMail {
 		final String password = "kbh711482!"; // 보내는 메일의 비밀번호
 //		String to = "";// 수신측의 메일 주소
 		
+		int underBarIdx = account_id.lastIndexOf("_");
+		String accountName = account_id.substring(0, underBarIdx);
+		
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host); // 네이버일 경우
 		props.put("mail.smtp.auth", "true");
@@ -38,7 +41,7 @@ public class FindAccountPwByMail {
 			message.setSubject("TeamSQL DB계정 비밀번호");
 			
 			// 메일 내용
-			message.setText(user_id + "님의 DB계정 비밀번호는 " + account_pw + " 입니다");
+			message.setText(user_id + "님의 DB계정('" + accountName + "')의 비밀번호는 " + account_pw + " 입니다");
 
 			// send the message
 			Transport.send(message);

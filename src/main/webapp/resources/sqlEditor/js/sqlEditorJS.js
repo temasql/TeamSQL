@@ -5,10 +5,20 @@ $(document).ready(function() {
 		alert($("#msg").val());
 	}
 	
+	// a태그 href막기
+	$('a[href="#none"]').click(function(e) {
+		e.preventDefault();
+	});
+	
 	// 워크시트 다운로드 버튼 이벤트
 	$("#worksheetSave").on("click", function() {
 		var fileName = prompt("저장하실 파일명을 입력해주세요.");
 		saveToFile_Chrome(fileName, editor.getValue());
+	});
+	
+	// 트리거 패키지 모달창 띄우기
+	$("#createTriggerSpan").on("click", function() {
+		$("#triggerPackageModal").css("display", "block");
 	});
 	
 	// 워크시트 불러오기 모달창 띄우기
@@ -67,16 +77,40 @@ $(document).ready(function() {
 	
 	// DB계정 삭제 모달창 띄우기
 	$("#accountDeleteSpan").on("click", function() {
+		var account_id = $("#accou_id").val();
+		var user_id = $("#userId").val();
+		var underBarIdx = account_id.lastIndexOf("_");
+		var creator = account_id.substring(underBarIdx+1);
+		if(creator != user_id) {
+			alert("DB계정 생성자만 이용가능한 기능입니다.");
+			return;
+		}
 		$("#accountDeleteModal").css("display", "block");
 	});
 	
 	// DB계정 비밀번호 찾기 모달창 띄우기
 	$("#accountPwFindSpan").on("click", function() {
+		var account_id = $("#accou_id").val();
+		var user_id = $("#userId").val();
+		var underBarIdx = account_id.lastIndexOf("_");
+		var creator = account_id.substring(underBarIdx+1);
+		if(creator != user_id) {
+			alert("DB계정 생성자만 이용가능한 기능입니다.");
+			return;
+		}
 		$("#accountPwFindModal").css("display", "block");
 	});
 	
 	// DB계정 비밀번호 수정 모달창 띄우기
 	$("#accountPwUpdateSpan").on("click", function() {
+		var account_id = $("#accou_id").val();
+		var user_id = $("#userId").val();
+		var underBarIdx = account_id.lastIndexOf("_");
+		var creator = account_id.substring(underBarIdx+1);
+		if(creator != user_id) {
+			alert("DB계정 생성자만 이용가능한 기능입니다.");
+			return;
+		}
 		$("#accountPwUpdateModal").css("display", "block");
 	});
 	
@@ -98,6 +132,7 @@ $(document).ready(function() {
 		$("#accountPwFindModal").css("display", "none");
 		$("#accountPwUpdateModal").css("display", "none");
 		$("#worksheetLoadModal").css("display", "none");
+		$("#triggerPackageModal").css("display", "none");
 	});
 	
 	// DB계정 생성
