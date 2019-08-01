@@ -14,6 +14,7 @@ import kr.or.ddit.account.dao.IAccountDao;
 import kr.or.ddit.account.model.AccountVO;
 import kr.or.ddit.crew.dao.ICrewDao;
 import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.model.UserAndCrewVO;
 
 @Service
 public class CrewService implements ICrewService{
@@ -125,5 +126,16 @@ public class CrewService implements ICrewService{
 		return crewDao.getMyAccountList(user_id);
 	}
 
-
+	/**
+	* Method : getCrewList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param crewVO
+	* @return
+	* Method 설명 : 계정명을 입력 받아 userid와 username을 리턴
+	*/
+	@Override
+	public List<UserAndCrewVO> getCrewList(CrewVO crewVO) {
+		return crewDao.getCrewList(crewVO);
+	}
 }

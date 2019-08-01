@@ -142,12 +142,9 @@
                 	<!-- 사용자(유저) -->
                     <label for="calendar_view">등록자별</label>
                     <div class="input-group">
-                    	<c:forEach items="${userList}" var="userVO">
-	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${userVO.getUser_id()}" checked>${userVO.getUser_name()}</label>
-<!-- 	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="다현" checked>다현</label> -->
-<!-- 	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="사나" checked>사나</label> -->
-<!-- 	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="나연" checked>나연</label> -->
-<!-- 	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효" checked>지효</label> -->
+                    	<c:forEach items="${uacList}" var="userAndCrewVO">
+	                        <label class="checkbox-inline"><input class='filter' type="checkbox" 
+	                        value="${userAndCrewVO.user_id_fk}" checked>${userAndCrewVO.user_name}</label>
                     	</c:forEach>
                     </div>
                 </div>

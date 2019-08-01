@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.calendar.team_calendar.dao.ITeamCalendarDao;
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.model.UserAndCrewVO;
 import kr.or.ddit.user.model.UserVO;
 
 @Service
@@ -70,7 +71,7 @@ public class TeamCalendarService implements ITeamCalendarService{
 	* Method 설명 : 현재 모든 리스트를 반환 - 수정 예정(해당 DB계정에 대해서만 가져올 예정)
 	*/
 	@Override
-	public String readCal(CrewVO crewVO) {
+	public String readCal(CrewVO crewVO, List<UserAndCrewVO> uacList) {
 	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm");
       List<TeamCalendarVO> list = teamCalendarDao.readCal(crewVO);
       logger.debug("End : {}", list.get(0).getCalendar_start_dt());

@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.model.UserAndCrewVO;
 
 @Repository
 public class CrewDao implements ICrewDao{
@@ -108,6 +109,17 @@ public class CrewDao implements ICrewDao{
 	public List<String> getMyAccountList(String user_id) {
 		return sqlSession.selectList("crew.getMyAccountList", user_id);
 	}
-	
 
+	/**
+	* Method : getCrewList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param crewVO
+	* @return
+	* Method 설명 : 계정명을 입력 받아 userid와 username을 리턴
+	*/
+	@Override
+	public List<UserAndCrewVO> getCrewList(CrewVO crewVO) {
+		return sqlSession.selectList("crew.getCrewList", crewVO);
+	}
 }
