@@ -9,6 +9,8 @@
 <link href="${cp}/resources/sqlEditor/css/rightClickTable.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClickTablePackage.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClickTriggerPackage.css" rel="stylesheet">
+<link href="${cp}/resources/sqlEditor/css/rightClickSequence.css" rel="stylesheet">
+<link href="${cp}/resources/sqlEditor/css/rightClickSequencePackage.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen" href="${cp}/resources/jquery-ui/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css" media="screen" href="${cp}/resources/jqGrid/css/ui.jqgrid.css">
 
@@ -101,11 +103,11 @@
 				                        </ul>
 				                    </li>
 				                    <li>
-				                        <a href="#none"><em>폴더</em> 시퀀스</a>
+				                        <a class = "sequencePackage" href="#none"><em>폴더</em> 시퀀스</a>
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${sequenceList}" var="sequenceVO">
 				                        		<c:if test="${sequenceVO.sequence_owner == ac_id}">
-						                            <li><a href="#none">${sequenceVO.sequence_name}</a></li>
+						                            <li class="sequences"><a href="#none">${sequenceVO.sequence_name}</a></li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
@@ -366,6 +368,62 @@
   </div>
 </div>
 
+<!-- createSequence modal -->
+<div id="craeteSequenceModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>   
+    <br><br>                  
+	<form action="${cp}/sqlEditor/createSequence" method="post" id="createSequenceFrm">
+	  <fieldset>
+	    <legend>시퀀스 생성</legend>
+			<br><br>
+			
+			<div class="form-group">
+		    <input type="text" class="form-control" id="sequenceName" name="sequence_Name" placeholder="시퀀스명">
+		    <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~9글자 사이입니다.</small>
+		   	</div>
+			<br><br>
+			<input type="text" class="form-control" placeholder="시퀀스 이름">
+			<br><br>
+			<label for="exampleInputEmail1">기본 유형</label>
+			<input type="text" class="form-control" value="TABLE" readonly>
+			<br><br>
+			<label for="exampleInputEmail1">기본 객체</label>
+		    <select class="form-control" id="exampleSelect1">
+		    	<option>테이블명1</option>
+		        <option>테이블명2</option>
+		        <option>테이블명3</option>
+		        <option>테이블명4</option>
+		        <option>테이블명5</option>
+		    </select>
+			<br><br>
+			<label for="exampleInputEmail1">타이밍</label>
+		    <select class="form-control" id="exampleSelect2">
+		    	<option>BEFORE</option>
+		        <option>AFTER</option>
+		    </select>
+			<br><br>
+			<label for="exampleInputEmail1">이벤트</label>
+			 <select multiple class="form-control" id="exampleSelect3">
+		        <option>DELETE</option>
+		        <option>INSERT</option>
+		        <option>UPDATE</option>
+		   	</select>
+			<br><br>
+			<label for="exampleInputEmail1">이벤트</label>
+			 <select multiple class="form-control" id="exampleSelect4">
+		        <option>컬럼명1</option>
+		        <option>컬럼명2</option>
+		        <option>컬럼명3</option>
+		   	</select>
+			<br><br>
+			<button type="button" class="btn btn-secondary">확인</button>
+		</fieldset>
+	</form>
+  </div>
+</div>
+
 <form id="calendarFrm">
 	<input type="hidden" id="acc_id" name="acc_id"/>
 </form>
@@ -394,6 +452,17 @@
   <li><span id="deleteTableSpan">테이블 삭제</span></li>
 </ul>
 
+<!-- 시퀀스 패키지 우클릭 -->
+<ul class="sequencePackageMenu">
+  <li><span id="createsequenceSpan">시퀀스 생성</span></li>
+</ul>
+<!-- 시퀀스 우클릭 -->
+<ul class="sequenceMenu">
+  <li><span id="readSequenceSpan">시퀀스 조회</span></li>
+  <li><span id="updateSequenceSpan">시퀀스 편집</span></li>
+  <li><span id="deleteSequenceSpan">시퀀스 삭제</span></li>
+</ul>
+
 <input type="hidden" id="accou_id"/>
 
 <script src="${cp}/resources/ace-builds-master/ace.js"></script>
@@ -403,6 +472,9 @@
 <script src="${cp}/resources/sqlEditor/js/rightClickTable.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickTablePackage.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickTriggerPackage.js"></script>
+<script src="${cp}/resources/sqlEditor/js/rightClickSequence.js"></script>
+<script src="${cp}/resources/sqlEditor/js/rightClickSequencePackage.js"></script>
 <script src="${cp}/resources/sqlEditor/js/tableManager.js"></script>
+<script src="${cp}/resources/sqlEditor/js/createSequence.js"></script>
 <script src="${cp}/resources/jqGrid/js/i18n/grid.locale-kr.js"></script>
 <script src="${cp}/resources/jqGrid/js/minified/jquery.jqGrid.min.js"></script>
