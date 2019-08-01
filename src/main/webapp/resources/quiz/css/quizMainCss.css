@@ -25,17 +25,19 @@
 #question{
 	font-size: 20px;
 /* 	margin-top: 5%; */
-	height: 5%;
+	height: 20px;
 }
 #gruopDiv{
 	margin: 0px auto;
 	width: 50%;
 }
-#answer, #explain{
-	margin-top: 3%;
+#answer, #explain, #multiple{
+	margin-top: 50px;
 	font-size: 20px;
 }
-
+#answer{
+	display: inline-block;	
+}
 #disabledInput{
 	height: 300px;
     font-size: 20px;
@@ -44,4 +46,19 @@
 #insertBtn,#updateOXBtn,#updateOXBtnDB{
     margin-left: 91%;
     margin-top: 2%;
+}
+
+.custom-control, .custom-radio{
+	display : inline-block;
+	font-size: 14px;
+	padding-left: 0rem;
+}
+ol{
+	margin-top:1%;
+}
+.custom-control, .custom-radio, .custom-control-label, .form-control{
+	display: inline-grid;
+}
+#example{
+	margin-top: 50px;
 }

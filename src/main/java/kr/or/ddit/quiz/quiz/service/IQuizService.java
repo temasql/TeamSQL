@@ -7,6 +7,7 @@ import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
+import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
 
 public interface IQuizService {
 	
@@ -26,4 +27,9 @@ public interface IQuizService {
 	
 	int updateQuiz(QuizAndAnswerVO quizAndAnswerVO);
 	
+	int updateMultipleQuiz(QuizAndAnswerVO quizAndAnswerVO, QuizExampleVO quizExampleVO, String[] example_content);
+	
+	int insertMultipleQuiz(QuizVO quizVO, QuizAnswerVO quizAnswerVO, QuizExampleVO quizExampleVO, String[] example_content);
+	
+	Map<String, Object> multipleQuizList(QuizVO quizVO);
 }

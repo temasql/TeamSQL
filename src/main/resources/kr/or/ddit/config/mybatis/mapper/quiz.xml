@@ -101,6 +101,14 @@
 		WHERE	QUIZ_ID_FK = #{quiz_id}	
 	</update>
 	
+	<!-- updateQuizExample -->
+	<update id="updateQuizExample" parameterType="quizExampleVo">
+		UPDATE 	QUIZ_EXAMPLE
+		SET		EXAMPLE_CONTENT = #{example_content}
+		WHERE	QUIZ_ID_FK = #{quiz_id_fk}
+		AND		EXAMPLE_NUM = #{example_num}
+	</update>
+	
 	<!-- delete -->
 	<delete id="deleteQuiz" parameterType="int">
 		DELETE
@@ -118,5 +126,30 @@
 		WHERE   Q.QUIZ_ID = #{quiz_id}
 		AND     Q.QUIZ_RIGHT = #{quiz_right}
 		AND     A.QUIZ_ID_FK = #{quiz_id}
+	</select>
+	
+	<!-- 객관식 보기를 insert하는 쿼리 -->
+	<insert id="insertMultipleQuizExample" parameterType="quizExampleVo">
+		INSERT INTO QUIZ_EXAMPLE
+		VALUES
+		(
+			QUIZ_EXAMPLE_SEQ.NEXTVAL,
+			#{quiz_id_fk},
+			#{example_num},
+			#{example_content}
+		)
+		<selectKey keyProperty="quiz_id_fk" resultType="int" order="BEFORE">
+			SELECT	QUIZ_SEQ.CURRVAL
+			FROM	DUAL
+		</selectKey>
+	</insert>
+	
+	<!-- 객관식 보기 리스트를 반환하는 쿼리 -->
+	<select id="multipleQuizList" parameterType="quizAndAnswerVO" resultType="quizExampleVo">
+		SELECT	example_id,
+				example_num,
+				example_content
+		FROM	QUIZ_EXAMPLE
+		WHERE	QUIZ_ID_FK = #{quiz_id}
 	</select>
 </mapper>

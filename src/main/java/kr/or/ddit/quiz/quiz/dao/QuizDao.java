@@ -15,6 +15,7 @@ import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
+import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
 
 @Repository
 public class QuizDao implements IQuizDao{
@@ -146,4 +147,44 @@ public class QuizDao implements IQuizDao{
 	public int updateQuizAnswer(QuizAndAnswerVO quizAndAnswerVO) {
 		return sqlSession.update("quiz.updateQuizAnswer", quizAndAnswerVO);
 	}
+
+	/**
+	* Method : updateQuizExample
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizExampleVO
+	* @return
+	* Method 설명 : 선택한 퀴즈의 보기를 수정하는 메서드
+	*/
+	@Override
+	public int updateQuizExample(QuizExampleVO quizExampleVO) {
+		return sqlSession.update("quiz.updateQuizExample", quizExampleVO);
+	}
+	
+	/**
+	* Method : insertMultipleQuizExample
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizExampleVO
+	* @return
+	* Method 설명 : 객관식 퀴즈 보기, 퀴즈보기에 해당하는 내용을 등록하는 메서드 
+	*/
+	@Override
+	public int insertMultipleQuizExample(QuizExampleVO quizExampleVO) {
+		return sqlSession.insert("quiz.insertMultipleQuizExample", quizExampleVO);
+	}
+
+	/**
+	* Method : multipleQuizList
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizVO
+	* @return
+	* Method 설명 : 퀴즈 아이디에 해당하는 퀴즈보기와 퀴즈 보기 내용을 리스트로 반환한다.
+	*/
+	@Override
+	public List<QuizExampleVO> multipleQuizList(QuizAndAnswerVO quizAndAnswerVO) {
+		return sqlSession.selectList("quiz.multipleQuizList", quizAndAnswerVO);
+	}
+
 }

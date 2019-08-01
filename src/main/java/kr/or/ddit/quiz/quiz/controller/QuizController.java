@@ -1,6 +1,7 @@
 package kr.or.ddit.quiz.quiz.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -9,16 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.page.model.PageVo;
 import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz.service.IQuizService;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
+import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
 import kr.or.ddit.user.model.UserVO;
 
 //@RequestMapping("/quiz")
@@ -172,8 +172,13 @@ public class QuizController {
 	* Method 설명 : OX퀴즈 조회 화면으로 이동
 	*/
 	@RequestMapping(path="/readOX", method = RequestMethod.GET)
-	public String readOX(Model model, QuizVO quizVO) {
+	public String readOX(Model model, QuizVO quizVO, HttpSession session) {
 		logger.debug("QuizVO : {}", quizVO);
+		
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		logger.debug("userVO : {}", userVO);
+		
+		quizVO.setUser_id_fk(userVO.getUser_id());
 		
 		QuizAndAnswerVO quizAndAnswerVO = service.readQuiz(quizVO);
 		
@@ -181,6 +186,18 @@ public class QuizController {
 		
 		if(quizVO.getQuiz_right().equals("01")) {
 			model.addAttribute("quizName", "객관식 퀴즈");
+			logger.debug("객관식 등록 후 조회 했을 때 일루 오나?");
+			
+			Map<String, Object> map = service.multipleQuizList(quizVO);
+			
+			QuizAndAnswerVO quizAndAnswerVO1 = (QuizAndAnswerVO) map.get("quizAndAnswerVO");
+			List<QuizExampleVO> exampleList = (List<QuizExampleVO>) map.get("exampleList");
+			
+			model.addAttribute("quiz_right", quizVO.getQuiz_right());
+			model.addAttribute("quizAndAnswerVO", quizAndAnswerVO1);
+			model.addAttribute("exampleList", exampleList);
+			
+			return "/admin/quizMG/quizMultiple/quizMultipleDetail.tiles";
 		}else if(quizVO.getQuiz_right().equals("02")){
 			model.addAttribute("quizName", "OX 퀴즈");
 		}else if(quizVO.getQuiz_right().equals("03")) {
@@ -280,6 +297,68 @@ public class QuizController {
 		return "/admin/quizMG/quizShort/quizShortUpdate.tiles";
 	}
 	
+	
+	/**
+	* Method : updateMultipleQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param model
+	* @param quizVO
+	* @return
+	* Method 설명 : 객관식 수정 화면으로 이동
+	*/
+	@RequestMapping(path = "/updateMultipleQuiz", method=RequestMethod.GET)
+	public String updateMultipleQuiz(Model model, QuizVO quizVO) {
+		Map<String, Object> map = service.multipleQuizList(quizVO);
+		
+		QuizAndAnswerVO quizAndAnswerVO = (QuizAndAnswerVO) map.get("quizAndAnswerVO");
+		List<QuizExampleVO> exampleList = (List<QuizExampleVO>) map.get("exampleList");
+		
+		model.addAttribute("quiz_right", quizVO.getQuiz_right());
+		model.addAttribute("quizAndAnswerVO", quizAndAnswerVO);
+		model.addAttribute("exampleList", exampleList);
+		
+		return "/admin/quizMG/quizMultiple/quizMultipleUpdate.tiles";
+	}
+	
+	/**
+	* Method : updateMultipleQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param model
+	* @param quizVO
+	* @param quiz_right
+	* @return
+	* Method 설명 : 객관식 문제를 수정하는 메서드
+	*/
+	@RequestMapping(path = "updateMultipleQuiz", method = RequestMethod.POST)
+	public String updateMultipleQuiz(HttpSession session, Model model, String[] example_content, QuizAndAnswerVO quizAndAnswerVO, QuizExampleVO quizExampleVO, QuizAnswerVO quizAnswerVO) {
+		logger.debug("객관식 수정중");
+		logger.debug("quizAndAnswerVO : {}", quizAndAnswerVO);
+		logger.debug("quizExampleVO : {}", quizExampleVO);
+		logger.debug("quizAnswerVO : {}", quizAnswerVO);
+		logger.debug("");
+		
+		int result = service.updateMultipleQuiz(quizAndAnswerVO, quizExampleVO, example_content);
+		logger.debug("객관식 수정 갯수 : {}", result);
+		
+		
+		model.addAttribute("quiz_right", quizAndAnswerVO.getQuiz_right());
+		return "/admin/quizMG/quizList.tiles";
+	}
+	
+	
+	
+	/**
+	* Method : deleteQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param model
+	* @param quiz_id
+	* @param quiz_right
+	* @return
+	* Method 설명 : 선택한 퀴즈를 삭제하는 메서드
+	*/
 	@RequestMapping(path = "/deleteQuiz", method = RequestMethod.POST)
 	public String deleteQuiz(Model model, int quiz_id, String quiz_right) {
 		
@@ -309,25 +388,93 @@ public class QuizController {
 	* 작성자 : PC19
 	* 변경이력 :
 	* @return
-	* Method 설명 : 사용자면 단답식퀴즈 문제화면으로 이동, 관리자면 단답식퀴즈 관리게시판화면으로 이동
+	* Method 설명 : 사용자면 각 퀴즈 문제화면으로 이동, 관리자면 각 퀴즈 관리게시판화면으로 이동
 	*/
-	@RequestMapping(path =  "/quizShort", method = RequestMethod.GET)
+	@RequestMapping(path =  "/quizListView", method = RequestMethod.GET)
 	public String quizShort(HttpSession session, Model model, String quiz_right) {
 		
 		logger.debug("단답식 : quiz_right : {}", quiz_right);
 		
+		if(quiz_right.equals("01")) {
+			model.addAttribute("quizName", "객관식 퀴즈");
+		}else if(quiz_right.equals("02")){
+			model.addAttribute("quizName", "OX 퀴즈");
+		}else if(quiz_right.equals("03")) {
+			model.addAttribute("quizName", "단답식 퀴즈");
+		}else {
+			model.addAttribute("quizName", "주관식 퀴즈");
+		}
+		
 		model.addAttribute("quiz_right", quiz_right);
-		model.addAttribute("quizName", "단답식 퀴즈");
 		
 		return "/admin/quizMG/quizList.tiles";
 	}
 	
+	/**
+	* Method : insertShort
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param model
+	* @param quiz_right
+	* @return
+	* Method 설명 : 단답식 추가 화면 이동
+	*/
 	@RequestMapping(path="/insertShort", method = RequestMethod.GET)
 	public String insertShort(Model model, String quiz_right) {
+		logger.debug("객관식 GET");
 		
 		model.addAttribute("quiz_right", quiz_right);
 		
 		return "/admin/quizMG/quizShort/quizShortInsert.tiles";
+	}
+	
+	/**
+	* Method : insertMultiple
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param model
+	* @param quiz_right
+	* @return
+	* Method 설명 : 객관식 추가 화면으로 이동
+	*/
+	@RequestMapping(path = "/insertMultiple", method = RequestMethod.GET)
+	public String insertMultiple(Model model, String quiz_right) {
+		
+		model.addAttribute("quiz_right", quiz_right);
+		
+		return "/admin/quizMG/quizMultiple/quizMultipleInsert.tiles";
+	}
+	
+	/**
+	* Method : insertMultiple
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param model
+	* @param quiz_right
+	* @return
+	* Method 설명 : 객관식 퀴즈 문제를 DB에 등록
+	*/
+	@RequestMapping(path = "/insertMultiple", method = RequestMethod.POST)
+	public String insertMultiple(HttpSession session, Model model, String[] example_content, QuizVO quizVO, QuizExampleVO quizExampleVO, QuizAnswerVO quizAnswerVO) {
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		
+		quizVO.setUser_id_fk(userVO.getUser_id());
+		
+		logger.debug("insertMultiple POST");
+		logger.debug("quizVO : {}", quizVO);
+		logger.debug("quizExampleVO : {}", quizExampleVO);
+		logger.debug("quizAnswerVO : {}", quizAnswerVO);
+		
+		for(String exampleContent : example_content) {
+			logger.debug("quizExampleVO : {}", exampleContent);
+		}
+		
+		int result = service.insertMultipleQuiz(quizVO, quizAnswerVO, quizExampleVO, example_content);
+		
+		logger.debug("객관식 성공 갯수 : {}", result);
+		
+		model.addAttribute("quiz_right", quizVO.getQuiz_right());
+		return "/admin/quizMG/quizList.tiles";
 	}
 	
 	

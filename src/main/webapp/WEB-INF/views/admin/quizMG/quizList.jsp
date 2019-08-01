@@ -34,10 +34,12 @@ pageEncoding="UTF-8"%>
 
 <!-- 퀴즈 추가 화면 이동 -->
 <div id="addBtnDiv">
-<%-- 		<c:if test="${quiz_right==01}"> --%>
-<!-- 			<button id="insertBtn" type="submit" class="btn btn-secondary">객관식 퀴즈 추가</button> -->
-<%-- 			<input type="hidden" name="quiz_right" value="${quiz_right}"> --%>
-<%-- 		</c:if> --%>
+	<c:if test="${quiz_right==01}">
+		<form id="insertFrm" action="/insertMultiple" method="get">
+			<button id="insertBtn" type="submit" class="btn btn-secondary">객관식 퀴즈 추가</button>
+			<input type="hidden" name="quiz_right" value="${quiz_right}">
+		</form>
+	</c:if>
 	<c:if test="${quiz_right==02}">
 		<form id="insertFrm" action="/insertOX" method="get">
 			<button id="insertBtn" type="submit" class="btn btn-secondary">OX 퀴즈 추가</button>
@@ -50,10 +52,12 @@ pageEncoding="UTF-8"%>
 			<input type="hidden" name="quiz_right" value="${quiz_right}">
 		</form>
 	</c:if>
-		<c:if test="">
+	<c:if test="${quiz_right==04}">
+		<form action="/insertEssay">
 			<button id="insertBtn" type="submit" class="btn btn-secondary">주관식 퀴즈 추가</button>
 			<input type="hidden" name="quiz_right" value="${quiz_right}">
-		</c:if>
+		</form>
+	</c:if>
 </div>
 
 <!-- 퀴즈 구분자 -->
