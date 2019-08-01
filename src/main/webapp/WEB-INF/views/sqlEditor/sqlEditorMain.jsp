@@ -2,15 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/triggerPackage.jsp" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/sequencePackage.jsp" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/accountPackage.jsp" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/tablePackage.jsp" %>
 
 <link href="${cp}/resources/sqlEditor/css/sqlEditorStyle.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/treeMenu.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClick.css" rel="stylesheet">
-<link href="${cp}/resources/sqlEditor/css/rightClickTable.css" rel="stylesheet">
-<link href="${cp}/resources/sqlEditor/css/rightClickTablePackage.css" rel="stylesheet">
-<link href="${cp}/resources/sqlEditor/css/rightClickTriggerPackage.css" rel="stylesheet">
-<link href="${cp}/resources/sqlEditor/css/rightClickSequence.css" rel="stylesheet">
-<link href="${cp}/resources/sqlEditor/css/rightClickSequencePackage.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen" href="${cp}/resources/jquery-ui/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css" media="screen" href="${cp}/resources/jqGrid/css/ui.jqgrid.css">
 
@@ -142,9 +141,6 @@
 			<br>
 		</div>
 		<div id="groupDives">
-<!-- 			<div class="groupDiv" id="firstDiv"> -->
-<!-- 				<textarea class="form-control" id="resultViewArea" rows="10" cols="229" readonly></textarea> -->
-<!-- 			</div> -->
 			<table id="resultTable"></table>
 			<div class="groupDiv" id="seconedDiv">
 				<textarea class="form-control" id="scriptViewArea" rows="10" cols="229" readonly></textarea>
@@ -153,59 +149,6 @@
 		
 	</section>
 	
-</div>
-
-<!-- Account Modal -->
-<div id="accountModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>   
-    <br><br>                  
-	<form action="${cp}/sqlEditor/addAccount" method="post" id="accountAddfrm">
-	  <fieldset>
-	    <legend>DB계정 생성</legend>
-	    <br><br>
-	    <input type="hidden" id="run_id" value="${account_id}"/>
-	    <div class="form-group">
-	      <label for="exampleInputEmail1">DB계정명</label>
-	      <input type="text" class="form-control" id="accountName" name="account_id" placeholder="DB계정명">
-	      <small class="form-text text-muted" id="accountNameHint">영문자, 숫자 포함 3~6자이며 첫 글자는 영문자로 시작</small>
-	    </div>
-	    <div class="form-group">
-	      <label for="exampleInputPassword1">비밀번호</label>
-	      <input type="password" class="form-control" id="accountPw" name="account_pw" placeholder="비밀번호">
-	      <small class="form-text text-muted">4~12자로 구성되며 첫 글자는 영문자로 시작</small>
-	    </div>
-	    <div class="form-group">
-	      <label for="exampleInputPassword1">채팅방이름</label>
-	      <input type="text" class="form-control" id="chatRoomName" name="chatRoomName" placeholder="채팅방이름">
-	      <small class="form-text text-muted">3~20자의 문자, 숫자, 특수문자로 입력</small>
-	    </div>
-	    <button type="button" id="addAccountBtn" class="btn btn-secondary">생성</button>
-	    <input type="hidden" id="msg" value="${msg}"/>
-	  </fieldset>
-	</form>
-  </div>
-</div>
-
-<!-- Account Delete Modal -->
-<div id="accountDeleteModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-  	<span class="close">&times;</span>
-  	<br><br>
-  	<form action="${cp}/sqlEditor/deleteAccount" method="post" id="accountDeleteFrm">
-	  <fieldset>
-	    <legend>DB계정 삭제</legend>
-	    <br><br>
-	    <label for="exampleInputEmail1">DB계정 비밀번호</label>
-	    <input type="password" class="form-control" id="deletePw" name="deletePw" placeholder="DB계정 비밀번호">
-	    <input type="hidden" id="deleteId" name="deleteId"/>
-	    <br><br>
-	    <button type="button" id="accountDeleteBtn" class="btn btn-secondary">확인</button>
-  	 </fieldset>
-	</form>
-  </div>
 </div>
 
 <!-- File Load Modal -->
@@ -221,206 +164,6 @@
 	    <br><br>
 	    <button type="button" id="worksheetLoadBtn" class="btn btn-secondary">확인</button>
   	 </fieldset>
-  </div>
-</div>
-
-<!-- Account PW Find Modal -->
-<div id="accountPwFindModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-  	<span class="close">&times;</span>
-  	<br><br>
-  	<form action="${cp}/sqlEditor/findPwAccount" method="post" id="accountPwFindFrm">
-	  <fieldset>
-	    <legend>DB계정 비밀번호 찾기</legend>
-	    <br><br>
-	    <label for="exampleInputEmail1">아이디</label>
-	    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="아이디">
-	    <br><br>
-	    <label for="exampleInputEmail1">이메일</label>
-	    <input type="email" class="form-control" id="user_email" name="user_email" placeholder="이메일">
-	    <br><br>
-	    <label for="exampleInputEmail1">비밀번호는 회원님의 이메일로 보내집니다.</label>
-	    <br><br>
-	    <button type="button" id="accountPwFindBtn" class="btn btn-secondary">확인</button>
-	    <input type="hidden" id="findId" name="findId"/>
-  	 </fieldset>
-	</form>
-  </div>
-</div>
-
-<!-- Account PW Find Modal -->
-<div id="accountPwUpdateModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-  	<span class="close">&times;</span>
-  	<br><br>
-  	<form action="${cp}/sqlEditor/updatePwAccount" method="post" id="accountPwUpdateFrm">
-	  <fieldset>
-	    <legend>DB계정 비밀번호 변경</legend>
-	    <br><br>
-	    <label for="exampleInputEmail1">기존 비밀번호</label>
-	    <input type="password" class="form-control" id="originalPw" name="originalPw" placeholder="기존 비밀번호">
-	    <br><br>
-	    <label for="exampleInputEmail1">변경 비밀번호</label>
-	    <input type="password" class="form-control" id="updatePw" name="updatePw" placeholder="변경 비밀번호">
-	    <br><br>
-	    <label for="exampleInputEmail1">변경 비밀번호 확인</label>
-	    <input type="password" class="form-control" id="reUpdatePw" name="reUpdatePw" placeholder="변경 비밀번호 확인">
-	    <br><br>
-	    <button type="button" id="accountPwUpdateBtn" class="btn btn-secondary">확인</button>
-	    <input type="hidden" id="updateId" name="updateId"/>
-  	 </fieldset>
-	</form>
-  </div>
-</div>
-
-<!-- craeteTable Modal -->
-<div id="craeteTableModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>   
-    <br><br>                  
-	<form action="${cp}/sqlEditor/createTable" method="post" id="createTableFrm">
-	  <fieldset>
-	    <legend>테이블 생성</legend>
-<%-- 	    <input type="hidden" id="run_id" value="${accountVO.account_id}"/> --%>
-	    <div class="form-group">
-	      <input type="text" class="form-control" id="tableName" name="table_name" placeholder="테이블명">
-	      <small class="form-text text-muted" id="tableNameHint">영문자, 숫자 포함 3~6자이며 첫 글자는 영문자로 시작</small>
-	    </div>
-	    <br><br>
-	    <a href="#" id="appendData">플러스 이미지</a>
-	    <a href="#" id="removeData">마이너스 이미지</a>
-	    <table class="table table-hover">
-			<thead>
-				<tr>
-					<th scope="col">PK</th>
-					<th scope="col">이름</th>
-					<th scope="col">데이터 유형</th>
-					<th scope="col">크기</th>
-					<th scope="col">널이 아님</th>
-					<th scope="col">기본 값</th>
-					<th scope="col">설명</th>
-				</tr>
-			</thead>
-			<tbody id="tableDataTbody">
-			</tbody>
-		</table>
-	    <button type="button" id="createTableBtn" class="btn btn-secondary">생성</button>
-<%-- 	    <input type="hidden" id="msg" value="${msg}"/> --%>
-	  </fieldset>
-	</form>
-  </div>
-</div>
-
-<!-- 트리거 패키지 우클릭 모달 -->
-<div id="triggerPackageModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-  	<span class="close">&times;</span>
-  	<br><br>
-	<form action="#" method="post" id="createTriggerFrm">
-		<fieldset>
-			<legend>트리거 생성</legend>
-			<br><br>
-			<label for="exampleInputEmail1">스키마</label>
-			<input type="text" class="form-control" value="계정아이디(슬라이스)" readonly>
-			<br><br>
-			<label for="exampleInputEmail1">이름</label>
-			<input type="text" class="form-control" placeholder="트리거 이름">
-			<br><br>
-			<label for="exampleInputEmail1">기본 유형</label>
-			<input type="text" class="form-control" value="TABLE" readonly>
-			<br><br>
-			<label for="exampleInputEmail1">기본 객체</label>
-		    <select class="form-control" id="exampleSelect1">
-		    	<option>테이블명1</option>
-		        <option>테이블명2</option>
-		        <option>테이블명3</option>
-		        <option>테이블명4</option>
-		        <option>테이블명5</option>
-		    </select>
-			<br><br>
-			<label for="exampleInputEmail1">타이밍</label>
-		    <select class="form-control" id="exampleSelect2">
-		    	<option>BEFORE</option>
-		        <option>AFTER</option>
-		    </select>
-			<br><br>
-			<label for="exampleInputEmail1">이벤트</label>
-			 <select multiple class="form-control" id="exampleSelect3">
-		        <option>DELETE</option>
-		        <option>INSERT</option>
-		        <option>UPDATE</option>
-		   	</select>
-			<br><br>
-			<label for="exampleInputEmail1">이벤트</label>
-			 <select multiple class="form-control" id="exampleSelect4">
-		        <option>컬럼명1</option>
-		        <option>컬럼명2</option>
-		        <option>컬럼명3</option>
-		   	</select>
-			<br><br>
-			<button type="button" class="btn btn-secondary">확인</button>
-		</fieldset>
-	</form>
-  </div>
-</div>
-
-<!-- createSequence modal -->
-<div id="craeteSequenceModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>   
-    <br><br>                  
-	<form action="${cp}/sqlEditor/createSequence" method="post" id="createSequenceFrm">
-	  <fieldset>
-	    <legend>시퀀스 생성</legend>
-			<br><br>
-			
-			<div class="form-group">
-		    <input type="text" class="form-control" id="sequenceName" name="sequence_Name" placeholder="시퀀스명">
-		    <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~9글자 사이입니다.</small>
-		   	</div>
-			<br><br>
-			<input type="text" class="form-control" placeholder="시퀀스 이름">
-			<br><br>
-			<label for="exampleInputEmail1">기본 유형</label>
-			<input type="text" class="form-control" value="TABLE" readonly>
-			<br><br>
-			<label for="exampleInputEmail1">기본 객체</label>
-		    <select class="form-control" id="exampleSelect1">
-		    	<option>테이블명1</option>
-		        <option>테이블명2</option>
-		        <option>테이블명3</option>
-		        <option>테이블명4</option>
-		        <option>테이블명5</option>
-		    </select>
-			<br><br>
-			<label for="exampleInputEmail1">타이밍</label>
-		    <select class="form-control" id="exampleSelect2">
-		    	<option>BEFORE</option>
-		        <option>AFTER</option>
-		    </select>
-			<br><br>
-			<label for="exampleInputEmail1">이벤트</label>
-			 <select multiple class="form-control" id="exampleSelect3">
-		        <option>DELETE</option>
-		        <option>INSERT</option>
-		        <option>UPDATE</option>
-		   	</select>
-			<br><br>
-			<label for="exampleInputEmail1">이벤트</label>
-			 <select multiple class="form-control" id="exampleSelect4">
-		        <option>컬럼명1</option>
-		        <option>컬럼명2</option>
-		        <option>컬럼명3</option>
-		   	</select>
-			<br><br>
-			<button type="button" class="btn btn-secondary">확인</button>
-		</fieldset>
-	</form>
   </div>
 </div>
 
@@ -469,12 +212,5 @@
 <script src="${cp}/resources/sqlEditor/js/sqlEditorJS.js"></script>
 <script src="${cp}/resources/sqlEditor/js/treeMenu.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClick.js"></script>
-<script src="${cp}/resources/sqlEditor/js/rightClickTable.js"></script>
-<script src="${cp}/resources/sqlEditor/js/rightClickTablePackage.js"></script>
-<script src="${cp}/resources/sqlEditor/js/rightClickTriggerPackage.js"></script>
-<script src="${cp}/resources/sqlEditor/js/rightClickSequence.js"></script>
-<script src="${cp}/resources/sqlEditor/js/rightClickSequencePackage.js"></script>
-<script src="${cp}/resources/sqlEditor/js/tableManager.js"></script>
-<script src="${cp}/resources/sqlEditor/js/createSequence.js"></script>
 <script src="${cp}/resources/jqGrid/js/i18n/grid.locale-kr.js"></script>
 <script src="${cp}/resources/jqGrid/js/minified/jquery.jqGrid.min.js"></script>
