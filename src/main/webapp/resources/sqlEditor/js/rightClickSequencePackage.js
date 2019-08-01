@@ -16,6 +16,7 @@ but I would appreciate an attribution from my work. I hope you enjoy it.
 $(document).ready(function(){
   //Show contextmenu:
   $(".sequencePackage").contextmenu(function(e){
+	
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();
