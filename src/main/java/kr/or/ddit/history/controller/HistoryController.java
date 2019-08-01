@@ -117,6 +117,7 @@ public class HistoryController {
 		// 파라미터 보내기
 		model.addAttribute("object_owner",object_owner);
 		model.addAttribute("changedDetailPagingList",changedDetailPagingList);
+		logger.debug("변경일시 : {}", changedDetailPagingList.get(0).getExec_dtm());
 		model.addAttribute("pageMap",pageMap);
 		model.addAttribute("paginationSize",paginationSize);
 	

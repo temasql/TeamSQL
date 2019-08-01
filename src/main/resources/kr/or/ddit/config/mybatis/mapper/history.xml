@@ -80,19 +80,24 @@
 	<!-- DB계정, 마지막 변경일시, DB계정 생성자 조회 -->
 	<select id="changedMainList" parameterType="String" resultType="changedVo">
 	<![CDATA[
-		select *
+	select *
 		from
-        (SELECT  C.OBJECT_OWNER
-			   ,  MAX(EXEC_DTM)exec_dtm
-			   , (SELECT USERS.USER_NAME FROM ACCOUNT E, USERS WHERE C.OBJECT_OWNER = UPPER(E.ACCOUNT_ID) AND E.USER_ID_FK = USERS.USER_ID) USER_NAME
-		FROM
-				(SELECT A.OBJECT_OWNER, A.EXEC_DTM
-			   	FROM DDL_HISTORY A, (SELECT * FROM CREW WHERE USER_ID_FK = #{user_id_fk})B
-				WHERE A.OBJECT_OWNER = UPPER(B.ACCOUNT_ID_FK) )C, ACCOUNT D
-		WHERE C.OBJECT_OWNER = UPPER(D.ACCOUNT_ID)
-        GROUP BY C.OBJECT_OWNER
-        order by exec_dtm desc)
-		where rownum <=5
+		(select c.account_id_fk
+		     , max(exec_dtm) exec_dtm
+		      , E.USER_NAME
+		from
+		(select a.account_id_fk, max(b.EXEC_DTM) exec_DTM
+		from
+		(select *
+		from crew
+		where user_id_fk = #{user_id})a, DDL_HISTORY b
+		where b.object_owner = upper(a.account_id_fk)
+		group by a.account_id_fk
+		order by exec_dtm desc)c , account d, users e
+		where e.user_id = d.user_id_fk
+		group by c.account_id_fk, E.USER_NAME
+		order by exec_dtm desc)
+		where rownum <= 5
 		]]>
 	</select>
 	
