@@ -24,6 +24,9 @@ $(function(){
 		$("#insertOXBtn").on("click", function(){
 			$("#insertOXDB").submit();
 		})
+		$("#insertBtn").on("click", function(){
+			$("#insertOXDB").submit();
+		})
 		
 		// 퀴즈리스트 클릭 시 해당 퀴즈 조회 화면 이동 
 		$("#tableQuizList").on("click", ".table-light", function(){
@@ -58,6 +61,11 @@ $(function(){
 			$("#deleteQuizFrm").submit();
 		})
 		
+		$(".custom-radio").on("click", function(){
+			var text = $(this).child().next();
+			alert(text);
+		})
+		
 		$(function (){
 			var quiz_answer = "${quizAndAnswerVO.quiz_answer}";
 			
@@ -67,6 +75,12 @@ $(function(){
 				$("#xRadio").attr("checked", "checked");
 			}
 		})
+		
+		function numberMaxLength(e){
+	        if(e.value.length > e.maxLength){
+	            e.value = e.value.slice(0, e.maxLength);
+	        }
+	    }
 	});
 	
 	quizList(1, 10);

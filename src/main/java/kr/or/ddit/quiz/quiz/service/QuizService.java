@@ -15,6 +15,7 @@ import kr.or.ddit.quiz.quiz.dao.IQuizDao;
 import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
+import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
 
 @Service
 public class QuizService implements IQuizService{
@@ -111,5 +112,78 @@ public class QuizService implements IQuizService{
 		int quizAnswerResult = quizDao.updateQuizAnswer(quizAndAnswerVO);
 		
 		return quizResult + quizAnswerResult; 
+	}
+	
+	/**
+	* Method : updateMultipleQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizAndAnswerVO
+	* @return
+	* Method 설명 : 객관식 문제, 정답, 해설, 보기문제를 수정하는 메서드, 최종 return값 : 7
+	*/
+	@Override
+	public int updateMultipleQuiz(QuizAndAnswerVO quizAndAnswerVO, QuizExampleVO quizExampleVO, String[] example_content) {
+		int resultQuiz = quizDao.updateQuiz(quizAndAnswerVO);
+		int resultQuizAnswer = quizDao.updateQuizAnswer(quizAndAnswerVO);
+		
+		quizExampleVO.setQuiz_id_fk(quizAndAnswerVO.getQuiz_id());
+		
+		int resultQuizExample=0;
+		for(int i=0; i<example_content.length; i++) {
+			quizExampleVO.setExample_num(i+1);
+			quizExampleVO.setExample_content(example_content[i]);
+			
+			resultQuizExample += quizDao.updateQuizExample(quizExampleVO);
+		}
+		return resultQuiz + resultQuizAnswer + resultQuizExample;
+	}
+
+	/**
+	* Method : insertMultipleQuiz
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizVO
+	* @param quizAnswerVO
+	* @param quizExampleVO
+	* @return
+	* Method 설명 : 객관식 퀴즈 등록 메서드, 성공 했을 때 리턴 = 7
+	*/
+	@Override
+	public int insertMultipleQuiz(QuizVO quizVO, QuizAnswerVO quizAnswerVO, QuizExampleVO quizExampleVO, String[] example_content) {
+		int quiz = quizDao.insert_question(quizVO);
+		int answer = quizDao.insert_answer(quizAnswerVO);
+		int example = 0;
+		
+		for(int i=0; i<example_content.length; i++) {
+			quizExampleVO.setExample_num(i+1);
+			quizExampleVO.setExample_content(example_content[i]);
+			example += quizDao.insertMultipleQuizExample(quizExampleVO);
+		}
+		
+		
+		return quiz+answer+example;
+	}
+
+	/**
+	* Method : multipleQuizList
+	* 작성자 : PC19
+	* 변경이력 :
+	* @param quizVO
+	* @return
+	* Method 설명 : 퀴즈 아이디에 해당하는 문제, 정답, 해설, 퀴즈보기와 퀴즈 보기 내용을 리스트로 반환한다.
+	*/
+	@Override
+	public Map<String, Object> multipleQuizList(QuizVO quizVO) {
+		logger.debug("서비스 : {}", quizVO);
+		QuizAndAnswerVO quizAndAnswerVO = quizDao.readQuiz(quizVO);
+		logger.debug("서비스 quizAndAnswerVO : {}", quizAndAnswerVO);
+		List<QuizExampleVO> exampleList = quizDao.multipleQuizList(quizAndAnswerVO);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("quizAndAnswerVO", quizAndAnswerVO);
+		map.put("exampleList", exampleList);
+		
+		return map;
 	}
 }

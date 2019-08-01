@@ -7,12 +7,12 @@
 <div id="imgDiv">
 	<a href="/quizOX?quiz_right=02"><img class="questionImg" id="oxImg" alt="" src="/resources/img/ox.png"></a>
 	<div class="questionDiv">
-		<a href="/quizShort?quiz_right=03"><img class="questionImg" id="shortImg" alt="" src="/resources/img/short.png"></a>
+		<a href="/quizListView?quiz_right=03"><img class="questionImg" id="shortImg" alt="" src="/resources/img/short.png"></a>
 	</div>
 	<div class="questionDiv">
-		<a href="/quizMultiple?quiz_right=01"><img class="questionImg" id="multipleImg" alt="" src="/resources/img/multiple.png"></a>
+		<a href="/quizListView?quiz_right=01"><img class="questionImg" id="multipleImg" alt="" src="/resources/img/multiple.png"></a>
 	</div>
 	<div class="questionDiv">
-		<a href="/quizEssay?quiz_right=04"><img class="questionImg" id="essayImg" alt="" src="/resources/img/essay.png"></a>
+		<a href="/quizListView?quiz_right=04"><img class="questionImg" id="essayImg" alt="" src="/resources/img/essay.png"></a>
 	</div>
 </div>
