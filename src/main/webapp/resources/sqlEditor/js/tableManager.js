@@ -4,8 +4,14 @@ $(document).ready(function() {
 	$("#createTableSpan").on("click", function() {
 		$("#craeteTableModal").css("display", "block");
 	});
+	$("#readTableSpan").on("click", function() {
+		$("#readTableModal").css("display", "block");
+	});
 	
 	// 모달창 닫기
+	$(".close").on("click", function() {
+		$("#craeteTableModal").css("display", "none");
+	});
 	$(".close").on("click", function() {
 		$("#craeteTableModal").css("display", "none");
 	});
@@ -120,7 +126,3 @@ function appendDataAjax(){
 		}
 	});
 }
-
-var editor = ace.edit("editor");
-editor.setTheme("ace/theme/twilight");
-editor.session.setMode("ace/mode/sql");
