@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="${cp}/resources/sqlEditor/css/rightClickTable.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClickTablePackage.css" rel="stylesheet">
 
+
+<input type="hidden" id="deleteRowData"/>
+<input type="hidden" id="tableNm"/>
 <!-- craeteTable Modal -->
 <div id="craeteTableModal" class="modal">
   <!-- Modal content -->
@@ -40,16 +43,24 @@
 	</form>
   </div>
 </div>
-
 <!-- Read Modal -->
 <div id="readTableModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>   
     <br><br>                  
-	<form action="${cp}/sqlEditor/createTable" method="post" id="SelcetTableFrm">
+	<form action="${cp}/sqlEditor/selectTable" method="post" id="SelcetTableFrm">
 	  <fieldset>
-	    <legend>테이블 조회</legend>
+	    <legend id="readTableTitle"></legend>
+	    <select id="tableSelectChoice">
+	    	<option value="column">column</option>
+	    	<option value="data">data</option>
+	    	<option value="constraint">constraint</option>
+	    	<option value="trigger">trigger</option>
+	    	<option value="detail">detail</option>
+	    	<option value="index">index</option>
+	    	<option value="DDL">DDL</option>
+	    </select>
 	    <br><br>
 	    <table class="table table-hover">
 			<thead id="tableReadThead">

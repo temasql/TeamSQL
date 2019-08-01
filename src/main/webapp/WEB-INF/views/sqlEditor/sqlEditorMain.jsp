@@ -92,9 +92,7 @@
 				                        </ul>
 				                    </li>
 				                    <li>
-				                        <a class="tiggerPackage" href="#none"><em>폴더</em> 트리거
-				                        	<input type="hidden" id="bumper_id" value="${accountId}"/>
-				                        </a>
+				                        <a class="tiggerPackage" href="#none"><em>폴더</em> 트리거</a>
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${triggerList}" var="triggerVO">
 				                        		<c:if test="${triggerVO.owner == ac_id}">
@@ -104,9 +102,7 @@
 				                        </ul>
 				                    </li>
 				                    <li>
-				                        <a class = "sequencePackage" href="#none"><em>폴더</em> 시퀀스
-				                        	<input type="hidden" id="hogil_id" value="${accountId}"/>
-				                        </a>
+				                        <a class = "sequencePackage" href="#none"><em>폴더</em> 시퀀스</a>
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${sequenceList}" var="sequenceVO">
 				                        		<c:if test="${sequenceVO.sequence_owner == ac_id}">

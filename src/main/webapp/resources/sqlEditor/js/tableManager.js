@@ -5,15 +5,21 @@ $(document).ready(function() {
 		$("#craeteTableModal").css("display", "block");
 	});
 	$("#readTableSpan").on("click", function() {
+		$("#readTableTitle").text($("#tableNm").val())
 		$("#readTableModal").css("display", "block");
+		readTableAjax()
 	});
+	
+	$(".tables").on("click", function(){
+		$("#tableNm").val($(this).text())
+	})
 	
 	// 모달창 닫기
 	$(".close").on("click", function() {
 		$("#craeteTableModal").css("display", "none");
 	});
 	$(".close").on("click", function() {
-		$("#craeteTableModal").css("display", "none");
+		$("#readTableModal").css("display", "none");
 	});
 	
 	// 테이블 생성
@@ -60,15 +66,15 @@ $(document).ready(function() {
 				array[0][8] = $("#acco_id").val()
 				$.ajax({
 					url    : "/sqlEditor/createTable"
-						,type : "post"
-							,contentType: 'application/json'
-								,data   :  JSON.stringify(array)
-								,dataType: "json"
-									,success : function(data){
-										console.log(data)
-									}
-				,	error: function(data){
-						console.log(data);
+					,type : "post"
+					,contentType: 'application/json'
+					,data   :  JSON.stringify(array)
+					,dataType: "json"
+					,success : function(data) {
+						
+					}
+					,error: function(data){
+						location.replace("/sqlEditor/sqlEditorMain")
 					}
 				});
 
@@ -83,8 +89,11 @@ $(document).ready(function() {
 	$("#appendData").on("click", function(){
 		appendDataAjax()
 	})
+	$(document).on("click", ".tableDataTr", function(){
+		$("#deleteRowData").val($(this).attr("id"));
+	})
 	$("#removeData").on("click", function(){
-		alert("remove");
+		$("#" + $("#deleteRowData").val()).remove()
 	})
 	
 	$(document).on("change", "[name=colPKChecked]", function(){
@@ -101,6 +110,37 @@ $(document).ready(function() {
 	})
 	
 });
+appendCnt = 0;
+
+function readTableAjax(){
+	var select = $("#tableSelectChoice").val();
+	var tableName = $("#tableNm").val()
+	var account_id = $("#acco_id").val()
+	$.ajax({
+		 url    : "/sqlEditor/selectTable"
+		 ,data : "select=" + select + "&tableName=" + tableName + "&account_id=" + account_id 
+		,success : function(data){
+			console.log(data.resultList[0]);
+			
+//			var rowData = "<tr class='tableDataTr' id='tableDataTr"+ appendCnt++ +"'>";
+//			rowData += "<td><input  name='colPKChecked' class='col' value='false' type='checkbox'></td>"
+//			rowData += "<td><input  name='colName' class='tableManagerText colName col' type='text'/> </td>"
+//			rowData += "<td><select class='tableManagerSelectBox col'>";
+//			
+//			data.dataTypeList.forEach(function (dataType){
+//				rowData += "<option value='" + dataType +"'>" + dataType + "</option>"
+//			})
+//			rowData +="</select></td>";
+//			rowData += "<td><input name='colSize' class='tableManagerText col' type='text'/> </td>"
+//			rowData += "<td><input name='colNullCheck' class='col' value='false' type='checkbox'></td>"
+//			rowData += "<td><input name='colDefaultVal' class='tableManagerText col' type='text'/> </td>"
+//			rowData += "<td><input name='colComment' class='tableManagerText col' type='text'/> </td>"
+//			rowData += "</tr>"
+//			$("#tableDataTbody").append(rowData);
+		}
+	});
+	
+}
 
 function appendDataAjax(){
 	$.ajax({
@@ -108,7 +148,7 @@ function appendDataAjax(){
 		,success : function(data){
 			console.log(data);
 			
-			var rowData = "<tr>";
+			var rowData = "<tr class='tableDataTr' id='tableDataTr"+ appendCnt++ +"'>";
 			rowData += "<td><input  name='colPKChecked' class='col' value='false' type='checkbox'></td>"
 			rowData += "<td><input  name='colName' class='tableManagerText colName col' type='text'/> </td>"
 			rowData += "<td><select class='tableManagerSelectBox col'>";
@@ -126,3 +166,4 @@ function appendDataAjax(){
 		}
 	});
 }
+
