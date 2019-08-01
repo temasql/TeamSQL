@@ -72,5 +72,20 @@ public class SqlEditorTableService implements ISqlEditorTableService {
 		String query = SelectTableUtil.selectQuery(select, TableName);
 		return sqlEditorTableDao.selectTable(query, conn);
 	}
+	
+	/**
+	 * 
+	* Method : getColumns
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param tableName
+	* @param conn
+	* @return
+	* Method 설명 : 트리거 생성에서 테이블 선택 시 그 테이블에 대한 컬럼명 리스트로 가져오기 
+	 */
+	@Override
+	public List<String> getColumns(String tableName, Connection conn) {
+		return sqlEditorTableDao.getColumns(tableName, conn);
+	}
 
 }

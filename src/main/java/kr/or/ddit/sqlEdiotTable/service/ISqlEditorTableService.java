@@ -32,7 +32,7 @@ public interface ISqlEditorTableService {
 	* @return
 	* Method 설명 : 우클릭 이벤트로 테이블을 생성하는 메서드
 	*/
-	public int createTable(String[][] query);
+	int createTable(String[][] query);
 	
 	/**
 	* Method : selectTable
@@ -43,5 +43,17 @@ public interface ISqlEditorTableService {
 	* @return
 	* Method 설명 : 우클릭 이벤트로 테이블을 조회 하는메서드
 	*/
-	public List<List<String>> selectTable(String select, String TableName, Connection conn);
+	List<List<String>> selectTable(String select, String TableName, Connection conn);
+	
+	/**
+	 * 
+	* Method : getColumns
+	* 작성자 : 김범휘
+	* 변경이력 :
+	* @param tableName
+	* @param conn
+	* @return
+	* Method 설명 : 트리거 생성에서 테이블 선택 시 그 테이블에 대한 컬럼명 리스트로 가져오기 
+	 */
+	List<String> getColumns(String tableName, Connection conn);
 }
