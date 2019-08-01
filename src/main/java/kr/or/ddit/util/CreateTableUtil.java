@@ -68,7 +68,11 @@ public class CreateTableUtil {
 		// 생성할 테이블 이름
 		String tableName = array[0][7];
 		
-		query.append("CREATE TABLE " + tableName + "\n(\n\t");
+		// 스키마 아이디
+		String account_id = array[0][8];
+		
+		// CREATE SCHEMA.TABLENAME (
+		query.append("CREATE TABLE " + account_id + "." + tableName + "\n(\n\t");
 		for (int i = 0; i < array.length; i++) {
 			
 			// ajax JSON 배열로 온 문자열의 키와 값이 든 배열
@@ -161,7 +165,7 @@ public class CreateTableUtil {
 			}
 			
 			// 코멘트를 남긴 컬럼의 이름과 코멘트의 내용을 담을 리스트
-			if (comment.equals("")) {
+			if (!comment.equals("")) {
 				commentList.add(comment);
 				commentColNameList.add(colName);
 			}
@@ -207,7 +211,7 @@ public class CreateTableUtil {
 			String commentStr = "";
 			// 코멘트의 횟수 만큼 반복하여 코멘트 작성
 			for (int i = 0; i < commentList.size(); i++) {
-				commentStr ="\nCOMMENT ON COLUMN " + tableName + "." + commentColNameList.get(i) + " IS " + "'" + commentList.get(i) + "'\n"; 
+				commentStr ="\nCOMMENT ON COLUMN " + account_id + "." + tableName + "." + commentColNameList.get(i) + " IS " + "'" + commentList.get(i) + "'\n"; 
 				commentQueryList.add(commentStr);
 			}
 		}

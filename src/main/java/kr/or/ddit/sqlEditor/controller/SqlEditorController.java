@@ -1,5 +1,6 @@
 package kr.or.ddit.sqlEditor.controller;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
+import kr.or.ddit.util.DBUtilForWorksheet;
 import kr.or.ddit.util.DataTypeUtil;
 import kr.or.ddit.util.FindAccountPwByMail;
 
@@ -280,9 +282,32 @@ public class SqlEditorController {
 			@RequestBody String[][] array) {
 		
 		sqlEditorTableService.createTable(array);
-		logger.debug("===================={}", array);
 		return sqlEditorMain(session, model);
 
+	}
+	
+	/**
+	* Method : selectTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param account_id
+	* @param select
+	* @param model
+	* @param session
+	* @return
+	* Method 설명 : 테이블 조회
+	*/
+	@RequestMapping(path = "/selectTable", method = RequestMethod.GET)
+	public String selectTable(String account_id, String select, String TableName, Model model, HttpSession session) {
+		
+		AccountVO accountVO = accountService.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		
+		List<List<String>> resultList = sqlEditorTableService.selectTable(select, TableName, conn);
+		
+		model.addAttribute("resultList", resultList);
+		
+		return "jsonView";
 	}
 	
 }

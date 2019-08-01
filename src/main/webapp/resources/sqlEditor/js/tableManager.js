@@ -47,8 +47,11 @@ $(document).ready(function() {
 			if(colNameCheck){
 				console.log(JSON.stringify(array))
 				console.log("arrayParse : " + array)
+				console.log($("#acco_id").val())
+				
 				console.log($("#tableSelect").val())
 				array[0][7] = $("#tableName").val()
+				array[0][8] = $("#acco_id").val()
 				$.ajax({
 					url    : "/sqlEditor/createTable"
 						,type : "post"
