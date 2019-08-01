@@ -13,7 +13,6 @@
 	<form action="${cp}/sqlEditor/createTable" method="post" id="createTableFrm">
 	  <fieldset>
 	    <legend>테이블 생성</legend>
-<%-- 	    <input type="hidden" id="run_id" value="${accountVO.account_id}"/> --%>
 	    <div class="form-group">
 	      <input type="text" class="form-control" id="tableName" name="table_name" placeholder="테이블명">
 	      <small class="form-text text-muted" id="tableNameHint">영문자, 숫자 포함 3~6자이며 첫 글자는 영문자로 시작</small>
@@ -37,7 +36,27 @@
 			</tbody>
 		</table>
 	    <button type="button" id="createTableBtn" class="btn btn-secondary">생성</button>
-<%-- 	    <input type="hidden" id="msg" value="${msg}"/> --%>
+	  </fieldset>
+	</form>
+  </div>
+</div>
+
+<!-- Read Modal -->
+<div id="readTableModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>   
+    <br><br>                  
+	<form action="${cp}/sqlEditor/createTable" method="post" id="SelcetTableFrm">
+	  <fieldset>
+	    <legend>테이블 조회</legend>
+	    <br><br>
+	    <table class="table table-hover">
+			<thead id="tableReadThead">
+			</thead>
+			<tbody id="tableReadTbody">
+			</tbody>
+		</table>
 	  </fieldset>
 	</form>
   </div>
