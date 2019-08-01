@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link href="${cp}/resources/sqlEditor/css/rightClickTriggerPackage.css" rel="stylesheet">
+
 <!-- 트리거 패키지 우클릭 모달 -->
 <div id="triggerPackageModal" class="modal">
   <!-- Modal content -->
@@ -8,11 +11,12 @@
   	<span class="close">&times;</span>
   	<br><br>
 	<form action="#" method="post" id="createTriggerFrm">
+		<input type="hidden" id="schema_id"/>
 		<fieldset>
 			<legend>트리거 생성</legend>
 			<br><br>
 			<label for="exampleInputEmail1">스키마</label>
-			<input type="text" class="form-control" value="계정아이디(슬라이스)" readonly>
+			<input type="text" id="schemaName" class="form-control" readonly>
 			<br><br>
 			<label for="exampleInputEmail1">이름</label>
 			<input type="text" class="form-control" placeholder="트리거 이름">
@@ -21,13 +25,7 @@
 			<input type="text" class="form-control" value="TABLE" readonly>
 			<br><br>
 			<label for="exampleInputEmail1">기본 객체</label>
-		    <select class="form-control" id="exampleSelect1">
-		    	<option>테이블명1</option>
-		        <option>테이블명2</option>
-		        <option>테이블명3</option>
-		        <option>테이블명4</option>
-		        <option>테이블명5</option>
-		    </select>
+		    <select class="form-control" id="tableSelect"></select>
 			<br><br>
 			<label for="exampleInputEmail1">타이밍</label>
 		    <select class="form-control" id="exampleSelect2">
@@ -36,18 +34,14 @@
 		    </select>
 			<br><br>
 			<label for="exampleInputEmail1">이벤트</label>
-			 <select multiple class="form-control" id="exampleSelect3">
+			 <select multiple class="form-control" id="eventSelect">
 		        <option>DELETE</option>
 		        <option>INSERT</option>
 		        <option>UPDATE</option>
 		   	</select>
 			<br><br>
-			<label for="exampleInputEmail1">이벤트</label>
-			 <select multiple class="form-control" id="exampleSelect4">
-		        <option>컬럼명1</option>
-		        <option>컬럼명2</option>
-		        <option>컬럼명3</option>
-		   	</select>
+			<label for="exampleInputEmail1">열</label>
+			<select multiple class="form-control" id="columnSelect" disabled="disabled"></select>
 			<br><br>
 			<button type="button" class="btn btn-secondary">확인</button>
 		</fieldset>
@@ -56,3 +50,4 @@
 </div>
 
 <script src="${cp}/resources/sqlEditor/js/rightClickTriggerPackage.js"></script>
+<script src="${cp}/resources/sqlEditor/js/triggerManager.js"></script>
