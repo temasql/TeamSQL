@@ -24,7 +24,7 @@
 			<input type="text" class="form-control" value="TABLE" readonly>
 			<br><br>
 			<label for="exampleInputEmail1">기본 객체</label>
-		    <select class="form-control" id="exampleSelect1">
+		    <select class="form-control" >
 		    	<option>테이블명1</option>
 		        <option>테이블명2</option>
 		        <option>테이블명3</option>
@@ -33,20 +33,20 @@
 		    </select>
 			<br><br>
 			<label for="exampleInputEmail1">타이밍</label>
-		    <select class="form-control" id="exampleSelect2">
+		    <select class="form-control">
 		    	<option>BEFORE</option>
 		        <option>AFTER</option>
 		    </select>
 			<br><br>
 			<label for="exampleInputEmail1">이벤트</label>
-			 <select multiple class="form-control" id="exampleSelect3">
+			 <select multiple class="form-control">
 		        <option>DELETE</option>
 		        <option>INSERT</option>
 		        <option>UPDATE</option>
 		   	</select>
 			<br><br>
 			<label for="exampleInputEmail1">이벤트</label>
-			 <select multiple class="form-control" id="exampleSelect4">
+			 <select multiple class="form-control">
 		        <option>컬럼명1</option>
 		        <option>컬럼명2</option>
 		        <option>컬럼명3</option>
