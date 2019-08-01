@@ -4,6 +4,7 @@
 package kr.or.ddit.sqlEdiotTable.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -94,6 +95,35 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 			if(stmt!=null) try{ stmt.close(); }catch(SQLException e){}
 		}
 		return resultList;
+	}
+
+	@Override
+	public List<String> getColumns(String tableName, Connection conn) {
+		Connection cc = conn;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		List<String> columnList = new ArrayList<String>();
+		
+		try {
+			String query = "SELECT CNAME FROM SYS.COL WHERE TNAME = ?";
+			pstmt = cc.prepareStatement(query);
+			pstmt.setString(1, tableName.toUpperCase());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				columnList.add(rs.getString("CNAME"));
+			}
+			
+		} catch (SQLException e) {
+			columnList = null;
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try{ rs.close(); }catch(SQLException e){}
+			if(pstmt!=null) try{ pstmt.close(); }catch(SQLException e){}
+		}
+		
+		return columnList;
 	}
 
 }

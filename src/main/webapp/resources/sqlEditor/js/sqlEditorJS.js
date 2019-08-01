@@ -18,6 +18,24 @@ $(document).ready(function() {
 	
 	// 트리거 패키지 모달창 띄우기
 	$("#createTriggerSpan").on("click", function() {
+		var account_id = $("#schema_id").val(); // 계정명(원본)
+		
+		$.ajax({
+			url : "/sqlEditor/createTriggerReady",
+			method : "get",
+			data : "account_id=" + account_id,
+			success : function(data) {
+				console.log(data);
+				var temp = "";
+				for (var i = 0; i < data.length; i++) {
+					if(i == 0)
+						temp += "<option></option>";
+					temp += "<option>" + data[i] + "</option>";
+				}
+				$("#tableSelect").html(temp);
+			}
+		});
+		
 		$("#triggerPackageModal").css("display", "block");
 	});
 	
@@ -36,13 +54,13 @@ $(document).ready(function() {
 	
 	// 새로고침 버튼 이벤트
 	$("#refresh").on("click", function() {
-		$.ajax({
-			url : "/sqlEditor/refresh",
-			method : "get",
-			success : function(data) {
-				console.log(data);
-			}
-		});
+//		$.ajax({
+//			url : "/sqlEditor/refresh",
+//			method : "get",
+//			success : function(data) {
+//				console.log(data);
+//			}
+//		});
 	});
 	
 	// 결과하면 클리어

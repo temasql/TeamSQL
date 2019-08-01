@@ -16,6 +16,12 @@ but I would appreciate an attribution from my work. I hope you enjoy it.
 $(document).ready(function(){
   //Show contextmenu:
   $(".tiggerPackage").contextmenu(function(e){
+	var tempId = $(this).find("#bumper_id").val();
+	var tempIdx = tempId.lastIndexOf("_");
+	var schemaName = tempId.substring(0, tempIdx);
+	$("#schema_id").val(tempId);
+	$("#schemaName").val(schemaName);
+	
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();

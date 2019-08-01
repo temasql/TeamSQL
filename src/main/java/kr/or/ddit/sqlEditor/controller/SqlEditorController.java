@@ -250,11 +250,32 @@ public class SqlEditorController {
 		return sqlEditorMain(session, model);
 	}
 	
-
-	@RequestMapping(path =  "/refresh", method = RequestMethod.GET)
-	public String refresh() {
-		return "/sqlEditor/jqGrid.tiles";
+	@RequestMapping(path =  "/createTriggerReady", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> createTrigger(String account_id) {
+		List<TableVO> tempList = accountService.getAccountAllTable(account_id.toUpperCase());
+		List<String> tableList = new ArrayList<String>();
+		
+		for(TableVO tVO : tempList) {
+			tableList.add(tVO.getTable_name());
+		}
+		
+		return tableList;
 	}
+	
+	@RequestMapping(path =  "/getColumns", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getColumns(String tableName, String account_id, HttpSession session) {
+		logger.debug("tableName : {}", tableName);
+		logger.debug("account_id : {}", account_id);
+		AccountVO accountVO = accountService.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		
+		List<String> columnList = sqlEditorTableService.getColumns(tableName, conn);
+		
+		return columnList;
+	}
+	
 	/**
 	* Method : appendDataAjax
 	* 작성자 : 이중석
