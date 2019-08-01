@@ -16,7 +16,12 @@ but I would appreciate an attribution from my work. I hope you enjoy it.
 $(document).ready(function(){
   //Show contextmenu:
   $(".sequencePackage").contextmenu(function(e){
-	
+	// 계정명 가져오기
+	var tempid = $(this).find("#hogil_id").val();
+	var tempIdx = tempid.lastIndexOf("_");
+ 	var schema = tempid.substring(0,tempIdx);
+ 	
+ 	$("#seqSchema").text(schema);
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();

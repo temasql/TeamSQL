@@ -11,44 +11,42 @@
 	  <fieldset>
 	    <legend id="seqLegend">시퀀스 생성</legend>
 			<div class="form-group">
-			<label id="seqSchema">스키마</label>
+			<label id="seqSchema"></label>
 		    <input type="text" class="form-control" id="sequenceName" name="sequence_Name" placeholder="시퀀스명">
 		    <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~9글자 사이입니다.</small>
 		   	</div>
-			<input type="text" class="form-control" placeholder="시퀀스 이름">
-			<label for="exampleInputEmail1">기본 유형</label>
-			<input type="text" class="form-control" value="TABLE" readonly>
-			<br><br>
-			<label for="exampleInputEmail1">기본 객체</label>
-<!-- 		    <select class="form-control" > -->
-<!-- 		    	<option>테이블명1</option> -->
-<!-- 		        <option>테이블명2</option> -->
-<!-- 		        <option>테이블명3</option> -->
-<!-- 		        <option>테이블명4</option> -->
-<!-- 		        <option>테이블명5</option> -->
-<!-- 		    </select> -->
-<!-- 			<br><br> -->
-<!-- 			<label for="exampleInputEmail1">타이밍</label> -->
-<!-- 		    <select class="form-control"> -->
-<!-- 		    	<option>BEFORE</option> -->
-<!-- 		        <option>AFTER</option> -->
-<!-- 		    </select> -->
-<!-- 			<br><br> -->
-<!-- 			<label for="exampleInputEmail1">이벤트</label> -->
-<!-- 			 <select multiple class="form-control"> -->
-<!-- 		        <option>DELETE</option> -->
-<!-- 		        <option>INSERT</option> -->
-<!-- 		        <option>UPDATE</option> -->
-<!-- 		   	</select> -->
-<!-- 			<br><br> -->
-<!-- 			<label for="exampleInputEmail1">이벤트</label> -->
-<!-- 			 <select multiple class="form-control"> -->
-<!-- 		        <option>컬럼명1</option> -->
-<!-- 		        <option>컬럼명2</option> -->
-<!-- 		        <option>컬럼명3</option> -->
-<!-- 		   	</select> -->
-<!-- 			<br><br> -->
-			<button type="button" class="btn btn-secondary">확인</button>
+			<input type="text" class="form-control"  placeholder="시퀀스 이름">
+			<label id="seqSchema">속성</label>
+			<input type="number" class="form-control" placeholder="다음으로 시작">
+			<input type="number" class="form-control" placeholder="증분">
+			<input type="number" class="form-control" placeholder="최소값">
+			<input type="number" class="form-control" placeholder="최대값">
+			
+			<label for="from-control">캐시</label>
+		    <select class="form-control" id="selectCache" >
+		    	<option>지정되지 않음</option>
+		    	<option>캐시</option>
+		        <option>캐시없음</option>
+		    </select>
+		    <input type="text" class="form-control" placeholder="캐시값">
+		    
+		    <label for="">주기</label>
+		    <select class="form-control" id="selectCycle" >
+		    	<option>지정되지 않음</option>
+		    	<option>주기</option>
+		        <option>주기없음</option>
+		    </select>
+		    
+		    <label for="from-control">정렬</label>
+		    <select class="form-control" id="selectOrder" >
+		    	<option>지정되지 않음</option>
+		    	<option>정렬</option>
+		        <option>정렬없음</option>
+		    </select>
+		    
+			<br>
+			<button type="button" class="btn btn-secondary" id="createSeqBtn">확인</button>
+			
 		</fieldset>
 	</form>
   </div>
@@ -56,4 +54,4 @@
 
 <script src="${cp}/resources/sqlEditor/js/rightClickSequence.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickSequencePackage.js"></script>
-<script src="${cp}/resources/sqlEditor/js/createSequence.js"></script>
+<script src="${cp}/resources/sqlEditor/js/sequenceManager.js"></script>
