@@ -311,7 +311,7 @@ public class UserController {
 	*/
 	@RequestMapping(path = "/modifyUser", method = RequestMethod.POST)
 	public String modifyUserPost(@Valid UserVO userVo, BindingResult result ,
-			Model model, MultipartFile profile) {
+			Model model, MultipartFile profile, HttpSession session) {
 		
 		if(result.hasErrors()) {
 	    	  model.addAttribute("userVo", userVo);
@@ -320,6 +320,7 @@ public class UserController {
 		if(userService.updateUser(userVo, profile) == 1) {
 			// 수정된 정보 가지고 오기
 			model.addAttribute("userVo", userService.getUser(userVo.getUser_id()));
+			session.setAttribute("USER_INFO", userService.getUser(userVo.getUser_id()));
 			return "/user/myPageMain.tiles";
 		}
 		return "/user/myPageModify.tiles";
