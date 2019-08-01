@@ -21,6 +21,8 @@ import kr.or.ddit.invite.model.InviteVO;
 import kr.or.ddit.invite.service.IInviteService;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
+import kr.or.ddit.util.Crawling;
+import kr.or.ddit.util.CrawlingVO;
 import kr.or.ddit.util.ReMemberMeCookieUtil;
 
 @Controller
@@ -92,6 +94,10 @@ public class LoginController {
 			logger.debug("DB변경이력 갯수 : {}", changedMainList.size());
 			// DB변경이력
 			model.addAttribute("changedMainList", changedMainList);
+			
+			// IT뉴스
+			List<List<CrawlingVO>> itNewsList = new Crawling().getITNews();
+			model.addAttribute("itNewsList", itNewsList);
 			
 			return "main.tiles";
 		}
