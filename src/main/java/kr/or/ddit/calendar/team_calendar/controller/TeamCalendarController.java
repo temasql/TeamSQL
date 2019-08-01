@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 import kr.or.ddit.calendar.team_calendar.service.ITeamCalendarService;
 import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.model.UserAndCrewVO;
+import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.user.model.UserVO;
 
 //@RequestMapping("/teamCalendar")
@@ -31,6 +33,9 @@ public class TeamCalendarController {
 	
 	@Resource(name="teamCalendarService")
 	private ITeamCalendarService service;
+	
+	@Resource(name="crewService")
+	private ICrewService crewService;
 
 	/**
 	* Method : calendar
@@ -47,18 +52,17 @@ public class TeamCalendarController {
 		
 		CrewVO crewVO = new CrewVO();
 		crewVO.setAccount_id_fk(account_id);
-//		crewVO.setAccount_id_fk("테스트 계정");
 		logger.debug("crewVO account_id : {}", crewVO.getAccount_id_fk());
 		
 		crewVO.setUser_id_fk(userVO.getUser_id());
-//		crewVO.setUser_id_fk("TEST_ID1");
 		session.setAttribute("CREW_INFO", crewVO);
 		
-		//해당 DB에 포함되어있는 사용자 리스트 반환하는 메서드
-		List<UserVO> userList = service.getUserNameList(crewVO);
-		logger.debug("userList : {}", userList.get(0));
+		logger.debug("crewVO : {}", crewVO);
 		
-		model.addAttribute("userList", userList);
+		// 해당 DB에 포함되어있는 사용자 리스트 반환하는 메서드
+		List<UserAndCrewVO> uacList = crewService.getCrewList(crewVO);
+		
+		model.addAttribute("uacList", uacList);
 		return "calendar/calendar.jsp?name="+crewVO.getUser_id_fk();
 	}
 	
@@ -75,7 +79,11 @@ public class TeamCalendarController {
 	public String readCal(Model model, HttpSession session) {
 		CrewVO crewVO = (CrewVO) session.getAttribute("CREW_INFO");
 		logger.debug("crewVO : {}", crewVO);
-		String calList = service.readCal(crewVO);
+		
+		// 해당 DB에 포함되어있는 사용자 리스트 반환하는 메서드
+		List<UserAndCrewVO> uacList = crewService.getCrewList(crewVO);
+		
+		String calList = service.readCal(crewVO, uacList);
 		
 		model.addAttribute("list", calList);
 		return "jsonView";
@@ -96,6 +104,7 @@ public class TeamCalendarController {
 		logger.debug("map : {}", map);
 		TeamCalendarVO vo = new TeamCalendarVO();
 		CrewVO crewVO = (CrewVO) session.getAttribute("CREW_INFO");
+		logger.debug("crewVO : {}", crewVO);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		

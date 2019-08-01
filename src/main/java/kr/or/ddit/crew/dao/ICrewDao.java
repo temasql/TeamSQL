@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.model.UserAndCrewVO;
 
 public interface ICrewDao {
 	
@@ -79,5 +80,13 @@ public interface ICrewDao {
 	 */
 	List<String> getMyAccountList(String user_id);
 	
-	
+	/**
+	* Method : getCrewList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param crewVO
+	* @return
+	* Method 설명 : 계정명을 입력 받아 userid와 username을 리턴
+	*/
+	List<UserAndCrewVO> getCrewList(CrewVO crewVO);
 }

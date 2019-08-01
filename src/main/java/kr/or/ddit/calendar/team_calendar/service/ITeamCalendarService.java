@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.model.UserAndCrewVO;
 import kr.or.ddit.user.model.UserVO;
 
 
@@ -16,7 +17,7 @@ public interface ITeamCalendarService {
 	
 	TeamCalendarVO get(String id);
 	
-	String readCal(CrewVO crewVO);
+	String readCal(CrewVO crewVO, List<UserAndCrewVO> uacList);
 	
 	Map<String, Object> map(Map<String, Object> map);
 	

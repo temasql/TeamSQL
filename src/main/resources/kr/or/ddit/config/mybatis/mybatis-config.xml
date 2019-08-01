@@ -14,6 +14,7 @@
 		<typeAlias type="kr.or.ddit.chat.team_chat.model.TeamChatVO" alias="teamchatVo" />
 		<typeAlias type="kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO" alias="teamchatRoomVo" />
 		<typeAlias type="kr.or.ddit.crew.model.CrewVO" alias="crewVo" />
+		<typeAlias type="kr.or.ddit.crew.model.UserAndCrewVO" alias="userAndCrewVO" />
 		<typeAlias type="kr.or.ddit.domain.common_domain.model.CommonDomainVO" alias="commonDomainVo" />
 		<typeAlias type="kr.or.ddit.domain.user_domain.model.UserDomainVO" alias="userDomainVo" />
 		<typeAlias type="kr.or.ddit.filtering.model.FilteringVO" alias="filteringVo" />

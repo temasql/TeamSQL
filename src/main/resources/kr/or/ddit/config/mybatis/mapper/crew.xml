@@ -63,5 +63,13 @@
 		from crew
 		where user_id_fk = #{user_id}
 	</select>
-
+	
+	<!-- 계정이름을 입력받아서 userId, userName을 return -->
+	<select id="getCrewList" parameterType="crewVo" resultType="userAndCrewVO">
+		SELECT  C.USER_ID_FK,
+		        U.USER_NAME
+		FROM    USERS U, CREW C
+		WHERE   U.USER_ID = C.USER_ID_FK
+		AND     C.ACCOUNT_ID_FK = #{account_id_fk}
+	</select>
 </mapper>

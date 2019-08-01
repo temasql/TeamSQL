@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.calendar.team_calendar.model.TeamCalendarVO;
 import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.model.UserAndCrewVO;
+import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -39,6 +41,9 @@ public class TeamCalendarServiceTest extends LogicTestEnv{
 	@Resource(name = "teamCalendarService")
 	private ITeamCalendarService service;
 	
+	@Resource(name="crewService")
+	private ICrewService crewService;
+	
 	@Test
 	public void serviceTest() {
 		/***Given***/
@@ -60,9 +65,11 @@ public class TeamCalendarServiceTest extends LogicTestEnv{
 		/***Given***/
 		CrewVO crewVO = new CrewVO();
 		crewVO.setAccount_id_fk("테스트 계정");
+		
+		List<UserAndCrewVO> uacList = crewService.getCrewList(crewVO);
 
 		/***When***/
-		String list = service.readCal(crewVO);
+		String list = service.readCal(crewVO, uacList);
 		logger.debug(list);
 		
 		String returnList = "";
