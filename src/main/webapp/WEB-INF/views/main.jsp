@@ -64,7 +64,22 @@
 	
 	<!-- DB동향 -->
 	<div id="rightLayout">
-	
+		<div id="itNewsTitle">
+			<span id="itNewsSpan">IT NEWS</span>
+		</div>
+		<c:forEach items="${itNewsList}" var="cList">
+			<c:forEach items="${cList}" var="cVO">
+				<div class="itNewsDiv">
+					<a href="${cVO.link}" target="_blank">
+						<img class="itNewsImg" src="${cVO.img}">
+					</a>
+					<a href="${cVO.link}" target="_blank">
+						<h3 class="itNewsTitle">${cVO.title}</h3>
+					</a>
+					<h5 class="itNewsContent">${cVO.content}</h5>
+				</div>
+			</c:forEach>
+		</c:forEach>
 	</div>
 	
 </section>

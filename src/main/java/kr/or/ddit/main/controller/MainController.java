@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.or.ddit.history.model.ChangedVO;
 import kr.or.ddit.history.service.IHistoryService;
 import kr.or.ddit.user.model.UserVO;
+import kr.or.ddit.util.Crawling;
+import kr.or.ddit.util.CrawlingVO;
 
 @Controller
 public class MainController {
@@ -38,6 +40,11 @@ public class MainController {
 		
 		// DB변경이력
 		model.addAttribute("changedMainList", changedMainList);
+		
+		// IT뉴스
+		List<List<CrawlingVO>> itNewsList = new Crawling().getITNews();
+		model.addAttribute("itNewsList", itNewsList);
+		
 		return "main.tiles";
 	}
 	
