@@ -10,40 +10,40 @@
   <div class="modal-content">
   	<span class="close">&times;</span>
   	<br><br>
-	<form action="#" method="post" id="createTriggerFrm">
-		<input type="hidden" id="schema_id"/>
+	<form id="createTriggerFrm">
 		<fieldset>
+			<input type="hidden" id="schema_id" name="schema_id"/>
 			<legend>트리거 생성</legend>
 			<br><br>
 			<label for="exampleInputEmail1">스키마</label>
 			<input type="text" id="schemaName" class="form-control" readonly>
 			<br><br>
 			<label for="exampleInputEmail1">이름</label>
-			<input type="text" class="form-control" placeholder="트리거 이름">
+			<input type="text" id="triggerName" name="trigger_name" class="form-control" placeholder="트리거 이름">
 			<br><br>
 			<label for="exampleInputEmail1">기본 유형</label>
 			<input type="text" class="form-control" value="TABLE" readonly>
 			<br><br>
 			<label for="exampleInputEmail1">기본 객체</label>
-		    <select class="form-control" id="tableSelect"></select>
+		    <select class="form-control" id="tableSelect" name="table_name"></select>
 			<br><br>
 			<label for="exampleInputEmail1">타이밍</label>
-		    <select class="form-control" id="exampleSelect2">
+		    <select class="form-control" id="timingSelect" name="timing">
 		    	<option>BEFORE</option>
 		        <option>AFTER</option>
 		    </select>
 			<br><br>
 			<label for="exampleInputEmail1">이벤트</label>
-			 <select multiple class="form-control" id="eventSelect">
-		        <option>DELETE</option>
-		        <option>INSERT</option>
-		        <option>UPDATE</option>
+			 <select multiple class="form-control" id="eventSelect" name="event">
+		        <option class="events">DELETE</option>
+		        <option class="events">INSERT</option>
+		        <option class="events">UPDATE</option>
 		   	</select>
 			<br><br>
 			<label for="exampleInputEmail1">열</label>
-			<select multiple class="form-control" id="columnSelect" disabled="disabled"></select>
+			<select multiple class="form-control" id="columnSelect" name="column" disabled="disabled"></select>
 			<br><br>
-			<button type="button" class="btn btn-secondary">확인</button>
+			<button type="button" id="createTriggerBtn" class="btn btn-secondary">생성</button>
 		</fieldset>
 	</form>
   </div>
