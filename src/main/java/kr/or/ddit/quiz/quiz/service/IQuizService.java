@@ -13,9 +13,13 @@ public interface IQuizService {
 	
 	int insert_question(QuizVO quizVO, QuizAnswerVO quizAnswerVO);
 	
+	int insertEssay(QuizVO quizVO, QuizAnswerVO quizAnswerVO, String[] answerArr);
+	
 	QuizVO get(String id);
 	
 	List<QuizVO> quizList(String quiz_right, PageVo pageVO);
+	
+	Map<String, Object> quizAnswer(QuizVO quizVO);
 	
 	int quizListCnt(String quiz_right);
 	

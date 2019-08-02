@@ -20,7 +20,7 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 
 	/**
 	* Method : insert
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param teamCalendarVO
 	* @return
@@ -33,7 +33,7 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 	
 	/**
 	* Method : maxSequence
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : insert 후 sequence 최댓값을 반환하는 메서드
@@ -50,7 +50,7 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 	
 	/**
 	* Method : readCal
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : DB의 모든 일정을 조회
@@ -67,7 +67,7 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 	
 	/**
 	* Method : update
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param id
 	* @return
@@ -80,7 +80,7 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 	
 	/**
 	 * Method : updateDropCal
-	 * 작성자 : PC19
+	 * 작성자 : 손주형
 	 * 변경이력 :
 	 * @param teamCalendarVO
 	 * @return
@@ -93,7 +93,7 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 
 	/**
 	* Method : delete
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param id
 	* @return
@@ -106,7 +106,7 @@ public class TeamCalendarDao implements ITeamCalendarDao{
 
 	/**
 	* Method : getUserNameList
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param crewVO
 	* @return

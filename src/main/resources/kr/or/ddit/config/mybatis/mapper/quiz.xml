@@ -146,10 +146,24 @@
 	
 	<!-- 객관식 보기 리스트를 반환하는 쿼리 -->
 	<select id="multipleQuizList" parameterType="quizAndAnswerVO" resultType="quizExampleVo">
-		SELECT	example_id,
-				example_num,
-				example_content
+		SELECT	EXAMPLE_ID,
+				EXAMPLE_NUM,
+				EXAMPLE_CONTENT
 		FROM	QUIZ_EXAMPLE
 		WHERE	QUIZ_ID_FK = #{quiz_id}
+	</select>
+	
+	<select id="quizAnswerList" parameterType="quizVo" resultType="quizAnswerVo">
+		SELECT	QUIZ_ANSWER,
+				QUIZ_EXPLAIN
+		FROM	QUIZ_ANSWER
+		WHERE	QUIZ_ID_FK = #{quiz_id}
+	</select>
+	
+	<select id="quizEssay" parameterType="quizVo" resultType="quizVo">
+		SELECT	*
+		FROM	QUIZ
+		WHERE	QUIZ_RIGHT = #{quiz_right}
+		AND		QUIZ_ID = #{quiz_id}
 	</select>
 </mapper>
