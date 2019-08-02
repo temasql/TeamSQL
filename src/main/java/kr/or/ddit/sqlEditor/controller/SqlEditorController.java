@@ -32,11 +32,14 @@ import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
 import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
+import kr.or.ddit.sqlEditorTrigger.model.MyTriggerVO;
+import kr.or.ddit.sqlEditorTrigger.service.ISqlEditorTriggerService;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.util.DBUtilForWorksheet;
 import kr.or.ddit.util.DataTypeUtil;
 import kr.or.ddit.util.FindAccountPwByMail;
+import kr.or.ddit.util.TriggerUtil;
 
 @RequestMapping("/sqlEditor")
 @Controller
@@ -60,6 +63,9 @@ public class SqlEditorController {
 	
 	@Resource(name = "sqlEditorTableService")
 	private ISqlEditorTableService sqlEditorTableService;
+	
+	@Resource(name = "sqlEditorTriggerService")
+	private ISqlEditorTriggerService sqlEditorTriggerService;
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
@@ -329,6 +335,15 @@ public class SqlEditorController {
 		model.addAttribute("resultList", resultList);
 		
 		return "jsonView";
+	}
+	
+	@RequestMapping(path = "/createTriggerReady", method = RequestMethod.POST)
+	@ResponseBody
+	public String createTriggerReady(MyTriggerVO triggerVO, HttpSession session) {
+		logger.debug("triggerVO : {}", triggerVO);
+		String query = new TriggerUtil().getCreateTriggerSql(triggerVO);
+		logger.debug("query : {}", query);
+		return query;
 	}
 	
 }

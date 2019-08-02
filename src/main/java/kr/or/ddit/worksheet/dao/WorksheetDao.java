@@ -225,6 +225,7 @@ public class WorksheetDao implements IWorksheetDao {
 		
 		try {
 			cc.setAutoCommit(false);
+			logger.debug("query : {}", query);
 			pstmt = cc.prepareStatement(query);
 			pstmt.executeUpdate();
 			result = "Y";
