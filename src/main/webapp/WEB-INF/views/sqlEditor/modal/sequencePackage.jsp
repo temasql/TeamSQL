@@ -11,44 +11,49 @@
 	  <fieldset>
 	    <legend id="seqLegend">시퀀스 생성</legend>
 			<div class="form-group">
-			<label id="seqSchema">스키마</label>
-		    <input type="text" class="form-control" id="sequenceName" name="sequence_Name" placeholder="시퀀스명">
+			<label id="seqSchema"></label>
+		    <input type="text" class="form-control" id="seqName" name="seqName" placeholder="시퀀스명">
 		    <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~9글자 사이입니다.</small>
 		   	</div>
-			<input type="text" class="form-control" placeholder="시퀀스 이름">
-			<label for="exampleInputEmail1">기본 유형</label>
-			<input type="text" class="form-control" value="TABLE" readonly>
-			<br><br>
-			<label for="exampleInputEmail1">기본 객체</label>
-<!-- 		    <select class="form-control" > -->
-<!-- 		    	<option>테이블명1</option> -->
-<!-- 		        <option>테이블명2</option> -->
-<!-- 		        <option>테이블명3</option> -->
-<!-- 		        <option>테이블명4</option> -->
-<!-- 		        <option>테이블명5</option> -->
-<!-- 		    </select> -->
-<!-- 			<br><br> -->
-<!-- 			<label for="exampleInputEmail1">타이밍</label> -->
-<!-- 		    <select class="form-control"> -->
-<!-- 		    	<option>BEFORE</option> -->
-<!-- 		        <option>AFTER</option> -->
-<!-- 		    </select> -->
-<!-- 			<br><br> -->
-<!-- 			<label for="exampleInputEmail1">이벤트</label> -->
-<!-- 			 <select multiple class="form-control"> -->
-<!-- 		        <option>DELETE</option> -->
-<!-- 		        <option>INSERT</option> -->
-<!-- 		        <option>UPDATE</option> -->
-<!-- 		   	</select> -->
-<!-- 			<br><br> -->
-<!-- 			<label for="exampleInputEmail1">이벤트</label> -->
-<!-- 			 <select multiple class="form-control"> -->
-<!-- 		        <option>컬럼명1</option> -->
-<!-- 		        <option>컬럼명2</option> -->
-<!-- 		        <option>컬럼명3</option> -->
-<!-- 		   	</select> -->
-<!-- 			<br><br> -->
-			<button type="button" class="btn btn-secondary">확인</button>
+			<label id="lblOption">속성</label>
+			<input type="text" class="form-control setSeq" id="seqStart" name="seqStart" placeholder="다음으로 시작">
+			<input type="text" class="form-control setSeq" id="seqIncrement" name="seqIncrement" placeholder="증분">
+			<input type="text" class="form-control setSeq" id="seqMin" name="seqMin" placeholder="최소값">
+			<input type="text" class="form-control setSeq" id="seqMax" name="seqMax" placeholder="최대값">
+			
+			<label for="from-control" id="lblCache">캐시</label>
+		    <select class="form-control" id="seqCache" name="seqCache" >
+		    	<option value="">지정되지 않음</option>
+		    	<option value="CACHE">캐시</option>
+		        <option value="NOCACHE">캐시없음</option>
+		    </select>
+		    <input type="number" class="form-control" id="inputCache" name="inputCache"  placeholder="캐시값" readOnly/>
+		    
+		    <label for="">주기</label>
+		    <select class="form-control" id="seqCycle" name="seqCycle" >
+		    	<option value="">지정되지 않음</option>
+		    	<option value="CYCLE">주기</option>
+		        <option value="">주기없음</option>
+		    </select>
+		    
+		    <label for="from-control">정렬</label>
+		    <select class="form-control" id="seqOrder" name="seqOrder" >
+		    	<option value="">지정되지 않음</option>
+		    	<option value="ORDER">정렬</option>
+		        <option value="">정렬없음</option>
+		    </select>
+		    <input type ="hidden" class="hiddenSequence" name="hiddenSequence" value="CREATE SEQUENCE "/>
+		    <input type = "hidden" class="hiddenSequence" name="hiddenStart">
+		    <input type = "hidden" class="hiddenSequence" name="hiddenIncrement">
+		    <input type = "hidden" class="hiddenSequence" name="hiddenMin">
+		    <input type = "hidden" class="hiddenSequence" name="hiddenMax">
+		    <input type = "hidden" class="hiddenSequence" name="hiddenCache">
+		    <input type = "hidden" class="hiddenSequence" name="hiddenCycle">
+		    <input type = "hidden" class="hiddenSequence" name="hiddenOrder">
+		    
+			<br>
+			<button type="button" class="btn btn-secondary" id="createSeqBtn">확인</button>
+			
 		</fieldset>
 	</form>
   </div>
@@ -56,4 +61,4 @@
 
 <script src="${cp}/resources/sqlEditor/js/rightClickSequence.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickSequencePackage.js"></script>
-<script src="${cp}/resources/sqlEditor/js/createSequence.js"></script>
+<script src="${cp}/resources/sqlEditor/js/sequenceManager.js"></script>

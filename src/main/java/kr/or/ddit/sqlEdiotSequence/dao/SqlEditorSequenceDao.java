@@ -1,10 +1,9 @@
 /**
  * 
  */
-package kr.or.ddit.sqlEdiotTable.dao;
+package kr.or.ddit.sqlEdiotSequence.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,9 +16,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
-* SqlEditorTable.java
+ * 
+* SqlEditorSequenceDao.java
 *
-* @author 이중석
+* @author 강호길
 * @version 1.0
 * @see
 *
@@ -28,12 +28,12 @@ import org.springframework.stereotype.Repository;
 *
 * 수정자 수정내용
 * ------ ------------------------
-* 이중석 최초 생성
+* PC20 최초 생성
 *
 * </pre>
-*/
+ */
 @Repository
-public class SqlEditorTableDao implements ISqlEditorTableDao {
+public class SqlEditorSequenceDao implements ISqlEditorSequenceDao {
 
 	
 	@Resource(name = "sqlSession")
@@ -47,7 +47,7 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 	* Method 설명 : 테이블패키지 우클릭 후 테이블 생성 
 	*/
 	@Override
-	public int createTable(String query) {
+	public int createSequence(String query) {
 		return sqlSession.update("sqlEditorTable.createTable", query);
 	}
 	
@@ -61,7 +61,7 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 	* Method 설명 : 테이블 우클릭 후 테이블 조회 
 	*/
 	@Override
-	public List<List<String>> selectTable(String query, Connection conn) {
+	public List<List<String>> selectSequence(String query, Connection conn) {
 		
 		Connection cc = conn;
 		Statement stmt = null;
@@ -97,33 +97,5 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 		return resultList;
 	}
 
-	@Override
-	public List<String> getColumns(String tableName, Connection conn) {
-		Connection cc = conn;
-		ResultSet rs = null;
-		PreparedStatement pstmt = null;
-		List<String> columnList = new ArrayList<String>();
-		
-		try {
-			String query = "SELECT CNAME FROM SYS.COL WHERE TNAME = ?";
-			pstmt = cc.prepareStatement(query);
-			pstmt.setString(1, tableName.toUpperCase());
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				columnList.add(rs.getString("CNAME"));
-			}
-			
-		} catch (SQLException e) {
-			columnList = null;
-			e.printStackTrace();
-		} finally {
-			if(rs!=null) try{ rs.close(); }catch(SQLException e){}
-			if(pstmt!=null) try{ pstmt.close(); }catch(SQLException e){}
-		}
-		
-		return columnList;
-	}
 
 }

@@ -1,15 +1,15 @@
 /**
  * 
  */
-package kr.or.ddit.sqlEdiotTable.service;
+package kr.or.ddit.sqlEdiotSequence.service;
 
 import java.sql.Connection;
 import java.util.List;
-
 /**
-* ISqlEditorTable.java
+ * 
+* ISqlEditorTableService.java
 *
-* @author 이중석
+* @author 강호길
 * @version 1.0
 * @see
 *
@@ -18,11 +18,11 @@ import java.util.List;
 *
 * 수정자 수정내용
 * ------ ------------------------
-* 이중석 최초 생성
+* 강호길 최초 생성
 *
 * </pre>
-*/
-public interface ISqlEditorTableService {
+ */
+public interface ISqlEditorSequenceService {
 
 	/**
 	* Method : createTable
@@ -32,7 +32,7 @@ public interface ISqlEditorTableService {
 	* @return
 	* Method 설명 : 우클릭 이벤트로 테이블을 생성하는 메서드
 	*/
-	int createTable(String[][] query);
+	int createSequence(String[][] query);
 	
 	/**
 	* Method : selectTable
@@ -43,17 +43,6 @@ public interface ISqlEditorTableService {
 	* @return
 	* Method 설명 : 우클릭 이벤트로 테이블을 조회 하는메서드
 	*/
-	List<List<String>> selectTable(String select, String TableName, Connection conn);
+	List<List<String>> selectSequence(String select, String TableName, Connection conn);
 	
-	/**
-	 * 
-	* Method : getColumns
-	* 작성자 : 김범휘
-	* 변경이력 :
-	* @param tableName
-	* @param conn
-	* @return
-	* Method 설명 : 트리거 생성에서 테이블 선택 시 그 테이블에 대한 컬럼명 리스트로 가져오기 
-	 */
-	List<String> getColumns(String tableName, Connection conn);
 }

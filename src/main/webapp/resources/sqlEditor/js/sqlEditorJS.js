@@ -18,6 +18,24 @@ $(document).ready(function() {
 	
 	// 트리거 패키지 모달창 띄우기
 	$("#createTriggerSpan").on("click", function() {
+		var account_id = $("#schema_id").val(); // 계정명(원본)
+		
+		$.ajax({
+			url : "/sqlEditor/createTriggerReady",
+			method : "get",
+			data : "account_id=" + account_id,
+			success : function(data) {
+				console.log(data);
+				var temp = "";
+				for (var i = 0; i < data.length; i++) {
+					if(i == 0)
+						temp += "<option></option>";
+					temp += "<option>" + data[i] + "</option>";
+				}
+				$("#tableSelect").html(temp);
+			}
+		});
+		$("#triggerName").val("");
 		$("#triggerPackageModal").css("display", "block");
 	});
 	
@@ -36,13 +54,7 @@ $(document).ready(function() {
 	
 	// 새로고침 버튼 이벤트
 	$("#refresh").on("click", function() {
-		$.ajax({
-			url : "/sqlEditor/refresh",
-			method : "get",
-			success : function(data) {
-				console.log(data);
-			}
-		});
+		location.replace("/sqlEditor/sqlEditorMain");
 	});
 	
 	// 결과하면 클리어
@@ -72,6 +84,9 @@ $(document).ready(function() {
 	
 	// DB계정 생성 모달창 띄우기
 	$("#accountImg").on("click", function() {
+		$("#accountName").val("");
+		$("#accountPw").val("");
+		$("#chatRoomName").val("");
 		$("#accountModal").css("display", "block");
 	});
 	
@@ -123,7 +138,7 @@ $(document).ready(function() {
 		var y = screen.AvailHeight-h; //팝업창의 세로위치 (상단에 띄우려면 0)
 		window.open("/cal?account_id="+temp, "_blank","scrollbar=no, resizeable=no, " +
 							"top="+y+",left="+x+",width=912,height=984");
-	})
+	});
 	
 	// 모달창 닫기
 	$(".close").on("click", function() {
@@ -247,10 +262,11 @@ $(document).ready(function() {
 			// 구현 내용 작성
 			var dragText = editor.getSelectedText();
 			console.log(dragText);
-			
-			if(dragText.indexOf(";") == dragText.lastIndexOf(";")) {
+			if(dragText.indexOf("CREATE") != -1 && dragText.indexOf("TRIGGER") != -1) {
 				sqlRun(dragText);
-			} else {
+			}else if(dragText.indexOf(";") == dragText.lastIndexOf(";")) {
+				sqlRun(dragText);
+			}else {
 				var dragTextArr = dragText.split(";");
 				console.log(dragTextArr);
 				for (var i = 0; i < dragTextArr.length; i++) {

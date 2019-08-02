@@ -1,7 +1,7 @@
 /**
  * 
  */
-package kr.or.ddit.sqlEdiotTable.service;
+package kr.or.ddit.sqlEdiotSequence.service;
 
 import java.sql.Connection;
 import java.util.List;
@@ -32,7 +32,7 @@ import kr.or.ddit.util.SelectTableUtil;
 * </pre>
 */
 @Service
-public class SqlEditorTableService implements ISqlEditorTableService {
+public class SqlEditorSequenceService implements ISqlEditorSequenceService {
 
 	
 	@Resource(name = "sqlEditorTableDao")
@@ -46,7 +46,7 @@ public class SqlEditorTableService implements ISqlEditorTableService {
 	* Method 설명 : 테이블 패키지 우클릭 후 테이블 생성
 	*/
 	@Override
-	public int createTable(String[][] array) {
+	public int createSequence(String[][] array) {
 		Map<String, Object> queryMap = new CreateTableUtil().getQuery(array);
 		String createTableStr = (String) queryMap.get("query");
 		sqlEditorTableDao.createTable(createTableStr);
@@ -68,24 +68,10 @@ public class SqlEditorTableService implements ISqlEditorTableService {
 	* Method 설명 : 테이블 우클릭 후 테이블 조회
 	*/
 	@Override
-	public List<List<String>> selectTable(String select, String TableName, Connection conn) {
+	public List<List<String>> selectSequence(String select, String TableName, Connection conn) {
 		String query = SelectTableUtil.selectQuery(select, TableName);
 		return sqlEditorTableDao.selectTable(query, conn);
 	}
 	
-	/**
-	 * 
-	* Method : getColumns
-	* 작성자 : 김범휘
-	* 변경이력 :
-	* @param tableName
-	* @param conn
-	* @return
-	* Method 설명 : 트리거 생성에서 테이블 선택 시 그 테이블에 대한 컬럼명 리스트로 가져오기 
-	 */
-	@Override
-	public List<String> getColumns(String tableName, Connection conn) {
-		return sqlEditorTableDao.getColumns(tableName, conn);
-	}
 
 }

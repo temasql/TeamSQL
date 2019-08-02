@@ -12,6 +12,14 @@ $(document).ready(function() {
 	
 	$(".tables").on("click", function(){
 		$("#tableNm").val($(this).text())
+		$("#tableReadThead").empty();
+		$("#tableReadTbody").empty();
+	})
+	
+	$(document).on("change", "#tableSelectChoice", function(){
+		$("#tableReadThead").empty();
+		$("#tableReadTbody").empty();
+		readTableAjax()
 	})
 	
 	// 모달창 닫기
@@ -118,10 +126,42 @@ function readTableAjax(){
 	var account_id = $("#acco_id").val()
 	$.ajax({
 		 url    : "/sqlEditor/selectTable"
-		 ,data : "select=" + select + "&tableName=" + tableName + "&account_id=" + account_id 
+		 ,data : "select=" + select + "&TableName=" + tableName + "&account_id=" + account_id 
 		,success : function(data){
-			console.log(data.resultList[0]);
 			
+			var dataArray = new Array(); // 데이터 담을 배열
+			
+			var colNameArray = data.resultList[0]; // 컬럼명들이 있는 배열
+			
+			
+			$.each(data.resultList, function(idx, data){
+				if(idx >= 1) {
+					var t = new Array();
+					for (var i = 0; i < colNameArray.length; i++) {
+						t.push(data[i]);
+						console.log("22kkk" + data[i])
+					}
+					dataArray.push(t);
+				}
+			});
+			console.log(colNameArray)
+			console.log(dataArray)
+			
+			$("#tableReadThead").append("<tr>")
+			colNameArray.forEach(function(property){
+				$("#tableReadThead").append("<th>" + property + "</th>");
+			})
+			$("#tableReadThead").append("</tr>")
+			console.log(dataArray.length)
+			console.log(dataArray[0].length)
+			$.each(dataArray ,function(idx, dataList){
+				$("#tableReadTbody").append("<tr>");
+				$.each(dataList, function(idx2,data){
+					$("#tableReadTbody").append("<td>" + data + "</td>");
+				})
+				$("#tableReadTbody").append("</tr>");
+			})
+		
 //			var rowData = "<tr class='tableDataTr' id='tableDataTr"+ appendCnt++ +"'>";
 //			rowData += "<td><input  name='colPKChecked' class='col' value='false' type='checkbox'></td>"
 //			rowData += "<td><input  name='colName' class='tableManagerText colName col' type='text'/> </td>"
