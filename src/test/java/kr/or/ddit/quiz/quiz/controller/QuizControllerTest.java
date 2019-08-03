@@ -66,4 +66,30 @@ public class QuizControllerTest extends ControllerTestEnv{
 		
 	}
 
+	/**
+	* Method : insertEssayTest
+	* 작성자 : 손주형
+	* 변경이력 :
+	* Method 설명 : 
+	*/
+	@Test
+	public void insertEssayTest() {
+		/***Given***/
+		String test = "   select    *    from users;     ";
+		
+		
+
+		/***When***/
+		String trimTest = test.trim();
+		
+		trimTest = trimTest.replaceAll(" ", "");
+		
+		String[] arr = trimTest.split(" ");
+
+		/***Then***/
+		assertEquals("select", arr[0]);
+		assertEquals("*", arr[1]);
+		assertEquals("from", arr[2]);
+		assertEquals("users;", arr[3]);
+	}
 }

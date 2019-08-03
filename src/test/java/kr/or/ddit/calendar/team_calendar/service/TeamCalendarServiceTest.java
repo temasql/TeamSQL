@@ -56,7 +56,7 @@ public class TeamCalendarServiceTest extends LogicTestEnv{
 
 	/**
 	* Method : calendarList
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* Method 설명 : 캘린더 전체 일정 조회 테스트 메서드
 	*/
@@ -80,7 +80,7 @@ public class TeamCalendarServiceTest extends LogicTestEnv{
 	
 	/**
 	* Method : insertCal
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @throws ParseException
 	* Method 설명 : 일정 등록 테스트 메서드
@@ -116,7 +116,7 @@ public class TeamCalendarServiceTest extends LogicTestEnv{
 	
 	/**
 	* Method : deleteCalTest
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* Method 설명 : max시퀀스값에 해당하는 일정을 삭제하는 테스트 메서드
 	*/
@@ -135,7 +135,7 @@ public class TeamCalendarServiceTest extends LogicTestEnv{
 	
 	/**
 	* Method : updateCal
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @throws ParseException
 	* Method 설명 : max시퀀스값에 해당하는 일정의 모든 값을 수정하는 테스트 메서드
@@ -172,7 +172,7 @@ public class TeamCalendarServiceTest extends LogicTestEnv{
 	
 	/**
 	* Method : updateDropCalTest
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* Method 설명 : max시퀀스에 해당하는 일정의 기간만 수정하는 테스트 메서드
 	 * @throws ParseException 

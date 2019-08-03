@@ -89,7 +89,7 @@ public class TeamCalendarControllerTest extends ControllerTestEnv{
 	
 	/**
 	* Method : deleteCalTest
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* Method 설명 :
 	 * @throws Exception 
