@@ -6,7 +6,7 @@
 
 <div id="quizHeader">${quizName} 수정</div>
 <div id="gruopDiv">
-	<form id="updateDB" action="/updateQuiz" method="post" >
+	<form id="updateDB" action="/updateEssay" method="post" >
 		<div id="question">문제 :<input class="form-control" id="question" name="quiz_question" type="text" value="${quizAndAnswerVO.quiz_question}"></div>
 		<div id="answer">답 : <textarea class="form-control" id="disabledInput" name="quiz_answer">${quizAndAnswerVO.quiz_answer}</textarea></div>
 		<div id="explain">해설 : <textarea class="form-control" id="disabledInput" name="quiz_explain">${quizAndAnswerVO.quiz_explain}</textarea></div>
