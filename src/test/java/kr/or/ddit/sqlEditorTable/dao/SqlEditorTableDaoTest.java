@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -21,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.mock.web.MockHttpSession;
 
 import kr.or.ddit.sqlEdiotTable.dao.ISqlEditorTableDao;
+import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 import kr.or.ddit.util.CreateTableUtil;
 import kr.or.ddit.util.DBUtilForWorksheet;
@@ -164,5 +163,75 @@ public class SqlEditorTableDaoTest extends LogicTestEnv{
 		}
 	}
 	
+	/**
+	* Method : selectTableColumndataTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 해당 테이블의 컬럼데이터 조회 테스트
+	*/
+	@Test
+	public void selectTableColumndataTest() {
+		/***Given***/
+		MockHttpSession session = new MockHttpSession();
+		Connection conn = DBUtilForWorksheet.getConnection("TeamSQL", "java", session);
+		String tableName = "USERS";
+		/***When***/
+		List<SqlEditorTableVO> sqlEditorTableColumnDataList = sqlEditorTableDao.selectTableColumnData(tableName, conn);
+		/***Then***/
+		for (SqlEditorTableVO sqlEditorTableVO : sqlEditorTableColumnDataList) {
+			logger.debug(">>[{}]<<", sqlEditorTableVO);
+		}
+	}
+	
+	/**
+	* Method : selectTablePrimaryKeyTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 해당 테이블의 PK 키 조회 테스트
+	*/
+	@Test
+	public void selectTablePrimaryKeyTest() {
+		/***Given***/
+		MockHttpSession session = new MockHttpSession();
+		Connection conn = DBUtilForWorksheet.getConnection("TEST_asd24", "test", session);
+		String tableName = "TESTT";
+		/***When***/
+		List<String> sqlEditorTablePrimaryKeyList = sqlEditorTableDao.selectTablePrimaryKey(tableName, conn);
+		/***Then***/
+		logger.debug("{}", sqlEditorTablePrimaryKeyList);
+		/***When***/
+
+		/***Then***/
+	}
+	
+	/**
+	* Method : primaryInjectionTest
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 컬럼리스트에서 PK인 컬럼을 찾아서 PK 값 true 만들기
+	*/
+	@Test
+	public void primaryInjectionTest() {
+		/***Given***/
+		MockHttpSession session = new MockHttpSession();
+		Connection conn = DBUtilForWorksheet.getConnection("TeamSQL", "java", session);
+		String tableName = "USERS";
+		/***When***/
+		List<SqlEditorTableVO> sqlEditorTableColumnDataList = sqlEditorTableDao.selectTableColumnData(tableName, conn);
+		List<String> sqlEditorTablePrimaryKeyList = sqlEditorTableDao.selectTablePrimaryKey(tableName, conn);
+		logger.debug("columList =[{}]",sqlEditorTableColumnDataList);
+		logger.debug("pkList =[{}]",sqlEditorTablePrimaryKeyList);
+		/***Then***/
+		for (SqlEditorTableVO sqlEditorTableColumn : sqlEditorTableColumnDataList) {
+			for (String pk : sqlEditorTablePrimaryKeyList) {
+				if(sqlEditorTableColumn.getColumn_name().equals(pk)) {
+					sqlEditorTableColumn.setPk("true");
+				}else {
+					sqlEditorTableColumn.setPk("false");
+				}
+			}
+			logger.debug("====[{}]====", sqlEditorTableColumn);
+		}
+	}
 
 }

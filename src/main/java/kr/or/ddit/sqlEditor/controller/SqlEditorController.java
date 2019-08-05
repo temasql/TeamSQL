@@ -30,6 +30,8 @@ import kr.or.ddit.dbObject.model.SequenceVO;
 import kr.or.ddit.dbObject.model.TableVO;
 import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
+
+import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
 import kr.or.ddit.sqlEdiotSequence.service.ISqlEditorSequenceService;
 import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
@@ -354,16 +356,45 @@ public class SqlEditorController {
 	}
 	
 
-	@RequestMapping("/updateTable")
+	/**
+	* Method : updateTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param TableName
+	* @param account_id
+	* @param select
+	* @param model
+	* @param session
+	* @return
+	* Method 설명 : 테이블 편집
+	*/
+	@RequestMapping(path = "/updateTable", method = RequestMethod.GET)
 	public String updateTable(String TableName, String account_id, String select, Model model, HttpSession session) {
+		logger.debug("account_id ==> [{}]", account_id);
+		logger.debug("TableName ==> [{}]", TableName);
+		logger.debug("select ==> [{}]", select);
 		AccountVO accountVO = accountService.getAccountOne(account_id);
 		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
 		// 데이터 타입 받는 리스트 추가해야함
+		Map<String, Object> updateTableMap = sqlEditorTableService.updateTable(select, TableName, conn);
+		List<String> dataTypeList =  (List<String>) updateTableMap.get("dataTypeList");
+		
+		model.addAttribute("dataTypeList", dataTypeList);
 		logger.debug("conn ===>{}", conn);
-		Map<String, Object> updateTableMap = sqlEditorTableService.updateTable(select, TableName, conn); 
 		String html = (String) updateTableMap.get("html");
-		model.addAttribute("update", (List<List<String>>)updateTableMap.get("updateTable"));
-		return "sqlEditor/ajaxHtml/updateTableAjaxHtml";
+		model.addAttribute("columnDataList", (List<SqlEditorTableVO>)updateTableMap.get("columnDataList"));
+		logger.debug("dataList ==>[{}]", (List<SqlEditorTableVO>)updateTableMap.get("columnDataList"));
+		return html;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "/updateTable", method = RequestMethod.POST)
+	public String updateTable(HttpSession session,  Model model,
+			@RequestBody String[][] array) {
+		
+		sqlEditorTableService.updateTable(array);
+		return "jsonView";
+
 	}
 	
 	@RequestMapping(path = "/createTriggerReady", method = RequestMethod.POST)

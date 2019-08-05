@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
+
 /**
 * SqlEditorTable.java
 *
@@ -103,53 +105,6 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 		return resultList;
 	}
 	
-	/**
-	 * Method : selectTable
-	 * 작성자 : 이중석
-	 * 변경이력 :
-	 * @param query
-	 * @param conn
-	 * @return
-	 * Method 설명 : 테이블 우클릭 후 테이블 편집 시 열 편집을 위한 기존의 데이터 
-	 */
-	/*
-	@Override
-	public List<String> updateTableColumn(String query, Connection conn) {
-		
-		Connection cc = conn;
-		Statement stmt = null;
-		ResultSet rs = null;
-		
-		List<List<String>> resultList = new ArrayList<List<String>>();
-		List<String> columnNameList = new ArrayList<String>();
-		try {
-			stmt = cc.createStatement();
-			
-			rs = stmt.executeQuery(query);
-			int columnCount = rs.getMetaData().getColumnCount();
-			for (int i = 1; i <= columnCount; i++) {
-				columnNameList.add(rs.getMetaData().getColumnName(i)); 
-			}
-			resultList.add(columnNameList);
-			
-			while(rs.next()) {
-				List<String> dataList = new ArrayList<String>();
-				for (int i = 0; i < columnNameList.size(); i++) {
-					dataList.add(rs.getString(columnNameList.get(i)));
-				}
-				resultList.add(dataList);
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(rs!=null) try{ rs.close(); }catch(SQLException e){}
-			if(stmt!=null) try{ stmt.close(); }catch(SQLException e){}
-		}
-		return resultList;
-	}
-*/
 	@Override
 	public List<String> getColumns(String tableName, Connection conn) {
 		Connection cc = conn;
@@ -179,4 +134,90 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 		return columnList;
 	}
 
+	/**
+	* Method : selectTableColumnData
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param tableName
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public List<SqlEditorTableVO> selectTableColumnData(String tableName, Connection conn) {
+		
+		Connection cc = conn;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		List<SqlEditorTableVO> columnDataList= new ArrayList<SqlEditorTableVO>();
+		try {
+			stmt = cc.createStatement();
+			
+			StringBuffer query = new StringBuffer(); 
+					query.append("SELECT A.COLUMN_NAME, A.DATA_TYPE, A.DATA_LENGTH, A.NULLABLE, ");  
+					query.append("A.DATA_DEFAULT, B.COMMENTS FROM USER_TAB_COLUMNS A, USER_COL_COMMENTS B "); 
+					query.append("WHERE A. TABLE_NAME = B.TABLE_NAME AND A.COLUMN_NAME = B.COLUMN_NAME ");
+					query.append("AND A.TABLE_NAME = '" + tableName+ "' ORDER BY A.COLUMN_ID");
+			rs = stmt.executeQuery(query.toString());
+			
+			while(rs.next()) {
+				SqlEditorTableVO tableVo = new SqlEditorTableVO();
+				tableVo.setColumn_name(rs.getString("COLUMN_NAME"));
+				tableVo.setData_type(rs.getString("DATA_TYPE"));
+				tableVo.setData_length(rs.getInt("DATA_LENGTH"));
+				tableVo.setNullable(rs.getString("NULLABLE"));
+				tableVo.setData_default(rs.getString("DATA_DEFAULT"));
+				tableVo.setComments(rs.getString("COMMENTS"));
+				columnDataList.add(tableVo);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try{ rs.close(); }catch(SQLException e){}
+			if(stmt!=null) try{ stmt.close(); }catch(SQLException e){}
+		}
+		return columnDataList;
+	}
+
+	/**
+	* Method : selectTablePrimaryKey
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param tableName
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public List<String> selectTablePrimaryKey(String tableName, Connection conn) {
+		Connection cc = conn;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		List<String> primaryKeyList= new ArrayList<String>();
+		try {
+			stmt = cc.createStatement();
+			
+			StringBuffer query = new StringBuffer(); 
+					query.append("SELECT B.COLUMN_NAME ");  
+					query.append("FROM USER_CONSTRAINTS A, USER_CONS_COLUMNS B "); 
+					query.append("WHERE A.CONSTRAINT_NAME = B.CONSTRAINT_NAME ");
+					query.append("AND A.TABLE_NAME = '" + tableName+ "' AND A.CONSTRAINT_TYPE = 'P'");
+			rs = stmt.executeQuery(query.toString());
+			
+			while(rs.next()) {
+				primaryKeyList.add(rs.getString("COLUMN_NAME"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try{ rs.close(); }catch(SQLException e){}
+			if(stmt!=null) try{ stmt.close(); }catch(SQLException e){}
+		}
+		
+		return primaryKeyList;
+	}
 }

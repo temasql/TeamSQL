@@ -17,23 +17,58 @@
 			</tr>
 		</thead>
 		<tbody id="tableUpdateTbody">
-<%-- 		<c:forEach items="${updateTable.columnList.dataList}" end="data"> --%>
+		<c:forEach items="${columnDataList}" var="columnData">
 			<tr>
-			 	<td><input  name='colPKChecked' class='col' value='false' type='checkbox'></td>
-			 	<td><input  name='colName' class='tableManagerText colName col' type='text'/> </td>
+				<c:choose>
+					<c:when test="${columnData.pk eq 'true'}">
+					 	<td><input  name='colPKChecked' class='col' value='${columnData.pk }' type='checkbox' checked></td>
+					</c:when>
+					<c:otherwise>
+					 	<td><input  name='colPKChecked' class='col' value='${columnData.pk }' type='checkbox'></td>
+					</c:otherwise>
+			 	</c:choose>
+			 	<td><input  name='colName' class='tableManagerText colName col' value='${columnData.column_name }' type='text'/> </td>
 				<td>
 					<select class='tableManagerSelectBox col'>
 					<!-- 데이터 타입 받는 리스트 추가해야함 -->
-<%-- 						<c:forEach items="${update.selectBox }" var="selectBox"> --%>
-							<option value='${select}'>${select}</option>
-<%-- 						</c:forEach> --%>
+					<c:forEach items="${dataTypeList }" var="select">
+						<c:choose>
+							<c:when test="${select eq columnData.data_type }">
+								<option value='${select}' selected>${select}</option>
+							</c:when>				
+							<c:otherwise>
+								<option value='${select}'>${select}</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 					</select>
 				</td>
-				<td><input name='colSize' class='tableManagerText col' type='text'/> </td>
-				<td><input name='colNullCheck' class='col' value='false' type='checkbox'></td>
-				<td><input name='colDefaultVal' class='tableManagerText col' type='text'/> </td>
-				<td><input name='colComment' class='tableManagerText col' type='text'/> </td>
+				<td><input name='colSize' class='tableManagerText col' value='${columnData.data_length }' type='text'/> </td>
+				<c:choose>
+					<c:when test="${columnData.pk eq N}">
+						<td><input name='colNullCheck' class='col' value='false' type='checkbox'></td>
+					</c:when>
+					<c:otherwise>
+						<td><input name='colNullCheck' class='col' value='true' type='checkbox' checked></td>
+					</c:otherwise>
+			 	</c:choose>
+				<c:choose>
+					<c:when test="${columnData.data_default eq null}">
+						<td><input name='colDefaultVal' class='tableManagerText col' type='text'/> </td>
+					</c:when>
+					<c:otherwise>
+						<td><input name='colDefaultVal' class='tableManagerText col' value='${columnData.data_default}' type='text'/> </td>
+					</c:otherwise>
+			 	</c:choose>
+				<c:choose>
+					<c:when test="${columnData.comments eq null}">
+						<td><input name='colComment' class='tableManagerText col' type='text'/> </td>
+					</c:when>
+					<c:otherwise>
+						<td><input name='colComment' class='tableManagerText col' value='${columnData.comments}' type='text'/> </td>
+					</c:otherwise>
+			 	</c:choose>
 			</tr>
-<%-- 		</c:forEach> --%>
+		</c:forEach>
 		</tbody>
 </table>

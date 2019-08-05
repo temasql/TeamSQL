@@ -15,7 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.sqlEdiotTable.dao.ISqlEditorTableDao;
+import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 import kr.or.ddit.util.CreateTableUtil;
+import kr.or.ddit.util.DataTypeUtil;
 import kr.or.ddit.util.SelectTableUtil;
 
 /**
@@ -39,7 +41,7 @@ public class SqlEditorTableService implements ISqlEditorTableService {
 
 	
 	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTableService.class);
-	
+	private List<String> pkList = null;
 	@Resource(name = "sqlEditorTableDao")
 	private ISqlEditorTableDao sqlEditorTableDao;
 	/**
@@ -54,6 +56,7 @@ public class SqlEditorTableService implements ISqlEditorTableService {
 	public int createTable(String[][] array) {
 		Map<String, Object> queryMap = new CreateTableUtil().getQuery(array);
 		String createTableStr = (String) queryMap.get("query");
+		logger.debug("query ==> [{}]", createTableStr);
 		sqlEditorTableDao.createTable(createTableStr);
 		List<String> commentQueryList = (List<String>) queryMap.get("commentQueryList");
 		if (commentQueryList.size() > 0) {
@@ -104,20 +107,67 @@ public class SqlEditorTableService implements ISqlEditorTableService {
 	@Override
 	public Map<String, Object> updateTable(String select, String tableName, Connection conn) {
 		Map<String, Object> updateTableMap = new HashMap<String, Object>();
+		logger.debug("select[{}]", select);
 		if (select.equals("column")) {
-			// 데이터 타입 받는 리스트 추가해야함
-			String query = SelectTableUtil.selectQuery(select, tableName);
-			logger.debug("query ==> {}", query);
-			logger.debug("conn ==>!@ {}", conn);
-			List<List<String>> columnList =  sqlEditorTableDao.selectTable(query, conn);
+
+			List<String> primaryKeyList = sqlEditorTableDao.selectTablePrimaryKey(tableName, conn);
+			pkList = sqlEditorTableDao.selectTablePrimaryKey(tableName, conn);
+			logger.debug("pkList ==>[{}]", primaryKeyList);
+			List<SqlEditorTableVO> columnDataList = sqlEditorTableDao.selectTableColumnData(tableName, conn);
+			logger.debug("columnList ==>[{}]", columnDataList);
+			
+			columnDataList = SelectTableUtil.primaryKeyInjection(primaryKeyList, columnDataList);
+			
 			String html = "sqlEditor/ajaxHtml/updateTableAjaxHtml";
 			updateTableMap.put("html", html);
-			updateTableMap.put("updateTable", columnList);
+			updateTableMap.put("dataTypeList", DataTypeUtil.tableDataType());
+			updateTableMap.put("columnDataList", columnDataList);
+			logger.debug("columnDataList==>[]", columnDataList);
 			return updateTableMap;
 		}
 		logger.debug("conn ==> {}", conn);
 		
 		return updateTableMap;
 	}
+	/**
+	* Method : updateTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param query
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public int updateTable(String[][] array) {
+		Map<String, Object> queryMap = new CreateTableUtil().getUpdateQuery(array);
+		List<String> updateTableColumnList = (List<String>) queryMap.get("query");
+		List<String> oldPkColList = getPkList();
+		List<String> pkColNameList = (List<String>) queryMap.get("pkColumnList");
+		int dropCnt = 0;
+		if (oldPkColList.size() != pkColNameList.size()) {
+			String query = updateTableColumnList.get(0);
+			int endIndex =query.indexOf("ADD"); 
+			query = query.substring(0, endIndex);
+			String dropQuery = query + "DROP CONSTRAINT PK_" + query.substring(query.indexOf(".") + 1, endIndex);
+			sqlEditorTableDao.createTable(dropQuery);
+			dropCnt++;
+		}
+		
+		for (String updateColumn : updateTableColumnList) {
+			sqlEditorTableDao.createTable(updateColumn);
+		}
+		List<String> commentQueryList = (List<String>) queryMap.get("commentQueryList");
+		if (commentQueryList.size() > 0) {
+			for (String comment : commentQueryList) {
+				sqlEditorTableDao.createTable(comment);
+			}
+		}
+		return 0;
+	}
+	
+	public List<String> getPkList(){
+		return pkList;
+	}
+	
 	
 }

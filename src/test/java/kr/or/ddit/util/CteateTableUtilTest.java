@@ -1,5 +1,7 @@
 package kr.or.ddit.util;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,45 +13,64 @@ public class CteateTableUtilTest {
 	public void getQueryTest() {
 		/***Given***/
 		String[][] array = {{
-			"" 		 // pkCheck    
-			,"user_id"      // colName
-			,"VARCHAR2"  // dataType
-			,""       // Size
-			,""          // nullCheck
-			,""    	 	 // defaultValue
-			,""      // comment
-			,"TESTTABLE" // tableName      
+			" : 'true' " 		 // pkCheck    
+			," : 'user_id' "      // colName
+			," : 'VARCHAR2' "  // dataType
+			," : '' "       // Size
+			," : '' "          // nullCheck
+			," : '' "    	 	 // defaultValue
+			," : '' "      // comment
+			,"TESTTABLE " // tableName      
+			,"TEST" // schema
 		},{
-			"" 		 // pkCheck    
-			,"user_name"      // colName
-			,"VARCHAR2"  // dataType
-			,""       // Size
-			,"true"          // nullCheck
-			,""    	 	 // defaultValue
-			,"user_name입니다"      // comment
-			,"TESTTABLE" // tableName      
-		},{
-			"" 		 // pkCheck    
-			,"user_age"      // colName
-			,"NUMBER"  // dataType
-			,""       // Size
-			,""          // nullCheck
-			,""    	 	 // defaultValue
-			,"나이"      // comment
-			,"TESTTABLE" // tableName      
-		},{
-			"true" 		 // pkCheck    
-			,"profile"      // colName
-			,"CLOB"  // dataType
-			,"10"       // Size
-			,""          // nullCheck
-			,""    	 	 // defaultValue
-			,"프로필 사진"      // comment
-			,"TESTTABLE" // tableName      
+			" : 'true' " 		 // pkCheck    
+			," : 'user_id2' "      // colName
+			," : 'VARCHAR2' "  // dataType
+			," : '' "       // Size
+			," : '' "          // nullCheck
+			," : '' "    	 	 // defaultValue
+			," : '' "      // comment
+			,"TESTTABLE " // tableName      
+			,"TEST" // schema
 		}};
 		/***When***/
 		/***Then***/
-		logger.debug("\n{}", new CreateTableUtil().getQuery(array));
+//		logger.debug("\n{}", new CreateTableUtil().getUpdateQuery(array).get("query"));
+		List<String> queryList = (List<String>) new CreateTableUtil().getUpdateQuery(array).get("query");
+		String query = queryList.get(0);
+		int endIndex =query.indexOf("ADD"); 
+		query = query.substring(0, endIndex);
+		logger.debug("h\n{}",query + "DROP CONSTRAINT PK_" + query.substring(query.indexOf(".") + 1, endIndex));
+//		logger.debug("\n{}", new CreateTableUtil().getUpdateQuery(array).get("pkQuery"));
+	}
+	
+	@Test
+	public void getPkQueryTest() {
+		/***Given***/
+		String[][] array = {{
+			" : 'true' " 		 // pkCheck    
+			," : 'user_id' "      // colName
+			," : 'VARCHAR2' "  // dataType
+			," : '' "       // Size
+			," : '' "          // nullCheck
+			," : '' "    	 	 // defaultValue
+			," : '' "      // comment
+			,"TESTTABLE " // tableName      
+			,"TEST" // schema
+		},{
+			" : 'true' " 		 // pkCheck    
+			," : 'user_id2' "      // colName
+			," : 'VARCHAR2' "  // dataType
+			," : '' "       // Size
+			," : '' "          // nullCheck
+			," : '' "    	 	 // defaultValue
+			," : '' "      // comment
+			,"TESTTABLE " // tableName      
+			,"TEST" // schema
+		}};
+		/***When***/
+		/***Then***/
+		logger.debug("\n{}", new CreateTableUtil().getUpdateQuery(array).get("pkQuery"));
 	}
 
 }

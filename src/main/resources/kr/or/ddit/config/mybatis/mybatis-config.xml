@@ -43,6 +43,7 @@
 		<typeAlias type="kr.or.ddit.invite.model.InviteVO" alias="inviteVo" />
 		<typeAlias type="kr.or.ddit.sqlEditorTrigger.model.MyTriggerCodeVO" alias="myTriggerCodeVO" />
 		<typeAlias type="kr.or.ddit.sqlEditorTrigger.model.TriggerDetailVO" alias="triggerDetailVO" />
+		<typeAlias type="kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO" alias="sqlTableVO" />
 		<typeAlias type="kr.or.ddit.sqlEditorFunction.model.FunctionDetailVO" alias="functionDetailVO" />
 	</typeAliases>
 	

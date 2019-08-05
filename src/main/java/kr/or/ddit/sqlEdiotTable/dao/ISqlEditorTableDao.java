@@ -6,6 +6,8 @@ package kr.or.ddit.sqlEdiotTable.dao;
 import java.sql.Connection;
 import java.util.List;
 
+import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
+
 /**
 * ISqlEditorTable.java
 *
@@ -56,4 +58,24 @@ public interface ISqlEditorTableDao {
 	* Method 설명 : 트리거 생성에서 테이블 선택 시 그 테이블에 대한 컬럼명 리스트로 가져오기 
 	 */
 	List<String> getColumns(String tableName, Connection conn);
+	
+	/**
+	* Method : selectTableColumnData
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param tableName
+	* @return
+	* Method 설명 : 해당 테이블의 컬럼 정보
+	*/
+	List<SqlEditorTableVO> selectTableColumnData(String tableName, Connection conn);
+	
+	/**
+	* Method : selectTablePrimaryKey
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param tableName
+	* @return
+	* Method 설명 : 해당 테이블의 PK 키 조회 
+	*/
+	List<String> selectTablePrimaryKey(String tableName, Connection conn);
 }

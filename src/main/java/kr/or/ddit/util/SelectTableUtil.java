@@ -3,6 +3,10 @@
  */
 package kr.or.ddit.util;
 
+import java.util.List;
+
+import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
+
 /**
 * SelectTableUtil.java
 *
@@ -161,6 +165,32 @@ public class SelectTableUtil {
 		getColumnQuery.append(" ORDER BY"); 
 		getColumnQuery.append(" A.COLUMN_ID");
 		return getColumnQuery.toString();
+	}
+	
+	/**
+	* Method : primaryKeyInjection
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param sqlEditorTablePrimaryKeyList
+	* @param sqlEditorTableColumnDataList
+	* @return
+	* Method 설명 : 컬럼리스트를 조회 후 pk가 존재하면 pk값을 true로 전환
+	*/
+	public static List<SqlEditorTableVO> primaryKeyInjection(List<String>primaryKeyList, List<SqlEditorTableVO> columnDataList ){
+		for (SqlEditorTableVO sqlEditorTableColumn : columnDataList) {
+			if (primaryKeyList != null && primaryKeyList.size() > 0) {
+				for (String pk : primaryKeyList) {
+					if(sqlEditorTableColumn.getColumn_name().equals(pk)) {
+						sqlEditorTableColumn.setPk("true");
+					}else {
+						sqlEditorTableColumn.setPk("false");
+					}
+				}
+			}else {
+				sqlEditorTableColumn.setPk("false");
+			}
+		}
+		return columnDataList;
 	}
 	
 }
