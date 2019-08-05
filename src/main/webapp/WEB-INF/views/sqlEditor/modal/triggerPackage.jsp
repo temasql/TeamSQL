@@ -4,6 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link href="${cp}/resources/sqlEditor/css/rightClickTriggerPackage.css" rel="stylesheet">
 
+<link href="${cp}/resources/sqlEditor/css/rightClickTrigger.css" rel="stylesheet">
+
+
 <!-- 트리거 패키지 우클릭 모달 -->
 <div id="triggerPackageModal" class="modal">
   <!-- Modal content -->
@@ -49,5 +52,32 @@
   </div>
 </div>
 
+
 <script src="${cp}/resources/sqlEditor/js/rightClickTriggerPackage.js"></script>
+
+<!-- 트리거 조회 우클릭 모달 -->
+<div id="readTriggerModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<span class="close">&times;</span>
+  	<br><br>
+  	<input type="hidden" id="triggerName">
+  	<input type="hidden" id="triggerId">
+  	<select id="readTriggerSelect" class="form-control">
+  		<option id="selectCode">코드</option>
+		<option>세부정보</option>
+  	</select>
+  	<div id="readTriggerDiv"></div>
+  </div>
+</div>
+
+<!-- 트리거 우클릭 -->
+<ul class="triggerMenu">
+  	<li><span id="readTriggerSpan">트리거 조회</span></li>
+  	<li><span id="deleteTriggerSpan">트리거 삭제</span></li>
+</ul>
+
+<script src="${cp}/resources/sqlEditor/js/rightClickTriggerPackage.js"></script>
+<script src="${cp}/resources/sqlEditor/js/rightClickTrigger.js"></script>
+
 <script src="${cp}/resources/sqlEditor/js/triggerManager.js"></script>

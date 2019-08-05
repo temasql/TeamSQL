@@ -6,6 +6,11 @@ package kr.or.ddit.sqlEditorTrigger.dao;
 import java.sql.Connection;
 import java.util.List;
 
+import java.util.Map;
+
+import kr.or.ddit.sqlEditorTrigger.model.MyTriggerCodeVO;
+import kr.or.ddit.sqlEditorTrigger.model.TriggerDetailVO;
+
 /**
  * 
 * ISqlEditorTriggerDao.java
@@ -27,5 +32,11 @@ public interface ISqlEditorTriggerDao {
 	
 	boolean createTrigger(String query, Connection conn);
 	
+
+	List<MyTriggerCodeVO> getTriggerCode(Map<String, String> map, Connection conn);
 	
+	List<TriggerDetailVO> triggerDetail(String object_name);
+	
+	int deleteTrigger(String triggerName);
+
 }

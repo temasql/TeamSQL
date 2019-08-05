@@ -16,6 +16,44 @@ $(document).ready(function() {
 		saveToFile_Chrome(fileName, editor.getValue());
 	});
 	
+	// 트리거 조회 모달창 띄우기
+	$("#readTriggerSpan").on("click", function() {
+		$("#selectCode").prop("selected", "selected");
+		$("#readTriggerDiv").empty();
+		var triggerName = $("#triggerName").val().trim();
+		var accountId = $("#triggerId").val().trim();
+		
+		$.ajax({
+			url : "/sqlEditor/readTrigger",
+			method : "post",
+			data : "accountId=" + accountId + "&triggerName=" + triggerName,
+			success :  function(data) {
+				var temp = "<br><br><h4>" + data + "</h4>";
+				$("#readTriggerDiv").append(temp);
+			}
+		});
+		$("#readTriggerModal").css("display", "block");
+	});
+	
+	// 트리거 삭제 버튼 클릭 이벤트
+	$("#deleteTriggerSpan").on("click", function() {
+		var triggerName = $("#triggerName").val().trim();
+		var accountId = $("#triggerId").val().trim();
+		$.ajax({
+			url : "/sqlEditor/deleteTrigger",
+			method : "post",
+			data : "accountId=" + accountId + "&triggerName=" + triggerName,
+			success :  function(data) {
+				if(data == 0) {
+					alert("트리거 삭제에 성공하였습니다.");
+					location.replace("/sqlEditor/sqlEditorMain");
+				}else {
+					alert("트리거 삭제에 실패하였습니다.");
+				}
+			}
+		});
+	});
+	
 	// 트리거 패키지 모달창 띄우기
 	$("#createTriggerSpan").on("click", function() {
 		var account_id = $("#schema_id").val(); // 계정명(원본)
@@ -148,6 +186,7 @@ $(document).ready(function() {
 		$("#accountPwUpdateModal").css("display", "none");
 		$("#worksheetLoadModal").css("display", "none");
 		$("#triggerPackageModal").css("display", "none");
+		$("#readTriggerModal").css("display", "none");
 	});
 	
 	// DB계정 생성
