@@ -4,11 +4,14 @@
 package kr.or.ddit.sqlEdiotTable.service;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.sqlEdiotTable.dao.ISqlEditorTableDao;
@@ -34,6 +37,8 @@ import kr.or.ddit.util.SelectTableUtil;
 @Service
 public class SqlEditorTableService implements ISqlEditorTableService {
 
+	
+	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTableService.class);
 	
 	@Resource(name = "sqlEditorTableDao")
 	private ISqlEditorTableDao sqlEditorTableDao;
@@ -87,5 +92,32 @@ public class SqlEditorTableService implements ISqlEditorTableService {
 	public List<String> getColumns(String tableName, Connection conn) {
 		return sqlEditorTableDao.getColumns(tableName, conn);
 	}
-
+	/**
+	* Method : updateTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param select
+	* @param tableName
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public Map<String, Object> updateTable(String select, String tableName, Connection conn) {
+		Map<String, Object> updateTableMap = new HashMap<String, Object>();
+		if (select.equals("column")) {
+			// 데이터 타입 받는 리스트 추가해야함
+			String query = SelectTableUtil.selectQuery(select, tableName);
+			logger.debug("query ==> {}", query);
+			logger.debug("conn ==>!@ {}", conn);
+			List<List<String>> columnList =  sqlEditorTableDao.selectTable(query, conn);
+			String html = "sqlEditor/ajaxHtml/updateTableAjaxHtml";
+			updateTableMap.put("html", html);
+			updateTableMap.put("updateTable", columnList);
+			return updateTableMap;
+		}
+		logger.debug("conn ==> {}", conn);
+		
+		return updateTableMap;
+	}
+	
 }

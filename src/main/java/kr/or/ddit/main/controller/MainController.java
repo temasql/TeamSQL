@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.history.model.ChangedVO;
 import kr.or.ddit.history.service.IHistoryService;
 import kr.or.ddit.user.model.UserVO;
@@ -21,7 +22,8 @@ public class MainController {
 
 	@Resource(name = "historyService")
 	private IHistoryService historyService;
-	
+	@Resource(name = "crewService")
+	private ICrewService crewService;
 	/**
 	 * 
 	* Method : main
@@ -41,6 +43,7 @@ public class MainController {
 		// DB변경이력
 		model.addAttribute("changedMainList", changedMainList);
 		
+		model.addAttribute("crewMap", crewService.getAccountCrew(user_id_fk));
 		// IT뉴스
 		List<List<CrawlingVO>> itNewsList = new Crawling().getITNews();
 		model.addAttribute("itNewsList", itNewsList);

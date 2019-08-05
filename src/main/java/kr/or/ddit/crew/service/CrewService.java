@@ -1,5 +1,6 @@
 package kr.or.ddit.crew.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -137,5 +138,30 @@ public class CrewService implements ICrewService{
 	@Override
 	public List<UserAndCrewVO> getCrewList(CrewVO crewVO) {
 		return crewDao.getCrewList(crewVO);
+	}
+
+	/**
+	* Method : getAccountCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public Map<String, Object> getAccountCrew(String user_id) {
+		
+		
+		List<CrewVO> crewAcList = crewDao.crewSelectList(user_id);
+		List<CrewVO> crewList = new ArrayList<CrewVO>();
+		for (int i = 0; i < crewAcList.size(); i++) {
+			crewList.add(crewDao.getAccountCrew(crewAcList.get(i).getAccount_id_fk()));
+		}
+		
+		Map<String, Object> crewMap = new HashMap<String, Object>();
+		crewMap.put("acSize", crewAcList.size());
+		crewMap.put("crewList", crewList);
+		
+		return crewMap;
 	}
 }

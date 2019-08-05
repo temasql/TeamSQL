@@ -16,6 +16,9 @@ but I would appreciate an attribution from my work. I hope you enjoy it.
 $(document).ready(function(){
   //Show contextmenu:
   $(".tables").contextmenu(function(e){
+	  $("#tableNm").val($(this).text())
+	  $("#tableReadThead").empty();
+	  $("#tableReadTbody").empty();
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();

@@ -6,7 +6,7 @@
 
 <select id="select">
 	<c:forEach items="${crewSelectList}" var="crewVo">
-		<option value="${crewVo.account_id_fk }">${crewVo.account_id_fk }</option>
+		<option value="${crewVo.account_id_fk }">${crewVo.account_id_fkSlice }</option>
 	</c:forEach>
 </select>
 <input type="hidden" id="accountSelect" name="account_id_fk" value="${selected}">

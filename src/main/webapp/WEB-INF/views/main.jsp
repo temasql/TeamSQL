@@ -26,15 +26,31 @@
 			}
 		</c:forEach>
 		
+		<c:forEach items="${crewMap.crewList}" var="crew" end="${crewMap.acSize}" >
+			$("#crewTbody").append("<tr>")
+			$("#crewTbody").append("<td class='sqlTd' scope='row'>${crew.account_id_fkSlice}<input type='hidden' class='account_id' value='${crew.account_id_fk}'/></td>")
+			$("#crewTbody").append("<td class='crewTd' scope='row'>${crew.user_id_fk}</td>")
+			$("#crewTbody").append("</tr>")
+		</c:forEach>
+		$(document).on("click", ".sqlTd", function(){location.href="/sqlEditor/sqlEditorMain"})
+		$(document).on("click", ".crewTd", function(){location.href="/crew/crewManager"})
 	})
 </script>
 
 <section id="mainDiv">
 	<div id="leftLayout">
-		
 	   <!-- DB계정 -->	
 	  <div id="leftTopLayout">	  
-	  
+	  <table class="table table-hover">
+	 			<thead>
+	    			<tr>
+				      <th scope="col">DB계정</th>
+				      <th scope="col">구성원 이름</th>
+	   				</tr>
+				</thead>
+				<tbody id="crewTbody">
+				</tbody>
+			</table> 
 	  </div>
 	  
 	  <!-- DB변경이력 -->

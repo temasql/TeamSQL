@@ -38,6 +38,20 @@ public class CrewVO {
 		this.user_id_fk = user_id_fk;
 	}
 	
+	public String getAccount_id_fkSlice() {
+		
+		// 구분자 체크
+		if(account_id_fk.contains("_")) {
+		int idx = account_id_fk.indexOf("_"); 
+        
+		// _ 앞부분을 추출
+        // substring은 첫번째 지정한 인덱스는 포함하지 않는다.
+        // 아래의 경우는 첫번째 문자열인 a 부터 추출된다.
+		return  account_id_fk.substring(0, idx);
+		}
+		return  account_id_fk;
+	}
+	
 	@Override
 	public String toString() {
 		return "CrewVO [account_id_fk=" + account_id_fk + ", user_id_fk=" + user_id_fk + ", user_name=" + user_name

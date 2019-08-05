@@ -43,6 +43,18 @@
 		AND USER_ID_FK = #{user_id_fk}
 	</select>
 	
+	<select id="getAccountCrew" parameterType="String" resultType="crewVo">
+		SELECT ACCOUNT_ID_FK
+		     , SUBSTR(
+		        XMLAGG(
+		            XMLELEMENT(COL ,',', USER_ID_FK)).EXTRACT('//text()'
+		        ).GETSTRINGVAL()
+		       , 2) USER_ID_FK
+		FROM CREW
+		WHERE ACCOUNT_ID_FK = #{account_id_fk}
+		group by account_id_fk
+	</select>
+	
 	<!-- 구성원 삭제 -->
 	<delete id="deleteCrew" parameterType="crewVo">
 		DELETE
