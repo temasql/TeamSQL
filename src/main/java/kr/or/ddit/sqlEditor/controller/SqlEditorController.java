@@ -30,6 +30,7 @@ import kr.or.ddit.dbObject.model.SequenceVO;
 import kr.or.ddit.dbObject.model.TableVO;
 import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
+import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
 import kr.or.ddit.sqlEdiotSequence.service.ISqlEditorSequenceService;
 import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
@@ -419,6 +420,17 @@ public class SqlEditorController {
 		
 	
 		return createSequence;
+	}
+	
+	// 시퀀스 쿼리 조회
+	@RequestMapping(path = "/readSequenceQuery", method = RequestMethod.POST)
+	@ResponseBody
+	public String readSequenceQuery(String sequenceOwner, String sequenceName, HttpSession session) {
+		
+		SelectSeqVO seqVO = new SelectSeqVO(sequenceOwner, sequenceName);
+		
+		return " ";
+		
 	}
 	
 }

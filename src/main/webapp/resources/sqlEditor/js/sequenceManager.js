@@ -16,7 +16,6 @@ $(document).ready(function() {
 		}
 	})
 	
-	
 	// 시퀀스 생성
 	$(document).on("click","#createSeqBtn",function(){
 		
@@ -143,4 +142,37 @@ $(document).ready(function() {
 	$(".close").on("click", function() {
 		$("#craeteSequenceModal").css("display", "none");
 	});
+	
+	// 조회창 생성
+	$("#readSequenceSpan").on("click", function() {
+		$("#selectSequenceModal").css("display", "block");
+	});
+	
+	
+	$("#readSequenceSelect").on("changed",function(){
+		$("#readSequenceDiv").empty();
+		
+		var selectVal = $("#readSequenceSelect").val().trim();
+		var sequenceOwner = $("#sequenceOwner").val().trim();
+		var sequenceName = $("#sequenceName").val().trim();
+		if(selectVal == "코드"){
+			$.ajax({
+				url : "/sqlEditor/readSequenceQuery"
+			  , method : "post"
+			  , data : "sequenceOwner=" + sequenceOwner + "&sequenceName=" + sequenceName
+			  , success : function(data){
+				  var temp = "<br><br><h4>" + data + "</h4>";
+				  $("#readSequenceDiv").append(temp);
+			  }
+			})
+		}else{
+			$.ajax({
+				url : "/sqlEditor/readSequenceTable"
+			  , method : "post"
+			  , data : ""
+			})
+		}
+		
+		
+	})
 });
