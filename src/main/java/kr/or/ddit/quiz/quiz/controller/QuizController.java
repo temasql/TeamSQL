@@ -31,7 +31,7 @@ public class QuizController {
 
 	/**
 	* Method : quizeMain
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : 퀴즈 메인페이지로 이동하는 메서드
@@ -45,7 +45,7 @@ public class QuizController {
 	//OX퀴즈화면 이동 
 	/**
 	* Method : quizOX
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : 사용자면 OX퀴즈 문제화면으로 이동, 
@@ -71,7 +71,7 @@ public class QuizController {
 	
 	/**
 	* Method : quizOX
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quiz_right
@@ -108,7 +108,7 @@ public class QuizController {
 	
 	/**
 	* Method : insertOX
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quiz_right
@@ -126,7 +126,7 @@ public class QuizController {
 	
 	/**
 	* Method : insertOX
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizVO
 	* @param quizAnswerVO
@@ -142,6 +142,9 @@ public class QuizController {
 		
 		logger.debug("user_id : {}", userVO.getUser_id());
 		quizVO.setUser_id_fk(userVO.getUser_id());
+		
+		logger.debug("insertQuiz : {}", quizVO);
+		logger.debug("insertQuiz : {}", quizAnswerVO);
 		
 		int result = service.insert_question(quizVO, quizAnswerVO);
 		
@@ -164,7 +167,7 @@ public class QuizController {
 	
 	/**
 	* Method : readOX
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quiz_id
 	* @param quiz_right
@@ -180,9 +183,6 @@ public class QuizController {
 		
 		quizVO.setUser_id_fk(userVO.getUser_id());
 		
-		QuizAndAnswerVO quizAndAnswerVO = service.readQuiz(quizVO);
-		
-		logger.debug("quizAndAnswerVO : {}", quizAndAnswerVO);
 		
 		if(quizVO.getQuiz_right().equals("01")) {
 			model.addAttribute("quizName", "객관식 퀴즈");
@@ -203,8 +203,72 @@ public class QuizController {
 		}else if(quizVO.getQuiz_right().equals("03")) {
 			model.addAttribute("quizName", "단답식 퀴즈");
 		}else {
+			
+			Map<String, Object> map = service.quizAnswer(quizVO);
+			
+			QuizVO quizVO_1 = (QuizVO) map.get("quizVO");
+			List<QuizAnswerVO> quizAnswerList = (List<QuizAnswerVO>) map.get("quizAnswerList");
+			
+			logger.debug("quizVO_1 : {}", quizVO_1);
+			logger.debug("quizAnswerList : {}", quizAnswerList);
+			String answer = "";
+			for(int i=0; i<quizAnswerList.size(); i++) {
+				logger.debug("first ==> [{}]", quizAnswerList.get(i).getQuiz_answer());
+				
+ 				if(	quizAnswerList.get(i).getQuiz_answer().equals("from") 	||
+					quizAnswerList.get(i).getQuiz_answer().equals("FROM"))
+					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+ 				
+ 				if(	quizAnswerList.get(i).getQuiz_answer().equals("set") 	||
+ 						quizAnswerList.get(i).getQuiz_answer().equals("SET"))
+ 					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+ 				
+ 				if(	quizAnswerList.get(i).getQuiz_answer().equals("where")	||
+ 						quizAnswerList.get(i).getQuiz_answer().equals("WHERE"))
+ 					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+				
+				if(	quizAnswerList.get(i).getQuiz_answer().equals("="))
+					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"&nbsp;");
+				
+				
+ 				if(	!quizAnswerList.get(i).getQuiz_answer().equals("select\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("SELECT\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("\nfrom\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("\nFROM\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("where\t")  ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("WHERE\t")  ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("and\t")    ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("AND\t")	   ||
+					!quizAnswerList.get(i).getQuiz_answer().equals(quizAnswerList.get(i).getQuiz_answer() + "&nbsp;")) { 
+ 						quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+ 				}
+ 				logger.debug("last ==> [{}]", quizAnswerList.get(i).getQuiz_answer());
+				
+				
+				
+				
+				answer += quizAnswerList.get(i).getQuiz_answer();
+				logger.debug("answer 값 : {}", answer);
+			}
+			
+			QuizAndAnswerVO quizAndAnswerVO = new QuizAndAnswerVO();
+			
+			logger.debug("quizVO_1 : {}", quizVO_1);
+			logger.debug("answer 합치기 : {}", answer);
+			
+			quizAndAnswerVO.setQuiz_answer(answer);
+			quizAndAnswerVO.setQuiz_explain(quizAnswerList.get(0).getQuiz_explain());
+			quizAndAnswerVO.setQuiz_id(quizVO_1.getQuiz_id());
+			quizAndAnswerVO.setQuiz_question(quizVO_1.getQuiz_question());
+			quizAndAnswerVO.setQuiz_right(quizVO_1.getQuiz_right());
+			
 			model.addAttribute("quizName", "주관식 퀴즈");
+			model.addAttribute("quizAndAnswerVO", quizAndAnswerVO);
+			model.addAttribute("quiz_right", quizVO.getQuiz_right());
+			
+			return "/admin/quizMG/quizEssay/quizEssayDetail.tiles";
 		}
+		QuizAndAnswerVO quizAndAnswerVO = service.readQuiz(quizVO);
 		
 		model.addAttribute("quizAndAnswerVO", quizAndAnswerVO);
 		model.addAttribute("quiz_right", quizVO.getQuiz_right());
@@ -214,7 +278,7 @@ public class QuizController {
 	
 	/**
 	* Method : updateOX
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quizVO
@@ -234,7 +298,7 @@ public class QuizController {
 	
 	/**
 	* Method : updateOX
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quizAndAnswerVO
@@ -269,7 +333,7 @@ public class QuizController {
 	
 	/**
 	* Method : updateQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quizVO
@@ -300,7 +364,7 @@ public class QuizController {
 	
 	/**
 	* Method : updateMultipleQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quizVO
@@ -323,7 +387,7 @@ public class QuizController {
 	
 	/**
 	* Method : updateMultipleQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quizVO
@@ -351,7 +415,7 @@ public class QuizController {
 	
 	/**
 	* Method : deleteQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quiz_id
@@ -385,7 +449,7 @@ public class QuizController {
 	
 	/**
 	* Method : quizShort
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : 사용자면 각 퀴즈 문제화면으로 이동, 관리자면 각 퀴즈 관리게시판화면으로 이동
@@ -412,7 +476,7 @@ public class QuizController {
 	
 	/**
 	* Method : insertShort
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quiz_right
@@ -430,7 +494,7 @@ public class QuizController {
 	
 	/**
 	* Method : insertMultiple
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quiz_right
@@ -447,7 +511,7 @@ public class QuizController {
 	
 	/**
 	* Method : insertMultiple
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param quiz_right
@@ -480,7 +544,7 @@ public class QuizController {
 	
 	/**
 	* Method : quizMultiple
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : 사용자면 객관식퀴즈 문제화면으로 이동, 관리자면 객관식퀴즈 관리게시판화면으로 이동
@@ -491,10 +555,9 @@ public class QuizController {
 		return "/quiz/quizMultiple.tiles";
 	}
 	
-	//주관식 퀴즈
 	/**
 	* Method : quizEssay
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 :사용자면 주관식퀴즈 문제화면으로 이동, 관리자면 주관식퀴즈 관리게시판화면으로 이동
@@ -503,5 +566,162 @@ public class QuizController {
 	public String quizEssay() {
 		
 		return "/quiz/quizEssay.tiles";
+	}
+	
+	/**
+	* Method : insertEssay
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param model
+	* @param quiz_right
+	* @return
+	* Method 설명 : 관리자가 주관식 화면 등록으로 이동하는 메서드
+	*/
+	@RequestMapping(path = "/insertEssay", method = RequestMethod.GET)
+	public String insertEssay(Model model, String quiz_right) {
+		
+		model.addAttribute("quiz_right", quiz_right);
+		
+		return "/admin/quizMG/quizEssay/quizEssayInsert.tiles";
+	}
+	
+	/**
+	* Method : insertEssay
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param model
+	* @param quizVO
+	* @param quizAnswerVO
+	* @param session
+	* @return
+	* Method 설명 : 주관식 문제 추가후 리스트화면으로 전환되는 메서드
+	*/
+	@RequestMapping(path = "/insertEssay", method = RequestMethod.POST)
+	public String insertEssay(Model model, QuizVO quizVO, QuizAnswerVO quizAnswerVO, HttpSession session) {
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		
+		quizVO.setUser_id_fk(userVO.getUser_id());
+		
+		String answer = quizAnswerVO.getQuiz_answer();
+		answer = answer.trim();
+		String[] answerArr = answer.split(" ");
+		for(String answer_1 : answerArr) {
+			logger.debug("answer_1 : {}", answer_1);
+		}
+		
+		quizAnswerVO.setQuiz_answer(answer);
+		
+		logger.debug("quizVO : {}", quizVO);
+		logger.debug("quizAnswerVO : {}", quizAnswerVO);
+		
+		int result = service.insertEssay(quizVO, quizAnswerVO, answerArr);
+		logger.debug("주관식 등록 갯수 : {}", result);
+		
+		model.addAttribute("quiz_right", quizVO.getQuiz_right());
+		return "/admin/quizMG/quizList.tiles";
+	}
+	
+	/**
+	* Method : updateEssay
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param model
+	* @param quizVO
+	* @return
+	* Method 설명 : 관리자 주관식 수정 화면으로 이동
+	*/
+	@RequestMapping(path = "/updateEssay", method =RequestMethod.GET)
+	public String updateEssay(Model model, QuizVO quizVO) {
+		
+		Map<String, Object> map = service.quizAnswer(quizVO);
+		
+		QuizVO quizVO_1 = (QuizVO) map.get("quizVO");
+		List<QuizAnswerVO> quizAnswerList = (List<QuizAnswerVO>) map.get("quizAnswerList");
+		
+		logger.debug("quizVO_1 : {}", quizVO_1);
+		logger.debug("quizAnswerList : {}", quizAnswerList);
+		
+		String answer = "";
+		for(int i=0; i<quizAnswerList.size(); i++) {
+			if(		quizAnswerList.get(i).getQuiz_answer().equals("where")	||
+					quizAnswerList.get(i).getQuiz_answer().equals("WHERE"))
+				quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+			
+			if(		quizAnswerList.get(i).getQuiz_answer().equals("from") 	||
+					quizAnswerList.get(i).getQuiz_answer().equals("FROM"))
+				quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+			
+			if(quizAnswerList.get(i).getQuiz_answer().equals("=")) {
+				quizAnswerList.get(i).setQuiz_answer(" "+quizAnswerList.get(i).getQuiz_answer());
+			}
+			
+			if(		!quizAnswerList.get(i).getQuiz_answer().equals("select\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("SELECT\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("\nfrom\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("\nFROM\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("where\t")  ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("WHERE\t")  ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("  =")  ) 
+				quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+				
+			
+			
+			answer += quizAnswerList.get(i).getQuiz_answer();
+			logger.debug("answer 값 : {}", answer);
+		}
+		
+		QuizAndAnswerVO quizAndAnswerVO = new QuizAndAnswerVO();
+		
+		logger.debug("quizVO_1 : {}", quizVO_1);
+		logger.debug("answer 합치기 : {}", answer);
+		
+		quizAndAnswerVO.setQuiz_answer(answer);
+		quizAndAnswerVO.setQuiz_explain(quizAnswerList.get(0).getQuiz_explain());
+		quizAndAnswerVO.setQuiz_id(quizVO_1.getQuiz_id());
+		quizAndAnswerVO.setQuiz_question(quizVO_1.getQuiz_question());
+		quizAndAnswerVO.setQuiz_right(quizVO_1.getQuiz_right());
+		
+		model.addAttribute("quizName", "주관식 퀴즈");
+		model.addAttribute("quizAndAnswerVO", quizAndAnswerVO);
+		model.addAttribute("quiz_right", quizVO.getQuiz_right());
+		
+		
+		return "/admin/quizMG/quizEssay/quizEssayUpdate.tiles";
+	}
+	
+	/**
+	* Method : updateEssay
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param model
+	* @return
+	* Method 설명 : 관리자가 수정버튼 클릭 시 DB에 update되는 메서드
+	*/
+	@RequestMapping(path = "/updateEssay", method = RequestMethod.POST)
+	public String updateEssay(Model model, QuizVO quizVO, QuizAnswerVO quizAnswerVO, HttpSession session) {
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		
+		int deleteResult = service.deleteQuiz(quizVO.getQuiz_id());
+		logger.debug("주관식 삭제 성공 : {}", deleteResult);
+		
+		quizVO.setUser_id_fk(userVO.getUser_id());
+		
+		String answer = quizAnswerVO.getQuiz_answer();
+		answer = answer.trim();
+		String[] answerArr = answer.split(" ");
+		for(String answer_1 : answerArr) {
+			logger.debug("answer_1 : {}", answer_1);
+		}
+		
+		quizAnswerVO.setQuiz_answer(answer);
+		
+		logger.debug("quizVO : {}", quizVO);
+		logger.debug("quizAnswerVO : {}", quizAnswerVO);
+		
+		int result = service.insertEssay(quizVO, quizAnswerVO, answerArr);
+		logger.debug("주관식 등록 갯수 : {}", result);
+		
+		model.addAttribute("quiz_right", quizVO.getQuiz_right());
+		return "/admin/quizMG/quizList.tiles";
 	}
 }

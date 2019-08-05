@@ -39,7 +39,7 @@ public class TeamCalendarController {
 
 	/**
 	* Method : calendar
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : 캘린더 첫 접속 시 메서드
@@ -68,7 +68,7 @@ public class TeamCalendarController {
 	
 	/**
 	* Method : readCal
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @return
@@ -91,7 +91,7 @@ public class TeamCalendarController {
 	
 	/**
 	* Method : insertCal
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param model
 	* @param map
@@ -196,7 +196,7 @@ public class TeamCalendarController {
 	
 	/**
 	* Method : updateDropCal
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : 기간만 수정하는 메서드

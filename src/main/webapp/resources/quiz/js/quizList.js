@@ -48,6 +48,7 @@ $(function(){
 		
 		// 퀴즈 DB 수정
 		$("#updateBtnDB").on("click", function(){
+			console.log($("#disabledInput").val());
 			$("#updateDB").submit();
 		})
 		

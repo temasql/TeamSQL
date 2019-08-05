@@ -1,6 +1,5 @@
 package kr.or.ddit.calendar.team_calendar.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;

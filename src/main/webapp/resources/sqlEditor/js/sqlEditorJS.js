@@ -16,6 +16,44 @@ $(document).ready(function() {
 		saveToFile_Chrome(fileName, editor.getValue());
 	});
 	
+	// 트리거 조회 모달창 띄우기
+	$("#readTriggerSpan").on("click", function() {
+		$("#selectCode").prop("selected", "selected");
+		$("#readTriggerDiv").empty();
+		var triggerName = $("#triggerName").val().trim();
+		var accountId = $("#triggerId").val().trim();
+		
+		$.ajax({
+			url : "/sqlEditor/readTrigger",
+			method : "post",
+			data : "accountId=" + accountId + "&triggerName=" + triggerName,
+			success :  function(data) {
+				var temp = "<br><br><h4>" + data + "</h4>";
+				$("#readTriggerDiv").append(temp);
+			}
+		});
+		$("#readTriggerModal").css("display", "block");
+	});
+	
+	// 트리거 삭제 버튼 클릭 이벤트
+	$("#deleteTriggerSpan").on("click", function() {
+		var triggerName = $("#triggerName").val().trim();
+		var accountId = $("#triggerId").val().trim();
+		$.ajax({
+			url : "/sqlEditor/deleteTrigger",
+			method : "post",
+			data : "accountId=" + accountId + "&triggerName=" + triggerName,
+			success :  function(data) {
+				if(data == 0) {
+					alert("트리거 삭제에 성공하였습니다.");
+					location.replace("/sqlEditor/sqlEditorMain");
+				}else {
+					alert("트리거 삭제에 실패하였습니다.");
+				}
+			}
+		});
+	});
+	
 	// 트리거 패키지 모달창 띄우기
 	$("#createTriggerSpan").on("click", function() {
 		var account_id = $("#schema_id").val(); // 계정명(원본)
@@ -35,7 +73,7 @@ $(document).ready(function() {
 				$("#tableSelect").html(temp);
 			}
 		});
-		
+		$("#triggerName").val("");
 		$("#triggerPackageModal").css("display", "block");
 	});
 	
@@ -54,13 +92,7 @@ $(document).ready(function() {
 	
 	// 새로고침 버튼 이벤트
 	$("#refresh").on("click", function() {
-//		$.ajax({
-//			url : "/sqlEditor/refresh",
-//			method : "get",
-//			success : function(data) {
-//				console.log(data);
-//			}
-//		});
+		location.replace("/sqlEditor/sqlEditorMain");
 	});
 	
 	// 결과하면 클리어
@@ -90,6 +122,9 @@ $(document).ready(function() {
 	
 	// DB계정 생성 모달창 띄우기
 	$("#accountImg").on("click", function() {
+		$("#accountName").val("");
+		$("#accountPw").val("");
+		$("#chatRoomName").val("");
 		$("#accountModal").css("display", "block");
 	});
 	
@@ -141,7 +176,7 @@ $(document).ready(function() {
 		var y = screen.AvailHeight-h; //팝업창의 세로위치 (상단에 띄우려면 0)
 		window.open("/cal?account_id="+temp, "_blank","scrollbar=no, resizeable=no, " +
 							"top="+y+",left="+x+",width=912,height=984");
-	})
+	});
 	
 	// 모달창 닫기
 	$(".close").on("click", function() {
@@ -151,6 +186,7 @@ $(document).ready(function() {
 		$("#accountPwUpdateModal").css("display", "none");
 		$("#worksheetLoadModal").css("display", "none");
 		$("#triggerPackageModal").css("display", "none");
+		$("#readTriggerModal").css("display", "none");
 	});
 	
 	// DB계정 생성
@@ -265,10 +301,11 @@ $(document).ready(function() {
 			// 구현 내용 작성
 			var dragText = editor.getSelectedText();
 			console.log(dragText);
-			
-			if(dragText.indexOf(";") == dragText.lastIndexOf(";")) {
+			if(dragText.indexOf("CREATE") != -1 && dragText.indexOf("TRIGGER") != -1) {
 				sqlRun(dragText);
-			} else {
+			}else if(dragText.indexOf(";") == dragText.lastIndexOf(";")) {
+				sqlRun(dragText);
+			}else {
 				var dragTextArr = dragText.split(";");
 				console.log(dragTextArr);
 				for (var i = 0; i < dragTextArr.length; i++) {

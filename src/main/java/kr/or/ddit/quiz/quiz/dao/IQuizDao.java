@@ -21,6 +21,8 @@ public interface IQuizDao {
 	
 	List<QuizVO> quizList(String quiz_right, PageVo pageVO);
 	
+	List<QuizAnswerVO> quizAnswerList(QuizVO quizVO);
+	
 	int quizListCnt(String quiz_right);
 	
 	List<QuizVO> map(Map<String, Object> map);
@@ -28,6 +30,8 @@ public interface IQuizDao {
 	int deleteQuiz(int quiz_id);
 	
 	QuizAndAnswerVO readQuiz(QuizVO quizVO);
+	
+	QuizVO readEssay(QuizVO quizVO);
 	
 	int updateQuiz(QuizAndAnswerVO quizAndAnswerVO);
 	

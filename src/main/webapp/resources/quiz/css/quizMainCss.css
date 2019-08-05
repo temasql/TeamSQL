@@ -35,13 +35,17 @@
 	margin-top: 50px;
 	font-size: 20px;
 }
+#explain{
+	display: flex;
+}
 #answer{
 	display: inline-block;	
+	width : 100%;
 }
 #disabledInput{
 	height: 300px;
     font-size: 20px;
-    overflow: hidden;
+/*     overflow: hidden; */
 }
 #insertBtn,#updateOXBtn,#updateOXBtnDB{
     margin-left: 91%;

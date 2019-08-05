@@ -26,7 +26,7 @@ public class QuizService implements IQuizService{
 
 	/**
 	* Method : insert_question
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizVO
 	* @param quizAnswerVO
@@ -38,6 +38,32 @@ public class QuizService implements IQuizService{
 		int questionResult = quizDao.insert_question(quizVO);
 		
 		int answerResult = quizDao.insert_answer(quizAnswerVO);
+		
+		return questionResult+answerResult;
+	}
+	
+
+	/**
+	* Method : insertEssay
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quizVO
+	* @param quizAnswerVO
+	* @return
+	* Method 설명 : 관리자가 주관식 퀴즈를 등록하는 메서드
+	*/
+	@Override
+	public int insertEssay(QuizVO quizVO, QuizAnswerVO quizAnswerVO, String[] answerArr) {
+		int questionResult = quizDao.insert_question(quizVO);
+		
+		int answerResult = 0; 
+			for(int i=0; i<answerArr.length; i++) {
+				if(!answerArr[i].equals("")) {
+					quizAnswerVO.setQuiz_answer(answerArr[i]);
+					
+					answerResult += quizDao.insert_answer(quizAnswerVO);
+				}
+			}
 		
 		return questionResult+answerResult;
 	}
@@ -61,7 +87,7 @@ public class QuizService implements IQuizService{
 	
 	/**
 	* Method : quizListCnt
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quiz_right
 	* @return
@@ -74,7 +100,7 @@ public class QuizService implements IQuizService{
 	
 	/**
 	* Method : deleteQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param id
 	* @return
@@ -87,7 +113,7 @@ public class QuizService implements IQuizService{
 
 	/**
 	* Method : readQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quiz_id
 	* @return
@@ -100,7 +126,7 @@ public class QuizService implements IQuizService{
 
 	/**
 	* Method : updateQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizAndAnswerVO
 	* @return
@@ -116,7 +142,7 @@ public class QuizService implements IQuizService{
 	
 	/**
 	* Method : updateMultipleQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizAndAnswerVO
 	* @return
@@ -141,7 +167,7 @@ public class QuizService implements IQuizService{
 
 	/**
 	* Method : insertMultipleQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizVO
 	* @param quizAnswerVO
@@ -167,7 +193,7 @@ public class QuizService implements IQuizService{
 
 	/**
 	* Method : multipleQuizList
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizVO
 	* @return
@@ -183,6 +209,28 @@ public class QuizService implements IQuizService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("quizAndAnswerVO", quizAndAnswerVO);
 		map.put("exampleList", exampleList);
+		
+		return map;
+	}
+
+
+	/**
+	* Method : quizAnswer
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quizVO
+	* @return
+	* Method 설명 : 주관식 문제, 답, 해설을 조회하는 메서드
+	*/
+	@Override
+	public Map<String, Object> quizAnswer(QuizVO quizVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		QuizVO quizVO_1 = quizDao.readEssay(quizVO);
+		List<QuizAnswerVO> quizAnswerList = quizDao.quizAnswerList(quizVO);
+		
+		map.put("quizVO", quizVO_1);
+		map.put("quizAnswerList", quizAnswerList);
 		
 		return map;
 	}

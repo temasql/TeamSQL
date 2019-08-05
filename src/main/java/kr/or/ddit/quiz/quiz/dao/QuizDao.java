@@ -26,7 +26,7 @@ public class QuizDao implements IQuizDao{
 
 	/**
 	* Method : insert
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizVo
 	* @return
@@ -44,7 +44,7 @@ public class QuizDao implements IQuizDao{
 	
 	/**
 	* Method : insert_answer
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizAnswerVO
 	* @return
@@ -62,7 +62,7 @@ public class QuizDao implements IQuizDao{
 	
 	/**
 	* Method : list
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : 선택한 퀴즈의 리스트를 반환하는 메서드
@@ -79,7 +79,7 @@ public class QuizDao implements IQuizDao{
 	
 	/**
 	* Method : quizListCnt
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quiz_right
 	* @return
@@ -98,7 +98,7 @@ public class QuizDao implements IQuizDao{
 	
 	/**
 	* Method : deleteQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param id
 	* @return
@@ -111,7 +111,7 @@ public class QuizDao implements IQuizDao{
 
 	/**
 	* Method : readQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quiz_id
 	* @return
@@ -121,10 +121,23 @@ public class QuizDao implements IQuizDao{
 	public QuizAndAnswerVO readQuiz(QuizVO quizVO) {
 		return sqlSession.selectOne("quiz.readQuiz", quizVO);
 	}
+	
+	/**
+	* Method : readEssay
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quizVO
+	* @return
+	* Method 설명 : 주관식 문제를 조회하는 메서드
+	*/
+	@Override
+	public QuizVO readEssay(QuizVO quizVO) {
+		return sqlSession.selectOne("quiz.quizEssay", quizVO);
+	}
 
 	/**
 	* Method : updateQuiz
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizAndAnswerVO
 	* @return
@@ -137,7 +150,7 @@ public class QuizDao implements IQuizDao{
 
 	/**
 	* Method : updateQuizAnswer
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizAndAnswerVO
 	* @return
@@ -150,7 +163,7 @@ public class QuizDao implements IQuizDao{
 
 	/**
 	* Method : updateQuizExample
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizExampleVO
 	* @return
@@ -163,7 +176,7 @@ public class QuizDao implements IQuizDao{
 	
 	/**
 	* Method : insertMultipleQuizExample
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizExampleVO
 	* @return
@@ -176,7 +189,7 @@ public class QuizDao implements IQuizDao{
 
 	/**
 	* Method : multipleQuizList
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param quizVO
 	* @return
@@ -187,4 +200,16 @@ public class QuizDao implements IQuizDao{
 		return sqlSession.selectList("quiz.multipleQuizList", quizAndAnswerVO);
 	}
 
+	/**
+	* Method : quizAnswerList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quizVO
+	* @return
+	* Method 설명 : 주관식 답변을 조회할 때의 메서드
+	*/
+	@Override
+	public List<QuizAnswerVO> quizAnswerList(QuizVO quizVO) {
+		return sqlSession.selectList("quiz.quizAnswerList", quizVO);
+	}
 }

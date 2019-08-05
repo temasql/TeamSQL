@@ -98,7 +98,11 @@
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${triggerList}" var="triggerVO">
 				                        		<c:if test="${triggerVO.owner == ac_id}">
-						                            <li><a href="#none">${triggerVO.trigger_name}</a></li>
+						                            <li>
+						                            	<a class="triggers" href="#none">${triggerVO.trigger_name}
+						                            		<input type="hidden" id="bum_id" value="${accountId}"/>
+						                            	</a>
+						                            </li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>

@@ -32,11 +32,20 @@ import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
 import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
+
+import kr.or.ddit.sqlEditorTrigger.model.MyTriggerVO;
+
+import kr.or.ddit.sqlEditorTrigger.model.MyTriggerCodeVO;
+import kr.or.ddit.sqlEditorTrigger.model.MyTriggerVO;
+import kr.or.ddit.sqlEditorTrigger.model.TriggerDetailVO;
+
+import kr.or.ddit.sqlEditorTrigger.service.ISqlEditorTriggerService;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.util.DBUtilForWorksheet;
 import kr.or.ddit.util.DataTypeUtil;
 import kr.or.ddit.util.FindAccountPwByMail;
+import kr.or.ddit.util.TriggerUtil;
 
 @RequestMapping("/sqlEditor")
 @Controller
@@ -60,6 +69,9 @@ public class SqlEditorController {
 	
 	@Resource(name = "sqlEditorTableService")
 	private ISqlEditorTableService sqlEditorTableService;
+	
+	@Resource(name = "sqlEditorTriggerService")
+	private ISqlEditorTriggerService sqlEditorTriggerService;
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
@@ -331,6 +343,7 @@ public class SqlEditorController {
 		return "jsonView";
 	}
 	
+
 	@RequestMapping("/updateTable")
 	public String updateTable(String TableName, String account_id, String select, Model model, HttpSession session) {
 		AccountVO accountVO = accountService.getAccountOne(account_id);
@@ -343,9 +356,53 @@ public class SqlEditorController {
 		return "sqlEditor/ajaxHtml/updateTableAjaxHtml";
 	}
 	
-	@RequestMapping("hh")
-	public String a() {
-		return "aa";
+	@RequestMapping(path = "/createTriggerReady", method = RequestMethod.POST)
+	@ResponseBody
+	public String createTriggerReady(MyTriggerVO triggerVO, HttpSession session) {
+		logger.debug("triggerVO : {}", triggerVO);
+		String query = new TriggerUtil().getCreateTriggerSql(triggerVO);
+		logger.debug("query : {}", query);
+		return query;
+	}
+	
+
+	@RequestMapping(path = "/readTrigger", method = RequestMethod.POST)
+	@ResponseBody
+	public String readTrigger(String triggerName, String accountId, HttpSession session) {
+		AccountVO accountVO = accountService.getAccountOne(accountId);
+		Connection conn = DBUtilForWorksheet.getConnection(accountId, accountVO.getAccount_pw(), session);
+		
+		logger.debug("triggerName : {}", triggerName);
+		logger.debug("accountId : {}", accountId.toUpperCase());
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("accountId", accountId.toUpperCase());
+		map.put("triggerName", triggerName.toUpperCase());
+		List<MyTriggerCodeVO> list = sqlEditorTriggerService.getTriggerCode(map, conn);
+		logger.debug("list : {}", list);
+		if(list.size() > 1) {
+			return "";
+		}else {
+			return "CREATE OR REPLACE TRIGGER " + list.get(0).getDescription() + list.get(0).getTrigger_body();
+		}
+	}
+	
+	@RequestMapping(path = "/triggerDetail", method = RequestMethod.POST)
+	@ResponseBody
+	public TriggerDetailVO triggerDetail(String triggerName) {
+		List<TriggerDetailVO> list = sqlEditorTriggerService.triggerDetail(triggerName);
+		if(list.size() > 1)
+			return null;
+		else
+			return list.get(0);
+	}
+	
+	@RequestMapping(path = "/deleteTrigger", method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteTrigger(String triggerName, String accountId) {
+		String trigger_name = accountId + "." + triggerName;
+		int resultCnt = -1;
+		resultCnt = sqlEditorTriggerService.deleteTrigger(trigger_name);
+		return resultCnt;
 	}
 	
 }

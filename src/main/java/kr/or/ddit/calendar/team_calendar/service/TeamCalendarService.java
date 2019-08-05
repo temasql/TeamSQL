@@ -27,7 +27,7 @@ public class TeamCalendarService implements ITeamCalendarService{
 
 	/**
 	* Method : insertCal
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param teamCalendarVO
 	* @return
@@ -40,7 +40,7 @@ public class TeamCalendarService implements ITeamCalendarService{
 	
 	/**
 	* Method : maxSequence
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : insert 후 sequence 최댓값을 반환하는 메서드
@@ -52,7 +52,7 @@ public class TeamCalendarService implements ITeamCalendarService{
 	
 	/**
 	* Method : get
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param id
 	* @return
@@ -65,7 +65,7 @@ public class TeamCalendarService implements ITeamCalendarService{
 	
 	/**
 	* Method : readCal
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @return
 	* Method 설명 : 현재 모든 리스트를 반환 - 수정 예정(해당 DB계정에 대해서만 가져올 예정)
@@ -112,7 +112,7 @@ public class TeamCalendarService implements ITeamCalendarService{
 	
 	/**
 	* Method : updateDropCal
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param teamCalendarVO
 	* @return
@@ -130,7 +130,7 @@ public class TeamCalendarService implements ITeamCalendarService{
 
 	/**
 	* Method : getUserNameList
-	* 작성자 : PC19
+	* 작성자 : 손주형
 	* 변경이력 :
 	* @param crewVO
 	* @return
