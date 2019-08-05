@@ -30,6 +30,7 @@ import kr.or.ddit.dbObject.model.SequenceVO;
 import kr.or.ddit.dbObject.model.TableVO;
 import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
+import kr.or.ddit.sqlEdiotSequence.service.ISqlEditorSequenceService;
 import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
 
@@ -72,6 +73,9 @@ public class SqlEditorController {
 	
 	@Resource(name = "sqlEditorTriggerService")
 	private ISqlEditorTriggerService sqlEditorTriggerService;
+	
+	@Resource(name = "sqlEditorSequenceService")
+	private ISqlEditorSequenceService sqlEditorSequenceService;
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
@@ -403,6 +407,18 @@ public class SqlEditorController {
 		int resultCnt = -1;
 		resultCnt = sqlEditorTriggerService.deleteTrigger(trigger_name);
 		return resultCnt;
+	}
+	
+	// 시퀀스 생성
+	@RequestMapping(path = "/createSequence", method = RequestMethod.POST)
+	@ResponseBody
+	public int createSequence(String query) {
+		
+		int createSequence = -1;
+		createSequence = sqlEditorSequenceService.createSequence(query);
+		
+	
+		return createSequence;
 	}
 	
 }

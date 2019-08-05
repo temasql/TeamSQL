@@ -27,7 +27,7 @@
 		    	<option value="CACHE">캐시</option>
 		        <option value="NOCACHE">캐시없음</option>
 		    </select>
-		    <input type="number" class="form-control" id="inputCache" name="inputCache"  placeholder="캐시값" readOnly/>
+		    <input type="text" class="form-control" id="inputCache" name="inputCache"  placeholder="캐시값" readOnly/>
 		    
 		    <label for="">주기</label>
 		    <select class="form-control" id="seqCycle" name="seqCycle" >
@@ -43,6 +43,7 @@
 		        <option value="">정렬없음</option>
 		    </select>
 		    <input type ="hidden" class="hiddenSequence" name="hiddenSequence" value="CREATE SEQUENCE "/>
+		    <input type = "hidden" class="hiddenSequence" id="hiddenSeqName">
 		    <input type = "hidden" class="hiddenSequence" name="hiddenStart">
 		    <input type = "hidden" class="hiddenSequence" name="hiddenIncrement">
 		    <input type = "hidden" class="hiddenSequence" name="hiddenMin">

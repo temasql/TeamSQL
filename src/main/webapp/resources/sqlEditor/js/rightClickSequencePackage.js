@@ -17,11 +17,16 @@ $(document).ready(function(){
   //Show contextmenu:
   $(".sequencePackage").contextmenu(function(e){
 	// 계정명 가져오기
-	var tempid = $(this).find("#hogil_id").val();
+	var tempid = $(this).find("#hogil_id").val().trim();
 	var tempIdx = tempid.lastIndexOf("_");
  	var schema = tempid.substring(0,tempIdx);
  	
+ 	// 계정명 
  	$("#seqSchema").text(schema);
+ 	
+ 	// 계정 풀네임
+ 	$("#hiddenSeqName").val(tempid);
+ 	
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();
