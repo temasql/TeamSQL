@@ -73,7 +73,6 @@ $(document).ready(function() {
 		var selectVal = $("#readTriggerSelect").val().trim();
 		var triggerName = $("#triggerName").val().trim();
 		var accountId = $("#triggerId").val().trim();
-		
 		if(selectVal == "코드") {
 			$.ajax({
 				url : "/sqlEditor/readTrigger",
@@ -88,7 +87,7 @@ $(document).ready(function() {
 			$.ajax({
 				url : "/sqlEditor/triggerDetail",
 				method : "post",
-				data : "triggerName=" + triggerName,
+				data : "triggerName=" + triggerName + "&accountId=" + accountId,
 				success :  function(data) {
 					var temp = "<br><br><table class='table table-hover'>" +
 									"<tbody>" +

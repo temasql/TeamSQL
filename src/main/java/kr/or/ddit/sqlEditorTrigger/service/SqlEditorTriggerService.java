@@ -44,8 +44,8 @@ public class SqlEditorTriggerService implements ISqlEditorTriggerService {
 	}
 
 	@Override
-	public List<TriggerDetailVO> triggerDetail(String object_name) {
-		return sqlEditorTriggerDao.triggerDetail(object_name);
+	public List<TriggerDetailVO> triggerDetail(Map<String, String> map) {
+		return sqlEditorTriggerDao.triggerDetail(map);
 	}
 
 	@Override

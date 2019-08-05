@@ -1,7 +1,7 @@
 /**
  * 
  */
-package kr.or.ddit.sqlEditorTrigger.dao;
+package kr.or.ddit.sqlEditorFunction.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,12 +20,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.sqlEditorFunction.model.FunctionDetailVO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
-import kr.or.ddit.sqlEditorTrigger.model.MyTriggerCodeVO;
-import kr.or.ddit.sqlEditorTrigger.model.TriggerDetailVO;
 
 
 /**
@@ -45,19 +44,17 @@ import kr.or.ddit.sqlEditorTrigger.model.TriggerDetailVO;
 * </pre>
 */
 @Repository
-public class SqlEditorTriggerDao implements ISqlEditorTriggerDao {
+public class SqlEditorFunctionDao implements ISqlEditorFunctionDao {
 
 
-	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTriggerDao.class);
+	private static final Logger logger = LoggerFactory.getLogger(SqlEditorFunctionDao.class);
 	
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
-	
 
 	@Override
-	public boolean createTrigger(String query, Connection conn) {
+	public boolean createFunction(String query, Connection conn) {
 		Statement stmt = null;
-		
 		boolean result = false;
 		
 		try {
@@ -73,27 +70,21 @@ public class SqlEditorTriggerDao implements ISqlEditorTriggerDao {
 		return result;
 	}
 
-
 	@Override
-	public List<MyTriggerCodeVO> getTriggerCode(Map<String, String> map, Connection conn) {
+	public List<String> getFunctionCode(String functionName, Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<MyTriggerCodeVO> list = new ArrayList<MyTriggerCodeVO>();
+		List<String> list = new ArrayList<String>();
 		
+		String sql = "SELECT TEXT FROM USER_SOURCE WHERE TYPE = 'FUNCTION' AND NAME = ? ORDER BY NAME, LINE";
 		try {
-			
-			String sql = "SELECT DESCRIPTION, TRIGGER_BODY FROM SYS.ALL_TRIGGERS WHERE OWNER = ? AND TRIGGER_NAME = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, map.get("accountId").trim());
-			pstmt.setString(2, map.get("triggerName").trim());
+			pstmt.setString(1, functionName.trim().toUpperCase());
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				MyTriggerCodeVO mVO = new MyTriggerCodeVO();
-				mVO.setDescription(rs.getString("DESCRIPTION"));
-				mVO.setTrigger_body(rs.getString("TRIGGER_BODY"));
-				list.add(mVO);
+				list.add(rs.getString("TEXT"));
 			}
 			
 		} catch (SQLException e) {
@@ -105,18 +96,11 @@ public class SqlEditorTriggerDao implements ISqlEditorTriggerDao {
 		}
 		
 		return list;
-		
 	}
 
 	@Override
-	public List<TriggerDetailVO> triggerDetail(Map<String, String> map) {
-		return sqlSession.selectList("sqlEditorTrigger.triggerDetail", map);
+	public List<FunctionDetailVO> fucntionDetail(Map<String, String> map) {
+		return sqlSession.selectList("sqlEditorFunction.fucntionDetail", map);
 	}
-
-	@Override
-	public int deleteTrigger(String triggerName) {
-		return sqlSession.update("sqlEditorTrigger.deleteTrigger", triggerName);
-	}
-
 
 }
