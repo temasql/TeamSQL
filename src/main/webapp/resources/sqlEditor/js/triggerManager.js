@@ -67,4 +67,97 @@ $(document).ready(function() {
 		
 	});
 	
+	$("#readTriggerSelect").on("change", function() {
+		$("#readTriggerDiv").empty();
+		
+		var selectVal = $("#readTriggerSelect").val().trim();
+		var triggerName = $("#triggerName").val().trim();
+		var accountId = $("#triggerId").val().trim();
+		
+		if(selectVal == "코드") {
+			$.ajax({
+				url : "/sqlEditor/readTrigger",
+				method : "post",
+				data : "accountId=" + accountId + "&triggerName=" + triggerName,
+				success :  function(data) {
+					var temp = "<br><br><h4>" + data + "</h4>";
+					$("#readTriggerDiv").append(temp);
+				}
+			});
+		}else {
+			$.ajax({
+				url : "/sqlEditor/triggerDetail",
+				method : "post",
+				data : "triggerName=" + triggerName,
+				success :  function(data) {
+					var temp = "<br><br><table class='table table-hover'>" +
+									"<tbody>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>OWNER</th>" +
+											"<td>" + data.owner + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>OBJECT_NAME</th>" +
+											"<td>" + data.object_name + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>SUBOBJECT_NAME</th>" +
+											"<td>" + data.subobject_name + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>OBJECT_ID</th>" +
+											"<td>" + data.object_id + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>DATA_OBJECT_ID</th>" +
+											"<td>" + data.data_object_id + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>OBJECT_TYPE</th>" +
+											"<td>" + data.object_type + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>CREATED</th>" +
+											"<td>" + data.created + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>LAST_DDL_TIME</th>" +
+											"<td>" + data.last_ddl_time + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>TIMESTAMP</th>" +
+											"<td>" + data.timestamp + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>STATUS</th>" +
+											"<td>" + data.status + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>TEMPORARY</th>" +
+											"<td>" + data.temporary + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>GENERATED</th>" +
+											"<td>" + data.generated + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>SECONDARY</th>" +
+											"<td>" + data.secondary + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>NAMESPACE</th>" +
+											"<td>" + data.namespace + "</td>" +
+										"</tr>" +
+										"<tr class='table-active'>" +
+											"<th scope='row'>EDITION_NAME</th>" +
+											"<td>" + data.edition_name + "</td>" +
+										"</tr>" +
+									"</tbody>" +
+								"</table>";
+					$("#readTriggerDiv").append(temp);
+				}
+			});
+		}
+	});//$("#readTriggerSelect").on("change", function())
+	
 });

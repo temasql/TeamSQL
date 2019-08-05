@@ -39,6 +39,8 @@
 		<typeAlias type="kr.or.ddit.dbObject.model.SequenceVO" alias="sequenceVo" />
 		<typeAlias type="kr.or.ddit.dbObject.model.FuncProceVO" alias="funcProceVo" />
 		<typeAlias type="kr.or.ddit.invite.model.InviteVO" alias="inviteVo" />
+		<typeAlias type="kr.or.ddit.sqlEditorTrigger.model.MyTriggerCodeVO" alias="myTriggerCodeVO" />
+		<typeAlias type="kr.or.ddit.sqlEditorTrigger.model.TriggerDetailVO" alias="triggerDetailVO" />
 	</typeAliases>
 	
 	<mappers>
@@ -68,5 +70,6 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/user.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/plan.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorTable.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorTrigger.xml" />
 	</mappers>
 </configuration>
