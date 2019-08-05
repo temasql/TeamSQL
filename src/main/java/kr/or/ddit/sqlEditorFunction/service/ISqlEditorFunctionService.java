@@ -14,4 +14,6 @@ public interface ISqlEditorFunctionService {
 	List<String> getFunctionCode(String functionName, Connection conn);
 	
 	List<FunctionDetailVO> fucntionDetail(Map<String, String> map);
+	
+	int deleteFunction(String functionName);
 }
