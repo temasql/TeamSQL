@@ -484,13 +484,13 @@ public class SqlEditorController {
 		return list.get(0);
 	}
 	
-//	@RequestMapping(path = "/deleteFunction", method = RequestMethod.POST)
-//	@ResponseBody
-//	public int deleteFunction(String functionName, String accountId) {
-//		String function_name = accountId.toUpperCase() + "." + functionName.toUpperCase();
-//		int resultCnt = -1;
-//		resultCnt = sqlEditorTriggerService.deleteTrigger(trigger_name);
-//		return resultCnt;
-//	}
+	@RequestMapping(path = "/deleteFunction", method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteFunction(String functionName, String accountId) {
+		String function_name = accountId.toUpperCase() + "." + functionName.toUpperCase();
+		int resultCnt = -1;
+		resultCnt = sqlEditorFunctionService.deleteFunction(function_name);
+		return resultCnt;
+	}
 	
 }

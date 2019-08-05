@@ -23,5 +23,5 @@ public interface ISqlEditorTriggerService {
 	List<TriggerDetailVO> triggerDetail(Map<String, String> map);
 	
 	int deleteTrigger(String triggerName);
-
+	
 }

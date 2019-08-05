@@ -34,4 +34,6 @@ public interface ISqlEditorFunctionDao {
 	
 	List<FunctionDetailVO> fucntionDetail(Map<String, String> map);
 	
+	int deleteFunction(String functionName);
+	
 }

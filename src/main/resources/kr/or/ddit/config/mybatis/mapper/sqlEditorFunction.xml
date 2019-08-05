@@ -11,4 +11,8 @@
 		AND OWNER = #{owner}
 	</select>
 	
+	<update id="deleteFunction" parameterType="String">
+		drop function ${value}
+	</update>
+	
 </mapper>

@@ -103,4 +103,9 @@ public class SqlEditorFunctionDao implements ISqlEditorFunctionDao {
 		return sqlSession.selectList("sqlEditorFunction.fucntionDetail", map);
 	}
 
+	@Override
+	public int deleteFunction(String functionName) {
+		return sqlSession.update("sqlEditorFunction.deleteFunction", functionName);
+	}
+
 }

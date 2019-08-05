@@ -84,10 +84,10 @@ $(document).ready(function() {
 			data : "accountId=" + accountId + "&functionName=" + functionName,
 			success :  function(data) {
 				if(data == 0) {
-					alert("트리거 삭제에 성공하였습니다.");
+					alert("함수 삭제에 성공하였습니다.");
 					location.replace("/sqlEditor/sqlEditorMain");
 				}else {
-					alert("트리거 삭제에 실패하였습니다.");
+					alert("함수 삭제에 실패하였습니다.");
 				}
 			}
 		});

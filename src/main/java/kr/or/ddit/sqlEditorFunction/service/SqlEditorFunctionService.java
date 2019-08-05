@@ -31,5 +31,10 @@ public class SqlEditorFunctionService implements ISqlEditorFunctionService {
 	public List<FunctionDetailVO> fucntionDetail(Map<String, String> map) {
 		return sqlEditorFunctionDao.fucntionDetail(map);
 	}
+
+	@Override
+	public int deleteFunction(String functionName) {
+		return sqlEditorFunctionDao.deleteFunction(functionName);
+	}
 	
 }
