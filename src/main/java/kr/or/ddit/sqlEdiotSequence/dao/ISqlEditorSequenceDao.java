@@ -3,8 +3,7 @@
  */
 package kr.or.ddit.sqlEdiotSequence.dao;
 
-import java.sql.Connection;
-import java.util.List;
+import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
 
 /**
 * ISqlEditorTable.java
@@ -40,11 +39,10 @@ public interface ISqlEditorSequenceDao {
 	* Method : selectSequence
 	* 작성자 : 강호길
 	* 변경이력 :
-	* @param query
-	* @param conn
+	* @param seqVO
 	* @return
-	* Method 설명 : 우클릭 이벤트 시퀀스 조회
+	* Method 설명 : 시퀀스 조회
 	 */
-	List<List<String>> selectSequence(String query, Connection conn);
+	SelectSeqVO selectSequence(SelectSeqVO seqVO);
 	
 }

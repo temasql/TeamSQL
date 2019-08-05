@@ -15,6 +15,9 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.dbObject.model.SequenceVO;
+import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
+
 /**
  * 
 * SqlEditorSequenceDao.java
@@ -40,7 +43,7 @@ public class SqlEditorSequenceDao implements ISqlEditorSequenceDao {
 	private SqlSessionTemplate sqlSession;
 	/**
 	* Method : createTable
-	* 작성자 : 이중석
+	* 작성자 : 강호길
 	* 변경이력 :
 	* @param query
 	* @return
@@ -48,54 +51,23 @@ public class SqlEditorSequenceDao implements ISqlEditorSequenceDao {
 	*/
 	@Override
 	public int createSequence(String query) {
-		return sqlSession.update("sqlEditorTable.createTable", query);
+		return sqlSession.insert("sqlEditorSequence.createSequence", query);
 	}
 	
 	/**
-	* Method : selectTable
-	* 작성자 : 이중석
+	 * 
+	* Method : selectSequence
+	* 작성자 : 강호길
 	* 변경이력 :
-	* @param query
-	* @param conn
+	* @param seqVO
 	* @return
-	* Method 설명 : 테이블 우클릭 후 테이블 조회 
-	*/
+	* Method 설명 : 시퀀스 조회
+	 */
 	@Override
-	public List<List<String>> selectSequence(String query, Connection conn) {
-		
-		Connection cc = conn;
-		Statement stmt = null;
-		ResultSet rs = null;
-		
-		List<List<String>> resultList = new ArrayList<List<String>>();
-		List<String> columnNameList = new ArrayList<String>();
-		try {
-			stmt = cc.createStatement();
-			
-			rs = stmt.executeQuery(query);
-			int columnCount = rs.getMetaData().getColumnCount();
-			for (int i = 1; i <= columnCount; i++) {
-				columnNameList.add(rs.getMetaData().getColumnName(i)); 
-			}
-			resultList.add(columnNameList);
-			
-			while(rs.next()) {
-				List<String> dataList = new ArrayList<String>();
-				for (int i = 0; i < columnNameList.size(); i++) {
-					dataList.add(rs.getString(columnNameList.get(i)));
-				}
-				resultList.add(dataList);
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(rs!=null) try{ rs.close(); }catch(SQLException e){}
-			if(stmt!=null) try{ stmt.close(); }catch(SQLException e){}
-		}
-		return resultList;
+	public SelectSeqVO selectSequence(SelectSeqVO seqVO) {
+		return sqlSession.selectOne("sqlEditorSequence.selectSequence",seqVO);
 	}
+	
 
 
 }

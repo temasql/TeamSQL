@@ -30,10 +30,14 @@ import kr.or.ddit.dbObject.model.SequenceVO;
 import kr.or.ddit.dbObject.model.TableVO;
 import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
+
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
+import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
+import kr.or.ddit.sqlEdiotSequence.service.ISqlEditorSequenceService;
 import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
-
+import kr.or.ddit.sqlEditorFunction.model.FunctionDetailVO;
+import kr.or.ddit.sqlEditorFunction.service.ISqlEditorFunctionService;
 import kr.or.ddit.sqlEditorTrigger.model.MyTriggerVO;
 
 import kr.or.ddit.sqlEditorTrigger.model.MyTriggerCodeVO;
@@ -46,6 +50,7 @@ import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.util.DBUtilForWorksheet;
 import kr.or.ddit.util.DataTypeUtil;
 import kr.or.ddit.util.FindAccountPwByMail;
+import kr.or.ddit.util.FunctionUtil;
 import kr.or.ddit.util.TriggerUtil;
 
 @RequestMapping("/sqlEditor")
@@ -73,6 +78,12 @@ public class SqlEditorController {
 	
 	@Resource(name = "sqlEditorTriggerService")
 	private ISqlEditorTriggerService sqlEditorTriggerService;
+	
+	@Resource(name = "sqlEditorSequenceService")
+	private ISqlEditorSequenceService sqlEditorSequenceService;
+	
+	@Resource(name = "sqlEditorFunctionService")
+	private ISqlEditorFunctionService sqlEditorFunctionService;
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
@@ -418,8 +429,11 @@ public class SqlEditorController {
 	
 	@RequestMapping(path = "/triggerDetail", method = RequestMethod.POST)
 	@ResponseBody
-	public TriggerDetailVO triggerDetail(String triggerName) {
-		List<TriggerDetailVO> list = sqlEditorTriggerService.triggerDetail(triggerName);
+	public TriggerDetailVO triggerDetail(String triggerName, String accountId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("object_name", triggerName.trim().toUpperCase());
+		map.put("owner", accountId.trim().toUpperCase());
+		List<TriggerDetailVO> list = sqlEditorTriggerService.triggerDetail(map);
 		if(list.size() > 1)
 			return null;
 		else
@@ -434,5 +448,80 @@ public class SqlEditorController {
 		resultCnt = sqlEditorTriggerService.deleteTrigger(trigger_name);
 		return resultCnt;
 	}
+	
+	// 시퀀스 생성
+	@RequestMapping(path = "/createSequence", method = RequestMethod.POST)
+	@ResponseBody
+	public int createSequence(String query) {
+		
+		int createSequence = -1;
+		createSequence = sqlEditorSequenceService.createSequence(query);
+		
+	
+		return createSequence;
+	}
+	
+	// 시퀀스 쿼리 조회
+	@RequestMapping(path = "/readSequenceQuery", method = RequestMethod.POST)
+	@ResponseBody
+	public String readSequenceQuery(String sequenceOwner, String sequenceName, HttpSession session) {
+		
+		SelectSeqVO seqVO = new SelectSeqVO(sequenceOwner, sequenceName);
+		
+		return " ";
+		
+	}
+	
+	
+	@RequestMapping(path = "/createFunction", method = RequestMethod.POST)
+	@ResponseBody
+	public String createFunction(String account_id, String function_name, String returnType,
+								String[] param_name, String[] param_mode, String[] param_type, String[] param_default) {
+		
+		String query = new FunctionUtil().getCreateFunctionSql
+								(function_name, returnType, param_name, param_mode, param_type, param_default);
+		
+		return query;
+	}
+	
+	@RequestMapping(path = "/readFunction", method = RequestMethod.POST)
+	@ResponseBody
+	public String readFunction(String functionName, String accountId, HttpSession session) {
+		AccountVO accountVO = accountService.getAccountOne(accountId);
+		Connection conn = DBUtilForWorksheet.getConnection(accountId, accountVO.getAccount_pw(), session);
+		
+		logger.debug("functionName : {}", functionName);
+		logger.debug("accountId : {}", accountId.toUpperCase());
+		List<String> list = sqlEditorFunctionService.getFunctionCode(functionName, conn);
+		logger.debug("list : {}", list);
+		
+		String result = "";
+		if(list != null) {
+			for(String temp : list)
+				result += temp + "\n";
+		}
+		return result;
+	}
+	
+	@RequestMapping(path = "/fucntionDetail", method = RequestMethod.POST)
+	@ResponseBody
+	public FunctionDetailVO fucntionDetail(String functionName, String accountId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("object_name", functionName.trim().toUpperCase());
+		map.put("owner", accountId.trim().toUpperCase());
+		
+		List<FunctionDetailVO> list = sqlEditorFunctionService.fucntionDetail(map);
+		
+		return list.get(0);
+	}
+	
+//	@RequestMapping(path = "/deleteFunction", method = RequestMethod.POST)
+//	@ResponseBody
+//	public int deleteFunction(String functionName, String accountId) {
+//		String function_name = accountId.toUpperCase() + "." + functionName.toUpperCase();
+//		int resultCnt = -1;
+//		resultCnt = sqlEditorTriggerService.deleteTrigger(trigger_name);
+//		return resultCnt;
+//	}
 	
 }

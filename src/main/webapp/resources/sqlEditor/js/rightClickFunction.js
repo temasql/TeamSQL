@@ -15,18 +15,12 @@ but I would appreciate an attribution from my work. I hope you enjoy it.
 
 $(document).ready(function(){
   //Show contextmenu:
-  $(".sequencePackage").contextmenu(function(e){
-	// 계정명 가져오기
-	var tempid = $(this).find("#hogil_id").val().trim();
-	var tempIdx = tempid.lastIndexOf("_");
- 	var schema = tempid.substring(0,tempIdx);
- 	
- 	// 계정명 
- 	$("#seqSchema").text(schema);
- 	
- 	// 계정 풀네임
- 	$("#hiddenSeqName").val(tempid);
- 	
+  $(".functions").contextmenu(function(e){
+	var function_name = $(this).text();
+	var account_id = $(this).find("#bumbum").val();
+	$("#functionName").val(function_name);
+	$("#functionId").val(account_id);
+	
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();
@@ -34,8 +28,8 @@ $(document).ready(function(){
     var posX = e.pageX;
     var posY = e.pageY;
     //Get contextmenu size:
-    var menuWidth = $(".sequencePackageMenu").width();
-    var menuHeight = $(".sequencePackageMenu").height();
+    var menuWidth = $(".functionMenu").width();
+    var menuHeight = $(".functionMenu").height();
     //Security margin:
     var secMargin = 10;
     //Prevent page overflow:
@@ -61,7 +55,7 @@ $(document).ready(function(){
       posTop = posY + secMargin + "px";
     };
     //Display contextmenu:
-    $(".sequencePackageMenu").css({
+    $(".functionMenu").css({
       "left": posLeft,
       "top": posTop
     }).show();
@@ -70,6 +64,6 @@ $(document).ready(function(){
   });
   //Hide contextmenu:
   $(document).click(function(){
-    $(".sequencePackageMenu").hide();
+    $(".functionMenu").hide();
   });
 });

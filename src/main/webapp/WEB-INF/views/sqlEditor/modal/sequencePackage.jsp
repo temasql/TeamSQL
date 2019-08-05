@@ -3,6 +3,8 @@
 <link href="${cp}/resources/sqlEditor/css/rightClickSequence.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClickSequencePackage.css" rel="stylesheet">
 <!-- createSequence modal -->
+
+<!-- 시퀀스 생성 모달 -->
 <div id="craeteSequenceModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content" id="seqModal">
@@ -27,7 +29,7 @@
 		    	<option value="CACHE">캐시</option>
 		        <option value="NOCACHE">캐시없음</option>
 		    </select>
-		    <input type="number" class="form-control" id="inputCache" name="inputCache"  placeholder="캐시값" readOnly/>
+		    <input type="text" class="form-control" id="inputCache" name="inputCache"  placeholder="캐시값" readOnly/>
 		    
 		    <label for="">주기</label>
 		    <select class="form-control" id="seqCycle" name="seqCycle" >
@@ -42,14 +44,6 @@
 		    	<option value="ORDER">정렬</option>
 		        <option value="">정렬없음</option>
 		    </select>
-		    <input type ="hidden" class="hiddenSequence" name="hiddenSequence" value="CREATE SEQUENCE "/>
-		    <input type = "hidden" class="hiddenSequence" name="hiddenStart">
-		    <input type = "hidden" class="hiddenSequence" name="hiddenIncrement">
-		    <input type = "hidden" class="hiddenSequence" name="hiddenMin">
-		    <input type = "hidden" class="hiddenSequence" name="hiddenMax">
-		    <input type = "hidden" class="hiddenSequence" name="hiddenCache">
-		    <input type = "hidden" class="hiddenSequence" name="hiddenCycle">
-		    <input type = "hidden" class="hiddenSequence" name="hiddenOrder">
 		    
 			<br>
 			<button type="button" class="btn btn-secondary" id="createSeqBtn">확인</button>
@@ -58,6 +52,23 @@
 	</form>
   </div>
 </div>
+
+<!-- 시퀀스 조회 모달 -->
+<div id= "selectSequenceModal" class="modal">
+	<!-- Modal content -->
+	<div class="modal-content">
+	  	<span class="close">&times;</span>
+	  	<br><br>
+	  	<input type="hidden" id="sequenceOwner">
+	  	<input type="hidden" id="sequenceName">
+	  	<select id="readSequenceSelect" class="form-control">
+	  		<option id="selectSeqCode">코드</option>
+			<option>세부정보</option>
+	  	</select>
+	  	<div id="readSequenceDiv"></div>
+	</div>
+</div>
+
 
 <script src="${cp}/resources/sqlEditor/js/rightClickSequence.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickSequencePackage.js"></script>
