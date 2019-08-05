@@ -5,6 +5,8 @@ package kr.or.ddit.sqlEdiotSequence.service;
 
 import java.sql.Connection;
 import java.util.List;
+
+import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
 /**
  * 
 * ISqlEditorTableService.java
@@ -34,5 +36,16 @@ public interface ISqlEditorSequenceService {
 	* Method 설명 : 우클릭 이벤트 시퀀스 생성
 	 */
 	int createSequence(String query);
+	
+	/**
+	 * 
+	* Method : selectSequence
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param seqVO
+	* @return
+	* Method 설명 : 시퀀스 조회
+	 */
+	SelectSeqVO selectSequence(SelectSeqVO seqVO);
 	
 }

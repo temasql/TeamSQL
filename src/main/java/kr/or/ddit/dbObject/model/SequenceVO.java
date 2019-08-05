@@ -21,4 +21,12 @@ public class SequenceVO {
 		return "SequenceVO [sequence_owner=" + sequence_owner + ", sequence_name=" + sequence_name + "]";
 	}
 	
+	// 시퀀스 조회
+	public SequenceVO(String sequence_owner, String sequence_name) {
+		super();
+		this.sequence_owner = sequence_owner;
+		this.sequence_name = sequence_name;
+	}
+	
+	
 }

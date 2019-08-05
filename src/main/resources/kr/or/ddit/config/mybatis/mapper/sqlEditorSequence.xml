@@ -4,9 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sqlEditorSequence">
 
-	<!-- insert -->
+	<!-- 시퀀스 생성-->
 	<insert id="createSequence" parameterType="String">
 		${value}
 	</insert>
+	
+	<!-- 시퀀스 조회 -->
+	<select id="selectSequence" parameterType="selectSeqVO" resultType="selectSeqVO">
+	select *
+	from sys.all_sequences
+	where sequence_name = #{sequence_name}
+	and sequence_owner = #{sequence_owner}
+	</select>
+	
+	<select id= "selectSequenceTable" parameterType="detailSeqVo" resultType="detailSeqVo">
+	select *
+	from sys.all_objects
+	where object_type = #{object_type}
+	and object_name =#{object_name}
+	and owner =#{owner}
+	</select>
 	
 </mapper>

@@ -16,6 +16,12 @@ but I would appreciate an attribution from my work. I hope you enjoy it.
 $(document).ready(function(){
   //Show contextmenu:
   $(".sequences").contextmenu(function(e){
+	  
+	  var sequence_name = $(this).text();
+	  var account_id = $(this).find("#hogil_id").val();
+	  $("#sequenceName").val(sequence_name);
+	  $("#sequenceOwner").val(account_id); 
+	  
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();
