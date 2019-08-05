@@ -331,4 +331,21 @@ public class SqlEditorController {
 		return "jsonView";
 	}
 	
+	@RequestMapping("/updateTable")
+	public String updateTable(String TableName, String account_id, String select, Model model, HttpSession session) {
+		AccountVO accountVO = accountService.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		// 데이터 타입 받는 리스트 추가해야함
+		logger.debug("conn ===>{}", conn);
+		Map<String, Object> updateTableMap = sqlEditorTableService.updateTable(select, TableName, conn); 
+		String html = (String) updateTableMap.get("html");
+		model.addAttribute("update", (List<List<String>>)updateTableMap.get("updateTable"));
+		return "sqlEditor/ajaxHtml/updateTableAjaxHtml";
+	}
+	
+	@RequestMapping("hh")
+	public String a() {
+		return "aa";
+	}
+	
 }

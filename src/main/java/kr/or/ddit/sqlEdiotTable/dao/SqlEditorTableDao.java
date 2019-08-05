@@ -14,6 +14,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -35,6 +37,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SqlEditorTableDao implements ISqlEditorTableDao {
 
+	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTableDao.class);
 	
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
@@ -76,6 +79,56 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 			int columnCount = rs.getMetaData().getColumnCount();
 			for (int i = 1; i <= columnCount; i++) {
 				columnNameList.add(rs.getMetaData().getColumnName(i)); 
+				logger.debug("columnNameList ==> {}", rs.getMetaData().getColumnName(i));
+			}
+			resultList.add(columnNameList);
+			
+			while(rs.next()) {
+				List<String> dataList = new ArrayList<String>();
+				for (int i = 0; i < columnNameList.size(); i++) {
+					dataList.add(rs.getString(columnNameList.get(i)));
+					logger.debug("dataList ==> {}", columnNameList.get(i));
+				}
+				resultList.add(dataList);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try{ rs.close(); }catch(SQLException e){}
+			if(stmt!=null) try{ stmt.close(); }catch(SQLException e){}
+		}
+		logger.debug("resultList ==> {}", resultList);
+		return resultList;
+	}
+	
+	/**
+	 * Method : selectTable
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * @param query
+	 * @param conn
+	 * @return
+	 * Method 설명 : 테이블 우클릭 후 테이블 편집 시 열 편집을 위한 기존의 데이터 
+	 */
+	/*
+	@Override
+	public List<String> updateTableColumn(String query, Connection conn) {
+		
+		Connection cc = conn;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		List<List<String>> resultList = new ArrayList<List<String>>();
+		List<String> columnNameList = new ArrayList<String>();
+		try {
+			stmt = cc.createStatement();
+			
+			rs = stmt.executeQuery(query);
+			int columnCount = rs.getMetaData().getColumnCount();
+			for (int i = 1; i <= columnCount; i++) {
+				columnNameList.add(rs.getMetaData().getColumnName(i)); 
 			}
 			resultList.add(columnNameList);
 			
@@ -96,7 +149,7 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 		}
 		return resultList;
 	}
-
+*/
 	@Override
 	public List<String> getColumns(String tableName, Connection conn) {
 		Connection cc = conn;

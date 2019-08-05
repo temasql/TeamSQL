@@ -39,7 +39,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
 	$("#btnUserPwModalOk").on("click", function(){
 		$.ajax({
 			url	 : "/user/findUserPw"

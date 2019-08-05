@@ -78,4 +78,14 @@ public interface ICrewService {
 	* Method 설명 : 계정명을 입력 받아 userid와 username을 리턴
 	*/
 	List<UserAndCrewVO> getCrewList(CrewVO crewVO);
+
+	/**
+	* Method : getAccountCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param user_id
+	* @return
+	* Method 설명 :
+	*/
+	Map<String, Object> getAccountCrew(String user_id);
 }

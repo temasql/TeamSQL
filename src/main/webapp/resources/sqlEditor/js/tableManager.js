@@ -9,6 +9,12 @@ $(document).ready(function() {
 		$("#readTableModal").css("display", "block");
 		readTableAjax()
 	});
+	$("#updateTableSpan").on("click", function() {
+		$("#tempdiv").empty()
+		updateColumnAjax()
+		$("#updateTableTitle").text($("#tableNm").val())
+		$("#updateTableModal").css("display", "block");
+	});
 	
 	$(".tables").on("click", function(){
 		$("#tableNm").val($(this).text())
@@ -21,13 +27,19 @@ $(document).ready(function() {
 		$("#tableReadTbody").empty();
 		readTableAjax()
 	})
+	$(document).on("change", "#updateSelectChoice", function(){
+		$("#tempdiv").empty()
+		updateColumnAjax()
+	})
 	
 	// 모달창 닫기
 	$(".close").on("click", function() {
+		$("#tableReadThead").empty();
+		$("#tableReadTbody").empty();
+		$("#tableSelectChoice").val("column");
 		$("#craeteTableModal").css("display", "none");
-	});
-	$(".close").on("click", function() {
 		$("#readTableModal").css("display", "none");
+		$("#updateTableModal").css("display", "none");
 	});
 	
 	// 테이블 생성
@@ -82,7 +94,7 @@ $(document).ready(function() {
 						
 					}
 					,error: function(data){
-						location.replace("/sqlEditor/sqlEditorMain")
+						location.replace("/sqlEditor/sqlEditorMain");
 					}
 				});
 
@@ -94,14 +106,20 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#appendData").on("click", function(){
+	$(document).on("click", "#appendData", function(){
 		appendDataAjax()
+	})
+	$(document).on("click", "#removeData", function(){
+		$("#" + $("#deleteRowData").val()).remove()
+	})
+	$(document).on("click", "#updateAppendData", function(){
+		updateAppendDataAjax()
+	})
+	$(document).on("click", "#updateRemoveData", function(){
+		$("#" + $("#deleteRowData").val()).remove()
 	})
 	$(document).on("click", ".tableDataTr", function(){
 		$("#deleteRowData").val($(this).attr("id"));
-	})
-	$("#removeData").on("click", function(){
-		$("#" + $("#deleteRowData").val()).remove()
 	})
 	
 	$(document).on("change", "[name=colPKChecked]", function(){
@@ -153,7 +171,6 @@ function readTableAjax(){
 			})
 			$("#tableReadThead").append("</tr>")
 			console.log(dataArray.length)
-			console.log(dataArray[0].length)
 			$.each(dataArray ,function(idx, dataList){
 				$("#tableReadTbody").append("<tr>");
 				$.each(dataList, function(idx2,data){
@@ -162,22 +179,24 @@ function readTableAjax(){
 				$("#tableReadTbody").append("</tr>");
 			})
 		
-//			var rowData = "<tr class='tableDataTr' id='tableDataTr"+ appendCnt++ +"'>";
-//			rowData += "<td><input  name='colPKChecked' class='col' value='false' type='checkbox'></td>"
-//			rowData += "<td><input  name='colName' class='tableManagerText colName col' type='text'/> </td>"
-//			rowData += "<td><select class='tableManagerSelectBox col'>";
-//			
-//			data.dataTypeList.forEach(function (dataType){
-//				rowData += "<option value='" + dataType +"'>" + dataType + "</option>"
-//			})
-//			rowData +="</select></td>";
-//			rowData += "<td><input name='colSize' class='tableManagerText col' type='text'/> </td>"
-//			rowData += "<td><input name='colNullCheck' class='col' value='false' type='checkbox'></td>"
-//			rowData += "<td><input name='colDefaultVal' class='tableManagerText col' type='text'/> </td>"
-//			rowData += "<td><input name='colComment' class='tableManagerText col' type='text'/> </td>"
-//			rowData += "</tr>"
-//			$("#tableDataTbody").append(rowData);
 		}
+	});
+	
+}
+function updateColumnAjax(){
+	var tableName = $("#tableNm").val()
+	var account_id = $("#acco_id").val()
+	var select = $("#updateSelectChoice").val()
+	$.ajax({
+		url    : "/sqlEditor/updateTable"
+//			,data : "TableName=" + tableName + "&account_id=" + account_id + "&select=" + select
+			,success : function(data){
+				console.log(data)
+//				$("#updateView").append(data)
+			}
+	,error : function(error){
+		console.log(error)
+	}
 	});
 	
 }
@@ -204,6 +223,30 @@ function appendDataAjax(){
 			rowData += "</tr>"
 			$("#tableDataTbody").append(rowData);
 		}
+	});
+}
+function updateAppendDataAjax(){
+	$.ajax({
+		url    : "/sqlEditor/appendDataAjax"
+			,success : function(data){
+				console.log(data);
+				
+				var rowData = "<tr class='tableDataTr' id='tableDataTr"+ appendCnt++ +"'>";
+				rowData += "<td><input  name='colPKChecked' class='col' value='false' type='checkbox'></td>"
+					rowData += "<td><input  name='colName' class='tableManagerText colName col' type='text'/> </td>"
+						rowData += "<td><select class='tableManagerSelectBox col'>";
+				
+				data.dataTypeList.forEach(function (dataType){
+					rowData += "<option value='" + dataType +"'>" + dataType + "</option>"
+				})
+				rowData +="</select></td>";
+				rowData += "<td><input name='colSize' class='tableManagerText col' type='text'/> </td>"
+					rowData += "<td><input name='colNullCheck' class='col' value='false' type='checkbox'></td>"
+						rowData += "<td><input name='colDefaultVal' class='tableManagerText col' type='text'/> </td>"
+							rowData += "<td><input name='colComment' class='tableManagerText col' type='text'/> </td>"
+								rowData += "</tr>"
+									$("#tableUpdateTbody").append(rowData);
+			}
 	});
 }
 

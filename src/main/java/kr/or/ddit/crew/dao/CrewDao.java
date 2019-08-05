@@ -122,4 +122,17 @@ public class CrewDao implements ICrewDao{
 	public List<UserAndCrewVO> getCrewList(CrewVO crewVO) {
 		return sqlSession.selectList("crew.getCrewList", crewVO);
 	}
+
+	/**
+	* Method : getAccountCrew
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param account_id_fk
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public CrewVO getAccountCrew(String account_id_fk) {
+		return sqlSession.selectOne("crew.getAccountCrew", account_id_fk);
+	}
 }

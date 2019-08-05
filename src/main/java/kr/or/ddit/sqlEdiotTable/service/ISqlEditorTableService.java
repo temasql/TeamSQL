@@ -5,6 +5,7 @@ package kr.or.ddit.sqlEdiotTable.service;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 /**
 * ISqlEditorTable.java
@@ -56,4 +57,15 @@ public interface ISqlEditorTableService {
 	* Method 설명 : 트리거 생성에서 테이블 선택 시 그 테이블에 대한 컬럼명 리스트로 가져오기 
 	 */
 	List<String> getColumns(String tableName, Connection conn);
+
+	/**
+	* Method : updateTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param select
+	* @param tableName
+	* @return
+	* Method 설명 :
+	*/
+	Map<String, Object> updateTable(String select, String tableName, Connection conn);
 }

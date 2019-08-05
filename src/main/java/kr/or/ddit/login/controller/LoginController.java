@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 import kr.or.ddit.history.model.ChangedVO;
 import kr.or.ddit.history.service.IHistoryService;
@@ -36,6 +38,8 @@ public class LoginController {
 	private IInviteService inviteService;
 	@Resource(name = "historyService")
 	private IHistoryService historyService;
+	@Resource(name = "crewService")
+	private ICrewService crewService;
 	
 	/**
 	* Method : userLoginGet
@@ -95,10 +99,11 @@ public class LoginController {
 			// DB변경이력
 			model.addAttribute("changedMainList", changedMainList);
 			
+			model.addAttribute("crewMap", crewService.getAccountCrew(loginUserVo.getUser_id()));
+			
 			// IT뉴스
 			List<List<CrawlingVO>> itNewsList = new Crawling().getITNews();
 			model.addAttribute("itNewsList", itNewsList);
-			
 			return "main.tiles";
 		}
 		if(loginUserVo.getExit_right().equals("Y")) {
@@ -110,6 +115,12 @@ public class LoginController {
 		
 		return "redirect:/login";
 		
+	}
+	
+	@RequestMapping("/crewList")
+	public String crewList(String account_id_fk, Model model) {
+		model.addAttribute("data", crewService.getAccountCrew(account_id_fk));
+		return "jsonView";
 	}
 	
 }

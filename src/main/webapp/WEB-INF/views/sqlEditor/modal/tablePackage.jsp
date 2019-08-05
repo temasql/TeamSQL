@@ -73,6 +73,27 @@
   </div>
 </div>
 
+<!-- Update Modal -->
+<div id="updateTableModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>   
+    <br><br>                  
+	<form action="${cp}/sqlEditor/updateTable" method="post" id="udpateTableFrm">
+	  <fieldset>
+	    <legend id="updateTableTitle"></legend>
+	    <select id="updateSelectChoice">
+	    	<option value="column">열</option>
+	    	<option value="constraint">제약조건</option>
+	    	<option value="index">인덱스</option>
+	    	<option value="explanation">설명</option>
+	    </select>
+	    <div id="updateView"></div>
+	  </fieldset>
+	</form>
+  </div>
+</div>
+
 <script src="${cp}/resources/sqlEditor/js/rightClickTable.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickTablePackage.js"></script>
 <script src="${cp}/resources/sqlEditor/js/tableManager.js"></script>
