@@ -68,6 +68,7 @@
 			<tbody id="tableReadTbody">
 			</tbody>
 		</table>
+		 <button type="button" id="updateTableBtn" class="btn btn-secondary">수정</button>
 	  </fieldset>
 	</form>
   </div>

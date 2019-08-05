@@ -9,4 +9,26 @@
 		${value}
 	</update>
 	
+	<select id="selectTableColumnData" parameterType="String" resultType="sqlTableVO">
+		SELECT A.COLUMN_NAME, 
+		       A.DATA_TYPE, 
+		       A.DATA_LENGTH, 
+		       A.NULLABLE, 
+		       A.DATA_DEFAULT, 
+		       B.COMMENTS        
+		FROM USER_TAB_COLUMNS A, USER_COL_COMMENTS B 
+		WHERE A. TABLE_NAME = B.TABLE_NAME 
+		AND A.COLUMN_NAME = B.COLUMN_NAME 
+		AND A.TABLE_NAME = #{tableName} 
+		ORDER BY A.COLUMN_ID
+	</select>
+	
+	<select id="selectTablePrimaryKey" parameterType="String" resultType="String">
+		SELECT B.COLUMN_NAME
+		FROM USER_CONSTRAINTS A, USER_CONS_COLUMNS B
+		WHERE A.CONSTRAINT_NAME = B.CONSTRAINT_NAME
+		AND A.TABLE_NAME = #{tableName}
+		AND A.CONSTRAINT_TYPE = 'P'
+	</select>
+	
 </mapper>

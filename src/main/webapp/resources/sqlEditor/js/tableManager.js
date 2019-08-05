@@ -10,7 +10,7 @@ $(document).ready(function() {
 		readTableAjax()
 	});
 	$("#updateTableSpan").on("click", function() {
-		$("#tempdiv").empty()
+		$("#updateView").empty()
 		updateColumnAjax()
 		$("#updateTableTitle").text($("#tableNm").val())
 		$("#updateTableModal").css("display", "block");
@@ -28,7 +28,7 @@ $(document).ready(function() {
 		readTableAjax()
 	})
 	$(document).on("change", "#updateSelectChoice", function(){
-		$("#tempdiv").empty()
+		$("#updateView").empty()
 		updateColumnAjax()
 	})
 	
@@ -36,6 +36,7 @@ $(document).ready(function() {
 	$(".close").on("click", function() {
 		$("#tableReadThead").empty();
 		$("#tableReadTbody").empty();
+		$("#updateView").empty()
 		$("#tableSelectChoice").val("column");
 		$("#craeteTableModal").css("display", "none");
 		$("#readTableModal").css("display", "none");
@@ -98,6 +99,68 @@ $(document).ready(function() {
 					}
 				});
 
+			}else{
+				alert("컬럼의 이름을 입력해 주세요")
+			}
+		}else{
+			alert("테이블 이름을 형식에 맞게 입력해주세요.")
+		}
+	});
+	
+	// 테이블 수정
+	$(document).on("click","#updateTableBtn", function() {
+		var tableName = $("#tableName").val();
+		var tableReg = /^[a-zA-Z][a-zA-Z0-9]{2,5}$/;
+		var columnReg = /^[a-zA-Z][a-zA-Z0-9]{2,19}$/;
+		if(tableReg.test(tableName)){
+			var col = $(".col");
+			$(".col").length
+			var array = [];
+			var count = 0;
+			var colNameCheck = false;
+			var inputName = [
+				"colPKChecked"
+				,"colName"
+				,"colDataType"
+				,"colSize"
+				,"colNullCheck"
+				,"colDefaultVal"
+				,"colComment"
+				];
+			for(var objSize = 0; objSize < col.length/7; objSize++){
+				colNameCheck = false;
+				array[objSize] = []; 
+				console.log("array[objSize] : " + array[objSize])
+				for(var objVal = 0; objVal < 7; objVal++){
+					array[objSize][objVal] = '{' + inputName[objVal] + ' : "' + col.eq(count).val() + '"}'
+					count ++;
+					if(objVal != 0 && 7/objVal == 7){
+						colNameCheck = columnReg.test(col.eq(count - 1).val())
+					}
+				}
+			}
+			if(colNameCheck){
+				console.log(JSON.stringify(array))
+				console.log("arrayParse : " + array)
+				console.log($("#acco_id").val())
+				
+				console.log($("#tableSelect").val())
+				array[0][7] = $("#tableName").val()
+				array[0][8] = $("#acco_id").val()
+				$.ajax({
+					url    : "/sqlEditor/updateTable"
+						,type : "post"
+							,contentType: 'application/json'
+								,data   :  JSON.stringify(array)
+								,dataType: "json"
+									,success : function(data) {
+										
+									}
+				,error: function(data){
+					location.replace("/sqlEditor/sqlEditorMain");
+				}
+				});
+				
 			}else{
 				alert("컬럼의 이름을 입력해 주세요")
 			}
@@ -187,12 +250,13 @@ function updateColumnAjax(){
 	var tableName = $("#tableNm").val()
 	var account_id = $("#acco_id").val()
 	var select = $("#updateSelectChoice").val()
+	console.log(account_id)
 	$.ajax({
 		url    : "/sqlEditor/updateTable"
-//			,data : "TableName=" + tableName + "&account_id=" + account_id + "&select=" + select
+			,data : "TableName=" + tableName + "&account_id=" + account_id + "&select=" + select
 			,success : function(data){
-				console.log(data)
-//				$("#updateView").append(data)
+//				console.log(data)
+				$("#updateView").append(data)
 			}
 	,error : function(error){
 		console.log(error)

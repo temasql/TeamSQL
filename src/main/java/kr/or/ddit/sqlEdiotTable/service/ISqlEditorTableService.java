@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
+
 /**
 * ISqlEditorTable.java
 *
@@ -68,4 +70,6 @@ public interface ISqlEditorTableService {
 	* Method 설명 :
 	*/
 	Map<String, Object> updateTable(String select, String tableName, Connection conn);
+	
+	int updateTable(String[][] query);
 }
