@@ -71,5 +71,6 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/plan.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorTable.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorTrigger.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorSequence.xml" />
 	</mappers>
 </configuration>

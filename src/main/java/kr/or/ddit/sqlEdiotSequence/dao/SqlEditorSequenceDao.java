@@ -40,7 +40,7 @@ public class SqlEditorSequenceDao implements ISqlEditorSequenceDao {
 	private SqlSessionTemplate sqlSession;
 	/**
 	* Method : createTable
-	* 작성자 : 이중석
+	* 작성자 : 강호길
 	* 변경이력 :
 	* @param query
 	* @return
@@ -48,7 +48,7 @@ public class SqlEditorSequenceDao implements ISqlEditorSequenceDao {
 	*/
 	@Override
 	public int createSequence(String query) {
-		return sqlSession.update("sqlEditorTable.createTable", query);
+		return sqlSession.insert("sqlEditorSequence.createSequence", query);
 	}
 	
 	/**
