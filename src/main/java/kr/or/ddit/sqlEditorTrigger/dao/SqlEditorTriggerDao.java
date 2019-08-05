@@ -10,17 +10,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Map;
+
 
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+
+import org.springframework.stereotype.Repository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.sqlEditorTrigger.model.MyTriggerCodeVO;
 import kr.or.ddit.sqlEditorTrigger.model.TriggerDetailVO;
+
 
 /**
 * SqlEditorTable.java
@@ -41,11 +47,13 @@ import kr.or.ddit.sqlEditorTrigger.model.TriggerDetailVO;
 @Repository
 public class SqlEditorTriggerDao implements ISqlEditorTriggerDao {
 
+
 	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTriggerDao.class);
 	
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
 	
+
 	@Override
 	public boolean createTrigger(String query, Connection conn) {
 		Statement stmt = null;
@@ -64,6 +72,7 @@ public class SqlEditorTriggerDao implements ISqlEditorTriggerDao {
 		
 		return result;
 	}
+
 
 	@Override
 	public List<MyTriggerCodeVO> getTriggerCode(Map<String, String> map, Connection conn) {
@@ -109,6 +118,5 @@ public class SqlEditorTriggerDao implements ISqlEditorTriggerDao {
 		return sqlSession.update("sqlEditorTrigger.deleteTrigger", triggerName);
 	}
 
-	
 
 }

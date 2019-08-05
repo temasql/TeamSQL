@@ -66,7 +66,7 @@ $(document).ready(function() {
 		});
 		
 	});
-	
+
 	$("#readTriggerSelect").on("change", function() {
 		$("#readTriggerDiv").empty();
 		

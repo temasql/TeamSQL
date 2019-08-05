@@ -92,4 +92,14 @@ public class QuizControllerTest extends ControllerTestEnv{
 		assertEquals("from", arr[2]);
 		assertEquals("users;", arr[3]);
 	}
+	
+	@Test
+	public void StringTest() {
+		String test1= "=";
+		test1 += "&nbsp;";
+		
+		
+		assertEquals("=&nbsp;", test1);
+		
+	}
 }

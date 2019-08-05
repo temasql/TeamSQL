@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link href="${cp}/resources/sqlEditor/css/rightClickTriggerPackage.css" rel="stylesheet">
+
 <link href="${cp}/resources/sqlEditor/css/rightClickTrigger.css" rel="stylesheet">
+
 
 <!-- 트리거 패키지 우클릭 모달 -->
 <div id="triggerPackageModal" class="modal">
@@ -50,6 +52,9 @@
   </div>
 </div>
 
+
+<script src="${cp}/resources/sqlEditor/js/rightClickTriggerPackage.js"></script>
+
 <!-- 트리거 조회 우클릭 모달 -->
 <div id="readTriggerModal" class="modal">
   <!-- Modal content -->
@@ -74,4 +79,5 @@
 
 <script src="${cp}/resources/sqlEditor/js/rightClickTriggerPackage.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickTrigger.js"></script>
+
 <script src="${cp}/resources/sqlEditor/js/triggerManager.js"></script>

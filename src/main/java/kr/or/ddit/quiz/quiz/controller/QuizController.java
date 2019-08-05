@@ -211,30 +211,39 @@ public class QuizController {
 			
 			logger.debug("quizVO_1 : {}", quizVO_1);
 			logger.debug("quizAnswerList : {}", quizAnswerList);
-			
 			String answer = "";
 			for(int i=0; i<quizAnswerList.size(); i++) {
-				if(		quizAnswerList.get(i).getQuiz_answer().equals("where")	||
-						quizAnswerList.get(i).getQuiz_answer().equals("WHERE"))
-					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+				logger.debug("first ==> [{}]", quizAnswerList.get(i).getQuiz_answer());
 				
-				if(		quizAnswerList.get(i).getQuiz_answer().equals("from") 	||
-						quizAnswerList.get(i).getQuiz_answer().equals("FROM"))
+ 				if(	quizAnswerList.get(i).getQuiz_answer().equals("from") 	||
+					quizAnswerList.get(i).getQuiz_answer().equals("FROM"))
 					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+ 				
+ 				if(	quizAnswerList.get(i).getQuiz_answer().equals("set") 	||
+ 						quizAnswerList.get(i).getQuiz_answer().equals("SET"))
+ 					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+ 				
+ 				if(	quizAnswerList.get(i).getQuiz_answer().equals("where")	||
+ 						quizAnswerList.get(i).getQuiz_answer().equals("WHERE"))
+ 					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
 				
-				if(quizAnswerList.get(i).getQuiz_answer().equals("=")) {
-					quizAnswerList.get(i).setQuiz_answer(" "+quizAnswerList.get(i).getQuiz_answer());
-				}
+				if(	quizAnswerList.get(i).getQuiz_answer().equals("="))
+					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"&nbsp;");
 				
-				if(		!quizAnswerList.get(i).getQuiz_answer().equals("select\t") ||
-						!quizAnswerList.get(i).getQuiz_answer().equals("SELECT\t") ||
-						!quizAnswerList.get(i).getQuiz_answer().equals("\nfrom\t") ||
-						!quizAnswerList.get(i).getQuiz_answer().equals("\nFROM\t") ||
-						!quizAnswerList.get(i).getQuiz_answer().equals("where\t")  ||
-						!quizAnswerList.get(i).getQuiz_answer().equals("WHERE\t")  ||
-						!quizAnswerList.get(i).getQuiz_answer().equals("  =")  ) 
-					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
-					
+				
+ 				if(	!quizAnswerList.get(i).getQuiz_answer().equals("select\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("SELECT\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("\nfrom\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("\nFROM\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("where\t")  ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("WHERE\t")  ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("and\t")    ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("AND\t")	   ||
+					!quizAnswerList.get(i).getQuiz_answer().equals(quizAnswerList.get(i).getQuiz_answer() + "&nbsp;")) { 
+ 						quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+ 				}
+ 				logger.debug("last ==> [{}]", quizAnswerList.get(i).getQuiz_answer());
+				
 				
 				
 				
@@ -680,9 +689,39 @@ public class QuizController {
 		return "/admin/quizMG/quizEssay/quizEssayUpdate.tiles";
 	}
 	
+	/**
+	* Method : updateEssay
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param model
+	* @return
+	* Method 설명 : 관리자가 수정버튼 클릭 시 DB에 update되는 메서드
+	*/
 	@RequestMapping(path = "/updateEssay", method = RequestMethod.POST)
-	public String updateEssay(Model model) {
+	public String updateEssay(Model model, QuizVO quizVO, QuizAnswerVO quizAnswerVO, HttpSession session) {
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
 		
-		return "";
+		int deleteResult = service.deleteQuiz(quizVO.getQuiz_id());
+		logger.debug("주관식 삭제 성공 : {}", deleteResult);
+		
+		quizVO.setUser_id_fk(userVO.getUser_id());
+		
+		String answer = quizAnswerVO.getQuiz_answer();
+		answer = answer.trim();
+		String[] answerArr = answer.split(" ");
+		for(String answer_1 : answerArr) {
+			logger.debug("answer_1 : {}", answer_1);
+		}
+		
+		quizAnswerVO.setQuiz_answer(answer);
+		
+		logger.debug("quizVO : {}", quizVO);
+		logger.debug("quizAnswerVO : {}", quizAnswerVO);
+		
+		int result = service.insertEssay(quizVO, quizAnswerVO, answerArr);
+		logger.debug("주관식 등록 갯수 : {}", result);
+		
+		model.addAttribute("quiz_right", quizVO.getQuiz_right());
+		return "/admin/quizMG/quizList.tiles";
 	}
 }

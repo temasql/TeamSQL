@@ -49,7 +49,7 @@ $(function(){
 		// 퀴즈 DB 수정
 		$("#updateBtnDB").on("click", function(){
 			console.log($("#disabledInput").val());
-//			$("#updateDB").submit();
+			$("#updateDB").submit();
 		})
 		
 		// OX퀴즈삭제 버튼 클릭 시 해당 퀴즈 삭제
