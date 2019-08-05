@@ -11,10 +11,11 @@
 		AND TRIGGER_NAME = #{triggerName}
 	</select>
 	
-	<select id="triggerDetail" parameterType="String" resultType="triggerDetailVO">
+	<select id="triggerDetail" parameterType="map" resultType="triggerDetailVO">
 		SELECT	* 
 		FROM	SYS.ALL_OBJECTS
 		WHERE	OBJECT_NAME = #{object_name}
+		AND     OWNER = #{owner}
 	</select>
 	
 	<update id="deleteTrigger" parameterType="String">

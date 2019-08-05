@@ -109,6 +109,19 @@
 	cursor: pointer;
 }
 
+.deleteBtn{
+	width: 17px;
+	height: 17px;
+}
+
+.deleteBtn:hover, .deleteBtn:focus{
+	cursor: pointer;
+}
+
+#addImg{
+	margin-left: 470px;
+}
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */

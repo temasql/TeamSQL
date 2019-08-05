@@ -6,6 +6,7 @@
 <%@include file="/WEB-INF/views/sqlEditor/modal/sequencePackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/accountPackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/tablePackage.jsp" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/functionPackage.jsp" %>
 
 <link href="${cp}/resources/sqlEditor/css/sqlEditorStyle.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/treeMenu.css" rel="stylesheet">
@@ -82,11 +83,17 @@
 				                        </ul>
 				                    </li>
 				                    <li>
-				                        <a href="#none"><em>폴더</em> 함수</a>
+				                        <a class="functionPackage" href="#none"><em>폴더</em> 함수
+				                        	<input type="hidden" id="bum" value="${accountId}"/>
+				                        </a>
 				                        <ul class="depth_3">
 				                            <c:forEach items="${functionList}" var="functionVO">
 				                        		<c:if test="${functionVO.owner == ac_id}">
-						                            <li><a href="#none">${functionVO.object_name}</a></li>
+						                            <li>
+						                            	<a class="functions" href="#none">${functionVO.object_name}
+							                            	<input type="hidden" id="bumbum" value="${accountId}"/>
+						                            	</a>
+						                            </li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>

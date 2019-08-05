@@ -393,8 +393,11 @@ public class SqlEditorController {
 	
 	@RequestMapping(path = "/triggerDetail", method = RequestMethod.POST)
 	@ResponseBody
-	public TriggerDetailVO triggerDetail(String triggerName) {
-		List<TriggerDetailVO> list = sqlEditorTriggerService.triggerDetail(triggerName);
+	public TriggerDetailVO triggerDetail(String triggerName, String accountId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("object_name", triggerName.trim().toUpperCase());
+		map.put("owner", accountId.trim().toUpperCase());
+		List<TriggerDetailVO> list = sqlEditorTriggerService.triggerDetail(map);
 		if(list.size() > 1)
 			return null;
 		else

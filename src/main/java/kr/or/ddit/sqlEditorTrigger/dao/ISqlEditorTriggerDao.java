@@ -35,7 +35,7 @@ public interface ISqlEditorTriggerDao {
 
 	List<MyTriggerCodeVO> getTriggerCode(Map<String, String> map, Connection conn);
 	
-	List<TriggerDetailVO> triggerDetail(String object_name);
+	List<TriggerDetailVO> triggerDetail(Map<String, String> map);
 	
 	int deleteTrigger(String triggerName);
 
