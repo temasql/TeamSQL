@@ -93,7 +93,6 @@ public class SqlEditorController {
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
-		logger.debug("안녕하세요");
 		
 		List<TableVO> tableList = new ArrayList<TableVO>();
 		List<ViewVO> viewList = new ArrayList<ViewVO>();
@@ -149,7 +148,7 @@ public class SqlEditorController {
 		model.addAttribute("procedureList", procedureList);
 		
 		model.addAttribute("myAccountList", myAccountList);
-
+		model.addAttribute("accountListSize", myAccountList.size());
 		return "/sqlEditor/sqlEditorMain.tiles";
 	}
 	
@@ -574,6 +573,15 @@ public class SqlEditorController {
 		int resultCnt = -1;
 		resultCnt = sqlEditorProcedureService.deleteProcedure(procedure_name);
 		return resultCnt;
+	}
+	
+	@RequestMapping("/resultPopup")
+	public String resultPopup(String dragText, String account_id, Model model) {
+		logger.debug("aasdqwe123123123 : {}", dragText);
+		logger.debug("aasdqwe123123123 : {}", account_id);
+		model.addAttribute("dragText", dragText);
+		model.addAttribute("account_id", account_id);
+		return "sqlEditor/resultPopup";
 	}
 	
 }
