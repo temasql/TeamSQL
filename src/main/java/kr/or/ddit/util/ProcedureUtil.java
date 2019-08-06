@@ -1,5 +1,8 @@
 package kr.or.ddit.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProcedureUtil {
 	
 	public String getCreateProcedureSql(String procedure_name, String[] param_name, String[] param_mode, 
@@ -27,5 +30,4 @@ public class ProcedureUtil {
 		query += "BEGIN \n\tNULL; \nEND " + procedure_name + ";";
 		return query;
 	}
-	
 }

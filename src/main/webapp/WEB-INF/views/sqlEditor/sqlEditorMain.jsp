@@ -35,6 +35,8 @@
 					<img class="imgBtn" id="runPlan" title="실행계획" src="${cp}/resources/img/explain.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="refresh" title="새로고침" src="${cp}/resources/img/refresh.png"></li>
+				<li class="breadcrumb-item">
+					<img class="imgBtn" id="testPopup" title="팝업" src="${cp}/resources/img/refresh.png"></li>
 			</ol>
 		</div>
 		<nav id="dbAccountView">
@@ -157,6 +159,7 @@
 	</div>
 	
 	<section id="worksheet">
+		<div id="hiddenDiv"></div>
 		<div id="sqlEditorView">
 			<pre id="editor"></pre>
 		</div>
@@ -233,6 +236,7 @@
 </ul>
 
 <input type="hidden" id="accou_id"/>
+<input type="hidden" id="accountListSize" value="${accountListSize}"/>
 
 <script src="${cp}/resources/ace-builds-master/ace.js"></script>
 <script src="${cp}/resources/sqlEditor/js/sqlEditorJS.js"></script>

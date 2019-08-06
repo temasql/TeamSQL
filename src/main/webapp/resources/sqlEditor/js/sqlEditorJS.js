@@ -1,5 +1,16 @@
 $(document).ready(function() {
 	
+	$("#hiddenDiv").on("mousedown", function() {
+		var accountListSize = $("#accountListSize").val();
+		if(accountListSize <= 0) {
+			alert("DB계정을 먼저 생성해주세요.");
+		}else {
+			$("#hiddenDiv").css("z-index", 0);
+//			$("#editor").prop("class", "ace_editor ace-twilight ace_dark ace_focus");
+			$("#editor").find("textarea").first().focus();
+		}
+	});
+	
 	//alert 띄우기
 	if($("#msg").val().trim().length > 0) {
 		alert($("#msg").val());
@@ -372,6 +383,19 @@ $(document).ready(function() {
 		
 	});
 	
+	// 쉬프트 + 엔터 이벤트
+	var shiftDown = false;
+	$(document).keydown(function(e) {
+		if(e.keyCode == 16) shiftDown = true;
+		if(e.keyCode == 13 && shiftDown == true) {
+			shiftDown = false;
+			alert("쉬프트 엔터");
+		}
+	}).keyup(function(e) { 
+		if (e.keyCode == 16) shiftDown = false;
+		if (e.keyCode == 13) shiftDown = false;
+	});
+	
 	// 컨트롤 + 엔터 이벤트
 	var ctrlDown = false;
 	$(document).keydown(function(e) { 
@@ -484,6 +508,15 @@ function sqlRun(dragText) {
 	var account_id = accountFront + accountBack.toLowerCase(); // BB_kkk123
 	
 	if(dragText.indexOf("select") != -1 || dragText.indexOf("SELECT") != -1) {
+		
+		if($("#resultTable")[0].childNodes.length > 0) {
+			if(confirm("결과창을 새창에 띄우시겠습니까?")) {
+				window.open("/sqlEditor/resultPopup?dragText=" + dragText + "&account_id=" + account_id, 
+						"_blank","scrollbar=no, resizeable=no, top=100,left=1015,width=600,height=651");
+				return;
+			}
+		}
+		
 		$.ajax({
 			url : "/worksheet/selectRun",
 			dataType : "json",
@@ -491,6 +524,7 @@ function sqlRun(dragText) {
 			async : false,
 			data : "dragText=" + dragText + "&account_id=" + account_id,
 			success : function(data) {
+				
 				console.log(data);
 				console.log(data.resultList);
 				
@@ -545,7 +579,6 @@ function sqlRun(dragText) {
 					$("#scriptViewArea").append(error);
 					$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 				}
-				
 			}
 		});
 	}else if(dragText.indexOf("create") != -1 || dragText.indexOf("CREATE") != -1 || 
