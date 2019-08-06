@@ -10,7 +10,7 @@
 <div id="quizHeader">단답식 문제</div>
 <div id="gruopDiv">
 	<div id="question">문제 : ${quizAndAnswerVO.quiz_question}</div>
-	<div id="answer">답 : <input id="quiz_answer" type="text">
+	<div id="answer">답 : <input id="quiz_answer" type="text" class="form-control">
 		<input id="hiddenAnswer" type="text" value="${quizAndAnswerVO.quiz_answer}">
 	</div>
 	<div id="explain">해설 : ${quizAndAnswerVO.quiz_explain}</div>
