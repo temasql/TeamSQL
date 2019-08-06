@@ -1,8 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="/resources/quiz/css/quizMainCss.css" rel="stylesheet">
+<link href="${cp}/resources/quiz/css/quizMainCss.css" rel="stylesheet">
+<link href="${cp}/resources/quiz/css/userQuizCss.css" rel="stylesheet">
+<script src="${cp}/resources/quiz/js/userQuiz.js"></script>
+
 <div id="quizHeader">OX 퀴즈</div>
 <div id="gruopDiv">
-	<div id="question">문제 : <div style="display:inline-block">DDL(Data Definition Language)는 데이터 베이스 사용자의 권한을 제어한다.</div></div>
-	<div id="answer">답 : <input type="radio" value="O" checked/>O<input type="radio" value="X"/>X</div>
+	<div id="question">문제 : <div style="display:inline-block">${quizAndAnswerVO.quiz_question}</div></div>
+	<div id="answer">답 : <input id="oRadio" type="radio" name="quiz_answer" value="O"/>O<input id="xRadio" type="radio" name="quiz_answer" value="X"/>X</div>
+	<div id="explain">해설 : ${quizAndAnswerVO.quiz_explain}</div>
+	
+	<input id="quiz_id" type="text" value="${quizAndAnswerVO.quiz_id}">
+	<input id="quiz_right" type="text" value="${quizAndAnswerVO.quiz_right}">
+	<input id="hiddenAnswer" type="text" value="${quizAndAnswerVO.quiz_answer}">
+	
+	<div id="BtnDiv">
+		<button id="answerBtn" class="btn btn-secondary">정답 확인</button>
+		<button id="nextBtn" class="btn btn-secondary">다음 문제</button>
+		<button id="explainBtn" class="btn btn-secondary">해설보기</button>
+	</div>
+	
 </div>

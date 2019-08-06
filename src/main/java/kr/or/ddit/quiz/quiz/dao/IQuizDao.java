@@ -42,4 +42,10 @@ public interface IQuizDao {
 	int insertMultipleQuizExample(QuizExampleVO quizExampleVO);
 	
 	List<QuizExampleVO> multipleQuizList(QuizAndAnswerVO quizAndAnswerVO);
+	
+	QuizAndAnswerVO userReadQuiz(String quiz_right);
+	
+	QuizAndAnswerVO userNextQuiz(QuizVO quizVO);
+	
+	List<QuizAndAnswerVO> userReadQuizList(String quiz_right);
 }

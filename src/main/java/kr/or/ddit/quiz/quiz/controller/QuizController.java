@@ -37,8 +37,15 @@ public class QuizController {
 	* Method 설명 : 퀴즈 메인페이지로 이동하는 메서드
 	*/
 	@RequestMapping(path =  "/quizMain", method = RequestMethod.GET)
-	public String quizeMain() {
+	public String quizeMain(HttpSession session) {
 		logger.debug("퀴즈");
+		
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		
+		if(userVO.getUser_right().equals("C")) {
+			return "/quiz/quizUserMain.tiles";
+		}
+		
 		return "/quiz/quizMain.tiles";
 	}
 
@@ -724,4 +731,5 @@ public class QuizController {
 		model.addAttribute("quiz_right", quizVO.getQuiz_right());
 		return "/admin/quizMG/quizList.tiles";
 	}
+	
 }
