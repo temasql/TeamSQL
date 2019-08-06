@@ -53,5 +53,11 @@ $(function(){
 				}
 			})
 		})
+		
+		//해설 보이기
+		$("#explainBtn").on("click", function(){
+			alert("클릭");
+			$("#explain").css("display", "block");
+		})
 	})
 })

@@ -39,5 +39,10 @@ $(function(){
 			})
 		})
 		
+		//해설 보이기
+		$("#explainBtn").on("click", function(){
+			
+			$("#explain").css("display", "block");
+		})
 	})
 })
