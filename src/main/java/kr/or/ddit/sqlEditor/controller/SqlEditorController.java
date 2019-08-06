@@ -332,7 +332,7 @@ public class SqlEditorController {
 			@RequestBody String[][] array) {
 		
 		// json으로 받은 2차원 배열을 매개변수로 전달
-		sqlEditorTableService.createTable(array);
+		sqlEditorTableService.createTable(array, "create");
 		return "jsonView";
 
 	}
@@ -378,14 +378,10 @@ public class SqlEditorController {
 	public String updateTable(String TableName, String account_id, String select, Model model, HttpSession session) {
 		AccountVO accountVO = accountService.getAccountOne(account_id);
 		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
-		// 데이터 타입 받는 리스트 추가해야함
-		Map<String, Object> updateTableMap = sqlEditorTableService.updateTable(select, TableName, conn);
-		List<String> dataTypeList =  (List<String>) updateTableMap.get("dataTypeList");
 		
-		model.addAttribute("dataTypeList", dataTypeList);
-		String html = (String) updateTableMap.get("html");
-		model.addAttribute("columnDataList", (List<SqlEditorTableVO>)updateTableMap.get("columnDataList"));
-		return html;
+		model.addAttribute("dataTypeList", DataTypeUtil.tableDataType());
+		model.addAttribute("columnDataList", sqlEditorTableService.updateTable(TableName, conn));
+		return "sqlEditor/ajaxHtml/updateTableAjaxHtml";
 	}
 	
 	/**
@@ -396,14 +392,13 @@ public class SqlEditorController {
 	* @param model
 	* @param array
 	* @return
-	* Method 설명 : 테이블 편집 요청
+	* Method 설명 : 테이블 편집 응답
 	*/
 	@ResponseBody
 	@RequestMapping(path = "/updateTable", method = RequestMethod.POST)
 	public String updateTable(HttpSession session,  Model model,
 			@RequestBody String[][] array) {
-		logger.debug("updateTable post array==> [{}] ",array);
-		sqlEditorTableService.updateTable(array);
+		sqlEditorTableService.updateTable(array, "update");
 		return "jsonView";
 
 	}

@@ -35,7 +35,7 @@ public interface ISqlEditorTableService {
 	* @return
 	* Method 설명 : 우클릭 이벤트로 테이블을 생성하는 메서드
 	*/
-	int createTable(String[][] query);
+	int createTable(String[][] query, String tableSelect);
 	
 	/**
 	* Method : selectTable
@@ -69,7 +69,7 @@ public interface ISqlEditorTableService {
 	* @return
 	* Method 설명 :
 	*/
-	Map<String, Object> updateTable(String select, String tableName, Connection conn);
+	List<SqlEditorTableVO> updateTable(String tableName, Connection conn);
 	
-	int updateTable(String[][] query);
+	int updateTable(String[][] query, String tableSelect);
 }

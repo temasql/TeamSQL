@@ -89,14 +89,14 @@ public class SqlEditorTableServiceTest extends LogicTestEnv{
 			,"TESTTABLE" // tableName      
 		}};
 		/***When***/
-		Map<String, Object> queryMap = new CreateTableUtil().getQuery(array); 
+//		Map<String, Object> queryMap = new CreateTableUtil().getQuery(array); 
 		
-		String query = (String) queryMap.get("query"); 
-		int createCount = sqlEditorTableService.createTable(array);
-		String drop = "DROP TABLE TESTTABLE";
-		sqlEditorTableDao.createTable(drop);
-		/***Then***/
-		assertEquals(0, createCount);
+//		String query = (String) queryMap.get("query"); 
+//		int createCount = sqlEditorTableService.createTable(array);
+//		String drop = "DROP TABLE TESTTABLE";
+//		sqlEditorTableDao.createTable(drop);
+//		/***Then***/
+//		assertEquals(0, createCount);
 	}
 
 }
