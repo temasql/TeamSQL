@@ -35,8 +35,8 @@ public class CteateTableUtilTest {
 		}};
 		/***When***/
 		/***Then***/
-		logger.debug("\n{}", new CreateTableUtil().getUpdateQuery(array).get("query"));
-		List<String> queryList = (List<String>) new CreateTableUtil().getUpdateQuery(array).get("query");
+//		logger.debug("\n{}", new CreateTableUtil().getUpdateQuery(array).get("query"));
+//		List<String> queryList = (List<String>) new CreateTableUtil().getUpdateQuery(array).get("query");
 //		String query = queryList.get(0);
 //		int endIndex =query.indexOf("ADD"); 
 //		query = query.substring(0, endIndex);
@@ -70,7 +70,7 @@ public class CteateTableUtilTest {
 		}};
 		/***When***/
 		/***Then***/
-		logger.debug("\n{}", new CreateTableUtil().getUpdateQuery(array).get("pkQuery"));
+//		logger.debug("\n{}", new CreateTableUtil().getUpdateQuery(array).get("pkQuery"));
 	}
 
 }

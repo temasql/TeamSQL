@@ -4,22 +4,17 @@
 package kr.or.ddit.sqlEdiotTable.service;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.sqlEdiotTable.dao.ISqlEditorTableDao;
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 import kr.or.ddit.util.CreateTableUtil;
-import kr.or.ddit.util.DataTypeUtil;
 import kr.or.ddit.util.SelectTableUtil;
 
 /**
@@ -41,10 +36,15 @@ import kr.or.ddit.util.SelectTableUtil;
 @Service
 public class SqlEditorTableService extends CreateTableUtil implements ISqlEditorTableService {
 
+	// 테이블 수정전 테이블의 정보를 담을 리스트
+	private List<SqlEditorTableVO> columnDataList = null;
 	
-	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTableService.class);
-	private List<String> pkList = null;
-	private List<SqlEditorTableVO> postDataList = null;
+	// 해당 테이블의 PK 컬럼이름을 담을 리스트
+	private List<String> primaryKeyList = null;
+	
+	// 테이블 수정후 테이블의 정보를 담을 리스트
+	List<String> updateTableColumnList = null;
+	
 	@Resource(name = "sqlEditorTableDao")
 	private ISqlEditorTableDao sqlEditorTableDao;
 	
@@ -58,11 +58,16 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	* 가공하여 mybatis에서 처리하는 메서드
 	*/
 	@Override
-	public int createTable(String[][] array) {
-		Map<String, Object> queryMap = getQuery(array);
+	public int createTable(String[][] array, String tableSelect) {
+		
+		// 테이블과 코멘트를 생성하는 쿼리 맵
+		Map<String, Object> queryMap = getQuery(array, tableSelect);
+		
+		// 테이블 생성 문자열
 		String createTableStr = (String) queryMap.get("query");
-		logger.debug("query ==> [{}]", createTableStr);
 		sqlEditorTableDao.createTable(createTableStr);
+		
+		// 컬럼당 코멘트 생성 쿼리 리스트 ( 공통)
 		List<String> commentQueryList = (List<String>) queryMap.get("commentQueryList");
 		if (commentQueryList.size() > 0) {
 			for (String comment : commentQueryList) {
@@ -82,8 +87,7 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	*/
 	@Override
 	public List<List<String>> selectTable(String select, String TableName, Connection conn) {
-		String query = SelectTableUtil.selectQuery(select, TableName);
-		return sqlEditorTableDao.selectTable(query, conn);
+		return sqlEditorTableDao.selectTable(SelectTableUtil.selectQuery(select, TableName), conn);
 	}
 	
 	/**
@@ -107,33 +111,42 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	* @param select
 	* @param tableName
 	* @return
-	* Method 설명 :
+	* Method 설명 : 해당 테이블의 컬럼 정보를 반환
 	*/
 	@Override
-	public Map<String, Object> updateTable(String select, String tableName, Connection conn) {
-		Map<String, Object> updateTableMap = new HashMap<String, Object>();
-		logger.debug("updateTable getService select[{}]", select);
-		if (select.equals("column")) {
-
-			List<String> primaryKeyList = sqlEditorTableDao.selectTablePrimaryKey(tableName, conn);
-			pkList = sqlEditorTableDao.selectTablePrimaryKey(tableName, conn);
-			logger.debug("updateTable getService pkList ==>[{}]", primaryKeyList);
-			List<SqlEditorTableVO> columnDataList = sqlEditorTableDao.selectTableColumnData(tableName, conn);
-			logger.debug("updateTable getService columnList ==>[{}]", columnDataList);
-			
-			columnDataList = SelectTableUtil.primaryKeyInjection(primaryKeyList, columnDataList);
-			logger.debug("updateTable getService columnDataList ==>[{}]", columnDataList);
-			setUpdateTablePostDataList(columnDataList);
-			String html = "sqlEditor/ajaxHtml/updateTableAjaxHtml";
-			updateTableMap.put("html", html);
-			updateTableMap.put("dataTypeList", DataTypeUtil.tableDataType());
-			updateTableMap.put("columnDataList", columnDataList);
-			logger.debug("updateTable getService columnDataList==>[]", columnDataList);
-			return updateTableMap;
-		}
-		logger.debug("conn ==> {}", conn);
+	public List<SqlEditorTableVO> updateTable(String tableName, Connection conn) {
 		
-		return updateTableMap;
+		// 해당 테이블의 PK 컬럼이름 리스트
+		primaryKeyList = sqlEditorTableDao.selectTablePrimaryKey(tableName, conn);
+		
+		// 해당 테이블의 컬럼리스트에 pk가 존재하면 해당컬럼의 pk값을 true로 전환
+		columnDataList = SelectTableUtil.primaryKeyInjection(primaryKeyList, sqlEditorTableDao.selectTableColumnData(tableName, conn));
+		
+		return columnDataList;
+	}
+	
+	
+	/**
+	* Method : getColumnName
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param queryInColumn
+	* @return
+	* Method 설명 : 컬럼을 수정하는 쿼리에서 컬럼의 이름만 추출하는 작업 
+	*/
+	private String getColumnName(String queryInColumn) {
+		
+		// ex ) "ALTER TABLE SCHEMA.TABLENAME MODIFY '('user_id " 소괄호의 인덱스를 구함 
+		int startidx = queryInColumn.indexOf("(");
+		
+		// ex) " ALTER TABLE SCHEMA.TABLENAME MODIFY '('user_id VARCHAR2(20) NOTNULL )" ==> "(user_id VARCHAR2(20) NOTNULL )"
+		String slice = queryInColumn.substring(startidx);
+		
+		// ex) "(user_id' 'VARCHAR2(20)NOTNULL)" ==> (user_id
+		int endidx = slice.indexOf(" ");
+		
+		// return user_id
+		return slice.substring(1, endidx);
 	}
 	/**
 	* Method : updateTable
@@ -141,175 +154,238 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	* 변경이력 :
 	* @param query
 	* @return
-	* Method 설명 :
+	* Method 설명 : 테이블 편집에 맞게 쿼리를 작성 후 응답한다.
 	*/
 	@Override
-	public int updateTable(String[][] array) {
-		logger.debug("Before*******=={}==*******",array);
+	public int updateTable(String[][] array, String tableSelect) {
 		
-		List<Boolean> updateDataTypeCheckList = new ArrayList<Boolean>(); 
-		List<Boolean> updateDataLengthCheckList = new ArrayList<Boolean>(); 
-		List<Boolean> updateNullableCheckList = new ArrayList<Boolean>(); 
-		List<Boolean> updateDataDefaultCheckList = new ArrayList<Boolean>(); 
-		for (int i = 0; i < array.length; i++) {
-			String[] dataTypeSplit = array[i][2].split(": ");
-			String newArrDataType = dataTypeSplit[1].substring(1, dataTypeSplit[1].length() - 2);
-			String oldDataType = postDataList.get(i).getData_type();
-			if (!oldDataType.equals(newArrDataType)) {
-				updateDataTypeCheckList.add(true);
-			}else {
-				updateDataTypeCheckList.add(false);
-			}
-			String[] dataLengthSplit = array[i][3].split(": ");
-			String newDataLength = dataLengthSplit[1].substring(1, dataLengthSplit[1].length() - 2);
-			int oldDataLength = postDataList.get(i).getData_length();
-			if (oldDataLength != Integer.parseInt(newDataLength)) {
-				updateDataLengthCheckList.add(true);
-			}else {
-				updateDataLengthCheckList.add(false);
-			}
-			String[] nullableSplit = array[i][4].split(": ");
-			String newNullable = nullableSplit[1].substring(1, nullableSplit[1].length() - 2);
-			String oldNullable = postDataList.get(i).getNullable() == null ? "" : postDataList.get(i).getNullable();
-			if (oldNullable.equals("Y")) {
-				oldNullable = "false";
-			} else if(oldNullable.equals("N")) {
-				oldNullable = "true";
-			}
-			if (!oldNullable.equals(newNullable)) {
-				updateNullableCheckList.add(true);
-			}else {
-				updateNullableCheckList.add(false);
-			}
-			String[] dataDefaultSplit = array[i][5].split(": ");
-			String newDataDefault = dataDefaultSplit[1].substring(1, dataDefaultSplit[1].length() - 2);
-			String oldDataDefault = postDataList.get(i).getData_default() == null ? "" : postDataList.get(i).getData_default();
-			logger.debug("newDataDefault[{}], oldDataDefault[{}]", newDataDefault, oldDataDefault);
-			if (!oldDataDefault.equals(newDataDefault)) {
-				updateDataDefaultCheckList.add(true);
-			}else {
-				updateDataDefaultCheckList.add(false);
-			}
-		}
-		logger.debug("updateDataTypeCheckList ==>[{}]",updateDataTypeCheckList);
-		logger.debug("updateDataLengthCheckList ==>[{}]",updateDataLengthCheckList);
-		logger.debug("updateNullableCheckList ==>[{}]",updateNullableCheckList);
-		logger.debug("updateDataDefaultCheckList ==>[{}]",updateDataDefaultCheckList);
-		logger.debug("after*******=={}==*******",array);
-		Map<String, Object> queryMap = new CreateTableUtil().getUpdateQuery(array);
-		List<String> updateTableColumnList = (List<String>) queryMap.get("query");
-		logger.debug("postService updateTableColumnList==>[{}] ",updateTableColumnList);
+		// 테이블 수정에 필요한 쿼리가 담겨있는 맵
+		Map<String, Object> queryMap = getQuery(array, tableSelect);
+		
+		// 변경된 컬럼을 수정하는 쿼리가 들어있는 리스트
+		updateTableColumnList = (List<String>) queryMap.get("queryList");
+		
+		// PK로 선택한 컬럼으로 제약조건을 생성하는 쿼리
 		String pkQuery = (String) queryMap.get("pkQuery");
-		logger.debug("updateTable postService pkQuery==>[{}] ",pkQuery);
-		List<String> oldPkColList = getPkList();
-		logger.debug("updateTable postService oldPkColList==>[{}] ",oldPkColList);
+		
+		// PK체크를 한 컬럼의 이름이 담긴 리스트
 		List<String> pkColNameList = (List<String>) queryMap.get("pkColumnList");
-		logger.debug("updateTable postService pkColNameList==>[{}] ",pkColNameList);
-		int dropCnt = 0;
+		
+		// 컬럼설명을 작성한 컬럼의 코멘트 생성 쿼리 리스트
+		List<String> commentQueryList = (List<String>) queryMap.get("commentQueryList");
+		
+		// SCHEMA.TABLENAME ex) TeamSQL.USERS
 		String stNm = (String) queryMap.get("stNm");
 		
-		if (postDataList.size() == updateTableColumnList.size()) {
-			StringBuffer modifyData = new StringBuffer();
-			for (int i = 0; i < postDataList.size(); i++) {
-				int startidx = updateTableColumnList.get(i).indexOf("(");
-				String newColName = updateTableColumnList.get(i).substring(startidx);
-				int endidx = newColName.indexOf(" ");
-				newColName = newColName.substring(1, endidx);
-				String oldColName = postDataList.get(i).getColumn_name();
-				if(!oldColName.equals(newColName)) {
-					String renameQuery = "ALTER TABLE "+ stNm +" RENAME COLUMN " + oldColName + " TO " + newColName;
-					logger.debug("renameQuery===>[{}]", renameQuery);
-					sqlEditorTableDao.createTable(renameQuery);
-					updateTableColumnList.get(i).replace(oldColName, newColName);
-				};
-				if (updateDataTypeCheckList.get(i) || updateDataLengthCheckList.get(i) ||
-					updateDataDefaultCheckList.get(i) || updateNullableCheckList.get(i)) {
-					modifyData.append("ALTER TABLE " + stNm + " MODIFY (" + newColName + " "); 
-					String modifyDataQuery = updateTableColumnList.get(i);
-					modifyDataQuery = modifyDataQuery.substring(modifyDataQuery.lastIndexOf(newColName)  + newColName.length(), modifyDataQuery.lastIndexOf(")"));
-					modifyData.append(modifyDataQuery + ")");
-					logger.debug("modifyData.toString()==[{}]",modifyData.toString());
-					sqlEditorTableDao.createTable(modifyData.toString());
-					modifyData.setLength(0);
-				}
-				
-			}
-		}
+		// 해당 테이블의 컬럼의 수와 변경된 컬럼의 수가 같을때  컬럼 정보 수정 메서드 호출
+		if (columnDataList.size() == updateTableColumnList.size()) renameColumn(array, stNm);
 		
-		if (oldPkColList.equals(pkColNameList)) {
-			pkQuery = null;
-		}
-		if (oldPkColList.size() > 0 &&(oldPkColList.size() != pkColNameList.size() || !oldPkColList.equals((pkColNameList)))) {
-			String query = updateTableColumnList.get(0);
-			int endIndex =query.indexOf("ADD"); 
-			query = query.substring(0, endIndex);
-			String dropQuery = query + "DROP CONSTRAINT " + query.substring(query.indexOf(".") + 1, endIndex - 1) + "_PK";
-			logger.debug("updateTable postService dropQuery==>[{}] ",dropQuery);
-			sqlEditorTableDao.createTable(dropQuery);
-			if(oldPkColList.size() > 0 && pkColNameList.size() == 0) {
-				pkQuery = null;
-			}
+		// 수정되기 전 PK리스트의 컬럼이름과 수정 후 PK 리스트의 컬럼이름이 일치하면  
+		// 제약조건 생성 쿼리를 담은 변수의 값을 null로 변경
+		if (primaryKeyList.equals(pkColNameList)) pkQuery = null;
+		
+		// 수정되기 전 PK리스트가 존재하고 
+		// 테이블 수정전과 수정후의 PK컬럼수가 다르거나
+		// 테이블 수정전 PK컬럼리스트와 수정후 리스트가 다르면 
+		if (primaryKeyList.size() > 0 &&
+				(primaryKeyList.size() != pkColNameList.size() ||
+				!primaryKeyList.equals((pkColNameList)))) {
 			
+			// 제약조건 삭제 쿼리 실행
+			dropConstraint();
+			
+			// 수정되기 전 PK리스트가 존재하고 수정 후 PK리스트가 없으면 
+			// 제약조건 생성 쿼리를 담은 변수의 값을 null로 변경
+			if(primaryKeyList.size() > 0 && pkColNameList.size() == 0) pkQuery = null;
 		} 
 		
-		logger.debug("updateTable postService PDL.size ==>[{}]", postDataList.size());
-		logger.debug("updateTable postService UTCL.size ==>[{}]", updateTableColumnList.size());
-		logger.debug("updateTable postService PDL ==>[{}]", postDataList);
-		logger.debug("updateTable postService UTCL==>[{}]", updateTableColumnList);
-		if (postDataList.size() > updateTableColumnList.size()) {
-			LinkedList<String> stack = new LinkedList<String>();
-			for (int i = 0; i < postDataList.size(); i++) {
-				stack.push(postDataList.get(i).getColumn_name());
-				for (int j = 0; j < updateTableColumnList.size(); j++) {
-					int startidx = updateTableColumnList.get(j).indexOf("(");
-					String slice = updateTableColumnList.get(j).substring(startidx);
-					int endidx = slice.indexOf(" ");
-					slice = slice.substring(1, endidx);
-					if (postDataList.get(i).getColumn_name().equals(slice)) {
-						stack.pop();
-						break;
-					}
-					
-				}
-			}
-			logger.debug("**[{}]**", stack);
-			for (String st : stack) {
-				String dropCol = "ALTER TABLE " + stNm +" DROP COLUMN " + st;
-				logger.debug("dropCol===>>[{}]",dropCol);
-				sqlEditorTableDao.createTable(dropCol);
-			}
-		}
+		// 수정전 컬럼의 수가 수정후의 컬럼의 수보다 크다면 수정 후 제거한 컬럼을 DB 테이블에서삭제 
+		if (columnDataList.size() > updateTableColumnList.size()) dropcolumn(stNm);
 
-		logger.debug("updateTable postService updateTableColumnList==>[{}] ",updateTableColumnList);
-		if (postDataList.size() < updateTableColumnList.size()) {
-			for (int i = 0; i < postDataList.size(); i++) {
-				logger.debug("removeColList[{}]",updateTableColumnList.remove(0));
-			}
-			for (String updateColumn : updateTableColumnList) {
-				logger.debug("updateTable postService updateColumn==>[{}] ",updateColumn);
+		// 수정후의 컬럼수가 수정전의 컬럼수보다 크면
+		if (columnDataList.size() < updateTableColumnList.size()) 
+			
+			// 커진 수만큼 반복하여 컬럼을 생성
+			for (String updateColumn : updateTableColumnList) 
 				sqlEditorTableDao.createTable(updateColumn);
-			}
-		}
-		if (pkQuery != null ) {
-			logger.debug("pkQuery call");
-			sqlEditorTableDao.createTable(pkQuery);
-		}
-		List<String> commentQueryList = (List<String>) queryMap.get("commentQueryList");
-		logger.debug("updateTable postService commentQueryList==>[{}] ",commentQueryList);
-		if (commentQueryList.size() > 0) {
-			for (String comment : commentQueryList) {
-				logger.debug("updateTable postService comment==>[{}] ",comment);
+		
+		// 제약조건 생성쿼리가 null이 아니면 제약조건 생성
+		if (pkQuery != null ) sqlEditorTableDao.createTable(pkQuery);
+		
+		// 코멘트를 작성했으면 해당 컬럼의 코멘트 생성
+		if (commentQueryList.size() > 0) 
+			for (String comment : commentQueryList) 
 				sqlEditorTableDao.createTable(comment);
-			}
-		}
+		
 		return 0;
 	}
 	
-	public List<String> getPkList(){
-		return pkList;
+	/**
+	* Method : dropcolumn
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param stNm
+	* Method 설명 : 수정 후 컬럼을 삭제 시 해당 컬럼의 이름을 추출하여 컬럼을 삭제
+	*/
+	private void dropcolumn(String stNm) {
+		
+		// 컬럼의 이름을 모두 담을 stack
+		LinkedList<String> stack = new LinkedList<String>();
+		
+		// 컬럼의 이름을 담을 변수
+		String column = "";
+		
+		// 기존의 컬럼수만큼 반복
+		for (int i = 0; i < columnDataList.size(); i++) {
+			
+			// 기존의 컬럼이름을 반복하여 모두 담는다.
+			stack.push(columnDataList.get(i).getColumn_name());
+			
+			// 수정 후의 컬럼 수 만큼 반복
+			for (int j = 0; j < updateTableColumnList.size(); j++) {
+				
+				// 수정된 컬럼의 이름을 변수에 대입
+				column = getColumnName(updateTableColumnList.get(j));
+				
+				// 테이블 수정전 컬럼의 이름이 수정후에도 존재하면 
+				if (columnDataList.get(i).getColumn_name().equals(column)) {
+					// stack에서 제거
+					stack.pop();
+					break;
+				}
+			}
+		}
+		
+		// 수정하면서 제거한 컬럼의 이름을 넘김 
+		dropQuery(stack, stNm);
 	}
-	public void setUpdateTablePostDataList(List<SqlEditorTableVO> columnDataList) {
-		this.postDataList = columnDataList;
+	
+	/**
+	* Method : dropQuery
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param stack
+	* @param stNm
+	* Method 설명 : 수정하면서 제거한 컬럼의 이름만큼 실제 테이블에서 컬럼을 제거
+	*/
+	private void dropQuery(LinkedList<String> stack, String stNm) {
+		for (String st : stack)
+			sqlEditorTableDao.createTable("ALTER TABLE " + stNm +" DROP COLUMN " + st);
+	}
+	/**
+	* Method : dropConstraint
+	* 작성자 : 이중석
+	* 변경이력 :
+	* Method 설명 : 테이블 수정중 제약조건 삭제
+	*/
+	private void dropConstraint() {
+		String query = updateTableColumnList.get(0);
+		int endIndex =query.indexOf("ADD"); 
+		query = query.substring(0, endIndex);
+		String dropQuery = query + "DROP CONSTRAINT " + query.substring(query.indexOf(".") + 1, endIndex - 1) + "_PK";
+		
+		sqlEditorTableDao.createTable(dropQuery);
+		
+	}
+	/**
+	* Method : renameColumn
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param array
+	* @param stNm
+	* Method 설명 : 테이블 편집시 컬럼이름을 변경하거나 데이터 타입 변경시
+	*/
+	private void renameColumn(String[][] array, String stNm) {
+		
+		// 쿼리를 담을 객체
+		StringBuffer modifyData = new StringBuffer();
+		
+		// 변경된 컬럼의 이름을 담을 변수
+		String newColName = "";
+		
+		// 변경전 컬럼의 이름을 담을 변수
+		String oldColName = "";
+		
+		// 해당 테이블의 컬럼 수 만큼 반복
+		for (int i = 0; i < columnDataList.size(); i++) {
+			
+			// 변경된 컬럼의 이름
+			newColName = getColumnName(updateTableColumnList.get(i));
+			
+			// 변경전 컬럼의 이름
+			oldColName = columnDataList.get(i).getColumn_name();
+			
+			// 변경전과 변경후의 컬럼이름이 다르면
+			if(!oldColName.equals(newColName)) {
+				// 컬럼의 이름을 변경
+				String renameQuery = "ALTER TABLE "+ stNm +" RENAME COLUMN " + oldColName + " TO " + newColName;
+				sqlEditorTableDao.createTable(renameQuery);
+//				updateTableColumnList.get(i).replace(oldColName, newColName);
+			};
+			
+			// 컬럼의 이름 이외에 컬럼의 정보가 변했으면
+			if (updateCheck(array)) {
+				
+				modifyData.append("ALTER TABLE " + stNm + " MODIFY (" + newColName + " "); 
+				
+				// 수정하는 쿼리가 담긴 리스트에서 하나를 뽑는다.
+				String modifyDataQuery = updateTableColumnList.get(i);
+				
+				// 수정하는 쿼리 문자열에서 컬럼의 이름 까지 자른 후 컬럼의 정보를 추출한다. 
+				// ex) (user_id VARCHAR2(20) NOT NULL DEFAULT 1) ==> "VARCHAR2(20) NOT NULL DEFAULT 1"
+				modifyDataQuery = modifyDataQuery.substring(modifyDataQuery.lastIndexOf(newColName)  + newColName.length(), modifyDataQuery.lastIndexOf(")"));
+				
+				// 추출한 컬럼의 정보를 추가
+				modifyData.append(modifyDataQuery + ")");
+				
+				// 조합한 쿼리를 실행
+				sqlEditorTableDao.createTable(modifyData.toString());
+				
+				// 쿼리를 담은 객체 초기화
+				modifyData.setLength(0);
+			}
+			
+		}		
+	}
+	
+	/**
+	* Method : updateCheck
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param array
+	* @return
+	* Method 설명 : 컬럼의 정보가 변경되었는지 확인하는 메서드
+	* 반복 중 컬럼의 정보가 하나라도 변했으면 true반환
+	*/
+	private boolean updateCheck(String[][] array) {
+		boolean updateCk = true;
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 2; j <= 5; j++) {
+				String newData = array[i][j].split(": ")[1].substring(1, array[i][j].split(": ")[1].length() - 2);
+				Object oldData = "";
+				switch (j) {
+				case 2:
+					oldData = (String)columnDataList.get(i).getData_type();
+					break;
+				case 3:
+					oldData = (int)columnDataList.get(i).getData_length();
+					break;
+				case 4:
+					oldData = (String)columnDataList.get(i).getNullable();
+					oldData = oldData == "Y" ? "false" : "true";
+					break;
+				case 5:
+					oldData = (String)columnDataList.get(i).getData_default();
+					break;
+				}
+				if(oldData.equals(newData)) {
+					updateCk = false;
+					continue;
+				}
+				updateCk = true;
+			}
+		}
+		return updateCk;
 	}
 	
 }
