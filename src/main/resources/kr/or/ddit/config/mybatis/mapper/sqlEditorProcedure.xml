@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqlEditorProcedure">
+	
+	<select id="getProcedureCode" parameterType="map" resultType="String">
+		SELECT	DBMS_METADATA.GET_DDL ('PROCEDURE', #{procedure_name}, #{account_id})
+		FROM 	DUAL
+	</select>
+	
+	<select id="procedureDetail" parameterType="map" resultType="procedureDetailVO">
+		SELECT *
+		FROM SYS.ALL_OBJECTS
+		WHERE OBJECT_NAME = #{object_name}
+		AND OWNER = #{owner}
+	</select>
+	
+	<update id="deleteProcedure" parameterType="String">
+		DROP PROCEDURE ${value}
+	</update>
+	
+	
+</mapper>

@@ -141,7 +141,9 @@ public class WorksheetController {
 		AccountVO accountVO = accountServcie.getAccountOne(account_id);
 		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
 		
-		if(dragText.contains("CREATE") && dragText.contains("FUNCTION")) {
+		if(dragText.contains("CREATE") && dragText.contains("PROCEDURE")) {
+			
+		}else if(dragText.contains("CREATE") && dragText.contains("FUNCTION")) {
 			
 		}else if(dragText.contains("CREATE") && dragText.contains("TRIGGER")) {
 			
