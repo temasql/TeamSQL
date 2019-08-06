@@ -68,7 +68,6 @@
 			<tbody id="tableReadTbody">
 			</tbody>
 		</table>
-		 <button type="button" id="updateTableBtn" class="btn btn-secondary">수정</button>
 	  </fieldset>
 	</form>
   </div>
@@ -83,15 +82,10 @@
 	<form action="${cp}/sqlEditor/updateTable" method="post" id="udpateTableFrm">
 	  <fieldset>
 	    <legend id="updateTableTitle"></legend>
-	    <select id="updateSelectChoice">
-	    	<option value="column">열</option>
-	    	<option value="constraint">제약조건</option>
-	    	<option value="index">인덱스</option>
-	    	<option value="explanation">설명</option>
-	    </select>
 	    <div id="updateView"></div>
 	  </fieldset>
 	</form>
+	 <button type="button" id="updateTableBtn" class="btn btn-secondary">수정</button>
   </div>
 </div>
 

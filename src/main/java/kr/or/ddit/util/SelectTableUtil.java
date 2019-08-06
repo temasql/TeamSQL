@@ -5,6 +5,9 @@ package kr.or.ddit.util;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 
 /**
@@ -25,6 +28,7 @@ import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 */
 public class SelectTableUtil {
 
+	private static final Logger logger = LoggerFactory.getLogger(SelectTableUtil.class);
 	
 	/**
 	* Method : selectQuery
@@ -180,10 +184,16 @@ public class SelectTableUtil {
 		for (SqlEditorTableVO sqlEditorTableColumn : columnDataList) {
 			if (primaryKeyList != null && primaryKeyList.size() > 0) {
 				for (String pk : primaryKeyList) {
+					logger.debug("pkList.get(i) [{}]",pk);
+					logger.debug("sqlEditorTableColumn.getColumn_name(i)[{}]", sqlEditorTableColumn.getColumn_name());
 					if(sqlEditorTableColumn.getColumn_name().equals(pk)) {
 						sqlEditorTableColumn.setPk("true");
+						logger.debug("true");
+						break;
 					}else {
 						sqlEditorTableColumn.setPk("false");
+						logger.debug("false");
+						continue;
 					}
 				}
 			}else {

@@ -17,8 +17,10 @@
 			</tr>
 		</thead>
 		<tbody id="tableUpdateTbody">
+		<c:set value="100" var="i"></c:set>
 		<c:forEach items="${columnDataList}" var="columnData">
-			<tr>
+			<tr class='tableDataTr' id='tableDataTr${i}'>
+			<c:set value="${i+1}" var="i"></c:set>
 				<c:choose>
 					<c:when test="${columnData.pk eq 'true'}">
 					 	<td><input  name='colPKChecked' class='col' value='${columnData.pk }' type='checkbox' checked></td>
@@ -45,7 +47,7 @@
 				</td>
 				<td><input name='colSize' class='tableManagerText col' value='${columnData.data_length }' type='text'/> </td>
 				<c:choose>
-					<c:when test="${columnData.pk eq N}">
+					<c:when test="${columnData.nullable eq 'Y'}">
 						<td><input name='colNullCheck' class='col' value='false' type='checkbox'></td>
 					</c:when>
 					<c:otherwise>
