@@ -153,6 +153,7 @@
 		WHERE	QUIZ_ID_FK = #{quiz_id}
 	</select>
 	
+	<!-- 주관식 정답 조회 리스트 -->
 	<select id="quizAnswerList" parameterType="quizVo" resultType="quizAnswerVo">
 		SELECT	QUIZ_ANSWER,
 				QUIZ_EXPLAIN
@@ -160,10 +161,39 @@
 		WHERE	QUIZ_ID_FK = #{quiz_id}
 	</select>
 	
+	<!-- 주관식 조회 -->
 	<select id="quizEssay" parameterType="quizVo" resultType="quizVo">
 		SELECT	*
 		FROM	QUIZ
 		WHERE	QUIZ_RIGHT = #{quiz_right}
 		AND		QUIZ_ID = #{quiz_id}
+	</select>
+	
+	<!-- 사용자 퀴즈 조회 쿼리 -->
+	<select id="userReadQuiz" parameterType="string" resultType="quizAndAnswerVO">
+		SELECT  Q.QUIZ_ID,
+		        Q.QUIZ_QUESTION,
+		        A.QUIZ_ANSWER,
+		        A.QUIZ_EXPLAIN,
+		        Q.QUIZ_RIGHT
+		FROM    QUIZ Q, QUIZ_ANSWER A
+		WHERE   Q.QUIZ_ID = A.QUIZ_ID_FK
+		AND     Q.QUIZ_ID = (SELECT MIN(QUIZ_ID) FROM QUIZ WHERE QUIZ_RIGHT = #{quiz_right})
+	</select>
+	
+	<!-- 유저가 문제를 풀었을때 다음문제 조회하는 메서드 -->
+	<select id="userNextQuiz" parameterType="quizVo" resultType="quizAndAnswerVO">
+		SELECT  Q.QUIZ_ID,
+		        Q.QUIZ_QUESTION,
+		        A.QUIZ_ANSWER,
+		        A.QUIZ_EXPLAIN,
+		        Q.QUIZ_RIGHT
+		FROM    QUIZ Q, QUIZ_ANSWER A
+		WHERE   Q.QUIZ_ID = A.QUIZ_ID_FK
+		AND     Q.QUIZ_ID = (SELECT MIN(QUIZ_ID)
+							FROM 	QUIZ 
+							WHERE 	QUIZ_RIGHT = #{quiz_right}
+							AND	  	QUIZ_ID != #{quiz_id}
+							AND    	QUIZ_ID NOT IN(${quizIdSum}))
 	</select>
 </mapper>

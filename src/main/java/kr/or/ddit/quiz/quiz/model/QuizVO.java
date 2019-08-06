@@ -11,6 +11,7 @@ public class QuizVO {
 	private String quiz_question;   // 퀴즈문제
 	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
 	private Date quiz_dt;			// 퀴즈생성일시
+	private String quizIdSum;
 	
 	public int getQuiz_id() {
 		return quiz_id;
@@ -42,11 +43,30 @@ public class QuizVO {
 	public void setQuiz_dt(Date quiz_dt) {
 		this.quiz_dt = quiz_dt;
 	}
+	public String getQuizIdSum() {
+		return quizIdSum;
+	}
+	public void setQuizIdSum(String quizIdSum) {
+		this.quizIdSum = quizIdSum;
+	}
+	
+	public QuizVO(int quiz_id, String user_id_fk, String quiz_right, String quiz_question, Date quiz_dt,
+			String quizIdSum) {
+		super();
+		this.quiz_id = quiz_id;
+		this.user_id_fk = user_id_fk;
+		this.quiz_right = quiz_right;
+		this.quiz_question = quiz_question;
+		this.quiz_dt = quiz_dt;
+		this.quizIdSum = quizIdSum;
+	}
+	
+	public QuizVO() {
+	}
+	
 	@Override
 	public String toString() {
 		return "QuizVO [quiz_id=" + quiz_id + ", user_id_fk=" + user_id_fk + ", quiz_right=" + quiz_right
-				+ ", quiz_question=" + quiz_question + ", quiz_dt=" + quiz_dt + "]";
+				+ ", quiz_question=" + quiz_question + ", quiz_dt=" + quiz_dt + ", quizIdSum=" + quizIdSum + "]";
 	}
-	
-	
 }

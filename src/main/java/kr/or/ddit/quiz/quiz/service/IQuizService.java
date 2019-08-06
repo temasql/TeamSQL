@@ -36,4 +36,12 @@ public interface IQuizService {
 	int insertMultipleQuiz(QuizVO quizVO, QuizAnswerVO quizAnswerVO, QuizExampleVO quizExampleVO, String[] example_content);
 	
 	Map<String, Object> multipleQuizList(QuizVO quizVO);
+	
+	QuizAndAnswerVO userReadQuiz(String quiz_right);
+	
+	QuizAndAnswerVO userNextQuiz(QuizVO quizVO);
+	
+	List<QuizExampleVO> userMultipleList(QuizAndAnswerVO quizAndAnswerVO);
+	
+	Map<String, Object> userAnswerList(QuizVO quizVO);
 }

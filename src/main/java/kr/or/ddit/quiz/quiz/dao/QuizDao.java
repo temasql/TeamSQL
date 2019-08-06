@@ -212,4 +212,45 @@ public class QuizDao implements IQuizDao{
 	public List<QuizAnswerVO> quizAnswerList(QuizVO quizVO) {
 		return sqlSession.selectList("quiz.quizAnswerList", quizVO);
 	}
+
+	/**
+	* Method : userReadQuiz
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quiz_right
+	* @return
+	* Method 설명 : 유저 각 퀴즈 조회 메서드
+	*/
+	@Override
+	public QuizAndAnswerVO userReadQuiz(String quiz_right) {
+		return sqlSession.selectOne("quiz.userReadQuiz", quiz_right);
+	}
+	
+	
+
+	/**
+	* Method : userNextQuiz
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quizAndAnswerVO
+	* @return
+	* Method 설명 : 유저가 문제를 풀었을때 다음문제 조회하는 메서드(주관식 제외)
+	*/
+	@Override
+	public QuizAndAnswerVO userNextQuiz(QuizVO quizVO) {
+		return sqlSession.selectOne("quiz.userNextQuiz", quizVO);
+	}
+
+	/**
+	* Method : userReadQuizList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quiz_right
+	* @return
+	* Method 설명 : 유저가 주관식 문제를 풀었을때 다음문제를 조회하는 메서드
+	*/
+	@Override
+	public List<QuizAndAnswerVO> userReadQuizList(String quiz_right) {
+		return sqlSession.selectList("quiz.userReadQuiz", quiz_right);
+	}
 }

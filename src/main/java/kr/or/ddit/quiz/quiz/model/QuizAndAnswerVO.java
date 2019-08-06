@@ -9,8 +9,6 @@ public class QuizAndAnswerVO {
 	private String quiz_question;
 	private String quiz_answer;
 	private String quiz_explain;
-	
-	
 	public int getQuiz_id() {
 		return quiz_id;
 	}
@@ -42,10 +40,22 @@ public class QuizAndAnswerVO {
 		this.quiz_explain = quiz_explain;
 	}
 	
-	
 	@Override
 	public String toString() {
-		return "QuizAndAnswerVO [quiz_answer=" + quiz_answer + ", quiz_explain=" + quiz_explain + ", quiz_id=" + quiz_id
-				+ ", quiz_question=" + quiz_question + ", quiz_right=" + quiz_right + "]";
+		return "QuizAndAnswerVO [quiz_id=" + quiz_id + ", quiz_right=" + quiz_right + ", quiz_question=" + quiz_question
+				+ ", quiz_answer=" + quiz_answer + ", quiz_explain=" + quiz_explain + "]";
+	}
+	
+	public QuizAndAnswerVO(int quiz_id, String quiz_right, String quiz_question, String quiz_answer,
+			String quiz_explain) {
+		super();
+		this.quiz_id = quiz_id;
+		this.quiz_right = quiz_right;
+		this.quiz_question = quiz_question;
+		this.quiz_answer = quiz_answer;
+		this.quiz_explain = quiz_explain;
+	}
+	
+	public QuizAndAnswerVO() {
 	}
 }

@@ -234,4 +234,67 @@ public class QuizService implements IQuizService{
 		
 		return map;
 	}
+
+	/**
+	* Method : userReadQuiz
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quiz_right
+	* @return
+	* Method 설명 : 유저 각 퀴즈 조회 메서드
+	*/
+	@Override
+	public QuizAndAnswerVO userReadQuiz(String quiz_right) {
+		return quizDao.userReadQuiz(quiz_right);
+	}
+
+	/**
+	* Method : userNextQuiz
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quizAndAnswerVO
+	* @return
+	* Method 설명 : 유저가 문제를 풀었을때 다음문제 조회하는 메서드
+	*/
+	@Override
+	public QuizAndAnswerVO userNextQuiz(QuizVO quizVO) {
+		return quizDao.userNextQuiz(quizVO);
+	}
+
+
+	/**
+	* Method : userMultipleList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quizAndAnswerVO
+	* @return
+	* Method 설명 : 해당 객관식 문제의 보기를 조회하는 메서드
+	*/
+	@Override
+	public List<QuizExampleVO> userMultipleList(QuizAndAnswerVO quizAndAnswerVO) {
+		return quizDao.multipleQuizList(quizAndAnswerVO);
+	}
+
+
+	/**
+	* Method : userAnswerList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quizVO
+	* @return
+	* Method 설명 : 유저 주관식 퀴즈 조회 메서드
+	*/
+	@Override
+	public Map<String, Object> userAnswerList(QuizVO quizVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<QuizAndAnswerVO> quizAndAnswerList = quizDao.userReadQuizList(quizVO.getQuiz_right());
+		logger.debug("서비스 유저 주관식 : {}", quizAndAnswerList);
+		List<QuizAnswerVO> quizAnswerList = quizDao.quizAnswerList(quizVO);
+		
+		map.put("quizAndAnswerList", quizAndAnswerList);
+		map.put("quizAnswerList", quizAnswerList);
+		
+		return map;
+	}
 }
