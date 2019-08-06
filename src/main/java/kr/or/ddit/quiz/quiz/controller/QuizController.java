@@ -237,17 +237,18 @@ public class QuizController {
 				if(	quizAnswerList.get(i).getQuiz_answer().equals("="))
 					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"&nbsp;");
 				
+				if(!quizAnswerList.get(i).getQuiz_answer().equals("select") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("SELECT"))
+					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
 				
- 				if(	!quizAnswerList.get(i).getQuiz_answer().equals("select\t") ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("SELECT\t") ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("\nfrom\t") ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("\nFROM\t") ||
+ 				if(	!quizAnswerList.get(i).getQuiz_answer().equals("from\t") ||
+					!quizAnswerList.get(i).getQuiz_answer().equals("FROM\t") ||
 					!quizAnswerList.get(i).getQuiz_answer().equals("where\t")  ||
 					!quizAnswerList.get(i).getQuiz_answer().equals("WHERE\t")  ||
 					!quizAnswerList.get(i).getQuiz_answer().equals("and\t")    ||
 					!quizAnswerList.get(i).getQuiz_answer().equals("AND\t")	   ||
-					!quizAnswerList.get(i).getQuiz_answer().equals(quizAnswerList.get(i).getQuiz_answer() + "&nbsp;")) { 
- 						quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
+					!quizAnswerList.get(i).getQuiz_answer().equals("=&nbsp;")) { 
+ 						quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\n\t");
  				}
  				logger.debug("last ==> [{}]", quizAnswerList.get(i).getQuiz_answer());
 				
@@ -611,6 +612,13 @@ public class QuizController {
 		
 		String answer = quizAnswerVO.getQuiz_answer();
 		answer = answer.trim();
+		
+		answer = answer.replaceAll("\r\n", " ");
+		answer = answer.replaceAll("\n", " ");
+		answer = answer.replaceAll("\r", " ");
+		
+		logger.debug("주관식 등록 전 문자열 검사 : {}", answer);
+		
 		String[] answerArr = answer.split(" ");
 		for(String answer_1 : answerArr) {
 			logger.debug("answer_1 : {}", answer_1);
@@ -707,15 +715,23 @@ public class QuizController {
 	@RequestMapping(path = "/updateEssay", method = RequestMethod.POST)
 	public String updateEssay(Model model, QuizVO quizVO, QuizAnswerVO quizAnswerVO, HttpSession session) {
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		quizVO.setUser_id_fk(userVO.getUser_id());
+		
+		String answer = quizAnswerVO.getQuiz_answer();
+		answer = answer.trim();
+		
+		answer = answer.replaceAll("\r\n", " ");
+		answer = answer.replaceAll("\n", " ");
+		answer = answer.replaceAll("\r", " ");
+		
+		
+		String[] answerArr = answer.split(" ");
 		
 		int deleteResult = service.deleteQuiz(quizVO.getQuiz_id());
 		logger.debug("주관식 삭제 성공 : {}", deleteResult);
 		
 		quizVO.setUser_id_fk(userVO.getUser_id());
 		
-		String answer = quizAnswerVO.getQuiz_answer();
-		answer = answer.trim();
-		String[] answerArr = answer.split(" ");
 		for(String answer_1 : answerArr) {
 			logger.debug("answer_1 : {}", answer_1);
 		}

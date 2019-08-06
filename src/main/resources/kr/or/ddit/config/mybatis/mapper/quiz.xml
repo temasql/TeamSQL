@@ -179,6 +179,7 @@
 		FROM    QUIZ Q, QUIZ_ANSWER A
 		WHERE   Q.QUIZ_ID = A.QUIZ_ID_FK
 		AND     Q.QUIZ_ID = (SELECT MIN(QUIZ_ID) FROM QUIZ WHERE QUIZ_RIGHT = #{quiz_right})
+		ORDER BY ANSWER_ID ASC
 	</select>
 	
 	<!-- 유저가 문제를 풀었을때 다음문제 조회하는 메서드 -->
