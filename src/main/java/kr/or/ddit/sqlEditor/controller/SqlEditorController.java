@@ -324,13 +324,14 @@ public class SqlEditorController {
 	* 작성자 : 이중석
 	* 변경이력 :
 	* @return
-	* Method 설명 : 테이블 생성
+	* Method 설명 : 테이블 생성 json 형식의 2차원 배열을 받아서 처리
 	*/
 	@ResponseBody
 	@RequestMapping("/createTable")
 	public String createTable(HttpSession session,  Model model,
 			@RequestBody String[][] array) {
 		
+		// json으로 받은 2차원 배열을 매개변수로 전달
 		sqlEditorTableService.createTable(array);
 		return "jsonView";
 
@@ -371,13 +372,10 @@ public class SqlEditorController {
 	* @param model
 	* @param session
 	* @return
-	* Method 설명 : 테이블 편집
+	* Method 설명 : 테이블 편집 요청
 	*/
 	@RequestMapping(path = "/updateTable", method = RequestMethod.GET)
 	public String updateTable(String TableName, String account_id, String select, Model model, HttpSession session) {
-		logger.debug("account_id ==> [{}]", account_id);
-		logger.debug("TableName ==> [{}]", TableName);
-		logger.debug("select ==> [{}]", select);
 		AccountVO accountVO = accountService.getAccountOne(account_id);
 		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
 		// 데이터 타입 받는 리스트 추가해야함
@@ -385,18 +383,26 @@ public class SqlEditorController {
 		List<String> dataTypeList =  (List<String>) updateTableMap.get("dataTypeList");
 		
 		model.addAttribute("dataTypeList", dataTypeList);
-		logger.debug("conn ===>{}", conn);
 		String html = (String) updateTableMap.get("html");
 		model.addAttribute("columnDataList", (List<SqlEditorTableVO>)updateTableMap.get("columnDataList"));
-		logger.debug("dataList ==>[{}]", (List<SqlEditorTableVO>)updateTableMap.get("columnDataList"));
 		return html;
 	}
 	
+	/**
+	* Method : updateTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param session
+	* @param model
+	* @param array
+	* @return
+	* Method 설명 : 테이블 편집 요청
+	*/
 	@ResponseBody
 	@RequestMapping(path = "/updateTable", method = RequestMethod.POST)
 	public String updateTable(HttpSession session,  Model model,
 			@RequestBody String[][] array) {
-		
+		logger.debug("updateTable post array==> [{}] ",array);
 		sqlEditorTableService.updateTable(array);
 		return "jsonView";
 
