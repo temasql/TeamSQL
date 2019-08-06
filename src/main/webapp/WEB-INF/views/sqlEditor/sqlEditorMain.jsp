@@ -7,6 +7,7 @@
 <%@include file="/WEB-INF/views/sqlEditor/modal/accountPackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/tablePackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/functionPackage.jsp" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/ProcedurePackage.jsp" %>
 
 <link href="${cp}/resources/sqlEditor/css/sqlEditorStyle.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/treeMenu.css" rel="stylesheet">
@@ -121,17 +122,23 @@
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${sequenceList}" var="sequenceVO">
 				                        		<c:if test="${sequenceVO.sequence_owner == ac_id}">
-						                            <li class="sequences"><a href="#none">${sequenceVO.sequence_name}</a></li>
+						                            <li class="sequences">
+						                            	<a href="#none">${sequenceVO.sequence_name}
+						                            		<input type="hidden" id="hogil_id2" value="${accountId}"/>
+						                            	</a>
+						                            </li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
 				                    </li>
 				                    <li>
-				                        <a href="#none"><em>폴더</em> 프로시저</a>
+				                        <a class="procedurePackage" href="#none"><em>폴더</em> 프로시저</a>
 				                        <ul class="depth_3">
 				                            <c:forEach items="${procedureList}" var="procedureVO">
 				                        		<c:if test="${procedureVO.owner == ac_id}">
-						                            <li><a href="#none">${procedureVO.object_name}</a></li>
+						                            <li class="procedures">
+						                            	<a href="#none">${procedureVO.object_name}</a>
+						                            </li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
