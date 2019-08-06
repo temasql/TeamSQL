@@ -38,6 +38,8 @@ import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
 import kr.or.ddit.sqlEditorFunction.model.FunctionDetailVO;
 import kr.or.ddit.sqlEditorFunction.service.ISqlEditorFunctionService;
+import kr.or.ddit.sqlEditorProcedure.model.ProcedureDetailVO;
+import kr.or.ddit.sqlEditorProcedure.service.ISqlEditorProcedureService;
 import kr.or.ddit.sqlEditorTrigger.model.MyTriggerVO;
 
 import kr.or.ddit.sqlEditorTrigger.model.MyTriggerCodeVO;
@@ -51,6 +53,7 @@ import kr.or.ddit.util.DBUtilForWorksheet;
 import kr.or.ddit.util.DataTypeUtil;
 import kr.or.ddit.util.FindAccountPwByMail;
 import kr.or.ddit.util.FunctionUtil;
+import kr.or.ddit.util.ProcedureUtil;
 import kr.or.ddit.util.TriggerUtil;
 
 @RequestMapping("/sqlEditor")
@@ -84,6 +87,9 @@ public class SqlEditorController {
 	
 	@Resource(name = "sqlEditorFunctionService")
 	private ISqlEditorFunctionService sqlEditorFunctionService;
+	
+	@Resource(name = "sqlEditorProcedureService")
+	private ISqlEditorProcedureService sqlEditorProcedureService;
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
@@ -472,7 +478,6 @@ public class SqlEditorController {
 		
 	}
 	
-	
 	@RequestMapping(path = "/createFunction", method = RequestMethod.POST)
 	@ResponseBody
 	public String createFunction(String account_id, String function_name, String returnType,
@@ -521,6 +526,53 @@ public class SqlEditorController {
 		String function_name = accountId.toUpperCase() + "." + functionName.toUpperCase();
 		int resultCnt = -1;
 		resultCnt = sqlEditorFunctionService.deleteFunction(function_name);
+		return resultCnt;
+	}
+	
+	@RequestMapping(path = "/createProcedure", method = RequestMethod.POST)
+	@ResponseBody
+	public String createProcedure(String account_id, String procedure_name, String[] param_name2, 
+										String[] param_mode2, String[] param_type2, String[] param_default2) {
+		
+		String query = new ProcedureUtil().
+				getCreateProcedureSql(procedure_name, param_name2, param_mode2, param_type2, param_default2);
+		
+		return query;
+	}
+	
+	@RequestMapping(path = "/readProcedure", method = RequestMethod.POST)
+	@ResponseBody
+	public String readProcedure(String procedureName, String accountId) {
+		logger.debug("procedureName : {}", procedureName);
+		logger.debug("accountId : {}", accountId.toUpperCase());
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("procedure_name", procedureName.toUpperCase());
+		map.put("account_id", accountId.toUpperCase());
+		String result = sqlEditorProcedureService.getProcedureCode(map);
+		
+		return result;
+	}
+	
+	@RequestMapping(path = "/procedureDetail", method = RequestMethod.POST)
+	@ResponseBody
+	public ProcedureDetailVO procedureDetail(String procedureName, String accountId) {
+		logger.debug("pVOdddddddd");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("object_name", procedureName.trim().toUpperCase());
+		map.put("owner", accountId.trim().toUpperCase());
+		
+		ProcedureDetailVO pVO = sqlEditorProcedureService.procedureDetail(map);
+		logger.debug("pVO : {}", pVO);
+		return pVO;
+	}
+	
+	@RequestMapping(path = "/deleteProcedure", method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteProcedure(String procedureName, String accountId) {
+		String procedure_name = accountId.toUpperCase() + "." + procedureName.toUpperCase();
+		int resultCnt = -1;
+		resultCnt = sqlEditorProcedureService.deleteProcedure(procedure_name);
 		return resultCnt;
 	}
 	

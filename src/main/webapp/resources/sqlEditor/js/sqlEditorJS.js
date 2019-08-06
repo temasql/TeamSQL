@@ -16,6 +16,24 @@ $(document).ready(function() {
 		saveToFile_Chrome(fileName, editor.getValue());
 	});
 	
+	// 프로시저 조회 모달창 띄우기
+	$("#readProcedureSpan").on("click", function() {
+		$("#selectCode3").prop("selected", "selected");
+		$("#readProcedureDiv").empty();
+		var procedureName = $("#procedureName").val().trim();
+		var accountId = $("#procedureId").val().trim();
+		$.ajax({
+			url : "/sqlEditor/readProcedure",
+			method : "post",
+			data : "accountId=" + accountId + "&procedureName=" + procedureName,
+			success :  function(data) {
+				var temp = "<br><br><h4>" + data + "</h4>";
+				$("#readProcedureDiv").append(temp);
+			}
+		});
+		$("#readProcedureModal").css("display", "block");
+	});
+	
 	// 함수 조회 모달창 띄우기
 	$("#readFunctionSpan").on("click", function() {
 		$("#selectCode2").prop("selected", "selected");
@@ -69,6 +87,25 @@ $(document).ready(function() {
 					location.replace("/sqlEditor/sqlEditorMain");
 				}else {
 					alert("트리거 삭제에 실패하였습니다.");
+				}
+			}
+		});
+	});
+	
+	// 프로시저 삭제 버튼 클릭 이벤트
+	$("#deleteProcedureSpan").on("click", function() {
+		var procedureName = $("#procedureName").val().trim();
+		var accountId = $("#procedureId").val().trim();
+		$.ajax({
+			url : "/sqlEditor/deleteProcedure",
+			method : "post",
+			data : "accountId=" + accountId + "&procedureName=" + procedureName,
+			success :  function(data) {
+				if(data == 0) {
+					alert("프로시저 삭제에 성공하였습니다.");
+					location.replace("/sqlEditor/sqlEditorMain");
+				}else {
+					alert("프로시저 삭제에 실패하였습니다.");
 				}
 			}
 		});
@@ -228,6 +265,8 @@ $(document).ready(function() {
 		$("#readTriggerModal").css("display", "none");
 		$("#fucntionPackageModal").css("display", "none");
 		$("#readFunctionModal").css("display", "none");
+		$("#procedurePackageModal").css("display", "none");
+		$("#readProcedureModal").css("display", "none");
 	});
 	
 	// DB계정 생성
@@ -342,7 +381,9 @@ $(document).ready(function() {
 			// 구현 내용 작성
 			var dragText = editor.getSelectedText();
 			console.log(dragText);
-			if(dragText.indexOf("CREATE") != -1 && dragText.indexOf("FUNCTION") != -1) {
+			if(dragText.indexOf("CREATE") != -1 && dragText.indexOf("PROCEDURE") != -1) {
+				sqlRun(dragText);
+			}else if(dragText.indexOf("CREATE") != -1 && dragText.indexOf("FUNCTION") != -1) {
 				sqlRun(dragText);
 			}else if(dragText.indexOf("CREATE") != -1 && dragText.indexOf("TRIGGER") != -1) {
 				sqlRun(dragText);

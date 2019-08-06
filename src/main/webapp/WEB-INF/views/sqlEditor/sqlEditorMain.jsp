@@ -132,12 +132,16 @@
 				                        </ul>
 				                    </li>
 				                    <li>
-				                        <a class="procedurePackage" href="#none"><em>폴더</em> 프로시저</a>
+				                        <a class="procedurePackage" href="#none"><em>폴더</em> 프로시저
+				                        	<input type="hidden" id="bum2" value="${accountId}"/>
+				                        </a>
 				                        <ul class="depth_3">
 				                            <c:forEach items="${procedureList}" var="procedureVO">
 				                        		<c:if test="${procedureVO.owner == ac_id}">
 						                            <li class="procedures">
-						                            	<a href="#none">${procedureVO.object_name}</a>
+						                            	<a href="#none">${procedureVO.object_name}
+						                            		<input type="hidden" id="bumbum2" value="${accountId}"/>
+						                            	</a>
 						                            </li>
 				                        		</c:if>
 				                        	</c:forEach>
