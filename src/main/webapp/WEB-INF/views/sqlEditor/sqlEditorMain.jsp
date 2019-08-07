@@ -35,8 +35,6 @@
 					<img class="imgBtn" id="runPlan" title="실행계획" src="${cp}/resources/img/explain.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="refresh" title="새로고침" src="${cp}/resources/img/refresh.png"></li>
-				<li class="breadcrumb-item">
-					<img class="imgBtn" id="testPopup" title="팝업" src="${cp}/resources/img/refresh.png"></li>
 			</ol>
 		</div>
 		<nav id="dbAccountView">
