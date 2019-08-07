@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="${cp}/resources/sqlEditor/css/rightClickSequence.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/rightClickSequencePackage.css" rel="stylesheet">
 <!-- createSequence modal -->
@@ -15,7 +16,7 @@
 			<div class="form-group">
 			<label id="seqSchema"></label>
 		    <input type="text" class="form-control" id="seqName" name="seqName" placeholder="시퀀스명">
-		    <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~9글자 사이입니다.</small>
+		    <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~13글자 사이입니다.</small>
 		   	</div>
 			<label id="lblOption">속성</label>
 			<input type="text" class="form-control setSeq" id="seqStart" name="seqStart" placeholder="다음으로 시작">
@@ -44,8 +45,8 @@
 		    	<option value="ORDER">정렬</option>
 		        <option value="">정렬없음</option>
 		    </select>
-		    
 			<br>
+			<input type="hidden" id="hiddenSeqName"> 
 			<button type="button" class="btn btn-secondary" id="createSeqBtn">확인</button>
 			
 		</fieldset>
@@ -69,6 +70,37 @@
 	</div>
 </div>
 
+<!-- 시퀀스 편집 모달 -->
+<div id="updateSequenceModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" id="updateSeqModal">
+    <span class="close">&times;</span>   
+	<form action="${cp}/sqlEditor/beforeSequence" method="post" id="updateSequenceFrm">
+	  <fieldset>
+	    <legend id="updateSeqLegend">시퀀스 편집</legend>
+			<div id="updateSequence">
+			</div>
+		<button type="button" class="btn btn-secondary" id="updateSeqBtn">확인</button>
+		</fieldset>
+	</form>
+  </div>
+</div>
+
+<!-- 시퀀스 삭제 모달 -->
+<div id="deleteSequenceModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" id="deleteSeqModal">
+    <span class="close">&times;</span>   
+	<form action="${cp}/sqlEditor/deleteSequence" method="post" id="deleteSequenceFrm">
+	  <fieldset>
+	    <legend id="updateSeqLegend">시퀀스 편집</legend>
+			<div id="updateSequence">
+			</div>
+		<button type="button" class="btn btn-secondary" id="updateSeqBtn">확인</button>
+		</fieldset>
+	</form>
+  </div>
+</div>
 
 <script src="${cp}/resources/sqlEditor/js/rightClickSequence.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickSequencePackage.js"></script>

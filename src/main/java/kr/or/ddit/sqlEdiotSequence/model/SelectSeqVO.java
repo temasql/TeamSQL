@@ -28,8 +28,6 @@ public class SelectSeqVO {
 	private String cache_size;
 	private String last_number;
 	
-	
-	
 	public String getSequence_owner() {
 		return sequence_owner;
 	}
