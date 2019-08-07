@@ -6,18 +6,20 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import kr.or.ddit.template.user_template.dao.IUserTemplateDao;
 import kr.or.ddit.template.user_template.model.UserTemplateVO;
 
-//@Service
+@Service
 public class UserTemplateService implements IUserTemplateService{
 
 	@Resource(name = "userTemplateDao")
 	private IUserTemplateDao userTemplateDao;
 
 	@Override
-	public int insert(UserTemplateVO userTemplateVo) {
-		return userTemplateDao.insert(userTemplateVo);
+	public int insertUserTemplate(UserTemplateVO userTemplateVo) {
+		return userTemplateDao.insertUserTemplate(userTemplateVo);
 	}
 	
 	@Override
@@ -25,9 +27,16 @@ public class UserTemplateService implements IUserTemplateService{
 		return userTemplateDao.get(id);
 	}
 	
+	/**
+	* Method : userTemplateList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @return
+	* Method 설명 : 각 유저별 템플릿 리스트 조회
+	*/
 	@Override
-	public List<UserTemplateVO> list() {
-		return userTemplateDao.list();
+	public List<UserTemplateVO> userTemplateList(UserTemplateVO userTemplateVO) {
+		return userTemplateDao.userTemplateList(userTemplateVO);
 	}
 
 	@Override

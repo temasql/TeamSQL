@@ -10,19 +10,46 @@
 	</insert>
 	
 	<!-- 시퀀스 조회 -->
-	<select id="selectSequence" parameterType="selectSeqVO" resultType="selectSeqVO">
-	select *
-	from sys.all_sequences
-	where sequence_name = #{sequence_name}
-	and sequence_owner = #{sequence_owner}
+	<select id="selectSequence" parameterType="selectSeqVO" resultType="string">
+	SELECT DBMS_METADATA.GET_DDL ('SEQUENCE', #{sequence_name}, #{sequence_owner})FROM DUAL
 	</select>
 	
-	<select id= "selectSequenceTable" parameterType="detailSeqVo" resultType="detailSeqVo">
-	select *
-	from sys.all_objects
-	where object_type = #{object_type}
-	and object_name =#{object_name}
-	and owner =#{owner}
+	<!-- 시퀀스 테이블 조회 -->
+	<select id="selectSequenceTable" parameterType="Map" resultType="detailSeqVO">
+	select a.created
+     , a.last_ddl_time
+     , b.*
+	from
+		(select created
+		     , last_ddl_time
+		     , object_name
+		     , owner 
+		from sys.all_objects
+		where object_type = 'SEQUENCE'
+			and object_name = #{sequence_name} 
+			and owner = #{sequence_owner})a,sys.all_sequences b
+	where sequence_owner = a.owner 
+	and sequence_name = a.object_name
 	</select>
+	
+	<!-- 시퀀스 편집 전 데이터 -->
+	<select id = "beforeSequence" parameterType="Map" resultType="selectSeqVO">
+	select *
+	from sys.all_sequences
+	where sequence_owner = #{sequence_owner}
+	and sequence_name = #{sequence_name}
+	</select>
+	
+	<!-- 시퀀스 편집 -->
+	<update id="updateSequence" parameterType="String">
+		${value}
+	</update>
+	
+	<!-- 시퀀스 삭제 -->
+	<delete id="deleteSequence" parameterType="String">
+		DROP SEQUENCE ${value}
+	</delete>
+	
+	
 	
 </mapper>

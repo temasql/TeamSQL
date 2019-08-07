@@ -30,6 +30,7 @@ import kr.or.ddit.dbObject.model.SequenceVO;
 import kr.or.ddit.dbObject.model.TableVO;
 import kr.or.ddit.dbObject.model.TriggerVO;
 import kr.or.ddit.dbObject.model.ViewVO;
+import kr.or.ddit.sqlEdiotSequence.model.DetailSeqVO;
 import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
 import kr.or.ddit.sqlEdiotSequence.service.ISqlEditorSequenceService;
 import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
@@ -508,12 +509,63 @@ public class SqlEditorController {
 	// 시퀀스 쿼리 조회
 	@RequestMapping(path = "/readSequenceQuery", method = RequestMethod.POST)
 	@ResponseBody
-	public String readSequenceQuery(String sequenceOwner, String sequenceName, HttpSession session) {
+	public String readSequenceQuery(String sequence_owner, String sequence_name) {
 		
-		SelectSeqVO seqVO = new SelectSeqVO(sequenceOwner, sequenceName);
+		// 매개변수
+				SelectSeqVO seqVO = new SelectSeqVO(sequence_owner, sequence_name);
+				// 조회 쿼리
+				String seqQuery = sqlEditorSequenceService.selectSequence(seqVO);
+				return seqQuery;
 		
-		return " ";
+	}
+			
+	// 시퀀스 세부 정보 조회
+	@RequestMapping(path = "/readSequenceTable", method = RequestMethod.POST)
+	@ResponseBody
+	public DetailSeqVO readSequenceTable(String sequence_name, String sequence_owner ) {
+		Map<String, String> map = new HashMap<String, String>();
 		
+		map.put("sequence_owner", sequence_owner);
+		map.put("sequence_name", sequence_name);
+		
+		// 세부 정보 조회 쿼리
+		DetailSeqVO seqTable = sqlEditorSequenceService.selectSequenceTable(map);
+		return seqTable;
+		
+	}
+		
+	// 시퀀스 편집 뷰
+	@RequestMapping(path ="/beforeSequence", method = RequestMethod.POST)
+	@ResponseBody
+	public SelectSeqVO beforeSequence(String sequence_owner, String sequence_name) {
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("sequence_owner", sequence_owner);
+		map.put("sequence_name", sequence_name);
+		
+		SelectSeqVO seqVO = sqlEditorSequenceService.beforeSequence(map);
+		return seqVO;
+	}
+		
+	// 시퀀스 편집
+	@RequestMapping(path = "/updateSequence", method = RequestMethod.POST)
+	@ResponseBody
+	public int updateSequence(String query) {
+		
+		int updateSequence = -1;
+		
+		updateSequence = sqlEditorSequenceService.updateSequence(query);
+		return updateSequence;
+	}
+	
+	// 시퀀스 삭제
+	@RequestMapping(path = "/deleteSequence", method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteSequence(String sequence_owner, String sequence_name) {
+		String query = "\""+ sequence_owner +"\" .\""+ sequence_name + "\"";
+		int deleteSequence = -1;
+		deleteSequence = sqlEditorSequenceService.deleteSequence(query);
+		return deleteSequence;
 	}
 	
 	@RequestMapping(path = "/createFunction", method = RequestMethod.POST)

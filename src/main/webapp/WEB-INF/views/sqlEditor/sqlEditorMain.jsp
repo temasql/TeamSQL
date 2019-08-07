@@ -8,6 +8,7 @@
 <%@include file="/WEB-INF/views/sqlEditor/modal/tablePackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/functionPackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/ProcedurePackage.jsp" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/templatePackage.jsp" %>
 
 <link href="${cp}/resources/sqlEditor/css/sqlEditorStyle.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/treeMenu.css" rel="stylesheet">
@@ -28,15 +29,13 @@
 				<li class="breadcrumb-item">
 					<img class="imgBtn" title="도메인" src="${cp}/resources/img/domain.png"></li>
 				<li class="breadcrumb-item">
-					<img class="imgBtn" title="템플릿" src="${cp}/resources/img/template.png"></li>
+					<img class="imgBtn" id="templateId" title="템플릿" src="${cp}/resources/img/template.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" title="쿼리매니저" src="${cp}/resources/img/qmanager.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="runPlan" title="실행계획" src="${cp}/resources/img/explain.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="refresh" title="새로고침" src="${cp}/resources/img/refresh.png"></li>
-				<li class="breadcrumb-item">
-					<img class="imgBtn" id="testPopup" title="팝업" src="${cp}/resources/img/refresh.png"></li>
 			</ol>
 		</div>
 		<nav id="dbAccountView">
