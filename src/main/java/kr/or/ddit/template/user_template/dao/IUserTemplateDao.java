@@ -9,11 +9,11 @@ public interface IUserTemplateDao {
 
 	int insertCommonTemplate(String user_id);
 	
-	int insert(UserTemplateVO userTemplateVo);
+	int insertUserTemplate(UserTemplateVO userTemplateVo);
 	
 	UserTemplateVO get(String id);
 	
-	List<UserTemplateVO> list();
+	List<UserTemplateVO> userTemplateList(UserTemplateVO userTemplateVO);
 	
 	List<UserTemplateVO> map(Map<String, Object> map);
 	

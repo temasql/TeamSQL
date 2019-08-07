@@ -30,11 +30,22 @@ public class UserTemplateVO {
 	public void setUtemplate_original(String utemplate_original) {
 		this.utemplate_original = utemplate_original;
 	}
+	
+	public UserTemplateVO() {
+	}
+	
+	public UserTemplateVO(int utemplate_id, String user_id_fk, String utemplate_abb, String utemplate_original) {
+		super();
+		this.utemplate_id = utemplate_id;
+		this.user_id_fk = user_id_fk;
+		this.utemplate_abb = utemplate_abb;
+		this.utemplate_original = utemplate_original;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserTemplateVO [utemplate_id=" + utemplate_id + ", user_id_fk=" + user_id_fk + ", utemplate_abb="
-				+ utemplate_abb + ", utemplate_original=" + utemplate_original + ", utemplate_use=" + "]";
+				+ utemplate_abb + ", utemplate_original=" + utemplate_original + "]";
 	}
-	
 	
 }

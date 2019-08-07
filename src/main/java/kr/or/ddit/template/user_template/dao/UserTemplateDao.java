@@ -29,9 +29,17 @@ public class UserTemplateDao implements IUserTemplateDao{
 	}
 
 	
+	/**
+	* Method : insertUserTemplate
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param userTemplateVo
+	* @return
+	* Method 설명 : 사용자가 템플릿을 등록(추가)할때 사용하는 쿼리
+	*/
 	@Override
-	public int insert(UserTemplateVO userTemplateVo) {
-		return sqlSession.insert("userTemplate.insert", userTemplateVo);
+	public int insertUserTemplate(UserTemplateVO userTemplateVo) {
+		return sqlSession.insert("userTemplate.insertUserTemplate", userTemplateVo);
 	}
 	
 	@Override
@@ -39,9 +47,16 @@ public class UserTemplateDao implements IUserTemplateDao{
 		return sqlSession.selectOne("userTemplate.get", id);
 	}
 	
+	/**
+	* Method : userTemplateList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @return
+	* Method 설명 : 각 유저별 템플릿 리스트 조회
+	*/
 	@Override
-	public List<UserTemplateVO> list() {
-		return sqlSession.selectList("userTemplate.list");
+	public List<UserTemplateVO> userTemplateList(UserTemplateVO userTemplateVO) {
+		return sqlSession.selectList("userTemplate.userTemplateList", userTemplateVO);
 	}
 
 	@Override
