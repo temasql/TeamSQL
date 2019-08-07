@@ -3,19 +3,14 @@
  */
 package kr.or.ddit.sqlEdiotSequence.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.or.ddit.dbObject.model.SequenceVO;
+import kr.or.ddit.sqlEdiotSequence.model.DetailSeqVO;
 import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
 
 /**
@@ -64,10 +59,65 @@ public class SqlEditorSequenceDao implements ISqlEditorSequenceDao {
 	* Method 설명 : 시퀀스 조회
 	 */
 	@Override
-	public SelectSeqVO selectSequence(SelectSeqVO seqVO) {
+	public String selectSequence(SelectSeqVO seqVO) {
 		return sqlSession.selectOne("sqlEditorSequence.selectSequence",seqVO);
 	}
+
+	/**
+	 * 
+	* Method : selectSequenceTable
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param seqVO
+	* @return
+	* Method 설명 : 시퀀스 세부 정보 조회
+	 */
+	@Override
+	public DetailSeqVO selectSequenceTable(Map<String, String> map) {
+		return sqlSession.selectOne("sqlEditorSequence.selectSequenceTable",map);
+	}
+
+	/**
+	 * 
+	* Method : beforeSequence
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 시퀀스 편집 전 데이터
+	 */
+	@Override
+	public SelectSeqVO beforeSequence(Map<String, String> map) {
+		return sqlSession.selectOne("sqlEditorSequence.beforeSequence", map);
+	}
 	
+	/**
+	 * 
+	* Method : updateSequence
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param query
+	* @return
+	* Method 설명 : 시퀀스 편집
+	 */
+	@Override
+	public int updateSequence(String query) {
+		return sqlSession.update("sqlEditorSequence.updateSequence", query);
+	}
+
+	/**
+	 * 
+	* Method : deleteSequence
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param seqVO
+	* @return
+	* Method 설명 : 시퀀스 삭제
+	 */
+	@Override
+	public int deleteSequence(String query) {
+		return sqlSession.delete("sqlEditorSequence.deleteSequence",query);
+	}
 
 
 }

@@ -18,9 +18,9 @@ $(document).ready(function(){
   $(".sequences").contextmenu(function(e){
 	  
 	  var sequence_name = $(this).text();
-	  var account_id = $(this).find("#hogil_id").val();
+	  var sequence_owner = $(this).find("#hogil_id2").val().trim();
 	  $("#sequenceName").val(sequence_name);
-	  $("#sequenceOwner").val(account_id); 
+	  $("#sequenceOwner").val(sequence_owner); 
 	  
     //Get window size:
     var winWidth = $(document).width();
