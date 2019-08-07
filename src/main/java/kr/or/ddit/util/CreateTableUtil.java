@@ -9,9 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
 * CreateTableUtil.java
 *
@@ -37,6 +34,7 @@ public class CreateTableUtil {
 	private String nullCheck; 
 	private String defaultVal;
 	private String comment; 
+	
 	
 	// pk체크한 컬럼의 이름을 담을 리스트
 	List<String> pkColNameList = new ArrayList<String>();
@@ -69,11 +67,9 @@ public class CreateTableUtil {
 		
 		// 분리한 배열을 담을 리스트 
 		List<String[]> jsonSplitList = new ArrayList<String[]>(); 
-		
-		for (String[] arr : array) {
-			for (int i = 0; i <= 6; i++) {
-				jsonSplitList.add(arr[i].split(":"));
-			}
+
+		for (int i = 0; i <= 6; i++) {
+			jsonSplitList.add(array[idx][i].split(":"));
 		}
 		splitVlaueList(jsonSplitList);
 	}
@@ -155,11 +151,12 @@ public class CreateTableUtil {
 		// pk체크한 컬럼이름 리스트를 이터레이터로 변환
 		Iterator<String> it =  pkColNameList.iterator();
 		StringBuffer pkQuery = new StringBuffer();
-		// 첫번째 컬럼 이후부터 세미콜론을 찍기 위한 변수
-		int cnt = 0;
 		
 		// pk리스트가 비어있지 않으면
 		if (pkCheckList != null && pkCheckList.size() > 0) {
+			
+			// 첫번째 컬럼 이후부터 세미콜론을 찍기 위한 변수
+			int cnt = 0;
 			
 			// pk체크한 수만큼 반복
 			for (int i = 0; i < pkCheckList.size(); i++) {
@@ -304,6 +301,7 @@ public class CreateTableUtil {
 	*/
 	protected Map<String, Object> getQuery(String[][] array, String tableSelect) {
 
+		
 		// 생성할 테이블 이름
 		String tableName = array[0][7];
 		
@@ -353,7 +351,6 @@ public class CreateTableUtil {
 			
 			// ex ) user_id VARCHAR2
 			query.append(colName+ " " + dataType);
-			
 			// ex ) user_id VARCHAR2(20)
 			query.append(getcolSize(colSize, dataType));
 			
@@ -551,15 +548,16 @@ public class CreateTableUtil {
 		// 크기가 없어야하는 데이터 타입 리스트
 		List<String> noSizeDataTypeList = DataTypeUtil.noSizeDataType();
 		
-		for (int i = 0; i < noSizeDataTypeList.size(); i++) {
-			if (dataType.equals(noSizeDataTypeList.get(i))) {
+		for (int i = 0; i < noSizeDataTypeList.size(); i++) 
+			if (dataType.equals(noSizeDataTypeList.get(i))) 
 				return false;
-			}
-		}
+		
 		// 사이즈에 값을 입력하였을때 값이 숫자만 있지 않으면 false 리턴
-		if ((!defaultVal.equals("")) && (!defaultVal.matches("^[0-9]+"))) {
+		if ((!defaultVal.equals("")) && (!defaultVal.matches("^[0-9]+"))) 
 			return false;
-		}
+		
+		if (defaultVal.equals("")) return false;
+		
 		return true;
 	}
 	

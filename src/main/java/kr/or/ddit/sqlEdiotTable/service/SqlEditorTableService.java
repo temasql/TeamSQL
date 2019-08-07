@@ -162,6 +162,7 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		// 테이블 수정에 필요한 쿼리가 담겨있는 맵
 		Map<String, Object> queryMap = getQuery(array, tableSelect);
 		
+
 		// 변경된 컬럼을 수정하는 쿼리가 들어있는 리스트
 		updateTableColumnList = (List<String>) queryMap.get("queryList");
 		
@@ -203,12 +204,13 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		if (columnDataList.size() > updateTableColumnList.size()) dropcolumn(stNm);
 
 		// 수정후의 컬럼수가 수정전의 컬럼수보다 크면
-		if (columnDataList.size() < updateTableColumnList.size()) 
+		if (columnDataList.size() < updateTableColumnList.size()) { 
+			columnDeduplicationList();
 			
 			// 커진 수만큼 반복하여 컬럼을 생성
 			for (String updateColumn : updateTableColumnList) 
 				sqlEditorTableDao.createTable(updateColumn);
-		
+		}
 		// 제약조건 생성쿼리가 null이 아니면 제약조건 생성
 		if (pkQuery != null ) sqlEditorTableDao.createTable(pkQuery);
 		
@@ -218,6 +220,43 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 				sqlEditorTableDao.createTable(comment);
 		
 		return 0;
+	}
+	
+	
+	/**
+	* Method : columnDeduplicationList
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @return
+	* Method 설명 : 테이블 편집중 컬럼을 추가할때 기존의 컬럼이 재추가 되지 않게 중복을 제거하는 메서드
+	*/
+	private void columnDeduplicationList(){
+		// 컬럼의 이름을 모두 담을 stack
+		LinkedList<String> stack = new LinkedList<String>();
+		
+		// 컬럼의 이름을 담을 변수
+		String column = "";
+		
+		// 기존의 컬럼수만큼 반복
+		for (int i = 0; i < columnDataList.size(); i++) {
+			
+			// 기존의 컬럼이름을 반복하여 모두 담는다.
+			stack.push(columnDataList.get(i).getColumn_name());
+			
+			// 수정 후의 컬럼 수 만큼 반복
+			for (int j = 0; j < updateTableColumnList.size(); j++) {
+				
+				// 수정된 컬럼의 이름을 변수에 대입
+				column = getColumnName(updateTableColumnList.get(j));
+				// 테이블 수정전 컬럼의 이름이 수정후에도 존재하면 
+				if (columnDataList.get(i).getColumn_name().equals(column)) {
+					// stack에서 제거
+					stack.pop();
+					updateTableColumnList.remove(j); 
+					break;
+				}
+			}
+		}
 	}
 	
 	/**
@@ -296,7 +335,6 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	* Method 설명 : 테이블 편집시 컬럼이름을 변경하거나 데이터 타입 변경시
 	*/
 	private void renameColumn(String[][] array, String stNm) {
-		
 		// 쿼리를 담을 객체
 		StringBuffer modifyData = new StringBuffer();
 		
@@ -320,12 +358,10 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 				// 컬럼의 이름을 변경
 				String renameQuery = "ALTER TABLE "+ stNm +" RENAME COLUMN " + oldColName + " TO " + newColName;
 				sqlEditorTableDao.createTable(renameQuery);
-//				updateTableColumnList.get(i).replace(oldColName, newColName);
 			};
 			
 			// 컬럼의 이름 이외에 컬럼의 정보가 변했으면
 			if (updateCheck(array)) {
-				
 				modifyData.append("ALTER TABLE " + stNm + " MODIFY (" + newColName + " "); 
 				
 				// 수정하는 쿼리가 담긴 리스트에서 하나를 뽑는다.
@@ -348,6 +384,12 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		}		
 	}
 	
+	
+	private String getNewData(String arr) {
+		String[] tmp = arr.split(": ");
+		tmp[1] = tmp[1].substring(1, tmp[1].length() - 2);
+		return tmp[1];
+	}
 	/**
 	* Method : updateCheck
 	* 작성자 : 이중석
@@ -361,21 +403,22 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		boolean updateCk = true;
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 2; j <= 5; j++) {
-				String newData = array[i][j].split(": ")[1].substring(1, array[i][j].split(": ")[1].length() - 2);
-				Object oldData = "";
+				String newData = getNewData(array[i][j]);
+				String oldData = "";
 				switch (j) {
 				case 2:
-					oldData = (String)columnDataList.get(i).getData_type();
+					oldData = columnDataList.get(i).getData_type();
 					break;
 				case 3:
-					oldData = (int)columnDataList.get(i).getData_length();
+					oldData = String.valueOf(columnDataList.get(i).getData_length());
 					break;
 				case 4:
-					oldData = (String)columnDataList.get(i).getNullable();
+					oldData = columnDataList.get(i).getNullable();
 					oldData = oldData == "Y" ? "false" : "true";
 					break;
 				case 5:
-					oldData = (String)columnDataList.get(i).getData_default();
+					oldData = columnDataList.get(i).getData_default();
+					oldData = oldData == null ?  "" : oldData;
 					break;
 				}
 				if(oldData.equals(newData)) {
