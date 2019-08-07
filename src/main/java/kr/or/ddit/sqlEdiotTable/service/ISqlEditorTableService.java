@@ -72,4 +72,26 @@ public interface ISqlEditorTableService {
 	List<SqlEditorTableVO> updateTable(String tableName, Connection conn);
 	
 	int updateTable(String[][] query, String tableSelect);
+
+	/**
+	* Method : deleteTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param account_id
+	* @param tableName
+	* Method 설명 :
+	*/
+	void deleteTable(String account_id, String tableName);
+	
+	/**
+	* Method : tableExport
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param TableName
+	* @param account_id
+	* @param conn
+	* @return
+	* Method 설명 : 테이블 데이터 익스포트
+	*/
+	List<String> tableDataExport(String tableName, String account_id, Connection conn);
 }

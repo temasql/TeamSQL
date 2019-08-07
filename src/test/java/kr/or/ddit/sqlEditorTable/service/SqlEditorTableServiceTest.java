@@ -3,19 +3,19 @@
  */
 package kr.or.ddit.sqlEditorTable.service;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-import java.util.Map;
+import java.sql.Connection;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.mock.web.MockHttpSession;
 
 import kr.or.ddit.sqlEdiotTable.dao.ISqlEditorTableDao;
 import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
 import kr.or.ddit.testenv.LogicTestEnv;
-import kr.or.ddit.util.CreateTableUtil;
+import kr.or.ddit.util.DBUtilForWorksheet;
 
 /**
 * SqlEditorTableDaoTest.java
@@ -41,6 +41,8 @@ public class SqlEditorTableServiceTest extends LogicTestEnv{
 	@Resource(name = "sqlEditorTableDao")
 	private ISqlEditorTableDao sqlEditorTableDao;
 	
+	
+	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTableServiceTest.class);
 	
 	/**
 	* Method : createTableTest
@@ -98,5 +100,24 @@ public class SqlEditorTableServiceTest extends LogicTestEnv{
 //		/***Then***/
 //		assertEquals(0, createCount);
 	}
+	
+	/**
+	 * Method : primaryInjectionTest
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * Method 설명 : 컬럼리스트에서 PK인 컬럼을 찾아서 PK 값 true 만들기
+	 */
+	@Test
+	public void tableDataExportTest() {
+		/***Given***/
+		MockHttpSession session = new MockHttpSession();
+		Connection conn = DBUtilForWorksheet.getConnection("TeamSQL", "java", session);
+		String tableName = "USERS";
+		String account_id = "TeamSQL";
+		/***When***/
+		/***Then***/
+		logger.debug("{}",sqlEditorTableService.tableDataExport(tableName, account_id, conn));
+	}
+
 
 }

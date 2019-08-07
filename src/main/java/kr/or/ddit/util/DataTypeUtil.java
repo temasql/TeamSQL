@@ -4,7 +4,9 @@
 package kr.or.ddit.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * DataTypeUtil.java
@@ -101,6 +103,33 @@ public class DataTypeUtil {
 		noSizeDataTypeList.add("LONG VARCHAR");
 		noSizeDataTypeList.add("NCLOB");
 		return noSizeDataTypeList;
+	}
+	
+	/**
+	 * Method : noSizeDataType
+	 * 작성자 : 이중석
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 사이즈를 입력할수 없는 데이터 타입
+	 */
+	public static Map<String, Object> stringDataType() {
+		Map<String, Object> noSizeDataTypeMap = new HashMap<String, Object>();
+		noSizeDataTypeMap.put("DATE", "DATE");
+		noSizeDataTypeMap.put("CLOB", "CLOB");
+		noSizeDataTypeMap.put("BLOB", "BLOB");
+		noSizeDataTypeMap.put("BFILE", "BFILE");
+		noSizeDataTypeMap.put("BINARY_DOUBLE","BINARY_DOUBLE");
+		noSizeDataTypeMap.put("BINARY_FLOAT","BINARY_FLOAT");
+		noSizeDataTypeMap.put("CHAR","CHAR");
+		noSizeDataTypeMap.put("DOUBLE PRECISION","DOUBLE PRECISION");
+		noSizeDataTypeMap.put("INT","INT");
+		noSizeDataTypeMap.put("INTEGER","INTEGER");
+		noSizeDataTypeMap.put("LONG","LONG");
+		noSizeDataTypeMap.put("LONG RAW","LONG RAW");
+		noSizeDataTypeMap.put("LONG VARCHAR","LONG VARCHAR");
+		noSizeDataTypeMap.put("NCLOB","NCLOB");
+		noSizeDataTypeMap.put("VARCHAR2","VARCHAR2");
+		return noSizeDataTypeMap;
 	}
 	
 	/**
