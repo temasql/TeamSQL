@@ -7,11 +7,11 @@ import kr.or.ddit.template.user_template.model.UserTemplateVO;
 
 public interface IUserTemplateService {
 	
-	int insert(UserTemplateVO userTemplateVo);
+	int insertUserTemplate(UserTemplateVO userTemplateVo);
 	
 	UserTemplateVO get(String id);
 	
-	List<UserTemplateVO> list();
+	List<UserTemplateVO> userTemplateList(UserTemplateVO userTemplateVO);
 	
 	Map<String, Object> map(Map<String, Object> map);
 	
