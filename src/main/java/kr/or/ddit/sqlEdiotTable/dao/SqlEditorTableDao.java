@@ -81,7 +81,6 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 			int columnCount = rs.getMetaData().getColumnCount();
 			for (int i = 1; i <= columnCount; i++) {
 				columnNameList.add(rs.getMetaData().getColumnName(i)); 
-				logger.debug("columnNameList ==> {}", rs.getMetaData().getColumnName(i));
 			}
 			resultList.add(columnNameList);
 			
@@ -89,7 +88,6 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 				List<String> dataList = new ArrayList<String>();
 				for (int i = 0; i < columnNameList.size(); i++) {
 					dataList.add(rs.getString(columnNameList.get(i)));
-					logger.debug("dataList ==> {}", columnNameList.get(i));
 				}
 				resultList.add(dataList);
 			}
@@ -101,7 +99,6 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 			if(rs!=null) try{ rs.close(); }catch(SQLException e){}
 			if(stmt!=null) try{ stmt.close(); }catch(SQLException e){}
 		}
-		logger.debug("resultList ==> {}", resultList);
 		return resultList;
 	}
 	

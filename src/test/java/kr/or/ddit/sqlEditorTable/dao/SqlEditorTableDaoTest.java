@@ -3,13 +3,10 @@
  */
 package kr.or.ddit.sqlEditorTable.dao;
 
-import static org.junit.Assert.assertEquals;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -21,7 +18,6 @@ import org.springframework.mock.web.MockHttpSession;
 import kr.or.ddit.sqlEdiotTable.dao.ISqlEditorTableDao;
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 import kr.or.ddit.testenv.LogicTestEnv;
-import kr.or.ddit.util.CreateTableUtil;
 import kr.or.ddit.util.DBUtilForWorksheet;
 import kr.or.ddit.util.SelectTableUtil;
 

@@ -16,6 +16,7 @@ import kr.or.ddit.sqlEdiotTable.dao.ISqlEditorTableDao;
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 import kr.or.ddit.util.CreateTableUtil;
 import kr.or.ddit.util.SelectTableUtil;
+import kr.or.ddit.util.TableExportUtil;
 
 /**
 * SqlEditorTable.java
@@ -88,6 +89,33 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	@Override
 	public List<List<String>> selectTable(String select, String TableName, Connection conn) {
 		return sqlEditorTableDao.selectTable(SelectTableUtil.selectQuery(select, TableName), conn);
+	}
+	
+	/**
+	* Method : tableDataExport
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @return
+	* Method 설명 : 테이블 데이터 익스포트 
+	*/
+	public List<String> tableDataExport(String tableName, String account_id, Connection conn){
+		
+		// 스키마.테이블이름
+		String stNm = account_id + "." + tableName ;
+		
+		// 데이터 익스포트 하기 위해 컬럼의 이름과 데이터를 가져온다.
+		List<List<String>> dataList = sqlEditorTableDao.selectTable(SelectTableUtil.selectQuery("data", tableName), conn);
+		
+		// 테이블의 컬럼이름과 데이터 타입이 들어있는 메서드
+		List<List<String>> colNameNDataTypeList = sqlEditorTableDao.selectTable(SelectTableUtil.selectQuery("CnNdT", tableName), conn);
+		
+		// 컬럼의 이름이 들어있는 리스트
+		List<String> columnNameList = dataList.get(0);
+		
+		// 테이블의 컬럼중 크기가 들어가면 안되는 컬럼 리스트
+		List<String> nosizeColList = TableExportUtil.getNoSizeColList(colNameNDataTypeList, columnNameList);
+		
+		return TableExportUtil.getInsertQueryList(stNm,dataList,columnNameList, nosizeColList);
 	}
 	
 	/**
@@ -429,6 +457,21 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 			}
 		}
 		return updateCk;
+	}
+	/**
+	* Method : deleteTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param account_id
+	* @param tableName
+	* Method 설명 : 테이블 삭제
+	*/
+	@Override
+	public void deleteTable(String account_id, String tableName) {
+		account_id = account_id.toUpperCase();
+		String stNm = "\"" + account_id + "\".\"" + tableName + "\"";
+		String dropTableQuery = "drop table " + stNm + " cascade constraints PURGE";
+		sqlEditorTableDao.createTable(dropTableQuery);
 	}
 	
 }

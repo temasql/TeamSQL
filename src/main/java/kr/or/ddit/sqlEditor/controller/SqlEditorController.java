@@ -396,7 +396,50 @@ public class SqlEditorController {
 			@RequestBody String[][] array) {
 		sqlEditorTableService.updateTable(array, "update");
 		return "jsonView";
-
+	}
+	
+	/**
+	* Method : deleteTable
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param account_id
+	* @param tableName
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 테이블 삭제
+	*/
+	@RequestMapping("/deleteTable")
+	public String deleteTable(String account_id, String tableName, HttpSession session, Model model) {
+		sqlEditorTableService.deleteTable(account_id, tableName);
+		return sqlEditorMain(session, model);
+	}
+	
+	/**
+	* Method : tableExport
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param tableName
+	* @param account_id
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 테이블 export
+	*/
+	@RequestMapping("/tableExport")
+	public String tableExport(String tableName, String account_id, HttpSession session
+			, Model model) {
+		
+		AccountVO accountVO = accountService.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		
+		List<String> dataList = sqlEditorTableService.tableDataExport(tableName, account_id, conn);
+		StringBuffer sbf = new StringBuffer();
+		for (String dt : dataList) {
+			sbf.append(dt + "\r\n");
+		}
+		model.addAttribute("data", sbf);
+		return "jsonView";
 	}
 	
 	@RequestMapping(path = "/createTriggerReady", method = RequestMethod.POST)
