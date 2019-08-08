@@ -1,4 +1,68 @@
+var cnt3 = 0;
 $(document).ready(function() {
+	
+	$("#createTestDataBtn").on("click", function() {
+		var dataCnt = $("#dataCnt").val().trim();
+		if($("#table_name").val().trim() == "") {
+			alert("테이블명을 입력해주세요.");
+			$("#table_name").focus();
+			return;
+		}
+		if(dataCnt == "" || dataCnt <= 0 || dataCnt > 100) {
+			alert("수량은 1~100 사이에서 선택해주세요.");
+			$("#dataCnt").val("");
+			$("#dataCnt").focus();
+			return;
+		}
+		
+		$.ajax({
+			url : "/sqlEditor/createTestData",
+			method : "post",
+			data : $("#tdFrm").serialize(),
+			succuss : function(data) {
+				
+			}
+		});
+		
+		
+	});
+	
+	$("#testData").on("click", function() {
+		$("#testDataModal").css("display", "block");
+	});
+	
+	$("#testDataAddImg").on("click", function() {
+		cnt3 += 1;
+		var temp = "<tr id='tdId"+cnt3+"'>" +
+						"<td>" +
+							"<input type='text' name='column_name' class='form-control' value='COLUMN"+cnt3+"'/>" +
+						"</td>";
+		temp += "<td>" +
+					"<select class='form-control' name='data_type'>" +
+						"<option>이름</option>" +
+						"<option>전화번호</option>" +
+						"<option>이메일</option>" +
+						"<option>날짜</option>" +
+						"<option>날짜(오늘)</option>" +
+						"<option>국적</option>" +
+						"<option>도시(대한민국)</option>" +
+						"<option>커스텀</option>" +
+					"</select>" +
+				"</td>";
+		temp += "<td>" +
+					"<select class='form-control' name='isNull'>" +
+						"<option>NOT NULL</option>" +
+						"<option>NULL</option>" +
+					"</select>" +
+				"</td>";
+		$("#testDataTable").append(temp);
+	});
+	
+	$("#testDataDeleteImg").on("click", function() {
+		var deleteId = $("#testDataHidden").val();
+		$("#" + deleteId).remove();
+	});
+	
 	
 	$("#hiddenDiv").on("mousedown", function() {
 		var accountListSize = $("#accountListSize").val();
@@ -6,7 +70,6 @@ $(document).ready(function() {
 			alert("DB계정을 먼저 생성해주세요.");
 		}else {
 			$("#hiddenDiv").css("z-index", 0);
-//			$("#editor").prop("class", "ace_editor ace-twilight ace_dark ace_focus");
 			$("#editor").find("textarea").first().focus();
 		}
 	});
@@ -343,7 +406,11 @@ $(document).ready(function() {
 		$("#readFunctionModal").css("display", "none");
 		$("#procedurePackageModal").css("display", "none");
 		$("#readProcedureModal").css("display", "none");
+
+		$("#testDataModal").css("display", "none");
+
 		$("#templateModal").css("display", "none");
+
 	});
 	
 	$(".addClose").on("click", function(){
@@ -451,19 +518,6 @@ $(document).ready(function() {
 			}
 		});
 		
-	});
-	
-	// 쉬프트 + 엔터 이벤트
-	var shiftDown = false;
-	$(document).keydown(function(e) {
-		if(e.keyCode == 16) shiftDown = true;
-		if(e.keyCode == 13 && shiftDown == true) {
-			shiftDown = false;
-			alert("쉬프트 엔터");
-		}
-	}).keyup(function(e) { 
-		if (e.keyCode == 16) shiftDown = false;
-		if (e.keyCode == 13) shiftDown = false;
 	});
 	
 	// 컨트롤 + 엔터 이벤트

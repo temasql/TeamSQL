@@ -79,5 +79,6 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorSequence.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorFunction.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorProcedure.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/testData.xml" />
 	</mappers>
 </configuration>
