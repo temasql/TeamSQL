@@ -13,6 +13,8 @@ public interface IUserTemplateDao {
 	
 	String getAbb(Map<String, Object> map);
 	
+	String getOriginal(UserTemplateVO userTemplateVO);
+	
 	List<UserTemplateVO> userTemplateList(UserTemplateVO userTemplateVO);
 	
 	List<UserTemplateVO> map(Map<String, Object> map);

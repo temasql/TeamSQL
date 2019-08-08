@@ -99,7 +99,17 @@ public class UserTemplateDao implements IUserTemplateDao{
 		return sqlSession.delete("userTemplate.deleteUserTemplate", userTemplateVO);
 	}
 
-	
-	
 
+	/**
+	* Method : getOriginal
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param utemplate_abb
+	* @return
+	* Method 설명 : 사용자가 약어가 DB에 있는 약어와 일치하는 원문을 리턴
+	*/
+	@Override
+	public String getOriginal(UserTemplateVO userTemplateVO) {
+		return sqlSession.selectOne("userTemplate.getOriginal", userTemplateVO);
+	}
 }

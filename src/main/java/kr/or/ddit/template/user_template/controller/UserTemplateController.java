@@ -163,4 +163,36 @@ public class UserTemplateController {
 		
 		return "";
 	}
+	
+	
+	/**
+	* Method : userTemplateFunc
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @return
+	* Method 설명 : 사용자가 템플릿 기능을 실했했을 때
+	* 			사용자가 원하는 약어를 가져와서
+	* 			DB에있는 약어와 일치하는 원문을
+	* 			리턴
+	*/
+	@RequestMapping(path="/getOriginal", method=RequestMethod.POST)
+	public String userTemplateFunc(Model model, HttpSession session, UserTemplateVO userTemplateVO) {
+		logger.debug("사용자 약어 utemplate_abb : {}", userTemplateVO);
+		
+		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+		userTemplateVO.setUser_id_fk(userVO.getUser_id());
+		userTemplateVO.setUtemplate_abb(userTemplateVO.getUtemplate_abb().toUpperCase());
+		String utemplate_original = service.getOriginal(userTemplateVO);
+		
+		String result = "";
+		if(utemplate_original == null) {
+			result = "없는 약어입니다.";
+		}else {
+			result = utemplate_original;
+		}
+		
+		model.addAttribute("result", result);
+		
+		return "jsonView";
+	}
 }

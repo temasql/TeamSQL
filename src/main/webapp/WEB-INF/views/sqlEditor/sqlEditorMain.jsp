@@ -286,6 +286,7 @@
 
 <script src="${cp}/resources/ace-builds-master/ace.js"></script>
 <script src="${cp}/resources/sqlEditor/js/sqlEditorJS.js"></script>
+<script src="${cp}/resources/sqlEditor/js/templateEditorJS.js"></script>
 <script src="${cp}/resources/sqlEditor/js/treeMenu.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClick.js"></script>
 <script src="${cp}/resources/jqGrid/js/i18n/grid.locale-kr.js"></script>
