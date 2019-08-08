@@ -171,7 +171,9 @@
 			<br>
 		</div>
 		<div id="groupDives">
-			<table id="resultTable"></table>
+			<div id="resultTableDiv">
+				<table id="resultTable"></table>
+			</div>
 			<div class="groupDiv" id="seconedDiv">
 				<textarea class="form-control" id="scriptViewArea" rows="10" cols="229" readonly></textarea>
 			</div>
