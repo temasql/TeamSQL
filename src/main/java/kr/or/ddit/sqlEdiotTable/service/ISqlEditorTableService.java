@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 
 /**
@@ -93,5 +95,6 @@ public interface ISqlEditorTableService {
 	* @return
 	* Method 설명 : 테이블 데이터 익스포트
 	*/
-	List<String> tableDataExport(String tableName, String account_id, Connection conn);
+	String tableExport(String tableName, String account_id, HttpSession session
+			,String[]exportChecked);
 }

@@ -89,6 +89,29 @@
   </div>
 </div>
 
+<!-- EXPORT Modal -->
+<div id="tableExportModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>   
+    <br><br>                  
+	<form action="${cp}/sqlEditor/tableExport" method="post" id="udpateTableFrm">
+	  <fieldset>
+	    <legend id="tableExportTitle"></legend>
+	    <div id="tableExportView">
+    		<input type="checkbox" name="exportChecked" value="CONSTRAINT"> 제약조건
+    		<input type="checkbox" name="exportChecked" value="INDEX"> 인덱스
+    		<input type="checkbox" name="exportChecked" value="VIEW"> 뷰
+    		<input type="checkbox" name="exportChecked" value="TRIGGER"> 트리거
+    		<input type="checkbox" name="exportChecked" value="DATA"> 데이터
+    		<input type="hidden" id="exportChk">
+	    </div>
+	  </fieldset>
+	</form>
+	 <button type="button" id="tableExportBtn" class="btn btn-secondary">EXPORT</button>
+  </div>
+</div>
+
 <script src="${cp}/resources/sqlEditor/js/rightClickTable.js"></script>
 <script src="${cp}/resources/sqlEditor/js/rightClickTablePackage.js"></script>
 <script src="${cp}/resources/sqlEditor/js/tableManager.js"></script>

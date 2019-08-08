@@ -432,17 +432,12 @@ public class SqlEditorController {
 	*/
 	@RequestMapping("/tableExport")
 	public String tableExport(String tableName, String account_id, HttpSession session
-			, Model model) {
+			, Model model, String[] exportChecked) {
 		
-		AccountVO accountVO = accountService.getAccountOne(account_id);
-		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
 		
-		List<String> dataList = sqlEditorTableService.tableDataExport(tableName, account_id, conn);
-		StringBuffer sbf = new StringBuffer();
-		for (String dt : dataList) {
-			sbf.append(dt + "\r\n");
-		}
-		model.addAttribute("data", sbf);
+		String data = sqlEditorTableService.tableExport(tableName, account_id, session, exportChecked);
+		
+		model.addAttribute("data", data);
 		return "jsonView";
 	}
 	

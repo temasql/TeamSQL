@@ -9,8 +9,49 @@ public class SqlEditorTableVO {
 	private String nullable;
 	private String data_default;
 	private String comments;
+	private String DDL;
+	private String CONSTRAINT_NAME;
+	private String TRIGGER_NAME;
+	private String VIEW_NAME;
+	private String INDEX_NAME;
 	
 	
+	public String getCONSTRAINT_NAME() {
+		return CONSTRAINT_NAME;
+	}
+	public void setCONSTRAINT_NAME(String cONSTRAINT_NAME) {
+		CONSTRAINT_NAME = cONSTRAINT_NAME;
+	}
+	public String getTRIGGER_NAME() {
+		return TRIGGER_NAME;
+	}
+	public void setTRIGGER_NAME(String tRIGGER_NAME) {
+		TRIGGER_NAME = tRIGGER_NAME;
+	}
+	public String getVIEW_NAME() {
+		return VIEW_NAME;
+	}
+	public void setVIEW_NAME(String vIEW_NAME) {
+		VIEW_NAME = vIEW_NAME;
+	}
+	public String getINDEX_NAME() {
+		return INDEX_NAME;
+	}
+	public void setINDEX_NAME(String iNDEX_NAME) {
+		INDEX_NAME = iNDEX_NAME;
+	}
+	public String getTABLE_NAME() {
+		return CONSTRAINT_NAME;
+	}
+	public void setTABLE_NAME(String tABLE_NAME) {
+		CONSTRAINT_NAME = tABLE_NAME;
+	}
+	public String getDDL() {
+		return DDL;
+	}
+	public void setDDL(String dDL) {
+		DDL = dDL;
+	}
 	public String getPk() {
 		return pk;
 	}
@@ -57,7 +98,8 @@ public class SqlEditorTableVO {
 	public String toString() {
 		return "SqlEditorTableVO [pk=" + pk + ", column_name=" + column_name + ", data_type=" + data_type
 				+ ", data_length=" + data_length + ", nullable=" + nullable + ", data_default=" + data_default
-				+ ", comments=" + comments + "]";
+				+ ", comments=" + comments + ", DDL=" + DDL + ", CONSTRAINT_NAME=" + CONSTRAINT_NAME + ", TRIGGER_NAME="
+				+ TRIGGER_NAME + ", VIEW_NAME=" + VIEW_NAME + ", INDEX_NAME=" + INDEX_NAME + "]";
 	}
 	
 }

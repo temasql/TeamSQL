@@ -4,17 +4,22 @@
 package kr.or.ddit.sqlEdiotTable.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.account.dao.IAccountDao;
+import kr.or.ddit.account.model.AccountVO;
 import kr.or.ddit.sqlEdiotTable.dao.ISqlEditorTableDao;
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 import kr.or.ddit.util.CreateTableUtil;
+import kr.or.ddit.util.DBUtilForWorksheet;
 import kr.or.ddit.util.SelectTableUtil;
 import kr.or.ddit.util.TableExportUtil;
 
@@ -37,6 +42,7 @@ import kr.or.ddit.util.TableExportUtil;
 @Service
 public class SqlEditorTableService extends CreateTableUtil implements ISqlEditorTableService {
 
+	
 	// 테이블 수정전 테이블의 정보를 담을 리스트
 	private List<SqlEditorTableVO> columnDataList = null;
 	
@@ -48,6 +54,9 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	
 	@Resource(name = "sqlEditorTableDao")
 	private ISqlEditorTableDao sqlEditorTableDao;
+	
+	@Resource(name = "accountDao")
+	private IAccountDao accountDao;
 	
 	/**
 	* Method : createTable
@@ -90,18 +99,74 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	public List<List<String>> selectTable(String select, String TableName, Connection conn) {
 		return sqlEditorTableDao.selectTable(SelectTableUtil.selectQuery(select, TableName), conn);
 	}
-	
 	/**
 	* Method : tableDataExport
 	* 작성자 : 이중석
 	* 변경이력 :
 	* @return
-	* Method 설명 : 테이블 데이터 익스포트 
+	* Method 설명 : 테이블 익스포트 
 	*/
-	public List<String> tableDataExport(String tableName, String account_id, Connection conn){
+	public String tableExport(String tableName, String account_id, HttpSession session
+			, String[]exportChecked){
 		
 		// 스키마.테이블이름
 		String stNm = account_id + "." + tableName ;
+		String query = "";
+		AccountVO accountVO = accountDao.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		StringBuffer str = new StringBuffer();
+		
+		str.append(sqlEditorTableDao.getDDL("TABLE", account_id, tableName));
+		
+		if (exportChecked.length > 0) {
+			for (String checked : exportChecked) {
+				query = SelectTableUtil.selectTableDDLQuery(checked, tableName, account_id);
+				if (checked.equals("CONSTRAINT")) {
+					List<String> ddlList = sqlEditorTableDao.getData(query);
+					for (String ddl : ddlList) {
+						str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
+					}
+				}
+				if (checked.equals("INDEX")) {
+					List<String> ddlList = sqlEditorTableDao.getIndexes(query);
+					for (String ddl : ddlList) {
+						str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
+					}
+				}
+				if (checked.equals("VIEW")) {
+					List<String> ddlList = sqlEditorTableDao.getViews(query);
+					for (String ddl : ddlList) {
+						str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
+					}
+				}
+				if (checked.equals("TRIGGER")) {
+					List<String> ddlList = sqlEditorTableDao.getTriggers(query);
+					for (String ddl : ddlList) {
+						str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
+					}
+				}
+				if (checked.equals("DATA")) {
+					str.append(dataExport(tableName, stNm, conn));
+				}
+			}
+		}
+		
+		str.append(sqlEditorTableDao.getCommentDDL(account_id, tableName));
+		
+		return str.toString();
+	}
+	
+	/**
+	* Method : dataExport
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param tableName
+	* @param stNm
+	* @param conn
+	* @return
+	* Method 설명 : 데이터 익스포트
+	*/
+	private String dataExport(String tableName, String stNm, Connection conn){
 		
 		// 데이터 익스포트 하기 위해 컬럼의 이름과 데이터를 가져온다.
 		List<List<String>> dataList = sqlEditorTableDao.selectTable(SelectTableUtil.selectQuery("data", tableName), conn);
@@ -115,9 +180,14 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		// 테이블의 컬럼중 크기가 들어가면 안되는 컬럼 리스트
 		List<String> nosizeColList = TableExportUtil.getNoSizeColList(colNameNDataTypeList, columnNameList);
 		
-		return TableExportUtil.getInsertQueryList(stNm,dataList,columnNameList, nosizeColList);
+		List<String> insertList = TableExportUtil.getInsertQueryList(stNm,dataList,columnNameList, nosizeColList);
+		StringBuffer sbf = new StringBuffer();
+		for (String dt : insertList) {
+			sbf.append(dt + "\r\n");
+		}
+		
+		return sbf.toString();
 	}
-	
 	/**
 	 * 
 	* Method : getColumns
@@ -149,7 +219,6 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		
 		// 해당 테이블의 컬럼리스트에 pk가 존재하면 해당컬럼의 pk값을 true로 전환
 		columnDataList = SelectTableUtil.primaryKeyInjection(primaryKeyList, sqlEditorTableDao.selectTableColumnData(tableName, conn));
-		
 		return columnDataList;
 	}
 	
@@ -186,10 +255,8 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	*/
 	@Override
 	public int updateTable(String[][] array, String tableSelect) {
-		
 		// 테이블 수정에 필요한 쿼리가 담겨있는 맵
 		Map<String, Object> queryMap = getQuery(array, tableSelect);
-		
 
 		// 변경된 컬럼을 수정하는 쿼리가 들어있는 리스트
 		updateTableColumnList = (List<String>) queryMap.get("queryList");
@@ -390,18 +457,27 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 			
 			// 컬럼의 이름 이외에 컬럼의 정보가 변했으면
 			if (updateCheck(array)) {
+				
 				modifyData.append("ALTER TABLE " + stNm + " MODIFY (" + newColName + " "); 
 				
 				// 수정하는 쿼리가 담긴 리스트에서 하나를 뽑는다.
 				String modifyDataQuery = updateTableColumnList.get(i);
+				if (columnDataList.get(i).getNullable().equals("N") && updateTableColumnList.get(i).contains("NOT NULL")) {
+					modifyDataQuery = modifyDataQuery.replaceAll("NOT NULL", "");
+				}
 				
 				// 수정하는 쿼리 문자열에서 컬럼의 이름 까지 자른 후 컬럼의 정보를 추출한다. 
 				// ex) (user_id VARCHAR2(20) NOT NULL DEFAULT 1) ==> "VARCHAR2(20) NOT NULL DEFAULT 1"
 				modifyDataQuery = modifyDataQuery.substring(modifyDataQuery.lastIndexOf(newColName)  + newColName.length(), modifyDataQuery.lastIndexOf(")"));
+				if (modifyDataQuery.contains("NOT NULL") && !modifyDataQuery.contains("DEFAULT NULL")) {
+					int idx = modifyDataQuery.indexOf("NOT NULL");
+					StringBuffer sbf = new StringBuffer(modifyDataQuery);
+					sbf.insert(idx, " DEFAULT NULL ");
+					modifyDataQuery = sbf.toString();
+				}
 				
 				// 추출한 컬럼의 정보를 추가
 				modifyData.append(modifyDataQuery + ")");
-				
 				// 조합한 쿼리를 실행
 				sqlEditorTableDao.createTable(modifyData.toString());
 				
@@ -429,6 +505,7 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	*/
 	private boolean updateCheck(String[][] array) {
 		boolean updateCk = true;
+		List<Boolean> updateCkList = new ArrayList<Boolean>();
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 2; j <= 5; j++) {
 				String newData = getNewData(array[i][j]);
@@ -451,12 +528,19 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 				}
 				if(oldData.equals(newData)) {
 					updateCk = false;
+					updateCkList.add(updateCk);
 					continue;
 				}
 				updateCk = true;
+				updateCkList.add(updateCk);
 			}
 		}
-		return updateCk;
+		for (Boolean boolean1 : updateCkList) {
+			if (boolean1) {
+				return true;
+			}
+		}
+		return false;
 	}
 	/**
 	* Method : deleteTable

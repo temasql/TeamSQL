@@ -101,7 +101,6 @@ public class CreateTableUtil {
 	* Method 설명 : 값에 붙어있는 세미콜론과 띄어쓰기 제거
 	*/
 	private void jsonProcessing(List<String> jsonValueList) {
-		
 		// json 배열에서 세미콜론과 띄어쓰기를 제거한 값을 담을 리스트
 		List<String> jsonProcessingList = new ArrayList<String>();
 		
@@ -227,7 +226,7 @@ public class CreateTableUtil {
 		if(nullCheck.equals("true")) 
 			return " NOT NULL";
 		
-		return " NULL";
+		return " ";
 	}
 	
 	/**
@@ -385,13 +384,11 @@ public class CreateTableUtil {
 			queryList.add(query.toString());
 			query.setLength(0);
 		}
-		
 		queryMap.put("pkColumnList", pkColNameList);
 		
 		// pk리스트가 비어있지 않으면
 		if (pkCheckList != null && pkCheckList.size() > 0) 
 			queryMap.put("pkQuery", pkQueryProcessing(pkColNameList, pkCheckList, stNm, tableName));
-		
 		queryMap.put("queryList", queryList);
 	}
 	

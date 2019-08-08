@@ -6,16 +6,31 @@ $(document).ready(function() {
 	});
 	
 	$("#exportTable").on("click", function() {
+		$("#tableExportModal").css("display", "block");
+		$("#tableExportTitle").text($("#tableNm").val())
+	});
+	$("#tableExportBtn").on("click", function(){
 		$.ajax({
 			url    : "/sqlEditor/tableExport"
-				,data   :  "tableName=" + $("#tableNm").val() + "&account_id=" + $("#acco_id").val()
+				,data   :  "tableName=" + $("#tableNm").val() + "&account_id=" + $("#acco_id").val() +"&exportChecked=" + $("#exportChk").val()
 				,success : function(data) {
 					console.log(data.data)
-					
+					$("#tableExportModal").css("display", "none");
 					saveToFile_Chrome("export", data.data)
 				}
 		})
-	});
+	})
+	
+	  $('input[name=exportChecked]').click(function(){
+		  var output = '';
+		  $('input[name=exportChecked]:checked').each(function(index,item){
+			   if(index!=0){
+				   output += ',';
+		    	}
+			   output += $(this).val();
+			   $("#exportChk").val(output);
+	   		});
+	  });
 	
 	$("#deleteTableSpan").on("click", function(){ 
 		var ac_id = $("#acco_id").val()
@@ -67,6 +82,7 @@ $(document).ready(function() {
 		$("#craeteTableModal").css("display", "none");
 		$("#readTableModal").css("display", "none");
 		$("#updateTableModal").css("display", "none");
+		$("#tableExportModal").css("display", "none");
 	});
 	
 	// 테이블 생성

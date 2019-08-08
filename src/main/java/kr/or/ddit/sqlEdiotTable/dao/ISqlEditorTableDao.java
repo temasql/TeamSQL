@@ -48,6 +48,17 @@ public interface ISqlEditorTableDao {
 	List<List<String>> selectTable(String query, Connection conn);
 	
 	/**
+	* Method : getConstraint
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param query
+	* @param conn
+	* @return
+	* Method 설명 : 해당 테이블의 제약조건  조회
+	*/
+	List<String> getData(String query);
+	
+	/**
 	 * 
 	* Method : getColumns
 	* 작성자 : 김범휘
@@ -78,4 +89,21 @@ public interface ISqlEditorTableDao {
 	* Method 설명 : 해당 테이블의 PK 키 조회 
 	*/
 	List<String> selectTablePrimaryKey(String tableName, Connection conn);
+
+	/**
+	* Method : getDDL
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param account_id
+	* @param constraint
+	* @return
+	* Method 설명 :
+	*/
+	String getDDL(String checked,String account_id, String target);
+	String getCommentDDL(String account_id, String tableName);
+	List<String> getIndexes(String query); 
+	List<String> getViews(String query); 
+	List<String> getTriggers(String query); 
+	
+	
 }

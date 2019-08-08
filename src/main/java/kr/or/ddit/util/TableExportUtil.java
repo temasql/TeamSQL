@@ -35,7 +35,7 @@ public class TableExportUtil {
 	 */
 	public static List<String> getNoSizeColList(List<List<String>> colNameNDataTypeList, List<String> columnNameList) {
 		
-		// 사이즈가 없는 데이터 타입 리스트
+		// 데이터를 insert할때 싱글쿼테이션으로 감싸줘야하는 데이터타입 리스트
 		Map<String, Object> stringDataType = DataTypeUtil.stringDataType();
 		
 		// 테이블의 컬럼중 크기가 들어가면 안되는 컬럼 리스트
@@ -70,6 +70,7 @@ public class TableExportUtil {
 		}
 		return nosizeColList;
 	}
+	
 	/**
 	* Method : getInsertQueryList
 	* 작성자 : 이중석
@@ -89,41 +90,37 @@ public class TableExportUtil {
 		
 		// row수만큼 insert쿼리를 담을 리스트
 		List<String> insertDataList = new ArrayList<String>();
+	
+		String nullStr = "'null'";
 		
 		// 전체 row수만큼 반복
 		for (int i = 1; i < dataList.size(); i++) {
 			insertQuery.append("INSERT INTO " + stNm + " VALUES (");
 			// 하나의 row를 담은 리스트
 			List<String> colDataList = dataList.get(i);
-			
+
 			Map<String, Object> nosizeColMap = new HashMap<String, Object>();
 			for (String noSizeCol : nosizeColList) {
 				nosizeColMap.put(noSizeCol, noSizeCol);
 			}
-			
 			// row에서 컬럼당 데이터를 반복하여 조회
 			for (int j = 0; j < colDataList.size(); j++) {
-				
 				if (j == 0) {
 					insertQuery.append(" '" + colDataList.get(j) + "'");
 				}else {
 					insertQuery.append(", '" + colDataList.get(j) + "'");
 				}
-				
-				for (String columnName : columnNameList) {
-					
-					String nullStr = "'null'";
-					if (insertQuery.toString().contains("'null'")) {
-						insertQuery.replace(insertQuery.indexOf(nullStr), insertQuery.indexOf(nullStr) + nullStr.length() + 1, "NULL");
-						break;
-					}
-					if(nosizeColMap.get(columnName) == null) {
-						int start = insertQuery.indexOf("'" + colDataList.get(j) + "'" );
-						String endStr = "'" + colDataList.get(j) + "'";
-						int end = start + endStr.length() + 1;
-						insertQuery.replace(start , end , colDataList.get(j));
-						break;
-					}
+				String columnName = columnNameList.get(j);
+				if (insertQuery.toString().contains("'null'")) {
+					insertQuery.replace(insertQuery.indexOf(nullStr), insertQuery.indexOf(nullStr) + nullStr.length() + 1, "NULL");
+					break;
+				}
+				if(nosizeColMap.get(columnName) == null) {
+					int start = insertQuery.indexOf("'" + colDataList.get(j) + "'" );
+					String endStr = "'" + colDataList.get(j) + "'";
+					int end = start + endStr.length() + 1;
+					insertQuery.replace(start , end , colDataList.get(j));
+					break;
 				}
 			}
 			
