@@ -272,7 +272,7 @@ $(document).ready(function() {
 	
 	// 결과창으로 바꾸기
 	$("#resultViewSpan").on("click", function() {
-		$("#resultViewArea").css("display", "block");
+		$("#resultTable").css("display", "block");
 		$("#scriptViewArea").css("display", "none");
 		$("#resultViewSpan").css("color", "red");
 		$("#scriptViewSpan").css("color", "black");
@@ -281,7 +281,7 @@ $(document).ready(function() {
 	// 스크립트 창으로 바꾸기
 	$("#scriptViewSpan").on("click", function() {
 		$("#scriptViewArea").css("display", "block");
-		$("#resultViewArea").css("display", "none");
+		$("#resultTable").css("display", "none");
 		$("#scriptViewSpan").css("color", "red");
 		$("#resultViewSpan").css("color", "black");
 	});

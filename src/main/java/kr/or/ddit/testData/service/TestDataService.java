@@ -65,7 +65,7 @@ public class TestDataService implements ITestDataService {
 		for (int i = 0; i < dataCnt; i++) {
 			tmp = "";
 			for (int j = 0; j < list.size(); j++) {
-				if(list.get(j).get(i).equals("sysdate")) {
+				if(list.get(j).get(i).equals("sysdate") || list.get(j).get(i).equals("null")) {
 					tmp += list.get(j).get(i) + ",";
 				}else {
 					tmp += "'" + list.get(j).get(i) + "',";
