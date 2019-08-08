@@ -34,6 +34,8 @@
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="runPlan" title="실행계획" src="${cp}/resources/img/explain.png"></li>
 				<li class="breadcrumb-item">
+					<img class="imgBtn" id="testData" title="테스트 데이터" src="${cp}/resources/img/flask.png"></li>
+				<li class="breadcrumb-item">
 					<img class="imgBtn" id="refresh" title="새로고침" src="${cp}/resources/img/refresh.png"></li>
 			</ol>
 		</div>
@@ -191,6 +193,48 @@
 	    <br><br>
 	    <button type="button" id="worksheetLoadBtn" class="btn btn-secondary">확인</button>
   	 </fieldset>
+  </div>
+</div>
+
+<!-- File Load Modal -->
+<div id="testDataModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<span class="close">&times;</span>
+  	<br><br>
+  	<form id="tdFrm">
+	  <fieldset>
+	    <legend>테스트 데이터 생성</legend>
+	    <br><br>
+		<img class="imgBtn" id="testDataAddImg" src="${cp}/resources/img/add.png">&nbsp;&nbsp;
+		<img class="deleteBtn" id="testDataDeleteImg" src="${cp}/resources/img/delete.png">
+		<br><br>
+    	<table class="table table-hover" id="tdTable">
+			<colgroup>
+				<col width="40%">
+				<col width="40%">
+				<col width="20%">
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">컬럼명</th>
+					<th scope="col">데이터타입</th>
+					<th scope="col">NULL여부</th>
+				</tr>
+			</thead>
+			<tbody id="testDataTable"></tbody>
+		</table>
+		<br><br>
+		<label for="exampleInputEmail1">테이블명</label>
+		<input type="text" class="form-control" id="table_name" name="table_name" placeholder="테이블명">
+		<br><br>
+		<label for="exampleInputEmail1">수량</label>
+		<input type="number" class="form-control" id="dataCnt" name="dataCnt" placeholder="1~100" min="1" max="100">
+		<br><br>
+		<input type="hidden" id="testDataHidden"/>
+		<button type="button" id="createTestDataBtn" class="btn btn-secondary">생성</button>
+  	 </fieldset>
+  	</form>
   </div>
 </div>
 

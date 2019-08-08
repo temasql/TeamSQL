@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="testData">
+
+	<select id="getTestData" parameterType="map" resultType="String">
+		<![CDATA[
+			SELECT  TD_DATA
+			FROM    TEST_DATA
+			WHERE   TD_TYPE = #{td_type}
+			AND     ROWNUM <= #{cnt}
+		]]>
+	</select>
+	
+	<select id="getNameData" resultType="String">
+		select  td_data
+		from    test_data
+		where   td_type = 'name'
+	</select>
+	
+	<select id="getPhoneData" resultType="String">
+		select  td_data
+		from    test_data
+		where   td_type = 'phone'
+	</select>
+	
+	<select id="getDateData" resultType="String">
+		select  td_data
+		from    test_data
+		where   td_type = 'date'
+	</select>
+	
+	<select id="getCountryData" resultType="String">
+		select  td_data
+		from    test_data
+		where   td_type = 'country'
+	</select>
+	
+	<select id="getEmailData" resultType="String">
+		select  td_data
+		from    test_data
+		where   td_type = 'email'
+	</select>
+	
+	<select id="getCityData" resultType="String">
+		select  td_data
+		from    test_data
+		where   td_type = 'city'
+	</select>
+	
+</mapper>

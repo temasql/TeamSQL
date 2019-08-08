@@ -43,6 +43,7 @@ import kr.or.ddit.sqlEditorTrigger.model.MyTriggerCodeVO;
 import kr.or.ddit.sqlEditorTrigger.model.MyTriggerVO;
 import kr.or.ddit.sqlEditorTrigger.model.TriggerDetailVO;
 import kr.or.ddit.sqlEditorTrigger.service.ISqlEditorTriggerService;
+import kr.or.ddit.testData.service.ITestDataService;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.util.DBUtilForWorksheet;
@@ -86,6 +87,9 @@ public class SqlEditorController {
 	
 	@Resource(name = "sqlEditorProcedureService")
 	private ISqlEditorProcedureService sqlEditorProcedureService;
+	
+	@Resource(name = "testDataService")
+	private ITestDataService testDataService;
 	
 	@RequestMapping(path =  "/sqlEditorMain", method = RequestMethod.GET)
 	public String sqlEditorMain(HttpSession session, Model model) {
@@ -630,6 +634,21 @@ public class SqlEditorController {
 		model.addAttribute("dragText", dragText);
 		model.addAttribute("account_id", account_id);
 		return "sqlEditor/resultPopup";
+	}
+	
+	@RequestMapping(path = "/createTestData", method = RequestMethod.POST)
+	@ResponseBody
+	public String createTestData(String[] column_name, String[] data_type, String[] isNull, 
+																String table_name, int dataCnt) {
+		logger.debug("column_name : {}", column_name[1]);
+		logger.debug("data_type : {}", data_type[1]);
+		logger.debug("isNull : {}", isNull[1]);
+		logger.debug("dataCnt : {}", dataCnt);
+		
+		List<String> resultList = testDataService.getTestData(column_name, data_type, isNull, table_name, dataCnt);
+		logger.debug("resultList : {}", resultList.toString());
+		
+		return null;
 	}
 	
 }
