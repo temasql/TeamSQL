@@ -257,3 +257,6 @@
 	font-size: 20px;
 }
 
+#tempUpdate, #tempUpdateCancle{
+	display: inline;
+}

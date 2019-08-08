@@ -9,13 +9,13 @@ public interface IUserTemplateService {
 	
 	int insertUserTemplate(UserTemplateVO userTemplateVo);
 	
-	UserTemplateVO get(String id);
+	String getAbb(Map<String, Object> map);
 	
 	List<UserTemplateVO> userTemplateList(UserTemplateVO userTemplateVO);
 	
 	Map<String, Object> map(Map<String, Object> map);
 	
-	int update(String id);
+	int updateUserTemplate(UserTemplateVO userTemplateVO);
 	
-	int delete(String id);
+	int deleteUserTemplate(UserTemplateVO userTemplateVO);
 }

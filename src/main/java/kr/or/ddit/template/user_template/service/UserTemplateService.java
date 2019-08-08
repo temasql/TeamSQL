@@ -22,9 +22,18 @@ public class UserTemplateService implements IUserTemplateService{
 		return userTemplateDao.insertUserTemplate(userTemplateVo);
 	}
 	
+	/**
+	* Method : getAbb
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param id
+	* @return
+	* Method 설명 : 유저가 템플릿을 등록할 때 
+	* 			  약어가 존재하는지 검색하는 메서드
+	*/
 	@Override
-	public UserTemplateVO get(String id) {
-		return userTemplateDao.get(id);
+	public String getAbb(Map<String, Object> map) {
+		return userTemplateDao.getAbb(map);
 	}
 	
 	/**
@@ -46,14 +55,22 @@ public class UserTemplateService implements IUserTemplateService{
 		return resultMap;
 	}
 
+	/**
+	* Method : updateUserTemplate
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param id
+	* @return
+	* Method 설명 : 사용자가 사용자 템플릿을 수정하는 메서드
+	*/
 	@Override
-	public int update(String id) {
-		return userTemplateDao.update(id);
+	public int updateUserTemplate(UserTemplateVO userTemplateVO) {
+		return userTemplateDao.updateUserTemplate(userTemplateVO);
 	}
 	
 	@Override
-	public int delete(String id) {
-		return userTemplateDao.delete(id);
+	public int deleteUserTemplate(UserTemplateVO userTemplateVO) {
+		return userTemplateDao.deleteUserTemplate(userTemplateVO);
 	}
 
 }
