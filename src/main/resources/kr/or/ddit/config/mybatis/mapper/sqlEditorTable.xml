@@ -9,6 +9,10 @@
 		${value}
 	</update>
 	
+	<select id="getDDLTable" parameterType="String" resultType="sqlTableVO">
+		${value}
+	</select>
+	
 	<select id="selectTableColumnData" parameterType="String" resultType="sqlTableVO">
 		SELECT A.COLUMN_NAME, 
 		       A.DATA_TYPE, 

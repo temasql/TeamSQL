@@ -14,8 +14,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
@@ -39,8 +37,6 @@ import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 @Repository
 public class SqlEditorTableDao implements ISqlEditorTableDao {
 
-	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTableDao.class);
-	
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
 	/**
@@ -102,6 +98,84 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 		return resultList;
 	}
 	
+	/**
+	* Method : getConstraint
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param query
+	* @param conn
+	* @return
+	* Method 설명 : 해당 테이블의 제약조건  조회
+	*/
+	public List<String> getData(String query) {
+		List<SqlEditorTableVO> constraintList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
+		List<String> dataList = new ArrayList<String>();
+		for (SqlEditorTableVO sqlEditorTableVO : constraintList) {
+			dataList.add(sqlEditorTableVO.getTABLE_NAME());
+		}
+		return dataList;
+	}
+	public List<String> getIndexes(String query) {
+		List<SqlEditorTableVO> constraintList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
+		List<String> dataList = new ArrayList<String>();
+		for (SqlEditorTableVO sqlEditorTableVO : constraintList) {
+			dataList.add(sqlEditorTableVO.getINDEX_NAME());
+		}
+		return dataList;
+	}
+	public List<String> getViews(String query) {
+		List<SqlEditorTableVO> constraintList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
+		List<String> dataList = new ArrayList<String>();
+		for (SqlEditorTableVO sqlEditorTableVO : constraintList) {
+			dataList.add(sqlEditorTableVO.getVIEW_NAME());
+		}
+		return dataList;
+	}
+	public List<String> getTriggers(String query) {
+		List<SqlEditorTableVO> constraintList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
+		List<String> dataList = new ArrayList<String>();
+		for (SqlEditorTableVO sqlEditorTableVO : constraintList) {
+			dataList.add(sqlEditorTableVO.getTRIGGER_NAME());
+		}
+		return dataList;
+	}
+	
+	/**
+	* Method : gettDDL
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param account_id
+	* @param constraint
+	* @return
+	* Method 설명 : 해당 테이블의 제약조건 DDL 조회
+	*/
+	@Override
+	public String getDDL(String checked, String account_id, String target ) {
+		String query = "SELECT DBMS_METADATA.GET_DDL('" + checked + "','" + target + "', '" + account_id.toUpperCase() + "') DDL FROM DUAL";
+		List<SqlEditorTableVO> ddlList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
+		String ddl = "";
+		for (SqlEditorTableVO sqlEditorTableVO : ddlList) {
+			ddl += sqlEditorTableVO.getDDL().replaceAll("\n", "\r\n");
+			ddl += ";\r\n";
+		}
+		return ddl;
+	}
+	
+	public String getCommentDDL(String account_id, String tableName) {
+		
+		String query = "SELECT DBMS_METADATA.GET_DEPENDENT_DDL('COMMENT','" + tableName.toUpperCase() + "','" + account_id.toUpperCase() + "') DDL " + 
+						"FROM DBA_TABLES " + 
+						"WHERE OWNER = '" + account_id.toUpperCase() + "' " +
+						"AND TABLE_NAME = '" + tableName + "'"; 
+		List<SqlEditorTableVO> ddlList = sqlSession.selectList("sqlEditorTable.getDDLTable", query);
+		
+		String ddl = "";
+		for (SqlEditorTableVO sqlEditorTableVO : ddlList) {
+			ddl += sqlEditorTableVO.getDDL().replaceAll("\n", "\r\n");
+			ddl += ";\r\n";
+		}
+		return ddl;
+	}
 	@Override
 	public List<String> getColumns(String tableName, Connection conn) {
 		Connection cc = conn;
@@ -202,7 +276,6 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 					query.append("WHERE A.CONSTRAINT_NAME = B.CONSTRAINT_NAME ");
 					query.append("AND A.TABLE_NAME = '" + tableName+ "' AND A.CONSTRAINT_TYPE = 'P'");
 			rs = stmt.executeQuery(query.toString());
-			
 			while(rs.next()) {
 				primaryKeyList.add(rs.getString("COLUMN_NAME"));
 			}
@@ -217,4 +290,6 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 		
 		return primaryKeyList;
 	}
+
+	
 }

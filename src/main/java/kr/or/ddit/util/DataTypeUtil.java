@@ -110,7 +110,7 @@ public class DataTypeUtil {
 	 * 작성자 : 이중석
 	 * 변경이력 :
 	 * @return
-	 * Method 설명 : 사이즈를 입력할수 없는 데이터 타입
+	 * Method 설명 : 데이터를 insert할때 싱글쿼테이션으로 감싸줘야하는 데이터타입
 	 */
 	public static Map<String, Object> stringDataType() {
 		Map<String, Object> noSizeDataTypeMap = new HashMap<String, Object>();

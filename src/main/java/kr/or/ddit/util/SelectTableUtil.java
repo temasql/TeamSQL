@@ -5,9 +5,6 @@ package kr.or.ddit.util;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 
 /**
@@ -28,8 +25,6 @@ import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
 */
 public class SelectTableUtil {
 
-	private static final Logger logger = LoggerFactory.getLogger(SelectTableUtil.class);
-	
 	/**
 	* Method : selectQuery
 	* 작성자 : 이중석
@@ -52,6 +47,28 @@ public class SelectTableUtil {
 		return "";
 	}
 	
+	public static String selectTableDDLQuery(String checked, String tableName, String account_id) {
+		SelectTableUtil stu = new SelectTableUtil();
+		if (checked.equals("CONSTRAINT")) return stu.getConstraint(tableName, account_id);
+		if (checked.equals("INDEX")) return stu.getIndexList(tableName);
+		if (checked.equals("VIEW")) return stu.getView(account_id);
+		if (checked.equals("TRIGGER")) return stu.getTrigger(tableName, account_id);
+		return "";
+	}
+	
+	private String getConstraint(String tableName, String account_id) {
+		return "SELECT CONSTRAINT_NAME FROM DBA_CONSTRAINTS WHERE TABLE_NAME = '" + tableName +"' AND OWNER = '" + account_id.toUpperCase() + "'";
+	}
+	private String getIndexList(String tableName) {
+		return "SELECT  A.INDEX_NAME FROM DBA_IND_COLUMNS A WHERE A.TABLE_NAME = '" + tableName + "' ORDER BY A.INDEX_NAME, A.COLUMN_POSITION";
+	}
+	private String getView(String account_id) {
+		return "SELECT VIEW_NAME FROM DBA_VIEWS WHERE OWNER = '" + account_id.toUpperCase() + "'";
+	}
+	private String getTrigger(String tableName, String account_id) {
+		return "SELECT TRIGGER_NAME FROM DBA_TRIGGERS WHERE TABLE_OWNER = '" + account_id.toUpperCase() + "' AND TABLE_NAME = '" + tableName + "'";
+	}
+
 	/**
 	* Method : getColNameNDataType
 	* 작성자 : 이중석
