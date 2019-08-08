@@ -42,9 +42,18 @@ public class UserTemplateDao implements IUserTemplateDao{
 		return sqlSession.insert("userTemplate.insertUserTemplate", userTemplateVo);
 	}
 	
+	/**
+	* Method : getAbb
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param id
+	* @return
+	* Method 설명 : 유저가 템플릿을 등록할 때 
+	* 			  약어가 존재하는지 검색하는 메서드
+	*/
 	@Override
-	public UserTemplateVO get(String id) {
-		return sqlSession.selectOne("userTemplate.get", id);
+	public String getAbb(Map<String, Object> map) {
+		return sqlSession.selectOne("userTemplate.getAbb", map);
 	}
 	
 	/**
@@ -64,14 +73,30 @@ public class UserTemplateDao implements IUserTemplateDao{
 		return sqlSession.selectList("userTemplate.map", map);
 	}
 	
+	/**
+	* Method : updateUserTemplate
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param id
+	* @return
+	* Method 설명 : 사용자가 사용자 템플릿을 수정하는 메서드
+	*/
 	@Override
-	public int update(String id) {
-		return sqlSession.update("userTemplate.update", id);
+	public int updateUserTemplate(UserTemplateVO userTemplateVO) {
+		return sqlSession.update("userTemplate.updateUserTemplate", userTemplateVO);
 	}
 
+	/**
+	* Method : deleteUserTemplate
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param userTemplateVO
+	* @return
+	* Method 설명 : 사용자 템플릿을 삭제하는 메서드
+	*/
 	@Override
-	public int delete(String id) {
-		return sqlSession.delete("userTemplate.delete", id);
+	public int deleteUserTemplate(UserTemplateVO userTemplateVO) {
+		return sqlSession.delete("userTemplate.deleteUserTemplate", userTemplateVO);
 	}
 
 	

@@ -41,10 +41,11 @@
 	</insert>
 	
 	<!-- SelectOne -->
-	<select id="get" parameterType="String" resultType="userTemplateVo">
-		SELECT *
-		FROM USER_TEMPLATE
-		WHERE ID = #{id}
+	<select id="getAbb" parameterType="map" resultType="String">
+		SELECT 	UTEMPLATE_ABB
+		FROM 	USER_TEMPLATE
+		WHERE 	UTEMPLATE_ABB = #{utemplate_abb}
+		AND		USER_ID_FK = #{user_id_fk}
 	</select>
 	
 	<!-- SelectList -->
@@ -52,6 +53,7 @@
 		SELECT 	*
 		FROM 	USER_TEMPLATE
 		WHERE	USER_ID_FK = #{user_id_fk}
+		ORDER BY UTEMPLATE_ID ASC
 	</select>
 	
 	<select id="map" parameterType="map" resultType="userTemplateVo">
@@ -63,17 +65,19 @@
 	</select>
 	
 	<!-- update -->
-	<update id="update" parameterType="userTemplateVo">
-		UPDATE USER_TEMPLATE
-		SET COLUMN = #{..}
-		WHERE ID = #{id}
+	<update id="updateUserTemplate" parameterType="userTemplateVo">
+		UPDATE 	USER_TEMPLATE
+		SET 	UTEMPLATE_ABB = #{utemplate_abb},
+				UTEMPLATE_ORIGINAL = #{utemplate_original}
+		WHERE 	UTEMPLATE_ID = #{utemplate_id}
 	</update>
 	
 	<!-- delete -->
-	<delete id="delete" parameterType="String">
+	<delete id="deleteUserTemplate" parameterType="userTemplateVo">
 		DELETE
-		FROM USER_TEMPLATE
-		WHERE ID = #{id}
+		FROM 	USER_TEMPLATE
+		WHERE 	USER_ID_FK = #{user_id_fk}
+		AND		UTEMPLATE_ID = #{utemplate_id}
 	</delete>
 
 </mapper>
