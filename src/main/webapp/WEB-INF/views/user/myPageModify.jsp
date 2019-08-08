@@ -16,13 +16,13 @@
    				// 비밀번호가 다르면 비밀번호가 지워짐
 	   			  if($(this).val() != $("#pw").val()){
 	   				  $(this).val("");
-	   				  $("#pw").val("");
+	   				  alert("비밀번호를 맞게 입력해주세요");
 	   			  }
    			});
       	})
       </script>
       <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" name="user_pw" placeholder="비밀번호는 문자,숫자, 1개이상의 특수문자를 포함하여 8~16글자로 작성가능합니다."><form:errors path="userVO.user_pw"/>
+      <input type="password" class="form-control" id="pw" name="user_pw" placeholder="비밀번호는 문자,숫자, 1개이상의 특수문자를 포함하여 8~16글자로 작성가능합니다."><form:errors path="userVO.user_pw"/>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Password 재확인</label>
