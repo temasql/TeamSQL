@@ -116,7 +116,7 @@ public class SqlEditorTableServiceTest extends LogicTestEnv{
 		String account_id = "TeamSQL";
 		/***When***/
 		/***Then***/
-		logger.debug("{}",sqlEditorTableService.tableDataExport(tableName, account_id, conn));
+//		logger.debug("{}",sqlEditorTableService.tableDataExport(tableName, account_id, conn));
 	}
 
 
