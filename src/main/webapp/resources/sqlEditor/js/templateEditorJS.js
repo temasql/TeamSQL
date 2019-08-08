@@ -29,7 +29,6 @@ $(document).ready(function() {
 			var lineText = aceDocument.getLine(cursorRow); 		// 커서위치의 라인에 있는 Text 전체 구하기
 			
 			var str = lineText.substring(0, cursorColumn);
-			var listStr = lineText.substring(cursorColumn, lineText.length+1);
 			
 			cursorColumn = parseInt(cursorColumn);
 			
@@ -75,14 +74,8 @@ $(document).ready(function() {
 						console.log(data.result);
 						var original = data.result;
 						
-						firstStr = str.substring(0, (str.length-utemplate_abb.length));
-						
-						var result = firstStr + original +  listStr
-					
-//						editor.replace(utemplate_abb, data.result);
-						
-						editor.removeLines();
-						editor.insert(result);
+						editor.removeWordLeft()
+						editor.insert(original);
 					}
 				},
 				error : function(error){
