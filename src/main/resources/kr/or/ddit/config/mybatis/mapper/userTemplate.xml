@@ -80,4 +80,10 @@
 		AND		UTEMPLATE_ID = #{utemplate_id}
 	</delete>
 
+	<select id="getOriginal" parameterType="userTemplateVo" resultType="String">
+		SELECT 	UTEMPLATE_ORIGINAL
+		FROM	USER_TEMPLATE
+		WHERE	USER_ID_FK = #{user_id_fk}
+		AND		UTEMPLATE_ABB = #{utemplate_abb}
+	</select>
 </mapper>
