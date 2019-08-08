@@ -4,6 +4,32 @@ $(document).ready(function() {
 	$("#createTableSpan").on("click", function() {
 		$("#craeteTableModal").css("display", "block");
 	});
+	
+	$("#exportTable").on("click", function() {
+		$.ajax({
+			url    : "/sqlEditor/tableExport"
+				,data   :  "tableName=" + $("#tableNm").val() + "&account_id=" + $("#acco_id").val()
+				,success : function(data) {
+					console.log(data.data)
+					
+					saveToFile_Chrome("export", data.data)
+				}
+		})
+	});
+	
+	$("#deleteTableSpan").on("click", function(){ 
+		var ac_id = $("#acco_id").val()
+		var tableName = $("#tableNm").val();
+		
+		$.ajax({
+			url    : "/sqlEditor/deleteTable"
+				,data   :  "account_id=" + ac_id + "&tableName=" + tableName
+				,success : function(data) {
+					alert(tableName + "테이블이 삭제되었습니다.")
+					location.replace("/sqlEditor/sqlEditorMain");
+				}
+		})
+	})
 	$("#readTableSpan").on("click", function() {
 		$("#readTableTitle").text($("#tableNm").val())
 		$("#readTableModal").css("display", "block");
@@ -308,5 +334,23 @@ function updateAppendDataAjax(){
 									$("#tableUpdateTbody").append(rowData);
 			}
 	});
+}
+
+function saveToFile_Chrome(fileName, content) {
+    var blob = new Blob([content], { type: 'text/plain' });
+ 
+    objURL = window.URL.createObjectURL(blob);
+            
+    // 이전에 생성된 메모리 해제
+    if (window.__Xr_objURL_forCreatingFile__) {
+        window.URL.revokeObjectURL(window.__Xr_objURL_forCreatingFile__);
+    }
+    window.__Xr_objURL_forCreatingFile__ = objURL;
+ 
+    var a = document.createElement('a');
+ 
+    a.download = fileName;
+    a.href = objURL;
+    a.click();
 }
 

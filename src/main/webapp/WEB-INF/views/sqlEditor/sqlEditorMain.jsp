@@ -8,6 +8,7 @@
 <%@include file="/WEB-INF/views/sqlEditor/modal/tablePackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/functionPackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/ProcedurePackage.jsp" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/templatePackage.jsp" %>
 
 <link href="${cp}/resources/sqlEditor/css/sqlEditorStyle.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/treeMenu.css" rel="stylesheet">
@@ -28,7 +29,7 @@
 				<li class="breadcrumb-item">
 					<img class="imgBtn" title="도메인" src="${cp}/resources/img/domain.png"></li>
 				<li class="breadcrumb-item">
-					<img class="imgBtn" title="템플릿" src="${cp}/resources/img/template.png"></li>
+					<img class="imgBtn" id="templateId" title="템플릿" src="${cp}/resources/img/template.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" title="쿼리매니저" src="${cp}/resources/img/qmanager.png"></li>
 				<li class="breadcrumb-item">
@@ -264,6 +265,7 @@
   <li><span id="readTableSpan">테이블 조회</span></li>
   <li><span id="updateTableSpan">테이블 편집</span></li>
   <li><span id="deleteTableSpan">테이블 삭제</span></li>
+  <li><span id="exportTable">테이블 EXPORT</span></li>
 </ul>
 
 <!-- 시퀀스 패키지 우클릭 -->

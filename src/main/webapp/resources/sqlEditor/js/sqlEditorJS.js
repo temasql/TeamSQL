@@ -317,7 +317,7 @@ $(document).ready(function() {
 		$("#accountPwUpdateModal").css("display", "block");
 	});
 	
-	//일정관리 팝업창 띄우기
+	//일정관리 팝업창 띄우기(손주형)
 	$("#calendarPopup").on("click", function(){
 		var temp = $("#acc_id").val();
 		var w = 912; //팝업창의 가로크기(임의)
@@ -327,6 +327,71 @@ $(document).ready(function() {
 		window.open("/cal?account_id="+temp, "_blank","scrollbar=no, resizeable=no, " +
 							"top="+y+",left="+x+",width=912,height=984");
 	});
+	
+	//템플릿 모달창 띄우기(손주형)
+	$("#templateId").on("click", function(){
+		var user_id = $("#userId").val();
+		
+		$.ajax({
+			method:"post",
+			url : "/userTemplate/userTemplate",
+//			contentType : "application/json",
+			dataType : "json",
+			data : "user_id_fk="+user_id,
+			success : function(response){
+				console.log(response.templateList);
+				var list = response.templateList;
+				
+				var rowData = "";
+				
+				response.templateList.forEach(function (templateVO){
+					rowData += "<tr class='table table-hover templateRow'>";
+					rowData += "<td>" + templateVO.utemplate_abb + "</td>";
+					rowData += "<td>" + templateVO.utemplate_original + "</td>";
+					rowData += "</tr>";
+				})
+				
+				
+				$("#templateTbody").append(rowData);
+			},
+			error : function(error){
+				console.log(error);
+			}
+		})
+		
+		$("#templateModal").css("display", "block");
+		$("#tableBody").html();
+	})
+	
+	//템플릿 추가 버튼 클릭시 이벤트(손주형)
+	$("#templateAdd").on("click", function(){
+		$("#templateAddModal").css("display", "block");
+		
+	})
+	
+	$("#tempAdd").on("click", function(){
+		var utemplate_abb = $("#inputAbb").val();
+		var utemplate_original = $("#inputOriArea").val();
+		
+		alert(utemplate_abb);
+		alert(utemplate_original);
+		
+		$.ajax({
+			method : "post",
+			url : "/userTemplate/insertUserTemplate",
+			data : $("#templateFrm").serialize(),
+			success : function(data){
+				alert(data+"개 등록 성공");
+				
+				$("#inputAbb").val("");
+				$("#inputOriArea").val("");
+			}
+		})
+	})
+	
+	$("#tempCancle").on("click", function(){
+		$("#templateAddModal").css("display", "none");
+	})
 	
 	// 모달창 닫기
 	$(".close").on("click", function() {
@@ -341,8 +406,16 @@ $(document).ready(function() {
 		$("#readFunctionModal").css("display", "none");
 		$("#procedurePackageModal").css("display", "none");
 		$("#readProcedureModal").css("display", "none");
+
 		$("#testDataModal").css("display", "none");
+
+		$("#templateModal").css("display", "none");
+
 	});
+	
+	$(".addClose").on("click", function(){
+		$("#templateAddModal").css("display", "none");
+	})
 	
 	// DB계정 생성
 	$("#addAccountBtn").on("click", function() {

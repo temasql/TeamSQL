@@ -5,6 +5,15 @@ public class CommonTemplateVO {
 	private String ctemplate_abb;       // 템플릿약어
 	private String ctemplate_original;	// 템플릿쿼리원문
 	
+	public CommonTemplateVO(int ctemplate_id, String ctemplate_abb, String ctemplate_original) {
+		super();
+		this.ctemplate_id = ctemplate_id;
+		this.ctemplate_abb = ctemplate_abb;
+		this.ctemplate_original = ctemplate_original;
+	}
+	
+	public CommonTemplateVO() {
+	}
 	
 	public int getCtemplate_id() {
 		return ctemplate_id;

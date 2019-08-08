@@ -48,7 +48,20 @@ public class SelectTableUtil {
 		if (select.equals("detail"))  return stu.getDetail(tableName);
 		if (select.equals("index"))  return stu.getIndex(tableName);
 		if (select.equals("DDL"))  return stu.getDDL(tableName);
+		if (select.equals("CnNdT"))  return stu.getColNameNDataType(tableName);
 		return "";
+	}
+	
+	/**
+	* Method : getColNameNDataType
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param tableName
+	* @return
+	* Method 설명 : 테이블의 컬럼 데이터 타입과 이름을 조회하는 쿼리를 반환하는 메서드 
+	*/
+	private String getColNameNDataType(String tableName) {
+		return "select COLUMN_NAME, DATA_TYPE from USER_TAB_COLUMNS WHERE TABLE_NAME = '" + tableName + "'"; 
 	}
 	
 	/**

@@ -22,15 +22,21 @@
 	   	 	)	
 	</insert>
 
-	<!-- Insert -->
-	<insert id="insert" parameterType="userTemplateVo">
+	<!-- 템플릿 Insert -->
+	<insert id="insertUserTemplate" parameterType="userTemplateVo">
 		INSERT INTO USER_TEMPLATE
 		(
-			...
+			UTEMPLATE_ID,
+			USER_ID_FK,
+			UTEMPLATE_ABB,
+			UTEMPLATE_ORIGINAL
 		)
 		VALUES
 		(
-			...
+			USER_TEMPLATE_SEQ.NEXTVAL,
+			#{user_id_fk},
+			#{utemplate_abb},
+			#{utemplate_original}
 		)
 	</insert>
 	
@@ -42,9 +48,10 @@
 	</select>
 	
 	<!-- SelectList -->
-	<select id="list" resultType="userTemplateVo">
-		SELECT *
-		FROM USER_TEMPLATE
+	<select id="userTemplateList" parameterType="userTemplateVo" resultType="userTemplateVo">
+		SELECT 	*
+		FROM 	USER_TEMPLATE
+		WHERE	USER_ID_FK = #{user_id_fk}
 	</select>
 	
 	<select id="map" parameterType="map" resultType="userTemplateVo">
