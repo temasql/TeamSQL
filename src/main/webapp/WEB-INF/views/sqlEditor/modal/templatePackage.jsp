@@ -28,6 +28,9 @@
 		    <div id="templateAdd"><button class="btn btn-secondary">추가</button></div>
 		    <div id="templateUpdate"><button class="btn btn-secondary">수정</button></div>
 		    <div id="templateDelete"><button class="btn btn-secondary">삭제</button></div>
+		    <input id="inputTmpId" type="hidden">
+		    <input id="inputTmpUpdateAbb" type="hidden">
+		    <input id="inputTmpUpdateOriArea" type="hidden">
 	    </div>
   	 </fieldset>
   </div>
@@ -45,7 +48,7 @@
 	    <br><br>
 	    <div id="tempAddView">
 	    	<form id="templateFrm">
-		    	<div id="Text">약어 : <input id="inputAbb" name="utemplate_abb" class="form-control" placeholder="약어 입력란"><br>
+		    	<div id="Text">약어 : <input id="inputAbb" name="utemplate_abb" class="form-control" placeholder="약어 입력란"  onkeyup="this.value=this.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣-; , 0-9]/g, '');"><br>
 		    		  원문 : <textarea id="inputOriArea" name="utemplate_original" class="form-control" rows="5" placeholder="원문 입력란"></textarea>
 		    	</div>
 	    	</form>
@@ -67,19 +70,20 @@
   	<span class="addClose">&times;</span>
   	<br><br>
 	  <fieldset>
-	    <legend>템플릿 추가</legend>
+	    <legend>템플릿 수정</legend>
 	    <br><br>
 	    <div id="tempAddView">
-	    	<form id="templateFrm">
-		    	<div id="Text">약어 : <input id="inputAbb" name="utemplate_abb" class="form-control" placeholder="약어 입력란"><br>
-		    		  원문 : <textarea id="inputOriArea" name="utemplate_original" class="form-control" rows="5" placeholder="원문 입력란"></textarea>
-		    	</div>
+	    	<form id="templateUpdateFrm">
+	    		<input type="hidden" id="tempId" name="utemplate_id">
+		    	<div id='Text'>약어 : <input id='inputUpdateAbb' name='utemplate_abb' class='form-control' onkeyup="this.value=this.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣-; , 0-9]/g, '');" placeholder="약어 입력란"><br>
+		    	 원문 : <textarea id='inputUpdateOriArea' name='utemplate_original' class='form-control' rows='5' placeholder='원문 입력란'></textarea>
+		    	 </div>
 	    	</form>
 	    </div>
 	    
 	    <div id="tempBtnDiv">
-		    <div id="tempAdd"><button class="btn btn-secondary">추가</button></div>
-		    <div id="tempCancle"><button class="btn btn-secondary">취소</button></div>
+		    <div id="tempUpdate"><button class="btn btn-secondary">수정</button></div>
+		    <div id="tempUpdateCancle"><button class="btn btn-secondary">취소</button></div>
 	    </div>
   	 </fieldset>
   </div>

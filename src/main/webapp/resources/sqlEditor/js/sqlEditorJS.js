@@ -1,4 +1,84 @@
+var cnt3 = 0;
 $(document).ready(function() {
+	
+	$("#createTestDataBtn").on("click", function() {
+		var dataCnt = $("#dataCnt").val().trim();
+		if($("#table_name").val().trim() == "") {
+			alert("테이블명을 입력해주세요.");
+			$("#table_name").focus();
+			return;
+		}
+		if(dataCnt == "" || dataCnt <= 0 || dataCnt > 100) {
+			alert("수량은 1~100 사이에서 선택해주세요.");
+			$("#dataCnt").val("");
+			$("#dataCnt").focus();
+			return;
+		}
+		
+		$.ajax({
+			url : "/sqlEditor/createTestData",
+			method : "post",
+			data : $("#tdFrm").serialize(),
+			success : function(data) {
+				$("#testDataModal").css("display", "none");
+				for (var i = 0; i < data.length; i++) {
+					editor.insert("\n");
+					editor.getSelection().moveCursorLineEnd();
+					editor.getSelection().moveCursorDown();
+					editor.insert(data[i]);
+				}
+			},
+			error : function(e) {
+				alert("error");
+			}
+		});
+		
+		
+	});
+	
+	$("#testData").on("click", function() {
+		$("#table_name").val("");
+		$("#dataCnt").val("");
+		$("#testDataTable").empty();
+		cnt3 = 0;
+		$("#testDataModal").css("display", "block");
+	});
+	
+	$("#testDataAddImg").on("click", function() {
+		cnt3 += 1;
+		var temp = "<tr id='tdId"+cnt3+"'>" +
+						"<td class='tddds'>" +
+							"<input type='text' name='column_name' class='form-control' value='COLUMN"+cnt3+"'/>" +
+						"</td>";
+		temp += "<td class='tddds'>" +
+					"<select class='form-control' name='data_type'>" +
+						"<option>이름</option>" +
+						"<option>전화번호</option>" +
+						"<option>이메일</option>" +
+						"<option>날짜</option>" +
+						"<option>날짜(오늘)</option>" +
+						"<option>국적</option>" +
+						"<option>도시(대한민국)</option>" +
+					"</select>" +
+				"</td>";
+		temp += "<td class='tddds'>" +
+					"<select class='form-control' name='isNull'>" +
+						"<option>NOT NULL</option>" +
+						"<option>NULL</option>" +
+					"</select>" +
+				"</td>";
+		$("#testDataTable").append(temp);
+	});
+	
+	$("#testDataDeleteImg").on("click", function() {
+		var deleteId = $("#testDataHidden").val();
+		$("#" + deleteId).remove();
+	});
+	
+	$(document).on("click", ".tddds", function() {
+		$("#testDataHidden").val($(this).parent().attr("id"));
+	});
+	
 	
 	$("#hiddenDiv").on("mousedown", function() {
 		var accountListSize = $("#accountListSize").val();
@@ -6,7 +86,6 @@ $(document).ready(function() {
 			alert("DB계정을 먼저 생성해주세요.");
 		}else {
 			$("#hiddenDiv").css("z-index", 0);
-//			$("#editor").prop("class", "ace_editor ace-twilight ace_dark ace_focus");
 			$("#editor").find("textarea").first().focus();
 		}
 	});
@@ -193,7 +272,7 @@ $(document).ready(function() {
 	
 	// 결과창으로 바꾸기
 	$("#resultViewSpan").on("click", function() {
-		$("#resultViewArea").css("display", "block");
+		$("#resultTable").css("display", "block");
 		$("#scriptViewArea").css("display", "none");
 		$("#resultViewSpan").css("color", "red");
 		$("#scriptViewSpan").css("color", "black");
@@ -202,7 +281,7 @@ $(document).ready(function() {
 	// 스크립트 창으로 바꾸기
 	$("#scriptViewSpan").on("click", function() {
 		$("#scriptViewArea").css("display", "block");
-		$("#resultViewArea").css("display", "none");
+		$("#resultTable").css("display", "none");
 		$("#scriptViewSpan").css("color", "red");
 		$("#resultViewSpan").css("color", "black");
 	});
@@ -269,35 +348,23 @@ $(document).ready(function() {
 	$("#templateId").on("click", function(){
 		var user_id = $("#userId").val();
 		
-		$.ajax({
-			method:"post",
-			url : "/userTemplate/userTemplate",
-//			contentType : "application/json",
-			dataType : "json",
-			data : "user_id_fk="+user_id,
-			success : function(response){
-				console.log(response.templateList);
-				var list = response.templateList;
-				
-				var rowData = "";
-				
-				response.templateList.forEach(function (templateVO){
-					rowData += "<tr class='table table-hover templateRow'>";
-					rowData += "<td>" + templateVO.utemplate_abb + "</td>";
-					rowData += "<td>" + templateVO.utemplate_original + "</td>";
-					rowData += "</tr>";
-				})
-				
-				
-				$("#templateTbody").append(rowData);
-			},
-			error : function(error){
-				console.log(error);
-			}
-		})
+		templateList();
 		
 		$("#templateModal").css("display", "block");
 		$("#tableBody").html();
+	})
+	
+	//템플릿 화면에서 테이블(tr)클릭시 이벤트(손주형)
+	$(document).on("click", "tr", function(){
+		var tmpId = $(this).children().find(".utemplate_id").val();
+		var tmpAbb = $(this).find(".tempTdAbb").text();
+		var tmpOri = $(this).find(".tempTdOriginal").text();
+		
+		$("tr").css("background-color", "white");
+		$(this).css("background-color", "rgba(0, 0, 0, 0.075)");
+		$("#inputTmpId").val(tmpId);
+		$("#inputTmpUpdateAbb").val(tmpAbb);
+		$("#inputTmpUpdateOriArea").val(tmpOri);
 	})
 	
 	//템플릿 추가 버튼 클릭시 이벤트(손주형)
@@ -306,28 +373,187 @@ $(document).ready(function() {
 		
 	})
 	
+	//템플릿 추가 화면에서의 추가버튼 클릭시 이벤트(손주형)
 	$("#tempAdd").on("click", function(){
 		var utemplate_abb = $("#inputAbb").val();
 		var utemplate_original = $("#inputOriArea").val();
-		
-		alert(utemplate_abb);
-		alert(utemplate_original);
+		var user_id = $("#userId").val();
 		
 		$.ajax({
 			method : "post",
 			url : "/userTemplate/insertUserTemplate",
 			data : $("#templateFrm").serialize(),
 			success : function(data){
-				alert(data+"개 등록 성공");
+				if(data.msg == "존재하는 약어"){
+					alert("이미 존재하는 약어 입니다.\n다른 약어를 입력해주세요.");
+					return;
+				}
+				
+				alert("템플릿 등록 성공");
 				
 				$("#inputAbb").val("");
 				$("#inputOriArea").val("");
+				
+				templateList();
+			},
+			error : function(error){
+				console.log("등록 실패");
+			}
+		})
+		
+		$("#templateAddModal").css("display", "none");
+		
+	})
+	
+	function templateList(){
+		var user_id = $("#userId").val();
+		
+		$.ajax({
+			method:"post",
+			url : "/userTemplate/userTemplate",
+//			contentType : "application/json",
+			dataType : "json",
+			data : "user_id_fk="+user_id,
+			success : function(response){
+				
+				
+				console.log(response.templateList);
+				var list = response.templateList;
+				
+				var rowData = "";
+				
+				response.templateList.forEach(function (templateVO){
+					rowData += "<tr class='table table-hover templateRow'>";
+					rowData += "<td class='tempTdAbb'><input type='hidden' id='utemplate_id' class='utemplate_id' value='"+ templateVO.utemplate_id +"'>" + templateVO.utemplate_abb + "</td>";
+					rowData += "<td class='tempTdOriginal'>" + templateVO.utemplate_original + "</td>";
+					rowData += "</tr>";
+				})
+				
+				
+				$("#templateTbody").empty();
+				$("#templateTbody").append(rowData);
+			},
+			error : function(error){
+				console.log(error);
+			}
+		})
+	}
+	
+	// 템플릿 취소버튼 클릭시 이벤트(손주형)
+	$("#tempCancle").on("click", function(){
+		$("#templateAddModal").css("display", "none");
+		$("tr").css("background-color", "white");
+		
+		$("#inputTmpId").val("");
+		$("#inputTmpUpdateAbb").val("");
+		$("#inputTmpUpdateOriArea").val("");
+	})
+	$("#tempUpdateCancle").on("click", function(){
+		$("#templateUpdateModal").css("display", "none");
+		$("tr").css("background-color", "white");
+		
+		$("#inputTmpId").val("");
+		$("#inputTmpUpdateAbb").val("");
+		$("#inputTmpUpdateOriArea").val("");
+	})
+	
+	
+	//템플릿 수정버튼 클릭시 이벤트(손주형)-수정화면으로 전환
+	$("#templateUpdate").on("click", function(){
+		if($("#inputTmpId").val() == ""){
+			alert("템플릿을 선택후 클릭해 주세요.");
+			return;
+		}
+		
+		$("#templateUpdateModal").css("display", "block");
+		
+		$("#tempId").val($("#inputTmpId").val());
+		$("#inputUpdateAbb").val($("#inputTmpUpdateAbb").val());
+		$("#inputUpdateOriArea").val($("#inputTmpUpdateOriArea").val());
+	})
+	
+	//템플릿 수정화면에서 수정버튼 클릭 시 이벤트(손주형)
+	$("#tempUpdate").on("click",function(){
+		var tempId = $("#tempId").val();
+		var abb = $("#inputUpdateAbb").val();
+		var original = $("#inputUpdateOriArea").val();
+		
+		if(tempId == ""){
+			alert("ID 에러");
+		}
+		if(abb == ""){
+			alert("약어를 입력해주세요.");
+			return;
+		}
+		if(original == ""){
+			alert("쿼리 원문을 입력해주세요.");
+			return;
+		}
+		
+		$.ajax({
+			method : "post",
+			url : "/userTemplate/updateUserTemplate",
+			data : $("#templateUpdateFrm").serialize(),
+			success : function(data){
+				if(data.msg == "존재하는 약어"){
+					alert("이미 존재하는 약어 입니다.\n다른 약어를 입력해주세요.");
+					return;
+				}
+				
+				alert("템플릿 수정 성공");
+				$("#templateUpdateModal").css("display", "none");
+				
+				templateList();
+			},
+			error : function(error){
+				alert("템플릿 수정 실패");
+			}
+		})
+		
+		var user_id = $("#userId").val();
+		
+		templateList();
+	})
+	
+	//템플릿 삭제 버튼 클릭 시 이벤트
+	$("#templateDelete").on("click", function(){
+		var user_id = $("#userId").val();
+		var utemplate_id = $("#inputTmpId").val();
+		
+		if(utemplate_id <= 0){
+			alert("삭제할 템플릿을 클릭해 주세요.");
+			return;
+		}
+		
+		var boolean = "";
+		
+		// 템플릿 삭제
+		$.ajax({
+			method : "post",
+			url : "/userTemplate/deleteUserTemplate",
+			data : "utemplate_id="+utemplate_id,
+			success : function(data){
+				alert("템플릿 삭제 성공");
+				boolean = "성공";
+				
+				templateList();
+			},
+			error : function(error){
+				alert("템플릿 삭제 실패");
+				boolean = "실패";
 			}
 		})
 	})
 	
-	$("#tempCancle").on("click", function(){
+	//템플릿의 모달안의 모달창의 닫기버튼 클릭시 이벤트(손주형)
+	$(".addClose").on("click", function(){
 		$("#templateAddModal").css("display", "none");
+		$("#templateUpdateModal").css("display", "none");
+		$("tr").css("background-color", "white");
+		
+		$("#inputTmpId").val("");
+		$("#inputTmpUpdateAbb").val("");
+		$("#inputTmpUpdateOriArea").val("");
 	})
 	
 	// 모달창 닫기
@@ -343,7 +569,18 @@ $(document).ready(function() {
 		$("#readFunctionModal").css("display", "none");
 		$("#procedurePackageModal").css("display", "none");
 		$("#readProcedureModal").css("display", "none");
+
+		$("#testDataModal").css("display", "none");
+
+		//손주형
 		$("#templateModal").css("display", "none");
+		$("#templateUpdateModal").css("display", "none");
+		$("tr").css("background-color", "white");
+		$("#templateTbody").empty();
+		
+		$("#inputTmpId").val("");
+		$("inputTmpUpdateAbb").val("");
+		$("inputTmpUpdateOriArea").val("");
 	});
 	
 	$(".addClose").on("click", function(){
@@ -453,25 +690,12 @@ $(document).ready(function() {
 		
 	});
 	
-	// 쉬프트 + 엔터 이벤트
-	var shiftDown = false;
-	$(document).keydown(function(e) {
-		if(e.keyCode == 16) shiftDown = true;
-		if(e.keyCode == 13 && shiftDown == true) {
-			shiftDown = false;
-			alert("쉬프트 엔터");
-		}
-	}).keyup(function(e) { 
-		if (e.keyCode == 16) shiftDown = false;
-		if (e.keyCode == 13) shiftDown = false;
-	});
-	
 	// 컨트롤 + 엔터 이벤트
 	var ctrlDown = false;
 	$(document).keydown(function(e) { 
 		if(e.keyCode == 17) ctrlDown = true;
 		if(e.keyCode == 13 && ctrlDown == true) {
-			ctrlDown == false;
+			ctrlDown = false;
 			// 구현 내용 작성
 			var dragText = editor.getSelectedText();
 			console.log(dragText);

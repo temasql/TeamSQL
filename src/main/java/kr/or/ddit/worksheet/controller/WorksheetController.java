@@ -84,7 +84,10 @@ public class WorksheetController {
 		for (int i = 0; i < resultList.size(); i++) {
 			for (int j = 0; j < resultList.get(i).size(); j++) {
 				String temp = resultList.get(i).get(j);
-				if(temp.contains("ORA")) {
+				if(temp == null) {
+					resultList.get(i).remove(j);
+					resultList.get(i).add(j, "(null)");
+				}else if(temp.contains("ORA")) {
 					logger.debug("에로로로 : {}", temp);
 					model.addAttribute("errorMsg", temp);
 				}
