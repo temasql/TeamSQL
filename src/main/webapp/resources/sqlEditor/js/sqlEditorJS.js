@@ -19,8 +19,17 @@ $(document).ready(function() {
 			url : "/sqlEditor/createTestData",
 			method : "post",
 			data : $("#tdFrm").serialize(),
-			succuss : function(data) {
-				
+			success : function(data) {
+				$("#testDataModal").css("display", "none");
+				for (var i = 0; i < data.length; i++) {
+					editor.insert("\n");
+					editor.getSelection().moveCursorLineEnd();
+					editor.getSelection().moveCursorDown();
+					editor.insert(data[i]);
+				}
+			},
+			error : function(e) {
+				alert("error");
 			}
 		});
 		
@@ -28,16 +37,20 @@ $(document).ready(function() {
 	});
 	
 	$("#testData").on("click", function() {
+		$("#table_name").val("");
+		$("#dataCnt").val("");
+		$("#testDataTable").empty();
+		cnt3 = 0;
 		$("#testDataModal").css("display", "block");
 	});
 	
 	$("#testDataAddImg").on("click", function() {
 		cnt3 += 1;
 		var temp = "<tr id='tdId"+cnt3+"'>" +
-						"<td>" +
+						"<td class='tddds'>" +
 							"<input type='text' name='column_name' class='form-control' value='COLUMN"+cnt3+"'/>" +
 						"</td>";
-		temp += "<td>" +
+		temp += "<td class='tddds'>" +
 					"<select class='form-control' name='data_type'>" +
 						"<option>이름</option>" +
 						"<option>전화번호</option>" +
@@ -46,10 +59,9 @@ $(document).ready(function() {
 						"<option>날짜(오늘)</option>" +
 						"<option>국적</option>" +
 						"<option>도시(대한민국)</option>" +
-						"<option>커스텀</option>" +
 					"</select>" +
 				"</td>";
-		temp += "<td>" +
+		temp += "<td class='tddds'>" +
 					"<select class='form-control' name='isNull'>" +
 						"<option>NOT NULL</option>" +
 						"<option>NULL</option>" +
@@ -61,6 +73,10 @@ $(document).ready(function() {
 	$("#testDataDeleteImg").on("click", function() {
 		var deleteId = $("#testDataHidden").val();
 		$("#" + deleteId).remove();
+	});
+	
+	$(document).on("click", ".tddds", function() {
+		$("#testDataHidden").val($(this).parent().attr("id"));
 	});
 	
 	
@@ -679,7 +695,7 @@ $(document).ready(function() {
 	$(document).keydown(function(e) { 
 		if(e.keyCode == 17) ctrlDown = true;
 		if(e.keyCode == 13 && ctrlDown == true) {
-			ctrlDown == false;
+			ctrlDown = false;
 			// 구현 내용 작성
 			var dragText = editor.getSelectedText();
 			console.log(dragText);

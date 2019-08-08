@@ -39,7 +39,7 @@ public class TestDataService implements ITestDataService {
 		String result = "INSERT INTO " + table_name + "(";
 		String temp = "";
 		
-		for (int i = 0; i < dataCnt; i++) {
+		for (int i = 0; i < column_name.length; i++) {
 			temp += column_name[i] + ",";
 		}
 		
@@ -57,15 +57,19 @@ public class TestDataService implements ITestDataService {
 			else if(data_type[i].equals("날짜(오늘)")) list.add(sysdateList);
 			else if(data_type[i].equals("국적")) list.add(countryList);
 			else if(data_type[i].equals("도시(대한민국)")) list.add(cityList);
-			else if(data_type[i].equals("커스텀"));
 		}
 		
 		List<String> resultList = new ArrayList<String>();
 		
 		String tmp = "";
 		for (int i = 0; i < dataCnt; i++) {
+			tmp = "";
 			for (int j = 0; j < list.size(); j++) {
-				tmp += "'" + list.get(j).get(i) + "',";
+				if(list.get(j).get(i).equals("sysdate")) {
+					tmp += list.get(j).get(i) + ",";
+				}else {
+					tmp += "'" + list.get(j).get(i) + "',";
+				}
 			}
 			int cnt = tmp.lastIndexOf(",");
 			tmp = tmp.substring(0, cnt);

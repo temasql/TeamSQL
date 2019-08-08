@@ -681,17 +681,12 @@ public class SqlEditorController {
 	
 	@RequestMapping(path = "/createTestData", method = RequestMethod.POST)
 	@ResponseBody
-	public String createTestData(String[] column_name, String[] data_type, String[] isNull, 
+	public List<String> createTestData(String[] column_name, String[] data_type, String[] isNull, 
 																String table_name, int dataCnt) {
-		logger.debug("column_name : {}", column_name[1]);
-		logger.debug("data_type : {}", data_type[1]);
-		logger.debug("isNull : {}", isNull[1]);
-		logger.debug("dataCnt : {}", dataCnt);
-		
 		List<String> resultList = testDataService.getTestData(column_name, data_type, isNull, table_name, dataCnt);
 		logger.debug("resultList : {}", resultList.toString());
 		
-		return null;
+		return resultList;
 	}
 	
 }
