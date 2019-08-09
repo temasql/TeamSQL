@@ -100,7 +100,7 @@ public class UserController {
       // 등록
       if(userService.insertUser(userVo, profile) == 1)
     	  // 로그인페이지로 이동
-    	  return "/login/login.tiles";
+    	  return "/login/login";
       
       model.addAttribute("userVo", userVo);
       return "/user/signIn";
@@ -262,7 +262,7 @@ public class UserController {
 			}
 		}
 		session.invalidate(); // session안에 있는 모든 정보를 삭제하는 메서드
-		return "/login/login.tiles";
+		return "/login/login";
 	}
 	
 	/**

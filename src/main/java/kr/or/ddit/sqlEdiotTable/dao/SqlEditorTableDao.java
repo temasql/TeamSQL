@@ -14,6 +14,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO;
@@ -98,6 +100,7 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 		return resultList;
 	}
 	
+	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTableDao.class);
 	/**
 	* Method : getConstraint
 	* 작성자 : 이중석
@@ -108,25 +111,32 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 	* Method 설명 : 해당 테이블의 제약조건  조회
 	*/
 	public List<String> getData(String query, String checked) {
+		logger.debug("Dao query = {}", query);
 		List<SqlEditorTableVO> constraintList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
 		List<String> dataList = new ArrayList<String>();
+		logger.debug("dao Check: {}", checked);
 		for (SqlEditorTableVO sqlEditorTableVO : constraintList) {
 			switch (checked) {
 			case "CONSTRAINT":
+				logger.debug("==CONSTRAINT==");
 				dataList.add(sqlEditorTableVO.getTABLE_NAME());
 				break;
 			case "INDEX":
+				logger.debug("==INDEX==");
 				dataList.add(sqlEditorTableVO.getINDEX_NAME());
 				break;
 			case "VIEW":
+				logger.debug("==VIEW==");
 				dataList.add(sqlEditorTableVO.getVIEW_NAME());
 				break;
 			case "TRIGGER":
+				logger.debug("==TRIGGER==");
 				dataList.add(sqlEditorTableVO.getTRIGGER_NAME());
 				break;
 
 			}
 		}
+		logger.debug("==dataList : {}==", dataList);
 		return dataList;
 	}
 	

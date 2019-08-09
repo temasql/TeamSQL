@@ -53,7 +53,7 @@ public class LoginController {
 		
 		model.addAttribute("user_id", user_id);
 		model.addAttribute("user_pw", user_pw);
-		return "/login/login.tiles";
+		return "/login/login";
 	}
 	
 	/**

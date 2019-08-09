@@ -7,18 +7,6 @@
       <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
    </definition>
    
-   <!-- 로그인을 위한 레이아웃  -->
-   <definition name="loginLayout" template="/WEB-INF/views/common/login/loginLayout.jsp">
-      <put-attribute name="loginheader" value="/WEB-INF/views/common/login/loginHeader.jsp"/>
-      <put-attribute name="loginbody" value=""/>
-      <put-attribute name="loginfooter" value="/WEB-INF/views/common/login/loginFooter.jsp"/>
-   </definition>
-   
-   <!-- login(로그인) -->
-   <definition name="/login/*.tiles" extends="loginLayout">
-      <put-attribute name="loginbody" value="/WEB-INF/views/login/{1}.jsp"/>
-   </definition>
-   
    <!-- 회원가입을 위한 레이아웃  -->
    <definition name="signInLayout" template="/WEB-INF/views/common/signIn/signInLayout.jsp">
       <put-attribute name="signInheader" value="/WEB-INF/views/common/signIn/signInHeader.jsp"/>
