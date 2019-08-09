@@ -213,9 +213,11 @@ public class QuizController {
 			QuizAndAnswerVO quizAndAnswerVO = service.readQuiz(quizVO);
 			
 			logger.debug("주관식 문제 조회");
+			logger.debug("quizAndAnswerVO : {}", quizAndAnswerVO);
 			
 			model.addAttribute("quizAndAnswerVO", quizAndAnswerVO);
 			model.addAttribute("quiz_right", quizVO.getQuiz_right());
+			model.addAttribute("quizName", "주관식 퀴즈");
 			
 			return "/admin/quizMG/quizEssay/quizEssayDetail.tiles";
 		}

@@ -32,6 +32,10 @@ $(function(){
 				method : "post",
 				data : "quiz_id="+quiz_id+"&quiz_right="+quiz_right,
 				success : function(data){
+					if(data.msg == "마지막 문제입니다."){
+						alert(data.msg);
+						return;
+					}
 					
 					$("#gruopDiv").html(data);
 				}

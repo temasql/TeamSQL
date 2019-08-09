@@ -23,12 +23,19 @@ $(function(){
 					console.log(response);
 					console.log(response.msg);
 					
+					
+					
 					if(response.msg == "정답"){
 						alert("정답 입니다.");
 						
 						$("#answerBtn").css("display", "none");
 						
 						$("#nextBtn").css("display", "inline");
+					}else if(response.msg == "잘못된 쿼리문 입니다."){
+						alert(response.msg);
+						return;
+					}else if(response.msg=="세미콜론이 없습니다."){
+						alert(response.msg);
 					}else {
 						alert("정답이 아닙니다.");
 					}
@@ -43,13 +50,17 @@ $(function(){
 		$("#nextBtn").on("click", function(){
 			var quiz_id = $("#quiz_id").val();
 			var quiz_right = $("#quiz_right").val();
-			alert("다음 문제 버튼 클릭 시 " + quiz_id);
 			
 			$.ajax({
 				url : "/userQuizRead",
 				method : "post",
 				data : "quiz_id="+quiz_id+"&quiz_right="+quiz_right,
 				success : function(data){
+					
+					if(data.msg == "마지막 문제입니다."){
+						alert(data.msg);
+						return;
+					}
 					
 					$("#gruopDiv").html(data);
 				}

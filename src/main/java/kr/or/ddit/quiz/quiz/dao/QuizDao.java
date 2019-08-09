@@ -264,7 +264,7 @@ public class QuizDao implements IQuizDao{
 	* Method 설명 : 사용자가 입력한 주관식 정답이 관리자가 입력한 주관식 정답과 일치하는 지 비교할 때 사용
 	*/
 	@Override
-	public List<UserVO> answerCompare(String quiz_answer) {
+	public List<Map> answerCompare(String quiz_answer) {
 		return sqlSession.selectList("quiz.answerCompare", quiz_answer);
 	}
 }

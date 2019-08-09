@@ -19,8 +19,6 @@ $(function(){
 				return;
 			}
 			
-			alert($("input[name=quiz_answer]:checked").val());
-			
 			if($("#hiddenAnswer").val() == $("input[name=quiz_answer]:checked").val()){
 				alert("정답");
 				
@@ -39,13 +37,10 @@ $(function(){
 				method : "post",
 				data : "quiz_id="+quiz_id+"&quiz_right="+quiz_right,
 				success : function(data){
-//					$("#question").remove();
-//					$("#answer").remove();
-//					$("#answerOX").remove();
-//					$("#explain").remove();
-//					
-//					$("#quiz_id").remove();
-//					$("#quiz_right").remove();
+					if(data.msg == "마지막 문제입니다."){
+					alert(data.msg);
+					return;
+				}
 					
 					var html = data.split();
 					
