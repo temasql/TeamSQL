@@ -54,9 +54,9 @@ public interface ISqlEditorTableDao {
 	* @param query
 	* @param conn
 	* @return
-	* Method 설명 : 해당 테이블의 제약조건  조회
+	* Method 설명 : 해당 테이블의 정보 조회
 	*/
-	List<String> getData(String query);
+	List<String> getData(String query, String checked);
 	
 	/**
 	 * 
@@ -101,9 +101,6 @@ public interface ISqlEditorTableDao {
 	*/
 	String getDDL(String checked,String account_id, String target);
 	String getCommentDDL(String account_id, String tableName);
-	List<String> getIndexes(String query); 
-	List<String> getViews(String query); 
-	List<String> getTriggers(String query); 
 	
 	
 }

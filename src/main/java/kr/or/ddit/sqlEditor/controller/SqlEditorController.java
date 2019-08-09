@@ -433,10 +433,7 @@ public class SqlEditorController {
 	@RequestMapping("/tableExport")
 	public String tableExport(String tableName, String account_id, HttpSession session
 			, Model model, String[] exportChecked) {
-		
-		
 		String data = sqlEditorTableService.tableExport(tableName, account_id, session, exportChecked);
-		
 		model.addAttribute("data", data);
 		return "jsonView";
 	}
