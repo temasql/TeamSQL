@@ -68,20 +68,20 @@
 	      <div class="carousel-inner" role="listbox">
 	        <div class="carousel-item" style="background-image: url('https://www.firstumc.org/wp-content/uploads/2017/05/prayer-requests.jpg')">
 	          <div class="carousel-caption d-none d-md-block">
-	            <h2>Cooperation</h2>
-	            <h3>팀원들과의 협업을 원할하게</h3>
+	            <h1>Cooperation</h1>
+	            <h2>팀원들과의 협업을 원할하게</h2>
 	          </div>
 	        </div>
-	        <div class="carousel-item" style="background-image: url('http://unigatesystems.com/software/images/hero-big-data-new.jpg')">
+	        <div class="carousel-item" style="background-image: url('https://www.wearetheweather.co.uk/sites/default/files/blog-header_1.jpg')">
 	          <div class="carousel-caption d-none d-md-block">
-	            <h2>Convenience</h2>
-	            <h3>차별화된 기능을 통해 조금 더 쉽게</h3>
+	            <h1>Convenience</h1>
+	            <h2>차별화된 기능을 통해 조금 더 쉽게</h2>
 	          </div>
 	        </div>
 	        <div class="carousel-item active" style="background-image: url('https://community.arm.com/cfs-file/__key/communityserver-blogs-components-weblogfiles/00-00-00-20-57/0245.endless_5F00_mini_5F00_p2_5F00_xxlCarousel_5F00_03.jpg')">
 	          <div class="carousel-caption d-none d-md-block">
-	            <h2>Accessibility</h2>
-	            <h3>Web에서 DB Developer를 간편하게</h3>
+	            <h1>Accessibility</h1>
+	            <h2>Web에서 DB Developer를 간편하게</h2>
 	          </div>
 	        </div>
 	      </div>
