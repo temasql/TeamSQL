@@ -16,6 +16,7 @@ import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
+import kr.or.ddit.user.model.UserVO;
 
 @Service
 public class QuizService implements IQuizService{
@@ -53,18 +54,10 @@ public class QuizService implements IQuizService{
 	* Method 설명 : 관리자가 주관식 퀴즈를 등록하는 메서드
 	*/
 	@Override
-	public int insertEssay(QuizVO quizVO, QuizAnswerVO quizAnswerVO, String[] answerArr) {
+	public int insertEssay(QuizVO quizVO, QuizAnswerVO quizAnswerVO) {
 		int questionResult = quizDao.insert_question(quizVO);
-		
-		int answerResult = 0; 
-			for(int i=0; i<answerArr.length; i++) {
-				if(!answerArr[i].equals("")) {
-					quizAnswerVO.setQuiz_answer(answerArr[i]);
-					
-					answerResult += quizDao.insert_answer(quizAnswerVO);
-				}
-			}
-		
+		int answerResult = quizDao.insert_answer(quizAnswerVO);
+			
 		return questionResult+answerResult;
 	}
 	
@@ -296,5 +289,18 @@ public class QuizService implements IQuizService{
 		map.put("quizAnswerList", quizAnswerList);
 		
 		return map;
+	}
+
+	/**
+	* Method : answerCompare
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quiz_answer
+	* @return
+	* Method 설명 : 사용자가 입력한 주관식 정답이 관리자가 입력한 주관식 정답과 일치하는 지 비교할 때 사용
+	*/
+	@Override
+	public List<UserVO> answerCompare(String quiz_answer) {
+		return quizDao.answerCompare(quiz_answer);
 	}
 }

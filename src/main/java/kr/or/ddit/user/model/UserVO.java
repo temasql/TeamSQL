@@ -113,4 +113,34 @@ public class UserVO {
 		this.user_path = user_path;
 	}
 	
+	@Override
+    public boolean equals(Object obj) {  //★ == 을 이용하여 equals() 구현
+		boolean result = false;
+
+		if (obj instanceof UserVO) { //★  타입 체크와 타입 캐스팅
+            UserVO userVO = (UserVO) obj;
+            
+            try {
+            	if (userVO.user_id.equals(this.user_id) && 
+        			userVO.user_name.equals(this.user_name) && 
+        			userVO.user_right.equals(this.user_right) && 
+        			userVO.user_pw.equals(this.user_pw) && 
+        			userVO.user_email.equals(this.user_email) && 
+        			userVO.user_dt.equals(this.user_dt) && 
+        			userVO.user_path.equals(this.user_path) &&
+        			userVO.exit_right.equals(this.exit_right)) {
+            		
+            		result = true;
+            	} else {
+            		result = false;
+            	}
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
+        } else {
+            new IllegalArgumentException().printStackTrace();;
+            result = false;
+        }
+		return result;
+    }
 }

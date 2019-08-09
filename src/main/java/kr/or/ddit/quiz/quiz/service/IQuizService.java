@@ -8,12 +8,13 @@ import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
+import kr.or.ddit.user.model.UserVO;
 
 public interface IQuizService {
 	
 	int insert_question(QuizVO quizVO, QuizAnswerVO quizAnswerVO);
 	
-	int insertEssay(QuizVO quizVO, QuizAnswerVO quizAnswerVO, String[] answerArr);
+	int insertEssay(QuizVO quizVO, QuizAnswerVO quizAnswerVO);
 	
 	QuizVO get(String id);
 	
@@ -44,4 +45,6 @@ public interface IQuizService {
 	List<QuizExampleVO> userMultipleList(QuizAndAnswerVO quizAndAnswerVO);
 	
 	Map<String, Object> userAnswerList(QuizVO quizVO);
+	
+	List<UserVO> answerCompare(String quiz_answer);
 }
