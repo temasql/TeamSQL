@@ -34,6 +34,7 @@ import kr.or.ddit.sqlEdiotSequence.model.DetailSeqVO;
 import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
 import kr.or.ddit.sqlEdiotSequence.service.ISqlEditorSequenceService;
 import kr.or.ddit.sqlEdiotTable.service.ISqlEditorTableService;
+import kr.or.ddit.sqlEdiotView.service.ISqlEditorViewService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
 import kr.or.ddit.sqlEditorFunction.model.FunctionDetailVO;
 import kr.or.ddit.sqlEditorFunction.service.ISqlEditorFunctionService;
@@ -87,6 +88,9 @@ public class SqlEditorController {
 	
 	@Resource(name = "sqlEditorProcedureService")
 	private ISqlEditorProcedureService sqlEditorProcedureService;
+	
+	@Resource(name = "sqlEditorViewService")
+	private ISqlEditorViewService sqlEditorViewService;
 	
 	@Resource(name = "testDataService")
 	private ITestDataService testDataService;
@@ -191,6 +195,7 @@ public class SqlEditorController {
 			int chatRoomCnt = teamChatRoomService.insertTeamChatRoom(teamChatRoomVo);
 			
 			if(createRes == 0 && grantRes == 0 && chatRoomCnt == 1 && crewCnt == 1) {
+				accountService.grantCreateView(real_account_id);
 				msg = "DB계정이 생성되었습니다.";
 			}else {
 				msg = "DB계정 생성에 실패하였습니다.";
@@ -436,6 +441,88 @@ public class SqlEditorController {
 		String data = sqlEditorTableService.tableExport(tableName, account_id, session, exportChecked);
 		model.addAttribute("data", data);
 		return "jsonView";
+	}
+	
+	/**
+	* Method : createView
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param session
+	* @param model
+	* @param array
+	* @return
+	* Method 설명 : 뷰 생성
+	*/
+	@RequestMapping("/createView")
+	public String createView(String sc_id, String view_name, String viewQuery
+			,HttpSession session, Model model) {
+		AccountVO accountVO = accountService.getAccountOne(sc_id);
+		Connection conn = DBUtilForWorksheet.getConnection(sc_id, accountVO.getAccount_pw(), session);
+		sqlEditorViewService.createView(view_name, viewQuery, conn);
+		
+		return sqlEditorMain(session, model);
+	}
+	
+	/**
+	* Method : deleteView
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param sc_id
+	* @param view_name
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 뷰삭제
+	*/
+	@RequestMapping("/deleteView")
+	public String deleteView(String sc_id, String view_name,HttpSession session, Model model) {
+		AccountVO accountVO = accountService.getAccountOne(sc_id.trim());
+		Connection conn = DBUtilForWorksheet.getConnection(sc_id.trim(), accountVO.getAccount_pw(), session);
+		
+		sqlEditorViewService.deleteView(view_name, conn);
+		
+		return sqlEditorMain(session, model);
+	}
+	
+	/**
+	* Method : updateView
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param view_name
+	* @param sc_id
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 뷰 편집 요청
+	*/
+	@RequestMapping("/updateViewTA")
+	public String updateViewTA(String view_name, String sc_id, HttpSession session, Model model) {
+		AccountVO accountVO = accountService.getAccountOne(sc_id.trim());
+		Connection conn = DBUtilForWorksheet.getConnection(sc_id.trim(), accountVO.getAccount_pw(), session);
+		
+		String query = sqlEditorViewService.updateView(view_name, conn);
+		model.addAttribute("data", query);
+		return "jsonView";
+	}
+	
+	/**
+	* Method : updateView
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param view_name
+	* @param sc_id
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 뷰 편집 응답
+	*/
+	@RequestMapping("/updateView")
+	public String updateView(String oldVN, String view_name, String sc_id, String viewQuery, HttpSession session, Model model) {
+		AccountVO accountVO = accountService.getAccountOne(sc_id.trim());
+		Connection conn = DBUtilForWorksheet.getConnection(sc_id.trim(), accountVO.getAccount_pw(), session);
+		
+		sqlEditorViewService.updateViewPost(oldVN,view_name,viewQuery, conn);
+		return sqlEditorMain(session, model);
 	}
 	
 	@RequestMapping(path = "/createTriggerReady", method = RequestMethod.POST)

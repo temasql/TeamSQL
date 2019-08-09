@@ -198,4 +198,5 @@ public interface IAccountService {
 	 */
 	int updateAccountByTable(AccountVO accountVO);
 	
+	int grantCreateView(String real_account_id);
 }

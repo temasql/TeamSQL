@@ -108,4 +108,10 @@
 		${value}
 	</update>
 	
+	<update id="grantCreateView" parameterType="String">
+		GRANT CREATE VIEW TO ${value}
+	</update>
+	
+	
+	
 </mapper>

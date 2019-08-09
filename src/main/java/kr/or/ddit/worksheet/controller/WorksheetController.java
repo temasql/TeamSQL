@@ -241,5 +241,19 @@ public class WorksheetController {
 		
 		return resultList;
 	}
+	
+	/**
+	* Method : queryManager
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param dragText
+	* @return
+	* Method 설명 : 쿼리 매니저
+	*/
+	@RequestMapping("/queryManager")
+	public String queryManager(String dragText) {
+		
+		return "jsonView";
+	}
 
 }

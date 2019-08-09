@@ -258,4 +258,19 @@ public class AccountService implements IAccountService{
 		return accountDao.updateAccountByTable(accountVO);
 	}
 
+	/**
+	* Method : grantCreateView
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param real_account_id
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public int grantCreateView(String real_account_id) {
+		return accountDao.grantCreateView(real_account_id);
+	}
+	
+	
+
 }
