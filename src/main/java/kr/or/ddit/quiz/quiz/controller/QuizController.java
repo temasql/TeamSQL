@@ -179,7 +179,7 @@ public class QuizController {
 	* @param quiz_id
 	* @param quiz_right
 	* @return
-	* Method 설명 : OX퀴즈 조회 화면으로 이동
+	* Method 설명 : 관리자 퀴즈 조회 화면으로 이동
 	*/
 	@RequestMapping(path="/readOX", method = RequestMethod.GET)
 	public String readOX(Model model, QuizVO quizVO, HttpSession session) {
@@ -210,67 +210,10 @@ public class QuizController {
 		}else if(quizVO.getQuiz_right().equals("03")) {
 			model.addAttribute("quizName", "단답식 퀴즈");
 		}else {
+			QuizAndAnswerVO quizAndAnswerVO = service.readQuiz(quizVO);
 			
-			Map<String, Object> map = service.quizAnswer(quizVO);
+			logger.debug("주관식 문제 조회");
 			
-			QuizVO quizVO_1 = (QuizVO) map.get("quizVO");
-			List<QuizAnswerVO> quizAnswerList = (List<QuizAnswerVO>) map.get("quizAnswerList");
-			
-			logger.debug("quizVO_1 : {}", quizVO_1);
-			logger.debug("quizAnswerList : {}", quizAnswerList);
-			String answer = "";
-			for(int i=0; i<quizAnswerList.size(); i++) {
-				logger.debug("first ==> [{}]", quizAnswerList.get(i).getQuiz_answer());
-				
- 				if(	quizAnswerList.get(i).getQuiz_answer().equals("from") 	||
-					quizAnswerList.get(i).getQuiz_answer().equals("FROM"))
-					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
- 				
- 				if(	quizAnswerList.get(i).getQuiz_answer().equals("set") 	||
- 						quizAnswerList.get(i).getQuiz_answer().equals("SET"))
- 					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
- 				
- 				if(	quizAnswerList.get(i).getQuiz_answer().equals("where")	||
- 						quizAnswerList.get(i).getQuiz_answer().equals("WHERE"))
- 					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
-				
-				if(	quizAnswerList.get(i).getQuiz_answer().equals("="))
-					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"&nbsp;");
-				
-				if(!quizAnswerList.get(i).getQuiz_answer().equals("select") ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("SELECT"))
-					quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\t");
-				
- 				if(	!quizAnswerList.get(i).getQuiz_answer().equals("from\t") ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("FROM\t") ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("where\t")  ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("WHERE\t")  ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("and\t")    ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("AND\t")	   ||
-					!quizAnswerList.get(i).getQuiz_answer().equals("=&nbsp;")) { 
- 						quizAnswerList.get(i).setQuiz_answer(quizAnswerList.get(i).getQuiz_answer()+"\n\t");
- 				}
- 				logger.debug("last ==> [{}]", quizAnswerList.get(i).getQuiz_answer());
-				
-				
-				
-				
-				answer += quizAnswerList.get(i).getQuiz_answer();
-				logger.debug("answer 값 : {}", answer);
-			}
-			
-			QuizAndAnswerVO quizAndAnswerVO = new QuizAndAnswerVO();
-			
-			logger.debug("quizVO_1 : {}", quizVO_1);
-			logger.debug("answer 합치기 : {}", answer);
-			
-			quizAndAnswerVO.setQuiz_answer(answer);
-			quizAndAnswerVO.setQuiz_explain(quizAnswerList.get(0).getQuiz_explain());
-			quizAndAnswerVO.setQuiz_id(quizVO_1.getQuiz_id());
-			quizAndAnswerVO.setQuiz_question(quizVO_1.getQuiz_question());
-			quizAndAnswerVO.setQuiz_right(quizVO_1.getQuiz_right());
-			
-			model.addAttribute("quizName", "주관식 퀴즈");
 			model.addAttribute("quizAndAnswerVO", quizAndAnswerVO);
 			model.addAttribute("quiz_right", quizVO.getQuiz_right());
 			
@@ -611,25 +554,13 @@ public class QuizController {
 		quizVO.setUser_id_fk(userVO.getUser_id());
 		
 		String answer = quizAnswerVO.getQuiz_answer();
-		answer = answer.trim();
-		
-		answer = answer.replaceAll("\r\n", " ");
-		answer = answer.replaceAll("\n", " ");
-		answer = answer.replaceAll("\r", " ");
-		
-		logger.debug("주관식 등록 전 문자열 검사 : {}", answer);
-		
-		String[] answerArr = answer.split(" ");
-		for(String answer_1 : answerArr) {
-			logger.debug("answer_1 : {}", answer_1);
-		}
 		
 		quizAnswerVO.setQuiz_answer(answer);
 		
-		logger.debug("quizVO : {}", quizVO);
-		logger.debug("quizAnswerVO : {}", quizAnswerVO);
+		logger.debug("주관식 등록 quizVO : {}", quizVO);
+		logger.debug("주관식 등록 quizAnswerVO : {}", quizAnswerVO);
 		
-		int result = service.insertEssay(quizVO, quizAnswerVO, answerArr);
+		int result = service.insertEssay(quizVO, quizAnswerVO);
 		logger.debug("주관식 등록 갯수 : {}", result);
 		
 		model.addAttribute("quiz_right", quizVO.getQuiz_right());
@@ -713,39 +644,16 @@ public class QuizController {
 	* Method 설명 : 관리자가 수정버튼 클릭 시 DB에 update되는 메서드
 	*/
 	@RequestMapping(path = "/updateEssay", method = RequestMethod.POST)
-	public String updateEssay(Model model, QuizVO quizVO, QuizAnswerVO quizAnswerVO, HttpSession session) {
-		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
-		quizVO.setUser_id_fk(userVO.getUser_id());
+	public String updateEssay(Model model, QuizAndAnswerVO quizAndAnswerVO, HttpSession session) {
 		
-		String answer = quizAnswerVO.getQuiz_answer();
-		answer = answer.trim();
+		logger.debug("주관식 수정 quizAndAnswerVO : {}", quizAndAnswerVO);
 		
-		answer = answer.replaceAll("\r\n", " ");
-		answer = answer.replaceAll("\n", " ");
-		answer = answer.replaceAll("\r", " ");
+		int result = service.updateQuiz(quizAndAnswerVO);
 		
+		if(result>0)
+			logger.debug("주관식 수정 완료");
 		
-		String[] answerArr = answer.split(" ");
-		
-		int deleteResult = service.deleteQuiz(quizVO.getQuiz_id());
-		logger.debug("주관식 삭제 성공 : {}", deleteResult);
-		
-		quizVO.setUser_id_fk(userVO.getUser_id());
-		
-		for(String answer_1 : answerArr) {
-			logger.debug("answer_1 : {}", answer_1);
-		}
-		
-		quizAnswerVO.setQuiz_answer(answer);
-		
-		logger.debug("quizVO : {}", quizVO);
-		logger.debug("quizAnswerVO : {}", quizAnswerVO);
-		
-		int result = service.insertEssay(quizVO, quizAnswerVO, answerArr);
-		logger.debug("주관식 등록 갯수 : {}", result);
-		
-		model.addAttribute("quiz_right", quizVO.getQuiz_right());
+		model.addAttribute("quiz_right", quizAndAnswerVO.getQuiz_right());
 		return "/admin/quizMG/quizList.tiles";
 	}
-	
 }

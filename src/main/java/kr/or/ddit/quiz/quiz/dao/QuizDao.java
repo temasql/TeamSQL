@@ -16,6 +16,7 @@ import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
+import kr.or.ddit.user.model.UserVO;
 
 @Repository
 public class QuizDao implements IQuizDao{
@@ -252,5 +253,18 @@ public class QuizDao implements IQuizDao{
 	@Override
 	public List<QuizAndAnswerVO> userReadQuizList(String quiz_right) {
 		return sqlSession.selectList("quiz.userReadQuiz", quiz_right);
+	}
+
+	/**
+	* Method : answerCompare
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param quiz_answer
+	* @return
+	* Method 설명 : 사용자가 입력한 주관식 정답이 관리자가 입력한 주관식 정답과 일치하는 지 비교할 때 사용
+	*/
+	@Override
+	public List<UserVO> answerCompare(String quiz_answer) {
+		return sqlSession.selectList("quiz.answerCompare", quiz_answer);
 	}
 }

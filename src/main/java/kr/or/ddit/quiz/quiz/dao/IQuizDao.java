@@ -1,5 +1,6 @@
 package kr.or.ddit.quiz.quiz.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
+import kr.or.ddit.user.model.UserVO;
 
 public interface IQuizDao {
 
@@ -48,4 +50,6 @@ public interface IQuizDao {
 	QuizAndAnswerVO userNextQuiz(QuizVO quizVO);
 	
 	List<QuizAndAnswerVO> userReadQuizList(String quiz_right);
+	
+	List<UserVO> answerCompare(String quiz_answer);
 }

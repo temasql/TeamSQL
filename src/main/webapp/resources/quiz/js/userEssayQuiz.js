@@ -5,13 +5,15 @@ $(function(){
 			var userAnswer = $("#userAnswer").val();
 			var quiz_id = $("#quiz_id").val();
 			var quiz_right = $("#quiz_right").val();
+			var adminAnswer = $("#answerValue").val();
 			
-			console.log(userAnswer);
+			console.log("관리자 정답 : " + adminAnswer);
 			
 			var answerData = {
 				quiz_id : quiz_id,
 				quiz_right : quiz_right,
-				userAnswer : userAnswer
+				quiz_answer : userAnswer,
+				adminAnswer : adminAnswer
 			};
 			
 			$.ajax({

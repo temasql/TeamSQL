@@ -1,6 +1,5 @@
 package kr.or.ddit.quiz.quiz.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz.service.IQuizService;
-import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
+import kr.or.ddit.user.model.UserVO;
 
 @Controller
 public class UserQuizController {
@@ -42,17 +41,8 @@ public class UserQuizController {
 		
 		//유저가 각 퀴즈 화면으로 이동할때 첫 문제를 조회하는 메서드
 		QuizAndAnswerVO quizAndAnswerVO = null;
-		List<QuizAndAnswerVO> quizAndAnswerList = null;
-		List<QuizAnswerVO> quizAnswerList = null;
 		
-		if(quiz_right.equals("01")||quiz_right.equals("02")||quiz_right.equals("03")) {
-			quizAndAnswerVO = service.userReadQuiz(quiz_right);
-		}else {
-			logger.debug("유저 주관식 userVO : {}", quizVO);
-			Map<String, Object> map = service.userAnswerList(quizVO);
-			quizAndAnswerList = (List<QuizAndAnswerVO>) map.get("quizAndAnswerList");
-			quizAnswerList = (List<QuizAnswerVO>) map.get("quizAnswerList");
-		}
+		quizAndAnswerVO = service.userReadQuiz(quiz_right);
 		
 		session.setAttribute("quizIdSum", "");
 		String returnResult = "";
@@ -81,11 +71,7 @@ public class UserQuizController {
 			returnResult = "/quiz/quizShort.tiles";
 		}else if(quiz_right.equals("04")) {
 			
-			logger.debug("유저 주관식 리스트 : {}", quizAnswerList);
-			logger.debug("유저 주관식 리스트 : {}", quizAndAnswerList);
-			
-			model.addAttribute("quizAnswerList", quizAnswerList);
-			model.addAttribute("quizAndAnswerList", quizAndAnswerList);
+			model.addAttribute("quizAndAnswerVO", quizAndAnswerVO);
 			
 			returnResult = "/quiz/quizEssay.tiles";
 		}
@@ -168,84 +154,64 @@ public class UserQuizController {
 	*/
 //	@ResponseBody
 	@RequestMapping(path = "/userEssayAnswer", method = RequestMethod.POST)
-	public String userEssayAnswer(Model model, @RequestBody Map<String, Object> map_1, QuizVO quizVO, String userAnswer) {
-		String userAnswerArr[] = null;
-		String result[] = null;
-				
+	public String userEssayAnswer(Model model, @RequestBody Map<String, Object> map_1, QuizAndAnswerVO quizAndAnswerVO) {
 		
-		logger.debug("ajax 유저 주관식 map_1 : {}", map_1);
-		String quiz_id = (String) map_1.get("quiz_id");
-		int quiz_id_1 = Integer.parseInt(quiz_id);
+		logger.debug("값 비교 map_1 : {}", map_1);
 		
-		quizVO.setQuiz_id(quiz_id_1);
+		String quiz_id_1 = (String) map_1.get("quiz_id");
+		int quiz_id = Integer.parseInt(quiz_id_1);
+		
+		String quiz_answer = (String) map_1.get("quiz_answer");
+		logger.debug("quiz_answer : {}",quiz_answer);
+		quiz_answer = quiz_answer.substring(0, quiz_answer.lastIndexOf(";"));
+		logger.debug("quiz_answer : {}",quiz_answer);
+		
 		String quiz_right = (String) map_1.get("quiz_right");
-		quizVO.setQuiz_right(quiz_right);
-		userAnswer = (String) map_1.get("userAnswer");
+		String adminAnswer = (String) map_1.get("adminAnswer");
+		adminAnswer = adminAnswer.substring(0, adminAnswer.lastIndexOf(";"));
 		
-		logger.debug("ajax 유저 주관식 userVO : {}", quizVO);
-		Map<String, Object> map = service.userAnswerList(quizVO);
-		List<QuizAndAnswerVO> quizAndAnswerList = (List<QuizAndAnswerVO>) map.get("quizAndAnswerList");
-//		List<QuizAnswerVO> quizAnswerList = (List<QuizAnswerVO>) map.get("quizAnswerList");
+		quizAndAnswerVO.setQuiz_id(quiz_id);
+		quizAndAnswerVO.setQuiz_answer(quiz_answer);
+		quizAndAnswerVO.setQuiz_right(quiz_right);
+		logger.debug("quizAndAnswerVO : {}", quizAndAnswerVO);
 		
-//		logger.debug("유저 주관식 리스트 : {}", quizAnswerList);
-		logger.debug("유저 주관식 리스트 : {}", quizAndAnswerList);
 		
-		logger.debug("주관식 : {}", userAnswer);
+		List<UserVO> userAnswerList = service.answerCompare(quizAndAnswerVO.getQuiz_answer());
+		List<UserVO> adminAnswerList = service.answerCompare(adminAnswer);
 		
-		userAnswer = userAnswer.trim();
-		userAnswer = userAnswer.replaceAll("\r\n", " ");
-		userAnswer = userAnswer.replaceAll("\r", " ");
-		userAnswer = userAnswer.replaceAll("\n", " ");
-		
-		logger.debug("비교 전 : {}", userAnswer);
-		
-		userAnswerArr = userAnswer.split(" ");
-		
-		model.addAttribute("quizAndAnswerList", quizAndAnswerList);
-		
-		List<QuizAndAnswerVO> list = new ArrayList<QuizAndAnswerVO>();
-		
-		for(String userArr : userAnswerArr)
-			logger.debug("배열 값 : {}", userArr);
-		
-		QuizAndAnswerVO vo = new QuizAndAnswerVO();
-		
-		for(int i=0; i<userAnswerArr.length; i++) {
-			if(!userAnswerArr[i].equals("")) {
-				list = new ArrayList<QuizAndAnswerVO>();
-				logger.debug("포문안의 : {}", userAnswerArr[i]);
-				vo.setQuiz_answer(userAnswerArr[i]);
-				list.add(vo);
-				
-				logger.debug("list 값 : {}", list);
-//				userAnswerArr_1 = userAnswerArr;
-//				logger.debug("userAnswerArr_1 이동 중 : {}", userAnswerArr_1[i]);
+		//null값을 "null"로 바꾸는 작업
+		for(int i=0; i < userAnswerList.size(); i++) {
+			if(userAnswerList.get(i).getUser_path() == null) {
+				UserVO userVO = userAnswerList.get(i);
+				userAnswerList.remove(i);
+				userVO.setUser_path("null");
+				userAnswerList.add(i, userVO);
+			}
+		}
+		for(int i=0; i < adminAnswerList.size(); i++) {
+			if(adminAnswerList.get(i).getUser_path() == null) {
+				UserVO userVO = adminAnswerList.get(i);
+				adminAnswerList.remove(i);
+				userVO.setUser_path("null");
+				adminAnswerList.add(i, userVO);
 			}
 		}
 		
-		
-		String msg = null;
-		
-		for(int i=0; i<list.size(); i++) {
-			if(!list.get(i).getQuiz_answer().equals("")) {
-//				logger.debug("quizAndAnswerList.get(i).getQuiz_answer() : {}", quizAndAnswerList.get(i).getQuiz_answer());
-				logger.debug("포문안의 DB : {}", quizAndAnswerList.get(i).getQuiz_answer());
-				logger.debug("포문안의 list : {}", list.get(i).getQuiz_answer());
-					
-				
-				if(list.get(i).getQuiz_answer().equals(quizAndAnswerList.get(i).getQuiz_answer())) {
-					msg = "정답";
-//				model.addAttribute("msg", "정답");
-				}else {
-					msg = "오답";
-//				model.addAttribute("msg", "오답");
-				}
+		//리스트 비교
+		String msg = "";
+		for(int i=0; i< userAnswerList.size(); i++) {
+			if(userAnswerList.get(i).equals(adminAnswerList.get(i))) {
+				msg = "정답";
+				model.addAttribute("msg", msg);
+			}else {
+				msg = "오답";
+				model.addAttribute("msg", msg);
+				break;
 			}
 		}
 		
-		logger.debug("msg : {}", msg);
-		
-		model.addAttribute("msg", msg);
+		logger.debug("userList : {}", userAnswerList);
+		logger.debug("adminAnswerList : {}", adminAnswerList);
 		
 		return "jsonView";
 	}
