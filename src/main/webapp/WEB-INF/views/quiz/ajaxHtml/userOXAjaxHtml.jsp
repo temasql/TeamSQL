@@ -8,9 +8,9 @@
 <div id="answer">답 : <input id="oRadio" type="radio" name="quiz_answer" value="O"/>O<input id="xRadio" type="radio" name="quiz_answer" value="X"/>X</div>
 <div id="explain">해설 : ${quizAndAnswerVO.quiz_explain}</div>
 
-<input id="quiz_id" type="text" value="${quizAndAnswerVO.quiz_id}">
-<input id="quiz_right" type="text" value="${quizAndAnswerVO.quiz_right}">
-<input id="hiddenAnswer" type="text" value="${quizAndAnswerVO.quiz_answer}">
+<input id="quiz_id" type="hidden" value="${quizAndAnswerVO.quiz_id}">
+<input id="quiz_right" type="hidden" value="${quizAndAnswerVO.quiz_right}">
+<input id="hiddenAnswer" type="hidden" value="${quizAndAnswerVO.quiz_answer}">
 
 <div id="BtnDiv">
 	<button id="answerBtn" class="btn btn-secondary">정답 확인</button>

@@ -22,7 +22,7 @@ $(function(){
 			alert($("input[name=quiz_answer]:checked").val());
 			
 			if($("#hiddenAnswer").val() == $("input[name=quiz_answer]:checked").val()){
-				alert("성공");
+				alert("정답");
 				
 				$("#answerBtn").css("display", "none");
 				
@@ -56,7 +56,6 @@ $(function(){
 		
 		//해설 보이기
 		$("#explainBtn").on("click", function(){
-			alert("클릭");
 			$("#explain").css("display", "block");
 		})
 	})

@@ -131,7 +131,7 @@ public class UserQuizController {
 			returnResult = "/quiz/ajaxHtml/userShortAjaxHtml";
 		}else{
 			
-			returnResult = "";
+			returnResult = "/quiz/ajaxHtml/userEssayAjaxHtml";
 		}
 		
 		model.addAttribute("quizAndAnswerVO", quizAndAnswerVO);
