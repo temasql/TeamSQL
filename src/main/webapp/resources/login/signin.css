@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+#signInFrmDiv{
+	margin-left: 30%;
+	margin-right: 30%;
+	margin-top: 100px;
+	width: 40%;
+}
+
+#signInText{
+	font-weight: bold;
+    margin-bottom: 50px;
+    margin-left: 350px;
+}
