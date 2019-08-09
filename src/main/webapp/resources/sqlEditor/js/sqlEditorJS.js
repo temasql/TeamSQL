@@ -649,6 +649,22 @@ $(document).ready(function() {
 		$("#accountPwUpdateFrm").submit();
 	});
 	
+	// 쿼리매니저
+	$("#queryManager").on("click", function(){
+		var dragText = editor.getSelectedText();
+		if(dragText == "") {
+			alert("쿼리매니저를 보고싶은 쿼리를 드래그해주세요.");
+			return;
+		}
+		$.ajax({
+			 url : "/worksheet/queryManager"
+			,data : "dragText=" + dragText
+			,success : function(data) {
+				
+			}
+		});
+		
+	})
 	// 실행계획 버튼 클릭 이벤트
 	$("#runPlan").on("click", function() {
 		var dragText = editor.getSelectedText();

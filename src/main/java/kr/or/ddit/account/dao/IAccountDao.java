@@ -209,5 +209,15 @@ public interface IAccountDao {
 	* Method 설명 : DB계정 테이블에서 비밀번호 수정
 	 */
 	int updateAccountByTable(AccountVO accountVO);
+
+	/**
+	* Method : grantCreateView
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param real_account_id
+	* @return
+	* Method 설명 :
+	*/
+	int grantCreateView(String real_account_id);
 	
 }

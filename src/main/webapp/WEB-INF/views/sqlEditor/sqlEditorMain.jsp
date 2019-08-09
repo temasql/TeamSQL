@@ -9,6 +9,7 @@
 <%@include file="/WEB-INF/views/sqlEditor/modal/functionPackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/ProcedurePackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/templatePackage.jsp" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/viewPackage.jsp" %>
 
 <link href="${cp}/resources/sqlEditor/css/sqlEditorStyle.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/treeMenu.css" rel="stylesheet">
@@ -31,7 +32,7 @@
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="templateId" title="템플릿" src="${cp}/resources/img/template.png"></li>
 				<li class="breadcrumb-item">
-					<img class="imgBtn" title="쿼리매니저" src="${cp}/resources/img/qmanager.png"></li>
+					<img class="imgBtn" id="queryManager" title="쿼리매니저" src="${cp}/resources/img/qmanager.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="runPlan" title="실행계획" src="${cp}/resources/img/explain.png"></li>
 				<li class="breadcrumb-item">
@@ -67,11 +68,13 @@
 				                        </ul>
 				                    </li>
 				                    <li>
-				                        <a href="#none"><em>폴더</em> 뷰</a>
+				                        <a class="viewPackage" href="#none"><em>폴더</em> 뷰
+				                        	<input type="hidden" id="seok_id" value="${accountId}"/>
+				                        </a>
 				                        <ul class="depth_3">
 				                        	<c:forEach items="${viewList}" var="viewVO">
 				                        		<c:if test="${viewVO.owner == ac_id}">
-						                            <li><a href="#none">${viewVO.view_name}</a></li>
+						                            <li><a class="views" href="#none">${viewVO.view_name}</a></li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
@@ -261,6 +264,16 @@
 <!-- 테이블 패키지 우클릭 -->
 <ul class="tablePackageMenu">
   <li><span id="createTableSpan">테이블 생성</span></li>
+</ul>
+<!-- 뷰 패키지 우클릭 -->
+<ul class="viewPackageMenu">
+  <li><span id="createViewSpan">뷰 생성</span></li>
+</ul>
+<!-- 뷰 우클릭 -->
+<ul class="viewMenu">
+  <li><span id="readViewSpan">뷰 조회</span></li>
+  <li><span id="updateViewSpan">뷰 편집</span></li>
+  <li><span id="deleteViewSpan">뷰 삭제</span></li>
 </ul>
 <!-- 테이블 우클릭 -->
 <ul class="tableMenu">

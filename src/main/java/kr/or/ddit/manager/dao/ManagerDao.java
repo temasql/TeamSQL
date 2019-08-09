@@ -6,45 +6,28 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.manager.model.ManagerVO;
 
-//@Repository
+@Repository
 public class ManagerDao implements IManagerDao{
 
 	@Resource(name = "sqlSession")
 	private SqlSessionTemplate sqlSession;
 
+	/**
+	* Method : getManager
+	* 작성자 : 이중석
+	* 변경이력 :
+	* @param dragText
+	* @return
+	* Method 설명 :
+	*/
 	@Override
-	public int insert(ManagerVO managerVo) {
-		return sqlSession.insert("manager.insert", managerVo);
-	}
-	
-	@Override
-	public ManagerVO get(String id) {
-		return sqlSession.selectOne("manager.get", id);
-	}
-	
-	@Override
-	public List<ManagerVO> list() {
-		return sqlSession.selectList("manager.list");
+	public String getManager(String dragText) {
+		return null;
 	}
 
-	@Override
-	public List<ManagerVO> map(Map<String, Object> map) {
-		return sqlSession.selectList("manager.map", map);
-	}
-	
-	@Override
-	public int update(String id) {
-		return sqlSession.update("manager.update", id);
-	}
-
-	@Override
-	public int delete(String id) {
-		return sqlSession.delete("manager.delete", id);
-	}
-
-	
 
 }

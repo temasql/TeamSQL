@@ -95,7 +95,7 @@
   <div class="modal-content">
     <span class="close">&times;</span>   
     <br><br>                  
-	<form action="${cp}/sqlEditor/tableExport" method="post" id="udpateTableFrm">
+	<form action="${cp}/sqlEditor/tableExport" method="post" >
 	  <fieldset>
 	    <legend id="tableExportTitle"></legend>
 	    <div id="tableExportView">
