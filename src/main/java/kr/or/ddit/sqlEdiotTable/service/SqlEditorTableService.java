@@ -12,6 +12,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.account.dao.IAccountDao;
@@ -99,6 +101,7 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 	public List<List<String>> selectTable(String select, String TableName, Connection conn) {
 		return sqlEditorTableDao.selectTable(SelectTableUtil.selectQuery(select, TableName), conn);
 	}
+	private static final Logger logger = LoggerFactory.getLogger(SqlEditorTableService.class);
 	/**
 	* Method : tableDataExport
 	* 작성자 : 이중석
@@ -120,10 +123,16 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		
 		if (exportChecked.length > 0) {
 			for (String checked : exportChecked) {
+				logger.debug("cheked: {}", checked);
 				query = SelectTableUtil.selectTableDDLQuery(checked, tableName, account_id);
-				List<String> ddlList = sqlEditorTableDao.getData(query, checked);
-				for (String ddl : ddlList) {
-					str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
+				if (query != null && query.length()  > 0) {
+					logger.debug("query = {}", query);
+					List<String> ddlList = sqlEditorTableDao.getData(query, checked);
+					if (ddlList.size() > 0) {
+						for (String ddl : ddlList) {
+							str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
+						}
+					}
 				}
 				if (checked.equals("DATA")) {
 					str.append(dataExport(tableName, stNm, conn));

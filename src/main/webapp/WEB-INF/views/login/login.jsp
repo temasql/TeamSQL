@@ -3,10 +3,52 @@
 <%@ page import="java.math.BigInteger" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<%@include file="/WEB-INF/views/common/basicLib.jsp" %>
 <script src="${cp}/js/js.cookie.js"></script>
 <link href="${cp}/resources/user/css/findUserIdAndPwModal.css" rel="stylesheet">
 <script src="${cp}/resources/user/js/findUserIdAndPw.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 
+<script>
+	$(document).ready(function () {
+		// 문서로딩이 완료되고 나서 실행되는 부분
+		// rememberme checkbox
+		// 1. rememberme cookie가 있는지  있으면 값이 true인지
+		// 1-1. rememberme가 true이면 input id="rememberme" 체크박스를 체크
+		
+		var rememberme = Cookies.get("rememberme");
+		if(rememberme == "true"){
+			$("#rememberme").prop("checked", true);
+			$("#user_id").val(Cookies.get("user_id"));
+			$("#user_pw").focus();
+		}
+		
+		
+		var msg = '${deleteMsg}';
+		if(msg != ''){
+			alert(msg);
+		}
+		
+		var user_id = $("#user_id").val();
+		var user_pw = $("#user_pw").val();
+		if(user_id > 0 || user_pw > 0){
+			alert("아이디 또는 비밀번호를 맞게 입력해 주세요.")
+		}
+		// login button 클릭시 실행되는 핸들러
+		$("#loginBtn").on("click", function() {
+			//로그인 요청을 서버로 전송
+			$("#loginForm").submit();
+		});
+	});
+</script>
+<title>Main</title>
+
+</head>
+
+<body>
 <form id="loginForm" action="${cp }/login" method="post">
 	<input type="text" id="user_id"  value="${user_id}" name="user_id"><br>
 	<input type="password" id="user_pw" value="js1450@!" name="user_pw">
@@ -78,3 +120,5 @@
 	</form>
   </div>
 </div>
+</body>
+</html>
