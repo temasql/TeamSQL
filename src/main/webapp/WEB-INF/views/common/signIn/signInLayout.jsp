@@ -15,6 +15,7 @@
 <title>Main</title>
 <!-- css, js -->
 <%@include file="/WEB-INF/views/common/basicLib.jsp" %>
+<link href="${cp}/resources/login/signin.css" rel="stylesheet">
 </head>
 
 <body>
@@ -23,12 +24,9 @@
 	<tiles:insertAttribute name="signInheader"/>
 	
 	<!-- body -->
-	<div class="mycontainer">
+	<div class="signInDiv">
 		<tiles:insertAttribute name="signInbody"/>
 	</div>
-		
-<!-- 	<!-- footer -->
-	<tiles:insertAttribute name="signInfooter"/>
 	
 </body>
 </html>
