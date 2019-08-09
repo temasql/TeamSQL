@@ -121,29 +121,9 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		if (exportChecked.length > 0) {
 			for (String checked : exportChecked) {
 				query = SelectTableUtil.selectTableDDLQuery(checked, tableName, account_id);
-				if (checked.equals("CONSTRAINT")) {
-					List<String> ddlList = sqlEditorTableDao.getData(query);
-					for (String ddl : ddlList) {
-						str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
-					}
-				}
-				if (checked.equals("INDEX")) {
-					List<String> ddlList = sqlEditorTableDao.getIndexes(query);
-					for (String ddl : ddlList) {
-						str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
-					}
-				}
-				if (checked.equals("VIEW")) {
-					List<String> ddlList = sqlEditorTableDao.getViews(query);
-					for (String ddl : ddlList) {
-						str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
-					}
-				}
-				if (checked.equals("TRIGGER")) {
-					List<String> ddlList = sqlEditorTableDao.getTriggers(query);
-					for (String ddl : ddlList) {
-						str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
-					}
+				List<String> ddlList = sqlEditorTableDao.getData(query, checked);
+				for (String ddl : ddlList) {
+					str.append(sqlEditorTableDao.getDDL(checked ,account_id, ddl));
 				}
 				if (checked.equals("DATA")) {
 					str.append(dataExport(tableName, stNm, conn));

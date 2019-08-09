@@ -107,35 +107,25 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 	* @return
 	* Method 설명 : 해당 테이블의 제약조건  조회
 	*/
-	public List<String> getData(String query) {
+	public List<String> getData(String query, String checked) {
 		List<SqlEditorTableVO> constraintList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
 		List<String> dataList = new ArrayList<String>();
 		for (SqlEditorTableVO sqlEditorTableVO : constraintList) {
-			dataList.add(sqlEditorTableVO.getTABLE_NAME());
-		}
-		return dataList;
-	}
-	public List<String> getIndexes(String query) {
-		List<SqlEditorTableVO> constraintList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
-		List<String> dataList = new ArrayList<String>();
-		for (SqlEditorTableVO sqlEditorTableVO : constraintList) {
-			dataList.add(sqlEditorTableVO.getINDEX_NAME());
-		}
-		return dataList;
-	}
-	public List<String> getViews(String query) {
-		List<SqlEditorTableVO> constraintList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
-		List<String> dataList = new ArrayList<String>();
-		for (SqlEditorTableVO sqlEditorTableVO : constraintList) {
-			dataList.add(sqlEditorTableVO.getVIEW_NAME());
-		}
-		return dataList;
-	}
-	public List<String> getTriggers(String query) {
-		List<SqlEditorTableVO> constraintList= sqlSession.selectList("sqlEditorTable.getDDLTable", query);
-		List<String> dataList = new ArrayList<String>();
-		for (SqlEditorTableVO sqlEditorTableVO : constraintList) {
-			dataList.add(sqlEditorTableVO.getTRIGGER_NAME());
+			switch (checked) {
+			case "CONSTRAINT":
+				dataList.add(sqlEditorTableVO.getTABLE_NAME());
+				break;
+			case "INDEX":
+				dataList.add(sqlEditorTableVO.getINDEX_NAME());
+				break;
+			case "VIEW":
+				dataList.add(sqlEditorTableVO.getVIEW_NAME());
+				break;
+			case "TRIGGER":
+				dataList.add(sqlEditorTableVO.getTRIGGER_NAME());
+				break;
+
+			}
 		}
 		return dataList;
 	}
