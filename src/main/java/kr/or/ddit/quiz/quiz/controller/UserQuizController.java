@@ -1,5 +1,8 @@
 package kr.or.ddit.quiz.quiz.controller;
 
+import java.sql.SQLSyntaxErrorException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -110,7 +113,10 @@ public class UserQuizController {
 		//가져온 데이터가 없을 때
 		if(quizAndAnswerVO == null) {
 			model.addAttribute("msg", "마지막 문제입니다.");
-			return "/quiz/ajaxHtml/userMultipleAjaxHtml";
+			
+			logger.debug("마지막 문제");
+			
+			return "jsonView";
 		}
 		
 		
@@ -131,7 +137,7 @@ public class UserQuizController {
 			returnResult = "/quiz/ajaxHtml/userShortAjaxHtml";
 		}else{
 			
-			returnResult = "";
+			returnResult = "/quiz/ajaxHtml/userEssayAjaxHtml";
 		}
 		
 		model.addAttribute("quizAndAnswerVO", quizAndAnswerVO);
@@ -163,7 +169,16 @@ public class UserQuizController {
 		
 		String quiz_answer = (String) map_1.get("quiz_answer");
 		logger.debug("quiz_answer : {}",quiz_answer);
-		quiz_answer = quiz_answer.substring(0, quiz_answer.lastIndexOf(";"));
+		String msg = "";
+		try {
+			quiz_answer = quiz_answer.substring(0, quiz_answer.lastIndexOf(";"));
+			logger.debug("; 지우기 : {}", quiz_answer);
+		} catch (Exception e) {
+			logger.debug("; 지웠나? : {}", quiz_answer);
+			msg = "세미콜론이 없습니다.";
+			model.addAttribute("msg", msg);
+			return "jsonView";
+		}
 		logger.debug("quiz_answer : {}",quiz_answer);
 		
 		String quiz_right = (String) map_1.get("quiz_right");
@@ -176,38 +191,39 @@ public class UserQuizController {
 		logger.debug("quizAndAnswerVO : {}", quizAndAnswerVO);
 		
 		
-		List<UserVO> userAnswerList = service.answerCompare(quizAndAnswerVO.getQuiz_answer());
-		List<UserVO> adminAnswerList = service.answerCompare(adminAnswer);
-		
-		//null값을 "null"로 바꾸는 작업
-		for(int i=0; i < userAnswerList.size(); i++) {
-			if(userAnswerList.get(i).getUser_path() == null) {
-				UserVO userVO = userAnswerList.get(i);
-				userAnswerList.remove(i);
-				userVO.setUser_path("null");
-				userAnswerList.add(i, userVO);
-			}
-		}
-		for(int i=0; i < adminAnswerList.size(); i++) {
-			if(adminAnswerList.get(i).getUser_path() == null) {
-				UserVO userVO = adminAnswerList.get(i);
-				adminAnswerList.remove(i);
-				userVO.setUser_path("null");
-				adminAnswerList.add(i, userVO);
-			}
+		List<Map> adminAnswerList = service.answerCompare(adminAnswer);;
+		List<Map> userAnswerList = null;
+		try {
+			userAnswerList = service.answerCompare(quizAndAnswerVO.getQuiz_answer());
+		} catch (Exception e) {
+			msg = "잘못된 쿼리문 입니다.";
+			model.addAttribute("msg", msg);
+			return "jsonView";
 		}
 		
-		//리스트 비교
-		String msg = "";
-		for(int i=0; i< userAnswerList.size(); i++) {
-			if(userAnswerList.get(i).equals(adminAnswerList.get(i))) {
-				msg = "정답";
-				model.addAttribute("msg", msg);
-			}else {
-				msg = "오답";
-				model.addAttribute("msg", msg);
-				break;
+		
+		Collections.sort(userAnswerList, new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				return o1.toString().compareTo(o2.toString());
 			}
+		});
+		
+		Collections.sort(adminAnswerList, new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				return o1.toString().compareTo(o2.toString());
+			}
+		});
+		
+		boolean result = userAnswerList.equals(adminAnswerList);
+		
+		if(result) {
+			msg = "정답";
+			model.addAttribute("msg", msg);
+		}else {
+			msg = "오답";
+			model.addAttribute("msg", msg);
 		}
 		
 		logger.debug("userList : {}", userAnswerList);

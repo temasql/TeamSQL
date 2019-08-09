@@ -51,5 +51,5 @@ public interface IQuizDao {
 	
 	List<QuizAndAnswerVO> userReadQuizList(String quiz_right);
 	
-	List<UserVO> answerCompare(String quiz_answer);
+	List<Map> answerCompare(String quiz_answer);
 }

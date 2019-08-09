@@ -46,5 +46,5 @@ public interface IQuizService {
 	
 	Map<String, Object> userAnswerList(QuizVO quizVO);
 	
-	List<UserVO> answerCompare(String quiz_answer);
+	List<Map> answerCompare(String quiz_answer);
 }

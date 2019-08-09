@@ -12,10 +12,9 @@
 	<div id="answer">답 :&nbsp;<textarea id="userAnswer" name="userAnswer" class="form-control" ></textarea></div>
 	<div id="explain">해설 :&nbsp;<div id="explainAppend">${quizAndAnswerVO.quiz_explain}</div></div>
 	
-	
-	<input type="text" id="answerValue" value="${quizAndAnswerVO.quiz_answer}">
-	<input type="text" id="quiz_right" name="quiz_right" value="${quizAndAnswerVO.quiz_right}">
-	<input type="text" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
+	<input type="hidden" id="answerValue" value="${quizAndAnswerVO.quiz_answer}">
+	<input type="hidden" id="quiz_right" name="quiz_right" value="${quizAndAnswerVO.quiz_right}">
+	<input type="hidden" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
 
 	<div id="BtnDiv">
 		<button id="answerBtn" class="btn btn-secondary">정답 확인</button>

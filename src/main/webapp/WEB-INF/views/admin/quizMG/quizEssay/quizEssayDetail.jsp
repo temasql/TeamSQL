@@ -10,7 +10,7 @@
 	<form id="insertOXDB" action="/updateOX" method="post" >
 		<div id="question">문제 : ${quizAndAnswerVO.quiz_question}</div>
 		<div id="answer">답 :${quizAndAnswerVO.quiz_answer}</div>
-		<div id="explain">해설 :&nbsp;<div id="explainAppend"></div></div>
+		<div id="explain">해설 :&nbsp;<div id="explainAppend">${quizAndAnswerVO.quiz_explain}</div></div>
 		
 		<input type="hidden" id="answerValue" value="${quizAndAnswerVO.quiz_answer}">
 		<input type="hidden" id="explainValue" value="${quizAndAnswerVO.quiz_explain}">

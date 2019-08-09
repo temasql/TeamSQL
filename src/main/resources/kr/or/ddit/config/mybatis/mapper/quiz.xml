@@ -199,7 +199,7 @@
 	</select>
 	
 	<!-- 유저가 입력한 정답이 관리자가 입력한 정답의 결과와 일치하는지 비교할때 사용 -->
-	<select id="answerCompare" parameterType="String" resultType="userVo">
+	<select id="answerCompare" parameterType="String" resultType="map">
 		${value}
 	</select>
 </mapper>

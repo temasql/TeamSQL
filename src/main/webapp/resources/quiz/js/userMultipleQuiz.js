@@ -14,7 +14,7 @@ $(function(){
 			}
 			
 			if($("#hiddenAnswer").val() == $("#quiz_answer").val()){
-				alert("성공");
+				alert("정답");
 				
 				$("#answerBtn").css("display", "none");
 				
@@ -26,13 +26,16 @@ $(function(){
 		
 		//다음문제 버튼 클릭 시 이벤트
 		$("#nextBtn").on("click", function(){
-			alert("다음 문제 버튼 클릭 시 " + quiz_id);
 			
 			$.ajax({
 				url : "/userQuizRead",
 				method : "post",
 				data : "quiz_id="+quiz_id+"&quiz_right="+quiz_right,
 				success : function(data){
+					if(data.msg == "마지막 문제입니다."){
+						alert(data.msg);
+						return;
+					}
 					
 					$("#gruopDiv").html(data);
 				}
