@@ -1,0 +1,86 @@
+@charset "UTF-8";
+#loginDiv{
+	width: 100%;
+    height: 400px;
+    text-align: center;
+    margin-top: 30px;
+/*     background: #d4d9f7; */
+/*     background-image: url("https://images.squarespace-cdn.com/content/v1/56dc98ec2b8dde60535d30ab/1551290389366-PWOLGJV7ATB1PYY3CQOL/ke17ZwdGBToddI8pDm48kNvT88LknE-K9M4pGNO0Iqd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UU_i9-ln4sAC0TGEmkfMFKJn5Kcyb6Y0O9dBHu3N61jtpC969RuPXvt2ZwyzUXQf7Q/Just-Background_1.gif?format=1500w"); */
+/*     background-repeat: no-repeat; */
+/*     background-size: cover; */
+}
+
+#loginLogo{
+	width: 150px;
+    height: 150px;
+}
+
+.loginBtn{
+    color: white;
+    background: black;
+	width: 254.31px;
+    height: 55px;
+    margin-bottom: 5px;
+}
+
+.loginBtnSub{
+	color: white;
+    background: black;
+    width: 165px;
+    height: 55px;
+}
+
+#user_id, #user_pw{
+	width: 254.31px;
+    height: 55px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    line-height : normal; /* line-height 초기화 */ 
+    padding: .8em .5em; /* 원하는 여백 설정, 상하단 여백으로 높이를 조절 */ 
+    font-family: inherit; /* 폰트 상속 */ 
+    border: 1px solid #999; 
+    border-radius: 5px; 
+    outline-style: none;
+    -webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */ 
+    -moz-appearance: none; 
+    appearance: none;
+}
+
+#loginBtn{
+	margin-right: 10px;
+}
+
+#singInBtn, #btnFindUserId{
+	margin-right: 10px;
+}
+
+#btnFindUserPw{
+	margin-right: 65px;
+}
+
+#naverIdLogin{
+	display:inline;
+	margin-right: 66px;
+}
+
+#mainImg{
+	width: 500px;
+	margin-bottom: 50px;
+}
+
+#inputAndRemember{
+	margin-bottom: 10px;
+}
+
+#loginAndNaver{
+	margin-bottom: 10px;
+}
+
+#findAndSignIn{
+	margin-bottom: 10px;
+}
+
+#welcome{
+	margin-bottom: 50px;
+	margin-right: 50px;
+}
