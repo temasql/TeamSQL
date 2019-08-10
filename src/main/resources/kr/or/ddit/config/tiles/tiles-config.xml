@@ -60,6 +60,11 @@
    <definition name="/notice/*.tiles" extends="layout">
       <put-attribute name="body" value="/WEB-INF/views/notice/{1}.jsp"/>
    </definition>
+
+   <!-- post(게시글) -->
+   <definition name="/post/*.tiles" extends="layout">
+      <put-attribute name="body" value="/WEB-INF/views/post/{1}.jsp"/>
+   </definition>
    
    <!-- quiz(SQL퀴즈) -->
    <definition name="/quiz/*.tiles" extends="layout">

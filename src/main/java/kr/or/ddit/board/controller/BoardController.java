@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,7 +34,9 @@ public class BoardController {
 	* Method 설명 : 게시판 관리 메인 화면 요청
 	*/
 	@RequestMapping("/manager")
-	public String viewGet() {
+	public String viewGet(Model model) {
+		List<BoardVO> boardList = boardService.boardList();
+		model.addAttribute("boardList", boardList);
 		return "/admin/boardMG.tiles";
 	}
 	
@@ -49,13 +52,17 @@ public class BoardController {
 	* Method 설명 : 게시판 추가
 	*/
 	@RequestMapping(path =  "/addBoard", method = RequestMethod.POST)
-	public String addBoard(HttpSession session, String board_name, String board_use) {
+	public String addBoard(HttpSession session, String board_name, String board_use, Model model) {
 		String user_id = ((UserVO) session.getAttribute("USER_INFO")).getUser_id();
+		
+		logger.debug("boardMG user_id ==> [{}]", user_id);
+		logger.debug("boardMG board_name ==> [{}]", board_name);
+		logger.debug("boardMG board_use==> [{}]", board_use);
 		
 		BoardVO boardVo = new BoardVO(user_id, board_name, board_use);
 		
 		if(boardService.addBoard(boardVo) == 1 ) {
-			session.setAttribute("boardList", boardService.boardList());
+			model.addAttribute("boardList", boardService.boardList());
 			return "/admin/boardMG.tiles";
 		} else {
 			return "/admin/boardMG.tiles";
@@ -75,16 +82,19 @@ public class BoardController {
 	* Method 설명 : 게시판 수정
 	*/
 	@RequestMapping(path = "/modifyBoard", method = RequestMethod.POST)
-	public String modifyBoard(HttpSession session, int board_id, String updateBoardName, String updateBoard_use) {
+	public String modifyBoard(HttpSession session, BoardVO boardVo, Model model) {
 		String user_id = ((UserVO) session.getAttribute("USER_INFO")).getUser_id();
-		
-		BoardVO boardVo = new BoardVO(board_id, user_id, updateBoardName, updateBoard_use);
+		boardVo.setUser_id_fk(user_id);
+		logger.debug("modifyBoard user_id ==> [{}]", user_id);
+		logger.debug("modifyBoard board_id ==> [{}]", boardVo.getBoard_id());
+		logger.debug("modifyBoard updateBoardName ==> [{}]", boardVo.getBoard_name());
+		logger.debug("modifyBoard updateBoard_use ==> [{}]", boardVo.getBoard_use());
 		
 		int updateCnt = boardService.modifyBoard(boardVo);
 		
 		if(updateCnt == 1) {
 			List<BoardVO> boardList = boardService.boardList();
-			session.setAttribute("boardList", boardList);
+			model.addAttribute("boardList", boardList);
 		}
 		return "/admin/boardMG.tiles";
 	}
