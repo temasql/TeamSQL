@@ -15,7 +15,15 @@ public class PostVO {
 	private Date post_dt;           // 게시글작성일시
 	private String post_use;        // 게시글사용여부
 	private int post_group_seq;		// 그룹시퀀스
+	private int lv;		// 레벨
 	
+	
+	public int getLv() {
+		return lv;
+	}
+	public void setLv(int lv) {
+		this.lv = lv;
+	}
 	public int getPost_id() {
 		return post_id;
 	}
@@ -74,6 +82,7 @@ public class PostVO {
 	public String toString() {
 		return "PostVO [post_id=" + post_id + ", parent_id_fk=" + parent_id_fk + ", user_id_fk=" + user_id_fk
 				+ ", board_id_fk=" + board_id_fk + ", post_title=" + post_title + ", post_content=" + post_content
-				+ ", post_dt=" + post_dt + ", post_use=" + post_use + ", post_group_seq=" + post_group_seq + "]";
+				+ ", post_dt=" + post_dt + ", post_use=" + post_use + ", post_group_seq=" + post_group_seq + ", lv="
+				+ lv + "]";
 	}
 }

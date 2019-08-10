@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
@@ -40,6 +41,8 @@ public class LoginController {
 	private IHistoryService historyService;
 	@Resource(name = "crewService")
 	private ICrewService crewService;
+	@Resource(name = "boardService")
+	private IBoardService boardService;
 	
 	/**
 	* Method : userLoginGet
@@ -86,6 +89,9 @@ public class LoginController {
 			if (inviteList.size() > 0) {
 				model.addAttribute("inviteList", inviteList);
 			}
+			
+			// 게시판 리스트
+			model.addAttribute("boardList", boardService.boardList());
 			
 			// remeberme 쿠키를 생성하는 유틸클래스
 			ReMemberMeCookieUtil.rememberMeCookie(userVo.getUser_id(), rememberme, response);

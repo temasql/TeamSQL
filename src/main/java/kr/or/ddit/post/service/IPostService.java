@@ -7,15 +7,45 @@ import kr.or.ddit.post.model.PostVO;
 
 public interface IPostService {
 	
-	int insert(PostVO postVo);
+	/**
+	* Method : allPostList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @return
+	* Method 설명 : 전체 게시판 게시글 리스트
+	*/
+	List<PostVO> allPostList();
 	
-	PostVO get(String id);
 	
-	List<PostVO> list();
+	/**
+	* Method : boardPostList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param board_id
+	* @return
+	* Method 설명 : 특정 게시판 게시글 조회
+	*/
+	List<PostVO> boardPostList(int board_id);
 	
-	Map<String, Object> map(Map<String, Object> map);
 	
-	int update(String id);
+	/**
+	* Method : postPagingList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 게시글 페이징 리스트
+	*/
+	Map<String, Object> postPagingList(Map<String, Object> map);
 	
-	int delete(String id);
+	
+	/**
+	* Method : insertPost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param postVo
+	* @return
+	* Method 설명 : 게시글 등록
+	*/
+	int insertPost(PostVO postVo);
 }
