@@ -100,7 +100,7 @@ function validation(){
 <form action="${cp }/post/postForm" class="form-horizontal" method="post" enctype="multipart/form-data" id="frm2">
 	<div class="form-group">
 		<div class="col-sm-11">
-			<input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="제목">
+			<input type="text" class="form-control" id="post_title" name="post_title" placeholder="제목">
 		</div>
 		<div class="col-sm-2">
 		</div>
@@ -108,9 +108,9 @@ function validation(){
 
 
 	<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:766px; height:412px;"></textarea> 
-	<input type="hidden" id="boardId" name="boardId" value="${boardId}"/>
-	<input type="hidden" id="userId" name="userId" value="${USER_INFO.userId }"/>
-	<input type="hidden" id="userId" name="postId" value="${postId}"/>
+	<input type="hidden" id="boardId" name="board_id" value="${board_id}"/>
+	<input type="hidden" id="userId" name="user_id" value="${USER_INFO.user_id }"/>
+	<input type="hidden" id="postId" name="post_id" value="${post_id}"/>
 <br><br>
 <div class="form-group">
 	<div id="plus" class="col-sm-offset-2 col-sm-10">

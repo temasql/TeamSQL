@@ -24,7 +24,7 @@
 					<ul class="ul-header-two">
 						<c:forEach items="${boardList }" var="board">
 							<c:if test="${board.board_use eq 'Y'}">
-								<li class="li-two"><a class="two-menu" href="${cp }/post/postList?board_id=${board.board_id}">${board.board_name }</a></li>
+								<li class="li-two"><a class="two-menu" href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
 							</c:if>
 						</c:forEach>	
 					</ul>
@@ -40,7 +40,7 @@
 					<ul class="ul-header-two">
 						<c:forEach items="${boardList }" var="board">
 							<c:if test="${board.board_use eq 'Y'}">
-								<li class="li-two"><a class="two-menu" href="${cp }/post/postList?board_id=${board.board_id}">${board.board_name }</a></li>
+								<li class="li-two"><a class="two-menu" href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>

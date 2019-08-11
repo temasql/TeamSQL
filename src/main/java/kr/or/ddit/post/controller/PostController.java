@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.page.model.PageVo;
@@ -26,59 +28,47 @@ public class PostController {
 	@Resource(name="boardService")
 	private IBoardService boardService;
 	
+	
 	/**
-	* Method : postList
+	* Method : boardList
 	* 작성자 : 이영은
 	* 변경이력 :
-	* @param board_id
+	* @return
+	* Method 설명 : 게시글 리스트 요청 화면
+	*/
+	@RequestMapping(path =  "/boardList", method = RequestMethod.GET)
+	public String boardList(int board_id, Model model) {
+		model.addAttribute("board_id", board_id);
+		return "/board/boardList.tiles";
+	}
+	
+	
+	/**
+	* Method : boardList
+	* 작성자 : 이영은
+	* 변경이력 :
 	* @param pageVo
 	* @param model
 	* @return
-	* Method 설명 : 게시글 리스트 화면 요청
+	* Method 설명 : 게시글 페이징 처리 응답 화면
 	*/
-	@RequestMapping(path =  "/postList", method = RequestMethod.GET)
-	public String postList(int board_id, PageVo pageVo, Model model) {
+	@RequestMapping(path = "/boardList", method = RequestMethod.POST)
+	public String boardList(PageVo pageVo, int board_id,Model model) {
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("page", pageVo.getPage());
+		pageMap.put("pageSize", pageVo.getPageSize());
+		pageMap.put("board_id", board_id);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("board_id", board_id);
-		map.put("page", pageVo.getPage());
-		map.put("pageSize", pageVo.getPageSize());
+		Map<String, Object> resultMap = postService.postPagingList(pageMap);
 		
-		Map<String, Object> resultMap = postService.postPagingList(map);
+		List<PostVO> boardList = (List<PostVO>) resultMap.get("postList");
 		int paginationSize = (int) resultMap.get("paginationSize");
-		List<PostVO> postList = (List<PostVO>) resultMap.get("postList");
 		
-		model.addAttribute("map", map);
-		model.addAttribute("postList", postList);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("paginationSize", paginationSize);
-		model.addAttribute("pageVo", pageVo);
-		model.addAttribute("boardVo", boardService.getBoard(board_id));
 		
-		return "/post/postList.tiles";
+		return "board/boardListAjaxHtml";
 	}
-	
-	
-	/**
-	* Method : postFormView
-	* 작성자 : 이영은
-	* 변경이력 :
-	* @param user_id_fk
-	* @param board_id_fk
-	* @param model
-	* @return
-	* Method 설명 : 게시글 작성 화면 요청
-	*/
-	@RequestMapping(path = "/postForm", method = RequestMethod.GET)
-	public String postFormView(String user_id, int board_id, Model model) {
-		model.addAttribute("board_id", board_id);
-		model.addAttribute("user_id", user_id);
-		
-		return "/post/postInsert.tiles";
-	}
-	
-	
-	@RequestMapping(path =  "/view", method = RequestMethod.POST)
-	public String viewPost() {
-		return "";
-	}
+
 }
