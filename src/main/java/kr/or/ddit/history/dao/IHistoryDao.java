@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.history.model.ChangedVO;
+import kr.or.ddit.history.model.HistoryTempVO;
 import kr.or.ddit.history.model.HistoryVO;
 
 public interface IHistoryDao {
@@ -84,5 +85,9 @@ public interface IHistoryDao {
 	* Method 설명 : DB계정, 마지막 변경일시, DB계정 생성자 조회 
 	 */
 	List<ChangedVO> changedMainList (String user_id_fk);
+	
+	List<String> getAccountIdList(String user_id);
+	
+	HistoryTempVO getLastDateAndName(String account_id);
 	
 }

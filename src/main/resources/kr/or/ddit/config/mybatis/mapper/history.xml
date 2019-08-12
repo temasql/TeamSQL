@@ -101,5 +101,24 @@
 		]]>
 	</select>
 	
-
+	<select id="getAccountIdList" parameterType="String" resultType="String">
+		select  account_id_fk account_id
+		from    crew
+		where   user_id_fk = #{user_id}
+	</select>
+	
+	<select id="getLastDateAndName" parameterType="String" resultType="historyTempVO">
+		select  a.dtm, b.name
+		from 
+		    (select  max(exec_dtm) dtm
+		    from    ddl_history
+		    where   object_owner = upper(#{account_id})) a,
+		    (select user_name name
+		    from users
+		    where user_id = (
+		        select user_id_fk
+		        from account
+		        where account_id = #{account_id})) b
+	</select>
+	
 </mapper>

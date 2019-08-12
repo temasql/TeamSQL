@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import kr.or.ddit.history.model.ChangedVO;
+import kr.or.ddit.history.model.HistoryTempVO;
 import kr.or.ddit.history.model.HistoryVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
@@ -33,7 +34,7 @@ import kr.or.ddit.testenv.LogicTestEnv;
 * </pre>
 */
 public class HistoryDaoTest extends LogicTestEnv{
-
+	
 	
 	@Resource(name = "historyDao")
 	private IHistoryDao historyDao;
@@ -180,6 +181,28 @@ public class HistoryDaoTest extends LogicTestEnv{
 		/***Then***/
 		assertNotNull(changedMainList);
 		assertEquals(2, changedMainList.size());
+	}
+	
+	@Test
+	public void getAccountIdListTest() {
+		/***Given***/
+		String user_id = "TEST_ID20";
+		/***When***/
+		List<String> list = historyDao.getAccountIdList(user_id);
+		/***Then***/
+		assertNotNull(list);
+		assertEquals(1, list.size());
+	}
+	
+	@Test
+	public void getLastDateAndNameTest() {
+		/***Given***/
+		String account_id = "BB_kkk123";
+		/***When***/
+		HistoryTempVO hVO = historyDao.getLastDateAndName(account_id);
+		/***Then***/
+		assertNotNull(hVO);
+		//assertEquals(hVO.getName(), "TEST_NAME20");
 	}
 	
 

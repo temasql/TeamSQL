@@ -1,5 +1,6 @@
 package kr.or.ddit.login.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,6 +20,7 @@ import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 import kr.or.ddit.history.model.ChangedVO;
+import kr.or.ddit.history.model.HistoryTempVO;
 import kr.or.ddit.history.service.IHistoryService;
 import kr.or.ddit.invite.model.InviteVO;
 import kr.or.ddit.invite.service.IInviteService;
@@ -99,11 +101,39 @@ public class LoginController {
 			// 로그인한 사용자의 정보를 세션에 저장
 			session.setAttribute("USER_INFO", loginUserVo);
 			
-			// 메인페이지내 DB변경이력 리스트를 출력
-			List<ChangedVO> changedMainList = historyService.changedMainList(userVo.getUser_id());
-			logger.debug("DB변경이력 갯수 : {}", changedMainList.size());
+//			// 메인페이지내 DB변경이력 리스트를 출력
+//			List<ChangedVO> changedMainList = historyService.changedMainList(userVo.getUser_id());
+//			logger.debug("DB변경이력 갯수 : {}", changedMainList.size());
+//			// DB변경이력
+//			model.addAttribute("changedMainList", changedMainList);
+			
 			// DB변경이력
-			model.addAttribute("changedMainList", changedMainList);
+			String user_id = loginUserVo.getUser_id();
+			
+			List<String> accountList = historyService.getAccountIdList(user_id);
+			
+			List<HistoryTempVO> historyTempList = new ArrayList<HistoryTempVO>();
+			
+			for (int i = 0; i < accountList.size(); i++) {
+				HistoryTempVO historyTempVO = historyService.getLastDateAndName(accountList.get(i));
+				historyTempList.add(historyTempVO);
+			}
+			
+			List<String> accoList = new ArrayList<String>();
+			
+			for (int i = 0; i < accountList.size(); i++) {
+				String account_id_underBar = accountList.get(i);
+				int underBarIdx = account_id_underBar.lastIndexOf("_");
+				String account_id = account_id_underBar.substring(0, underBarIdx);
+				accoList.add(account_id);
+			}
+			
+			for (int i = 0; i < historyTempList.size(); i++) {
+				historyTempList.get(i).setAccount_id(accountList.get(i));
+				historyTempList.get(i).setSlice_account_id(accoList.get(i));
+			}
+			
+			model.addAttribute("historyTempList", historyTempList);
 			
 			model.addAttribute("crewMap", crewService.getAccountCrew(loginUserVo.getUser_id()));
 			

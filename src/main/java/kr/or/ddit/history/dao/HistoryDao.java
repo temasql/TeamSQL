@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.history.model.ChangedVO;
+import kr.or.ddit.history.model.HistoryTempVO;
 import kr.or.ddit.history.model.HistoryVO;
 
 @Repository
@@ -114,6 +115,16 @@ public class HistoryDao implements IHistoryDao{
 	@Override
 	public List<ChangedVO> changedMainList(String user_id_fk) {
 		return sqlSession.selectList("history.changedMainList", user_id_fk);
+	}
+
+	@Override
+	public List<String> getAccountIdList(String user_id) {
+		return sqlSession.selectList("history.getAccountIdList", user_id);
+	}
+
+	@Override
+	public HistoryTempVO getLastDateAndName(String account_id) {
+		return sqlSession.selectOne("history.getLastDateAndName", account_id);
 	}
 
 
