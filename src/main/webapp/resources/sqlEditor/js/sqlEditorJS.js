@@ -656,13 +656,26 @@ $(document).ready(function() {
 	$("#queryManager").on("click", function(){
 		var dragText = editor.getSelectedText();
 		if(dragText == "") {
-			alert("쿼리매니저를 보고싶은 쿼리를 드래그해주세요.");
+			alert("쿼리매니저를 사용하고 싶은 쿼리를 드래그해주세요.");
 			return;
 		}
 		$.ajax({
 			 url : "/worksheet/queryManager"
 			,data : "dragText=" + dragText
 			,success : function(data) {
+				console.log(data)
+				var result = confirm("기존쿼리 " + data.dragText + "\n\n는 " + data.result + data.dt+" 으로 개선하실 수 있습니다. \n\n개선하시겠습니까?");
+				 if(result) {
+					for(var i = 0; i < 200; i++){
+						editor.getSelection().moveCursorLineEnd();
+						editor.getSelection().moveCursorDown();
+					}
+					editor.insert("\n");
+					editor.insert("\n");
+					editor.insert("--개선된 쿼리");
+					editor.insert("\n");
+					editor.insert(data.dt);
+				 }
 				
 			}
 		});

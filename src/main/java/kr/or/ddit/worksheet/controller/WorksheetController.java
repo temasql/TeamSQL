@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.or.ddit.account.model.AccountVO;
 import kr.or.ddit.account.service.IAccountService;
 import kr.or.ddit.util.DBUtilForWorksheet;
+import kr.or.ddit.util.QueryManagerUtil;
 import kr.or.ddit.worksheet.service.IWorkSheetService;
 
 @RequestMapping(path = "/worksheet")
@@ -251,8 +252,14 @@ public class WorksheetController {
 	* Method 설명 : 쿼리 매니저
 	*/
 	@RequestMapping("/queryManager")
-	public String queryManager(String dragText) {
+	public String queryManager(String dragText, Model model) {
 		
+		Map<String, Object> manager = QueryManagerUtil.managerment(dragText);
+		String result = (String) manager.get("result");
+		String dt = (String) manager.get("dragText");
+		model.addAttribute("result", result);
+		model.addAttribute("dt", dt);
+		model.addAttribute("dragText", dragText.toUpperCase());
 		return "jsonView";
 	}
 
