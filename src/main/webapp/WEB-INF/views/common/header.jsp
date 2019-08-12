@@ -63,7 +63,11 @@
 	
 <!-- 그룹채팅 -->
 <div class="groupchat">
-<p class="rightImg"><a class="aRight" id="groupChat" href="#"><img class="imgRight" alt="챗봇" src="${cp }/resources/img/groupchat.png" title="챗봇"></a></p>
+	<p class="rightImg">
+		<a href="javascript:;" class="aRight" id="groupChat" >
+			<img class="imgRight" alt="채팅" src="${cp }/resources/img/groupchat.png" title="채팅">
+		</a>
+	</p>
 </div>
 <!-- 그룹채팅 -->
 
