@@ -2,10 +2,15 @@ package kr.or.ddit.post.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.post.model.PostVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
 /**
@@ -26,17 +31,22 @@ import kr.or.ddit.testenv.LogicTestEnv;
 */
 public class PostDaoTest extends LogicTestEnv{
 
-//	@Resource(name = "다오")
-//	private ICommonsDao dao;
+	@Resource(name = "postDao")
+	private IPostDao dao;
 	
 	@Test
 	public void daoTest() {
 		/***Given***/
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<PostVO> boardList = dao.allPostList();
+		map.put("board_id", boardList.get(0).getBoard_id_fk());
+		map.put("page", 1);
+		map.put("pageSize", 10);
 		/***When***/
-		
+		List<PostVO> postList = dao.postPagingList(map);
 		/***Then***/
-		assertEquals("", "");
+		assertNotNull(postList);
+//		assertEquals(5, postList.size());
 	}
 
 }

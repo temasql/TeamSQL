@@ -17,67 +17,98 @@ public class PostVO {
 	private int post_group_seq;		// 그룹시퀀스
 	private int lv;		// 레벨
 	
+	public PostVO() {	}
 	
-	public int getLv() {
-		return lv;
+	public PostVO(int post_id, String user_id_fk, int board_id_fk, String post_title
+								, String post_content, int post_group_seq) {
+		this.post_id = post_id;
+		this.user_id_fk = user_id_fk;
+		this.board_id_fk = board_id_fk;
+		this.post_title = post_title;
+		this.post_content = post_content;
+		this.post_group_seq = post_group_seq;
 	}
-	public void setLv(int lv) {
-		this.lv = lv;
-	}
+
 	public int getPost_id() {
 		return post_id;
 	}
+
 	public void setPost_id(int post_id) {
 		this.post_id = post_id;
 	}
+
 	public int getParent_id_fk() {
 		return parent_id_fk;
 	}
+
 	public void setParent_id_fk(int parent_id_fk) {
 		this.parent_id_fk = parent_id_fk;
 	}
+
 	public String getUser_id_fk() {
 		return user_id_fk;
 	}
+
 	public void setUser_id_fk(String user_id_fk) {
 		this.user_id_fk = user_id_fk;
 	}
+
 	public int getBoard_id_fk() {
 		return board_id_fk;
 	}
+
 	public void setBoard_id_fk(int board_id_fk) {
 		this.board_id_fk = board_id_fk;
 	}
+
 	public String getPost_title() {
 		return post_title;
 	}
+
 	public void setPost_title(String post_title) {
 		this.post_title = post_title;
 	}
+
 	public String getPost_content() {
 		return post_content;
 	}
+
 	public void setPost_content(String post_content) {
 		this.post_content = post_content;
 	}
+
 	public Date getPost_dt() {
 		return post_dt;
 	}
+
 	public void setPost_dt(Date post_dt) {
 		this.post_dt = post_dt;
 	}
+
 	public String getPost_use() {
 		return post_use;
 	}
+
 	public void setPost_use(String post_use) {
 		this.post_use = post_use;
 	}
+
 	public int getPost_group_seq() {
 		return post_group_seq;
 	}
+
 	public void setPost_group_seq(int post_group_seq) {
 		this.post_group_seq = post_group_seq;
 	}
+
+	public int getLv() {
+		return lv;
+	}
+
+	public void setLv(int lv) {
+		this.lv = lv;
+	}
+
 	@Override
 	public String toString() {
 		return "PostVO [post_id=" + post_id + ", parent_id_fk=" + parent_id_fk + ", user_id_fk=" + user_id_fk
@@ -85,4 +116,6 @@ public class PostVO {
 				+ ", post_dt=" + post_dt + ", post_use=" + post_use + ", post_group_seq=" + post_group_seq + ", lv="
 				+ lv + "]";
 	}
+
+	
 }

@@ -62,7 +62,9 @@ $(document).ready(function() {
 	var count = 1;
 	$("#plusFile").on("click", function() {
 		if(count <=5 ){
-			$("#plus").after('<br><input type="file" name="files">');
+// 			$("#plus").after('<br><input type="file" class="custom-file-input" name="files" id="inputGroupFile"' + count + '">');
+// 			$("#plus").after('<label class="custom-file-label" for="inputGroupFile"' + count + '">Choose file</label>')
+			$("#plus").after('<br><input type="file"  name="files">');
 			count += 1;
 			
 		}else{

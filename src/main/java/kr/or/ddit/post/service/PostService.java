@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.post.dao.IPostDao;
@@ -17,6 +19,7 @@ public class PostService implements IPostService{
 	@Resource(name = "postDao")
 	private IPostDao postDao;
 
+	private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
 	/**
 	* Method : allPostList
@@ -55,6 +58,9 @@ public class PostService implements IPostService{
 	*/
 	@Override
 	public Map<String, Object> postPagingList(Map<String, Object> map) {
+		for(String key : map.keySet()) {
+			logger.debug("postService : map ==> [{}]",map.get(key));
+		}
 		List<PostVO> postPagingList = postDao.postPagingList(map);
 		
 		int postCnt = postDao.postCnt((int) map.get("board_id"));
@@ -83,8 +89,72 @@ public class PostService implements IPostService{
 	}
 
 
+	/**
+	* Method : postMaxCnt
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @return
+	* Method 설명 : 마지막 게시글 아이디 조회
+	*/
+	@Override
+	public int postMaxCnt() {
+		return postDao.postMaxCnt();
+	}
 
 
+	/**
+	* Method : getPost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @return
+	* Method 설명 : 게시글 상세조회
+	*/
+	@Override
+	public PostVO getPost(int post_id) {
+		return postDao.getPost(post_id);
+	}
 
+
+	/**
+	* Method : updatePost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param postVo
+	* @return
+	* Method 설명 : 게시글 수정
+	*/
+	@Override
+	public int updatePost(PostVO postVo) {
+		return postDao.updatePost(postVo);
+	}
+
+
+	/**
+	* Method : answerPost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param postVo
+	* @return
+	* Method 설명 : 답글 등록
+	*/
+	@Override
+	public int answerPost(PostVO postVo) {
+		return postDao.answerPost(postVo);
+	}
+
+
+	/**
+	* Method : deletePost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @return
+	* Method 설명 : 게시글 삭제(사용여부 미사용으로 변경)
+	*/
+	@Override
+	public int deletePost(int post_id) {
+		return postDao.deletePost(post_id);
+	}
 
 }

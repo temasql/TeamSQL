@@ -5,6 +5,16 @@
 <script src="${cp }/resources/post/js/boardList.js"></script>
 <input type="hidden" id="board_id" value="${board_id }">
 <div class="tableContainer">
+	<c:if test="${USER_INFO != null }">
+		<a href="${cp }/post/postForm?board_id=${board_id}&user_id=${USER_INFO.user_id }"
+		class="btn btn-default">게시글 작성</a>
+	</c:if>
+	
+	<form id="frm" action="${cp }/post/readPost">
+		<input type="hidden" id="postId" name="post_id"> 
+		<input type="hidden" id="userId" value="${USER_INFO.user_id }"> 
+		<input type="hidden" id="post_yn" value="${post.post_use}">
+	</form>
 	
 	<table class="table table-hover">
 		<thead>
