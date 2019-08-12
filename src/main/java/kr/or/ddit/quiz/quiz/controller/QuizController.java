@@ -28,26 +28,38 @@ public class QuizController {
 	
 	@Resource(name="quizService")
 	private IQuizService service;
-
-	/**
-	* Method : quizeMain
-	* 작성자 : 손주형
-	* 변경이력 :
-	* @return
-	* Method 설명 : 퀴즈 메인페이지로 이동하는 메서드
-	*/
-	@RequestMapping(path =  "/quizMain", method = RequestMethod.GET)
-	public String quizeMain(HttpSession session) {
-		logger.debug("퀴즈");
+	
+	@RequestMapping(path =  "/quizRealMain", method = RequestMethod.GET)
+	public String quizRealMain(HttpSession session) {
 		
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
 		
 		if(userVO.getUser_right().equals("C")) {
-			return "/quiz/quizUserMain.tiles";
+			return "/quiz/quizRealMain.tiles";
 		}
 		
 		return "/quiz/quizMain.tiles";
 	}
+	
+//	/**
+//	* Method : quizeMain
+//	* 작성자 : 손주형
+//	* 변경이력 :
+//	* @return
+//	* Method 설명 : 퀴즈 메인페이지로 이동하는 메서드
+//	*/
+//	@RequestMapping(path =  "/quizMain", method = RequestMethod.GET)
+//	public String quizeMain(HttpSession session) {
+//		logger.debug("퀴즈");
+//		
+//		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+//		
+//		if(userVO.getUser_right().equals("C")) {
+//			return "/quiz/quizUserMain.tiles";
+//		}
+//		
+//		return "/quiz/quizMain.tiles";
+//	}
 
 	//OX퀴즈화면 이동 
 	/**

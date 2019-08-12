@@ -362,3 +362,4 @@ var calendar = $('#calendar').fullCalendar({
   eventLongPressDelay: 0,
   selectLongPressDelay: 0
 });
+
