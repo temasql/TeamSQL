@@ -1,17 +1,19 @@
 @charset "UTF-8";
 
 #leftLayout{
-	background-color: blue;
+	text-align: center;
 	width: 50%;
 	height: 100%;
 	float:left;
 	display: block;
+	border-right: 1px solid #c5c5c5;
+    padding-right: 25px;
 }
 
 #leftTopLayout{
-	background-color: yellow;
 	width: 100%;
-	height: 369px;
+	height: 300px;
+	margin-top: 60px;
 }
 
 #bottomDiv{
@@ -19,9 +21,8 @@
 }
 
 #leftBottomLayout{
-	background-color: green;
 	width: 100%;
-	height: 369px;
+	height: 300px;
 }
 #rightLayout{
 /* 	background-color: red; */
@@ -53,7 +54,30 @@
     margin-bottom: 60px;
     color: black;
 }
+#infoSpan{
+	font-weight: bold;
+	font-size: 5.0em;
+	color: black;
+	border-bottom: 1px solid;
+}
 #itNewsSpan{
 	font-weight: bold;
 	font-size: 5.0em;
+    border-bottom: 1px solid;
+}
+#testImg1 {
+    width: 100%;
+    height: 350px;
+}
+#testImg2 {
+    width: 100%;
+    height: 350px;
+}
+#testImg3 {
+    width: 100%;
+    height: 350px;
+}
+#mainCss{
+	width: 100%;
+	margin-left: 215px;
 }

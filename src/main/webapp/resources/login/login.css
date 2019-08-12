@@ -1,13 +1,26 @@
 @charset "UTF-8";
+
+#loginLabel{
+	margin-right: 210px;
+}
+
+#mainImage{
+    width: 100%;
+    height: 969px;
+}
+
+#loginTopDiv {
+    width: 50%;
+    height: auto;
+    float: left;
+}
+
 #loginDiv{
-	width: 100%;
+    width: 50%;
     height: 400px;
     text-align: center;
     margin-top: 30px;
-/*     background: #d4d9f7; */
-/*     background-image: url("https://images.squarespace-cdn.com/content/v1/56dc98ec2b8dde60535d30ab/1551290389366-PWOLGJV7ATB1PYY3CQOL/ke17ZwdGBToddI8pDm48kNvT88LknE-K9M4pGNO0Iqd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UU_i9-ln4sAC0TGEmkfMFKJn5Kcyb6Y0O9dBHu3N61jtpC969RuPXvt2ZwyzUXQf7Q/Just-Background_1.gif?format=1500w"); */
-/*     background-repeat: no-repeat; */
-/*     background-size: cover; */
+    float: left;
 }
 
 #loginLogo{
@@ -26,7 +39,7 @@
 .loginBtnSub{
 	color: white;
     background: black;
-    width: 165px;
+    width: 125px;
     height: 55px;
 }
 
@@ -48,19 +61,25 @@
 
 #loginBtn{
 	margin-right: 10px;
+	margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-#singInBtn, #btnFindUserId{
-	margin-right: 10px;
+#singInBtn{
+	margin-right: 7px;
+}
+
+#btnFindUserId{
+	margin-right: 1px;
 }
 
 #btnFindUserPw{
-	margin-right: 65px;
+	margin-right: 10px;
 }
 
 #naverIdLogin{
 	display:inline;
-	margin-right: 66px;
+	margin-right: 7px;
 }
 
 #mainImg{
@@ -82,5 +101,5 @@
 
 #welcome{
 	margin-bottom: 50px;
-	margin-right: 50px;
+	margin-top: 170px;
 }
