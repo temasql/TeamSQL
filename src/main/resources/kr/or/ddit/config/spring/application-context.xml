@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<!-- NameSpace 설정 : beans, context, mvc -->
@@ -17,6 +19,9 @@
 
 	<!-- Controller 설정 -->
 	<mvc:annotation-driven />
+	
+	<!-- 웹소켓 설정 -->
+	<bean class="kr.or.ddit.chat.team_chat.controller.WebsocketConfig"/>
 
 	<!-- 요청 URL에 매핑되는 컨트롤러 검색하는 설정 -->
 	<mvc:default-servlet-handler />
@@ -71,5 +76,10 @@
 			</list>
 		</property>
 	</bean>
+	
+	<websocket:handlers>
+		<websocket:mapping handler="socketChatHandler" path="/socketChat"/>
+	</websocket:handlers>
 
+	<bean id="socketChatHandler" class="kr.or.ddit.chat.team_chat.controller.SocketChatHandler"></bean>
 </beans>

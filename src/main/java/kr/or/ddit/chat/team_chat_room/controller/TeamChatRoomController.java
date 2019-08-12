@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 //@RequestMapping("/teamChatRoom")
-//@Controller
+@Controller
 public class TeamChatRoomController {
 
 	@RequestMapping(path =  "/view", method = RequestMethod.GET)
