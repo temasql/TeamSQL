@@ -664,6 +664,10 @@ $(document).ready(function() {
 			,data : "dragText=" + dragText
 			,success : function(data) {
 				console.log(data)
+				if(data.result == null){
+					alert("해당 문장 [" + data.dragText + "] 는 개선할 수 없습니다.")
+					return;
+				}
 				var result = confirm("기존쿼리 " + data.dragText + "\n\n는 " + data.result + data.dt+" 으로 개선하실 수 있습니다. \n\n개선하시겠습니까?");
 				 if(result) {
 					for(var i = 0; i < 200; i++){

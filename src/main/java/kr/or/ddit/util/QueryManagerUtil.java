@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
 * QueryManagerUtil.java
 *
@@ -54,16 +57,111 @@ public class QueryManagerUtil {
 		int whereLength = "WHERE".length();
 		String t = dragText.substring(tem);
 		if (t.contains("=")) {
-			String operator = t.substring(whereLength, t.indexOf("="));
-			if (operator.contains("*") || operator.contains("-") || operator.contains("+") || operator.contains("/")) return operationProcessing(dragText, operator); 
+			String operator = t.substring(whereLength, t.lastIndexOf("="));
+			if (operator.contains("*") || operator.contains("-") || operator.contains("+") || operator.contains("/")) return operationProcessing(dragText); 
 			
 		}
 		return null;
 	}
 	
-	static Map<String, Object> operationProcessing(String dragText, String operator){
-		
-		return null;
+	static Map<String, Object> operationProcessing(String dragText){
+		List<String> oldQList = new ArrayList<String>();
+		List<String> newQList = new ArrayList<String>();
+		String[] split  = dragText.split("WHERE");
+		for(int i = 0; i < split.length; i++) {
+			if (i != 0) {
+				if (split[i].contains(")")) {
+					split[i] = split[i].substring(0, split[i].lastIndexOf(")"));
+				}
+				
+				if (split[i].contains("AND")) {
+					String[] as = split[i].split("AND");
+					for(String b : as) {
+						String rVa = "";
+						String leftVa = "";
+						oldQList.add(b);
+						String[] c = b.split("=");
+						if (b.contains("*")) {
+							leftVa = c[0].substring(0, c[0].indexOf("*"));
+							String lefOpSt = c[0].substring(c[0].indexOf("*") + 1);
+							rVa = c[1] + "/" + lefOpSt;
+							String nQ = leftVa + "=" +  rVa;
+							newQList.add(nQ);
+							continue;
+						} else if (b.contains("+")) {
+							leftVa = c[0].substring(0, c[0].indexOf("+"));
+							String lefOpSt = c[0].substring(c[0].indexOf("+") + 1);
+							rVa = c[1] + "-" + lefOpSt;
+							String nQ = leftVa + "=" +  rVa;
+							newQList.add(nQ);
+							continue;
+						} else if (b.contains("-")) {
+							leftVa = c[0].substring(0, c[0].indexOf("-"));
+							String lefOpSt = c[0].substring(c[0].indexOf("-") + 1);
+							rVa = c[1] + "+" + lefOpSt;
+							String nQ = leftVa + "=" +  rVa;
+							newQList.add(nQ);
+							break;
+						} else if (b.contains("/")) {
+							leftVa = c[0].substring(0, c[0].indexOf("/"));
+							String lefOpSt = c[0].substring(c[0].indexOf("/") + 1);
+							rVa = c[1] + "*" + lefOpSt;
+							String nQ = leftVa + "=" +  rVa;
+							newQList.add(nQ);
+							continue;
+						}
+					}
+				}else {
+					String[] rightValArr = split[i].split("=");
+					String leftVar = "";
+					if (rightValArr[0].contains("*")) {
+						leftVar = rightValArr[0].substring(0, rightValArr[0].indexOf("*"));
+						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("*") + 1);
+						rightValArr[1] += "/" + leftOpStr;
+						oldQList.add(split[i]);
+						String newQuery = leftVar + "=" + rightValArr[1];
+						newQList.add(newQuery);
+						continue;
+					} else if (rightValArr[0].contains("+")) {
+						leftVar = rightValArr[0].substring(0, rightValArr[0].indexOf("+"));
+						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("+") + 1);
+						rightValArr[1] += "-" + leftOpStr;
+						oldQList.add(split[i]);
+						String newQuery = leftVar + "=" + rightValArr[1];
+						newQList.add(newQuery);
+						continue;
+					} else if (rightValArr[0].contains("-")) {
+						leftVar = rightValArr[0].substring(0, rightValArr[0].indexOf("-"));
+						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("-") + 1);
+						rightValArr[1] += "+" + leftOpStr;
+						oldQList.add(split[i]);
+						String newQuery = leftVar + "=" + rightValArr[1];
+						newQList.add(newQuery);
+						continue;
+					} else if (rightValArr[0].contains("/")) {
+						leftVar = rightValArr[0].substring(0, rightValArr[0].indexOf("/"));
+						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("/") + 1);
+						rightValArr[1] += "*" + leftOpStr;
+						oldQList.add(split[i]);
+						String newQuery = leftVar + "=" + rightValArr[1];
+						newQList.add(newQuery);
+						continue;
+					}  
+				}
+			}
+		}
+		for (int j = 0; j < oldQList.size(); j++) {
+			dragText = dragText.replace(oldQList.get(j), newQList.get(j));
+		}
+		dragText = dragText.replaceAll("SELECT", " SELECT ");
+		dragText = dragText.replaceAll("FROM", "\n FROM ");
+		dragText = dragText.replaceAll("WHERE", "\n WHERE ");
+		dragText = dragText.replaceAll("AND", "\n AND ");
+		dragText = dragText.replaceAll("=", " = ");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", LEFT_PROCESSING);
+		map.put("dragText", dragText);
+		return map;
 		
 	}
 	

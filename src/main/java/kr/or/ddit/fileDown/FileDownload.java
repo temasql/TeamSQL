@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.AbstractView;
 
 @RequestMapping("/fileDownload")
 @Controller
 public class FileDownload extends AbstractView {
 
+	@RequestMapping(path = "download", method = RequestMethod.POST)
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
