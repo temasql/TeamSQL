@@ -133,6 +133,12 @@ public class LoginController {
 				historyTempList.get(i).setSlice_account_id(accoList.get(i));
 			}
 			
+			if(historyTempList.size() > 4) {
+				for (int i = 5; i < historyTempList.size(); i++) {
+					historyTempList.remove(i);
+				}
+			}
+			
 			model.addAttribute("historyTempList", historyTempList);
 			
 			model.addAttribute("crewMap", crewService.getAccountCrew(loginUserVo.getUser_id()));
