@@ -43,6 +43,7 @@ public class SelectTableUtilTest {
 	public void queryManagerTest() {
 		/***Given***/
 		String query = "select * from users, (select * from sh where substr(hh, 1,2) = 'h' and substr(sub, 12, 3) = 'hs') where substr(user_id, 1, 4) = 'hi' and substr(zx, 12, 3) = 'hx'";
+//		String query = "select * from users where usbstr(users, 1,2) = 'hi'";
 		/***When***/
 		// 쿼리를 모두 대문자로 변환한다.
 		query = query.toUpperCase();
@@ -129,51 +130,146 @@ public class SelectTableUtilTest {
 	
 	@Test
 	public void operationTest() {
-		String dragText = "select * from users, (select * from asd where sal * 30 = 255000) where  bal * 12 = 35000000".toUpperCase();
+		String dragText = "select * from users, (select * from asd where sal = 255000*30 ) where  bal + 12 = 35000000".toUpperCase();
 		dragText = dragText.replaceAll(" ", "");
-		int tem = dragText.indexOf("WHERE");
-		int whereLength = "WHERE".length();
-		String t = dragText.substring(tem);
-		String a = t.substring(whereLength, t.indexOf("="));
+		
+		List<String> oldQList = new ArrayList<String>();
+		List<String> newQList = new ArrayList<String>();
+		
 		logger.debug("dragText : {}", dragText);
-		logger.debug("a : {}", a);
-		if (a.contains("*")) {
-			String[] split  = dragText.split("WHERE");
-			for(int i = 0; i < split.length; i++) {
-				if (i != 0) {
-					logger.debug("split : {}", split[i]);
-					if (split[i].contains(")")) {
-						split[i] = split[i].substring(0, split[i].lastIndexOf(")"));
-						logger.debug("split[i] : {}", split[i]);
-					}
-					String[] sp = split[i].split("=");
-					for (String string : sp) {
-						logger.debug("string : {}",string);
-					}
+		
+		
+		String[] split  = dragText.split("WHERE");
+		for(int i = 0; i < split.length; i++) {
+			if (i != 0) {
+				logger.debug("split : {}", split[i]);
+//					oldQList.add(split[i]);
+				if (split[i].contains(")")) {
+					split[i] = split[i].substring(0, split[i].lastIndexOf(")"));
 					
-					String leftVar = sp[0].substring(0, sp[0].indexOf("*"));
-					logger.debug("leftVar : {}", leftVar);
-					String leftOpStr = sp[0].substring(sp[0].indexOf("*") + 1);
-					logger.debug("leftOpStr : {}", leftOpStr);
-					sp[1] += "/" + leftOpStr;
-					logger.debug("sp[1] : {}", sp[1]);
-//					int endIdx = split[i].indexOf(",");
-//					logger.debug("split subStr : {}", split[i].substring(1, endIdx));
-//					String valStr = split[i].substring(split[i].indexOf("'") + 1, split[i].lastIndexOf("'"));
-//					String colStr = split[i].substring(7, endIdx);
-//					logger.debug("vlaStr : {}", valStr);
-//					logger.debug("colStr : {}",colStr);
-//					logger.debug("split[i] : {}", split[i]);
-//					logger.debug(colStr + " LIKE '" + valStr + "%'");
+					logger.debug("fullQuery[i] : {}", split[i]);
+				}
+				
+				if (split[i].contains("AND")) {
+					String[] as = split[i].split("AND");
+					logger.debug("asSIze : {}", as.length);
+					for(String b : as) {
+						String rVa = "";
+						String leftVa = "";
+						logger.debug("b : {}", b);
+						oldQList.add(b);
+						String[] c = b.split("=");
+						logger.debug("d : {}", c[0]);
+						logger.debug("leftVal : {}", b);
+						if (b.contains("*")) {
+							leftVa = c[0].substring(0, c[0].indexOf("*"));
+							logger.debug("leftVa : {}", leftVa);
+							String lefOpSt = c[0].substring(c[0].indexOf("*") + 1);
+							logger.debug("lefOpst : {}", lefOpSt);
+							rVa = c[1] + "/" + lefOpSt;
+							String nQ = leftVa + "=" +  rVa;
+							logger.debug("nqqQ : {}", nQ);
+							newQList.add(nQ);
+							continue;
+						} else if (b.contains("+")) {
+							leftVa = c[0].substring(0, c[0].indexOf("+"));
+							logger.debug("leftVa : {}", leftVa);
+							String lefOpSt = c[0].substring(c[0].indexOf("+") + 1);
+							logger.debug("lefOpst : {}", lefOpSt);
+							rVa = c[1] + "-" + lefOpSt;
+							String nQ = leftVa + "=" +  rVa;
+							logger.debug("nqqQ : {}", nQ);
+							newQList.add(nQ);
+							continue;
+						} else if (b.contains("-")) {
+							leftVa = c[0].substring(0, c[0].indexOf("-"));
+							logger.debug("leftVa : {}", leftVa);
+							String lefOpSt = c[0].substring(c[0].indexOf("-") + 1);
+							logger.debug("lefOpst : {}", lefOpSt);
+							rVa = c[1] + "+" + lefOpSt;
+							String nQ = leftVa + "=" +  rVa;
+							logger.debug("nqqQ : {}", nQ);
+							newQList.add(nQ);
+							break;
+						} else if (b.contains("/")) {
+							leftVa = c[0].substring(0, c[0].indexOf("/"));
+							logger.debug("leftVa : {}", leftVa);
+							String lefOpSt = c[0].substring(c[0].indexOf("/") + 1);
+							logger.debug("lefOpst : {}", lefOpSt);
+							rVa = c[1] + "*" + lefOpSt;
+							String nQ = leftVa + "=" +  rVa;
+							logger.debug("nqqQ : {}", nQ);
+							newQList.add(nQ);
+							continue;
+						}
+						logger.debug("rVa : {}", rVa);
+//						String nQ = leftVa + "=" +  rVa;
+//						logger.debug("nqqQ : {}", nQ);
+//						newQList.add(nQ);
+					}
+				}else {
+					String[] rightValArr = split[i].split("=");
+					for (String rightVal : rightValArr) {
+						logger.debug("rightVal : {}",rightVal);
+					}
+					String leftVar = "";
+					if (rightValArr[0].contains("*")) {
+						leftVar = rightValArr[0].substring(0, rightValArr[0].indexOf("*"));
+						logger.debug("leftVar : {}", leftVar);
+						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("*") + 1);
+						logger.debug("leftOpStr : {}", leftOpStr);
+						rightValArr[1] += "/" + leftOpStr;
+						oldQList.add(split[i]);
+						String newQuery = leftVar + "=" + rightValArr[1];
+						newQList.add(newQuery);
+						continue;
+					} else if (rightValArr[0].contains("+")) {
+						leftVar = rightValArr[0].substring(0, rightValArr[0].indexOf("+"));
+						logger.debug("leftVar : {}", leftVar);
+						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("+") + 1);
+						logger.debug("leftOpStr : {}", leftOpStr);
+						rightValArr[1] += "-" + leftOpStr;
+						oldQList.add(split[i]);
+						String newQuery = leftVar + "=" + rightValArr[1];
+						newQList.add(newQuery);
+						continue;
+					} else if (rightValArr[0].contains("-")) {
+						leftVar = rightValArr[0].substring(0, rightValArr[0].indexOf("-"));
+						logger.debug("leftVar : {}", leftVar);
+						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("-") + 1);
+						logger.debug("leftOpStr : {}", leftOpStr);
+						rightValArr[1] += "+" + leftOpStr;
+						oldQList.add(split[i]);
+						String newQuery = leftVar + "=" + rightValArr[1];
+						newQList.add(newQuery);
+						continue;
+					} else if (rightValArr[0].contains("/")) {
+						leftVar = rightValArr[0].substring(0, rightValArr[0].indexOf("/"));
+						logger.debug("leftVar : {}", leftVar);
+						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("/") + 1);
+						logger.debug("leftOpStr : {}", leftOpStr);
+						rightValArr[1] += "*" + leftOpStr;
+						oldQList.add(split[i]);
+						String newQuery = leftVar + "=" + rightValArr[1];
+						newQList.add(newQuery);
+						continue;
+					}  
+					logger.debug("rightValArr[1] : {}", rightValArr[1]);
 				}
 			}
-		} else if (a.contains("-")) {
-			
-		} else if (a.contains("+")) {
-			
-		} else if(a.contains("/")) {
-			
 		}
+		for (int j = 0; j < oldQList.size(); j++) {
+			logger.debug("oldql : {}", oldQList.get(j));
+			logger.debug("newql : {}", newQList.get(j));
+			dragText = dragText.replace(oldQList.get(j), newQList.get(j));
+		}
+		dragText = dragText.replaceAll("SELECT", " SELECT ");
+		dragText = dragText.replaceAll("FROM", "\n FROM ");
+		dragText = dragText.replaceAll("WHERE", "\n WHERE ");
+		dragText = dragText.replaceAll("AND", "\n AND ");
+		dragText = dragText.replaceAll("=", " = ");
+		logger.debug("proc : {}", dragText);
+		
 	}
 	
 }
