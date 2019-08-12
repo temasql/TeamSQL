@@ -98,7 +98,7 @@
 			</table> 
 	  </div>
 	  
-<!-- 	  <!-- DB변경이력 -->
+<!-- 	  <!-- DB변경이력 asd-->
 <!-- 	  <div id="leftBottomLayout"> -->
 <!-- 	  	<div id="bottomDiv"> -->
 <!-- 		   <table class="table table-hover" id="tableContainer"> -->
