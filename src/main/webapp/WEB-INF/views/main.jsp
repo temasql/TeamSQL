@@ -28,12 +28,12 @@
 		
 		<c:forEach items="${crewMap.crewList}" var="crew" end="${crewMap.acSize}" >
 			$("#crewTbody").append("<tr>")
-			$("#crewTbody").append("<td class='sqlTd' scope='row'>${crew.account_id_fkSlice}<input type='hidden' class='account_id' value='${crew.account_id_fk}'/></td>")
-			$("#crewTbody").append("<td class='crewTd' scope='row'>${crew.user_id_fk}</td>")
+			$("#crewTbody").append("<td class='sqlTd' scope='row'><span style='cursor: pointer' class='sqlSpan'>${crew.account_id_fkSlice}<input type='hidden' class='account_id' value='${crew.account_id_fk}'/></span></td>")
+			$("#crewTbody").append("<td class='crewTd' scope='row'><span style='cursor: pointer' class='crewSpan'>${crew.user_id_fk}</span></td>")
 			$("#crewTbody").append("</tr>")
 		</c:forEach>
-		$(document).on("click", ".sqlTd", function(){location.href="/sqlEditor/sqlEditorMain"})
-		$(document).on("click", ".crewTd", function(){location.href="/crew/crewManager"})
+		$(document).on("click", ".sqlSpan", function(){location.href="/sqlEditor/sqlEditorMain"})
+		$(document).on("click", ".crewSpan", function(){location.href="/crew/crewManager"})
 	})
 </script>
 
