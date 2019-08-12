@@ -40,7 +40,11 @@
 		if(msg != ''){
 			alert(msg);
 		}
-		
+		$('form input').keydown(function(e) {
+	        if (e.keyCode == 13) {
+	            $('#loginForm').submit();
+	        }
+	    });
 		var user_id = $("#user_id").val();
 		var user_pw = $("#user_pw").val();
 		if(user_id > 0 || user_pw > 0){
