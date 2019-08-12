@@ -2,9 +2,9 @@ $(document).ready(function() {
 	
 	var shiftKey = false;
 	$(document).keydown(function(e) {
-		if (e.keyCode == 16)					   // shiftKey
+		if (e.keyCode == 16)					   // ShiftKey
 			shiftKey = true; 
-		if (e.keyCode == 18 && shiftKey == true) { //shiftKey + SpaceBarKey
+		if (e.keyCode == 18 && shiftKey == true) { // ShiftKey + Alt
 			shiftKey = false;
 			// 구현 내용 작성
 //			alert("dd");
@@ -17,7 +17,7 @@ $(document).ready(function() {
 		if (e.keyCode == 16)
 			shiftKey = false; // shiftKey
 		if (e.keyCode == 18)
-			shiftKey = false; // SpaceBarKey
+			shiftKey = false; // Alt
 	});
 	
 	function tmpRun(dragText) {
