@@ -1,5 +1,8 @@
 var cnt3 = 0;
 $(document).ready(function() {
+	$(".mycontainer").css("width","100%");
+	$(".mycontainer").css("margin-left","0%");
+	$(".mycontainer").css("margin-right","0%");
 	
 	$("#createTestDataBtn").on("click", function() {
 		var dataCnt = $("#dataCnt").val().trim();

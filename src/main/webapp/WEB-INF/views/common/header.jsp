@@ -45,7 +45,7 @@
 						</c:forEach>
 					</ul>
 				</li>
-				<li><a class="aNav" href="${cp}/quizMain">SQL퀴즈</a></li>
+				<li><a class="aNav" href="${cp}/quizRealMain">SQL퀴즈</a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

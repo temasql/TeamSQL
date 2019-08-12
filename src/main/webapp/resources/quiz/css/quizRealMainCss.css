@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+#quizRealMainDiv{
+	text-align: center;
+}
+
+#sqlQuizH1{
+	font-weight: bold;
+}
+
+#sqlQuizSpan{
+	color: #a14747;	
+}
