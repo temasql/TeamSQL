@@ -15,28 +15,69 @@ function initSocket(url) {
 	socket = new SockJS("/socketChat");
 	
 	socket.onmessage = function(evt) {
-		$("#data").append(evt.data + "<br/>");
+// 		$("#data").append(evt.data + "<br/>");
+		var data = evt.data;
+		var sessionid = null;
+		var message = null;
+		
+		var strArray = data.split(":");
+		
+		for(var i=0; i<strArray.length; i++){
+			console.log("str["+i+"]: " + strArray[i])
+		}
+		
+		//current session id//
+		var currentuser_session = $("#sessionuserid").val();
+		console.log("현재 session Id : " + currentuser_session);
+		
+		sessionid = strArray[0];	//현재 메세지를 보낸 사람의 세션 등록
+		message = strArray[1];		//현재 메세지 저장
+		
+		//나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.
+		if(sessionid == currentuser_session){
+			var printHTML = "<div class='well'>";
+			printHTML += "<div class='alert alert-info'>";
+			printHTML += "<strong>" + message + " : [Me]</strong>";
+			printHTML += "</div>";
+			printHTML += "</div><br>";
+			
+			$("#data").append(printHTML);
+		}else{
+			var printHTML = "<div class='well'>";
+			printHTML += "<div class='alert alert-warning'>";
+			printHTML += "<strong>[" + sessionid + "] : " + message + "</strong>";
+			printHTML += "</div>";
+			printHTML += "</div><br>";
+			
+			$("#data").append(printHTML);
+		}
 	};
 	
 	socket.onclose = function(evt) {
-		$("#data").append("연결 종료");
+		$("#data").append("${userId}님의 연결이 종료되었습니다.");
 	}
 }
 
 $(document).ready(function() {
 	var userId = "${userId}";	//사용자 아이디를 파라미터로 받는다
-	$("#userId").text(userId);
+	$("#userId").text($("#account").val());
 		
 	initSocket("/socketChat?userId=" + userId);	//websocket 연결
 });
 </script>
 </head>
 <body>
-	<h1 id="userId">테스트이름</h1>
-	
+	<h1 id="userId"></h1>
+	<select id="account">
+		<c:forEach items="${crewList}" var="crewVO">
+			<option class="accountNM" value="${crewVO.account_id_fk}">${crewVO.account_id_fk}</option>
+		</c:forEach>
+	</select>
+	<br><br>
 	<div id="data" style=" width:500px; height:500px; border:1px solid black;"></div>
 	<br>
 	<input type="text" id="message"/>
 	<button id="sendBtn">전송</button><br>
+	<input type="hidden" id="sessionuserid" value="${userId}">
 </body>
 </html>

@@ -18,9 +18,10 @@
 	</select>
 	
 	<!-- SelectList -->
-	<select id="list" resultType="teamChatRoomVo">
-		SELECT *
-		FROM TEAM_CHAT_ROOM
+	<select id="chatRoomList" parameterType="String" resultType="teamChatRoomVo">
+		SELECT 	*
+		FROM 	TEAM_CHAT_ROOM
+		WHERE	USER_ID_FK = #{user_id_fk}
 	</select>
 	
 	<select id="map" parameterType="map" resultType="teamChatRoomVo">

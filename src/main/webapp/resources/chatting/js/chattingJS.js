@@ -5,4 +5,10 @@ $(document).ready(function(){
 		socket.send(msg);
 		$("#message").val("");
 	});
+	
+	$("#account").change(function(){
+		$("#userId").text($(this).val());
+	});
+	
+	$("#data").scrollTop($("#data")[0].scrollHeight);
 })

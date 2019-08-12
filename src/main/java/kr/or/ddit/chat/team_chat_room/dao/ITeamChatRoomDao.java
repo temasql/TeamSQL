@@ -20,7 +20,14 @@ public interface ITeamChatRoomDao {
 	
 	TeamChatRoomVO get(String id);
 	
-	List<TeamChatRoomVO> list();
+	/**
+	* Method : chatRoomList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @return
+	* Method 설명 : 채팅방 리스트 반환
+	*/
+	List<TeamChatRoomVO> chatRoomList(String userId);
 	
 	List<TeamChatRoomVO> map(Map<String, Object> map);
 	

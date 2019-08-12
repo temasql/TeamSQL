@@ -2,3 +2,14 @@
 #message{
 	width : 498px;	
 }
+.alert-info{
+    float: right;
+    margin-right: 10px;
+}
+.alert-warning{
+    float: left;
+    margin-left: 6px;
+}
+#data{
+	overflow-y: auto;
+}
