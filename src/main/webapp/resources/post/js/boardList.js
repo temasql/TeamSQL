@@ -2,7 +2,15 @@ $(function(){
 	postPagingListAjaxHtml(1, 10);
 	
 	$(document).on("click", ".postTr", function(){
-		alert()
+		var postId = $(this).find(".postId").text();
+		$("#postId").val(postId);
+		
+		var post_yn = $(this).find(".post_yns").val();
+		$("#post_yn").val(post_yn);
+		
+		if ($("#post_yn").val() == "Y") {
+			$("#frm").submit();
+		}
 	})
 })
 

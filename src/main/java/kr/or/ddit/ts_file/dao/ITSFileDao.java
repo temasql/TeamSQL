@@ -7,15 +7,46 @@ import kr.or.ddit.ts_file.model.TSFileVO;
 
 public interface ITSFileDao {
 
-	int insert(TSFileVO commonsVo);
+	/**
+	* Method : insertFile
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param fileVo
+	* @return
+	* Method 설명 : 파일첨부
+	*/
+	int insertFile(TSFileVO fileVo);
 	
-	TSFileVO get(String id);
 	
-	List<TSFileVO> list();
+	/**
+	* Method : getFileList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @return
+	* Method 설명 : 해당 게시글에 첨부된 파일리스트 조회
+	*/
+	List<TSFileVO> getFileList(int post_id);
 	
-	List<TSFileVO> map(Map<String, Object> map);
 	
-	int update(String id);
-
-	int delete(String id);
+	/**
+	* Method : getFile
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param tsfile_id
+	* @return
+	* Method 설명 : 해당 게시글에 첨부된 파일 조회
+	*/
+	TSFileVO getFile(String tsfile_id);
+	
+	
+	/**
+	* Method : deleteFile
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param delFileId
+	* @return
+	* Method 설명 : 게시글 수정 시 해당 게시글에 첨부된 파일 삭제
+	*/
+	int deleteFile(String delFileId);
 }

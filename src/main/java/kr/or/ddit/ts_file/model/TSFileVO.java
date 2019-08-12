@@ -1,15 +1,22 @@
 package kr.or.ddit.ts_file.model;
 
 public class TSFileVO {
-	private int tsfile_id;          // 첨부파일아이디
+	private String tsfile_id;          // 첨부파일아이디
 	private int post_id_fk;         // 게시글아이디
 	private String tsfile_path;     // 첨부파일경로
 	private String tsfile_filename;	// 원본파일명
 
-	public int getTsfile_id() {
+	public TSFileVO(String tsfile_id, int post_id_fk, String tsfile_path, String tsfile_filename) {
+		this.tsfile_id = tsfile_id;
+		this.post_id_fk = post_id_fk;
+		this.tsfile_path = tsfile_path;
+		this.tsfile_filename = tsfile_filename;
+	}
+	
+	public String getTsfile_id() {
 		return tsfile_id;
 	}
-	public void setTsfile_id(int tsfile_id) {
+	public void setTsfile_id(String tsfile_id) {
 		this.tsfile_id = tsfile_id;
 	}
 	public int getPost_id_fk() {

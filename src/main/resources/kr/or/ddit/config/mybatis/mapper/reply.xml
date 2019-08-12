@@ -4,51 +4,58 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reply">
 
-	<!-- Insert -->
-	<insert id="insert" parameterType="replyVo">
+	<!-- 댓글 전체 수 -->
+	<select id="replyMaxCnt" resultType="int">
+		SELECT MAX(REPLY_ID) +1
+		FROM REPLY
+	</select>
+	
+	
+	<!-- 댓글 등록 -->
+	<insert id="insertReply" parameterType="replyVo">
 		INSERT INTO REPLY
-		(
-			...
-		)
-		VALUES
-		(
-			...
+		VALUES(
+			  #{reply_id}
+			, #{user_id}
+			, #{post_id}
+			, #{reply_content}
+			, 'Y'
+			, SYSDATE
 		)
 	</insert>
-	
-	<!-- SelectOne -->
-	<select id="get" parameterType="String" resultType="replyVo">
+
+
+	<!-- 해당 게시글 댓글 리스트 -->
+	<select id="replyList" parameterType="int" resultType="replyVo">
 		SELECT *
 		FROM REPLY
-		WHERE ID = #{id}
+		WHERE POST_ID_FK = #{post_id}
+		ORDER BY REPLY_ID
 	</select>
 	
-	<!-- SelectList -->
-	<select id="list" resultType="replyVo">
-		SELECT *
-		FROM REPLY
-	</select>
 	
-	<select id="map" parameterType="map" resultType="replyVo">
-		SELECT *
-		FROM REPLY
-		WHERE ID = #{map1}
-		AND .. = #{map2}
-		...
-	</select>
-	
-	<!-- update -->
-	<update id="update" parameterType="replyVo">
+	<!-- 게시글 삭제 시 해당 댓글 삭제(사용여부만 미사용으로 업데이트) -->
+	<update id="delReplyCnt" parameterType="int">
 		UPDATE REPLY
-		SET COLUMN = #{..}
-		WHERE ID = #{id}
+		SET   REPLY_CONTENT = '삭제된 댓글 입니다.'
+				, REPLY_USE = 'N'
+		WHERE POST_ID_FK = #{post_id}
 	</update>
 	
-	<!-- delete -->
-	<delete id="delete" parameterType="String">
-		DELETE
-		FROM REPLY
-		WHERE ID = #{id}
-	</delete>
-
+	
+	<!--  댓글 삭제 -->
+	<update id="deleteReply" parameterType="int">
+		UPDATE REPLY
+		SET   REPLY_CONTENT = '삭제된 댓글 입니다.'
+				, REPLY_USE = 'N'
+		WHERE REPLY_ID = #{reply_id}
+	</update>
+	
+	
+	<!-- 댓글 하나의 정보 -->
+	<select id="getReply" parameterType="int" resultType="replyVo">
+		SELECT *
+		FROM	REPLY
+		WHERE REPLY_ID = #{reply_id}
+	</select>
 </mapper>

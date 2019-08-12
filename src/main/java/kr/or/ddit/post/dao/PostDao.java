@@ -85,6 +85,76 @@ public class PostDao implements IPostDao{
 		return sqlSession.insert("post.insertPost", postVo);
 	}
 
+
+	/**
+	* Method : postMaxCnt
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @return
+	* Method 설명 : 마지막 게시글 아이디 조회
+	*/
+	@Override
+	public int postMaxCnt() {
+		return sqlSession.selectOne("post.postMaxCnt");
+	}
+
+
+	/**
+	* Method : getPost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @return
+	* Method 설명 : 게시글 상세조회
+	*/
+	@Override
+	public PostVO getPost(int post_id) {
+		return sqlSession.selectOne("post.getPost", post_id);
+	}
+
+
+	/**
+	* Method : updatePost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param postVo
+	* @return
+	* Method 설명 : 게시글 수정
+	*/
+	@Override
+	public int updatePost(PostVO postVo) {
+		return sqlSession.update("post.updatePost", postVo);
+	}
+
+
+	/**
+	* Method : answerPost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param postVo
+	* @return
+	* Method 설명 : 답글 등록
+	*/
+	@Override
+	public int answerPost(PostVO postVo) {
+		return sqlSession.insert("post.answerPost", postVo);
+	}
+
+
+	/**
+	* Method : deletePost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @return
+	* Method 설명 : 게시글 삭제(사용여부 미사용으로 변경)
+	*/
+	@Override
+	public int deletePost(int post_id) {
+		return sqlSession.update("post.deletePost", post_id);
+	}
+
+	
 	
 
 }
