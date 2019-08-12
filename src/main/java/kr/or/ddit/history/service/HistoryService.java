@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.history.dao.IHistoryDao;
 import kr.or.ddit.history.model.ChangedVO;
+import kr.or.ddit.history.model.HistoryTempVO;
 import kr.or.ddit.history.model.HistoryVO;
 
 @Service
@@ -114,6 +115,18 @@ public class HistoryService implements IHistoryService{
 		
 		return resultMap;
 		
+	}
+
+
+	@Override
+	public List<String> getAccountIdList(String user_id) {
+		return historyDao.getAccountIdList(user_id);
+	}
+
+
+	@Override
+	public HistoryTempVO getLastDateAndName(String account_id) {
+		return historyDao.getLastDateAndName(account_id);
 	}
 
 

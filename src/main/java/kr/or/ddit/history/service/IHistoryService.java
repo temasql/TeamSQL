@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.history.model.ChangedVO;
+import kr.or.ddit.history.model.HistoryTempVO;
 
 public interface IHistoryService {
 	
@@ -41,5 +42,9 @@ public interface IHistoryService {
 	* Method 설명 : DB변경 이력 상세 페이징 리스트 조회
 	 */
 	Map<String, Object> changedDetailPagingList(Map<String, Object> pageMap);
-
+	
+	List<String> getAccountIdList(String user_id);
+	
+	HistoryTempVO getLastDateAndName(String account_id);
+	
 }
