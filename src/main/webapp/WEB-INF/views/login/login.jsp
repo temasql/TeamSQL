@@ -62,63 +62,31 @@
 </head>
 
 <body>
-	<header id="header">
-	    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-	      <ol class="carousel-indicators">
-	        <li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
-	        <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
-	        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
-	      </ol>
-	      <div class="carousel-inner" role="listbox">
-	        <div class="carousel-item" style="background-image: url('https://www.firstumc.org/wp-content/uploads/2017/05/prayer-requests.jpg')">
-	          <div class="carousel-caption d-none d-md-block">
-	            <h1>Cooperation</h1>
-	            <h2>팀원들과의 협업을 원할하게</h2>
-	          </div>
-	        </div>
-	        <div class="carousel-item" style="background-image: url('https://www.wearetheweather.co.uk/sites/default/files/blog-header_1.jpg')">
-	          <div class="carousel-caption d-none d-md-block">
-	            <h1>Convenience</h1>
-	            <h2>차별화된 기능을 통해 조금 더 쉽게</h2>
-	          </div>
-	        </div>
-	        <div class="carousel-item active" style="background-image: url('https://community.arm.com/cfs-file/__key/communityserver-blogs-components-weblogfiles/00-00-00-20-57/0245.endless_5F00_mini_5F00_p2_5F00_xxlCarousel_5F00_03.jpg')">
-	          <div class="carousel-caption d-none d-md-block">
-	            <h1>Accessibility</h1>
-	            <h2>Web에서 DB Developer를 간편하게</h2>
-	          </div>
-	        </div>
-	      </div>
-	      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-	        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	        <span class="sr-only">Previous</span>
-	      </a>
-	      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-	        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	        <span class="sr-only">Next</span>
-	      </a>
-	    </div>
-	</header>
+	
 	<div id="loginDiv">
 		<h1 id="welcome">Welcome to TeamSQL</h1>
 		<form id="loginForm" action="${cp }/login" method="post">
-			<div id="inputDiv">
-				<div id="inputAndRemember">
-					<input class="loginInput" type="text" id="user_id"  value="${user_id}" name="user_id" placeholder="  ID">
-					<input class="loginInput" type="password" id="user_pw" value="js1450@!" name="user_pw" placeholder="  PW">
-					<label id="loginLabel"> <input id="rememberme" name="rememberme" type="checkbox" value="remember-me">	ID저장</label>
-				</div>
-				<div id="loginAndNaver">
-					<button id="loginBtn" class="btn btn-default pull-right loginBtn" type="button">login </button>
-					<div id="naverIdLogin"></div>
-				</div>
-			</div>
+			<input class="loginInput" type="text" id="user_id"  value="${user_id}" name="user_id" placeholder="  ID">
+			<br>
+			<input class="loginInput" type="password" id="user_pw" value="js1450@!" name="user_pw" placeholder="  PW">
+			<br>
+			<label id="loginLabel"> <input id="rememberme" name="rememberme" type="checkbox" value="remember-me">	ID저장</label>
+			<br>
+			<div id="naverIdLogin"></div>
+			<br>
+			<button id="loginBtn" class="btn btn-default pull-right loginBtn" type="button">login </button>
 		</form>
-		<div id="findAndSignIn">
-			<a id="singInBtn" class="btn btn-default pull-right loginBtnSub" href="${cp }/user/signIn">회원가입</a>
+			<a id="singInBtn" class="btn btn-default pull-right loginBtn" href="${cp }/user/signIn">회원가입</a>
+			<br>
 			<button id="btnFindUserId" class="btn btn-default pull-right loginBtnSub" >ID찾기</button>
 			<button id="btnFindUserPw" class="btn btn-default pull-right loginBtnSub" >PW찾기</button>
-		</div>
+	</div>
+	<div id="loginTopDiv">
+		<img id="mainImage" 
+			src="https://pbs.twimg.com/media/D8gztb-WwAAceuo.jpg">
+<!-- 			https://pbs.twimg.com/media/D8gztb-WwAAceuo.jpg -->
+<!-- https://t1.daumcdn.net/cfile/tistory/25773A345212D48502 -->
+<!-- https://tinypetition.com/g/022-plan-template-disaster-recovery-and-business-continuity-960x971.jpg -->
 	</div>
 <!-- //네이버아이디로로그인 버튼 노출 영역 -->
 
