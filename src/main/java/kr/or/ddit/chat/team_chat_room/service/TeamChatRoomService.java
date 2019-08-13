@@ -36,9 +36,16 @@ public class TeamChatRoomService implements ITeamChatRoomService{
 		return teamChatRoomDao.get(id);
 	}
 	
+	/**
+	* Method : chatRoomList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @return
+	* Method 설명 : 채팅방 리스트 반환
+	*/
 	@Override
-	public List<TeamChatRoomVO> list() {
-		return teamChatRoomDao.list();
+	public List<TeamChatRoomVO> chatRoomList(String userId) {
+		return teamChatRoomDao.chatRoomList(userId);
 	}
 
 	@Override

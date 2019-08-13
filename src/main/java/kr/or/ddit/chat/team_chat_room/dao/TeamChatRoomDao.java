@@ -35,9 +35,16 @@ public class TeamChatRoomDao implements ITeamChatRoomDao{
 		return sqlSession.selectOne("teamChatRoom.get", id);
 	}
 	
+	/**
+	* Method : chatRoomList
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @return
+	* Method 설명 : 채팅방 리스트 반환
+	*/
 	@Override
-	public List<TeamChatRoomVO> list() {
-		return sqlSession.selectList("teamChatRoom.list");
+	public List<TeamChatRoomVO> chatRoomList(String userId) {
+		return sqlSession.selectList("teamChatRoom.chatRoomList", userId);
 	}
 
 	@Override
