@@ -25,7 +25,7 @@
 	
 	
 	<!-- 첨부된 파일 조회 -->
-	<select id="getFile" parameterType="String" resultType="tsFileVo">
+	<select id="getFile" parameterType="int" resultType="tsFileVo">
 		SELECT *
 		FROM TS_FILE
 		WHERE TSFILE_ID = #{tsfile_id}

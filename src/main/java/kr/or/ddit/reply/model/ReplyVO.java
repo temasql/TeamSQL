@@ -13,6 +13,20 @@ public class ReplyVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
 	private Date reply_dt;			// 댓글작성일시
 
+	public ReplyVO() {
+	}
+
+	
+	public ReplyVO(int reply_id, String user_id_fk, int post_id_fk, String reply_content, String reply_use) {
+		super();
+		this.reply_id = reply_id;
+		this.user_id_fk = user_id_fk;
+		this.post_id_fk = post_id_fk;
+		this.reply_content = reply_content;
+		this.reply_use = reply_use;
+	}
+
+
 	public int getReply_id() {
 		return reply_id;
 	}

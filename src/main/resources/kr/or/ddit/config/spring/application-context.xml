@@ -82,4 +82,6 @@
 	</websocket:handlers>
 
 	<bean id="socketChatHandler" class="kr.or.ddit.chat.team_chat.controller.SocketChatHandler"></bean>
+	
+	<bean id="fileDownloadView" class="kr.or.ddit.fileDown.FileDownload"/>
 </beans>

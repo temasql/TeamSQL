@@ -4,39 +4,49 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.AbstractView;
 
-@RequestMapping("/fileDownload")
-@Controller
-public class FileDownload extends AbstractView {
+import kr.or.ddit.ts_file.model.TSFileVO;
+import kr.or.ddit.ts_file.service.ITSFileService;
 
-	@RequestMapping(path = "download", method = RequestMethod.POST)
+public class FileDownload extends AbstractView {
+	
+	private static final Logger logger = LoggerFactory.getLogger(FileDownload.class);
+	
+	@Resource(name = "TSFileService")
+	private ITSFileService fileService;
+	
+	@RequestMapping(path = "/download", method = RequestMethod.POST)
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-			String fileId = (String) model.get("file_Id");
+			
+			int fileId = (int) model.get("file_id");
 
+			logger.debug("filedownload fileId : {}", fileId);
+			
 			// 아이디에 맞는 정보를 담은 첨부파일 객체
-			//UploadFileVO fileVo = fileService.getFileVo(fileId);
+			TSFileVO fileVo = fileService.getFile(fileId);
 			
 			// 첨부파일 이름
-			//String fileName = fileVo.getFileName();
+			String fileName = fileVo.getTsfile_filename();
 			
 			
 			// 다운로드할 첨부파일 이름 설정
-			//response.setHeader("Content-Disposition", "attachment;filename="+fileName);
+			response.setHeader("Content-Disposition", "attachment;filename="+fileName);
 			response.setContentType("application/octet-stream");
 			
 			// 파일 객체 생성
-			File file = new File(fileId);
+			File file = new File(fileVo.getTsfile_path());
 			FileInputStream fis = new FileInputStream(file);
 			ServletOutputStream sos = response.getOutputStream();
 			

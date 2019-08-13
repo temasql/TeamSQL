@@ -210,4 +210,19 @@ public class PostController {
 		return "/board/boardPostDetail.tiles";
 		
 	}
+	
+	/**
+	* Method : fileDownLoad
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param file_id
+	* @param model
+	* @return
+	* Method 설명 : 첨부 파일 다운로드 뷰
+	*/
+	@RequestMapping("/fileDownLoad")
+	public String fileDownLoad(int file_id, Model model) {
+		model.addAttribute("file_id", file_id);
+		return "fileDownloadView";
+	}
 }
