@@ -62,13 +62,13 @@
 			</tr>
 	</table>	
 		<div class="tableContainer">
-			<a href="${cp }/post/answerPost?post_id=${postVo.post_id}" id="answerBtn"  class="btn btn-default">답글</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="${cp }/post/answerPost?post_id=${postVo.post_id}" id="answerBtn"  class="btn" style="background: black; color: white;">답글</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 			<c:if test="${USER_INFO.user_id eq postVo.user_id_fk }">
 				<a href="${cp }/post/modifyPost?post_id=${postVo.post_id}" id="updateBtn"
-				class="btn btn-default">수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				class="btn" style="background: black; color: white;">수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="${cp }/post/deletePost?post_id=${postVo.post_id}" id="deleteBtn"
-				class="btn btn-default" >삭제</a>
+				class="btn" style="background: black; color: white;">삭제</a>
 			</c:if>
 		</div>
 	<br><br>
@@ -76,7 +76,7 @@
 		<div>
 <%-- 			<input type="hidden" id="userId" name="user_id" value="${USER_INFO.user_id }"/> --%>
 			<input type="text" class="form-control" name="reply_content" style="width: 90%; display: inline;">
-		<button type="button" id="addReply" class="btn btn-default">댓글등록</button>
+		<button type="button" id="addReply" class="btn" style="background: black; color: white;">댓글등록</button>
 		</div>	
 	</form>
 	<br><br>

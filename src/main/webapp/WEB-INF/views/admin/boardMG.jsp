@@ -15,7 +15,7 @@
 			<option class="use_yes" value="Y">사용</option>
 			<option class="use_no" value="N">미사용</option>
 		</select> 
-		<input type="submit"	class="btn btn-default" value="생성">
+		<input type="submit"	class="btn" style="background: black; color: white;" value="생성">
 	</form>
 
 	<br><br><br><br>
@@ -55,7 +55,7 @@
 					</select>
 				</td>
 				
-				<td>	<button type="button" class="btn btn-default modiBtn">완료</button></td>
+				<td>	<button type="button" class="btn modiBtn" style="background: black; color: white;">완료</button></td>
 			</tr>
 		</c:forEach>
 	</table>
