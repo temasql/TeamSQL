@@ -8,7 +8,7 @@
 	<insert id="insertFile" parameterType="tsFileVo">
 		INSERT INTO TS_FILE
 		VALUES(
-			  #{tsfile_id}
+			  TS_FILE_SEQ.NEXTVAL
 			, #{post_id_fk}
 			, #{tsfile_path}
 			, #{tsfile_filename}

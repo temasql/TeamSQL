@@ -52,8 +52,8 @@
 		VALUES(
 	 		  #{post_id}
 	 		, NULL
-			, #{user_id}
-			, #{board_id}
+			, #{user_id_fk}
+			, #{board_id_fk}
 			, #{post_title}
 			, #{post_content}
 			, SYSDATE
