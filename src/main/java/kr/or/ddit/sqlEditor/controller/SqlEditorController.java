@@ -1,6 +1,7 @@
 package kr.or.ddit.sqlEditor.controller;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -210,6 +211,14 @@ public class SqlEditorController {
 	
 	@RequestMapping(path = "/deleteAccount", method = RequestMethod.POST)
 	public String deleteAccount(String deletePw, String deleteId, HttpSession session, Model model) {
+		Connection conn = (Connection) session.getAttribute("conn");
+		try {
+			if(conn != null) conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		session.removeAttribute("conn");
+		
 		String msg = "";
 		logger.debug("deletePw : {}", deletePw);
 		logger.debug("deleteId : {}", deleteId);
