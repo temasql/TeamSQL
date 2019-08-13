@@ -115,7 +115,7 @@ function validation(){
 	<input type="hidden" id="postId" name="post_id" value="${post_id}"/>
 <br><br>
 <div class="form-group">
-	<div id="plus" class="col-sm-offset-2 col-sm-10">
+	<div id="plus" class="col-sm-offset-2 col-sm-11">
 	 	<button type="button" id="plusFile" class="col-sm-2 btn btn-default">파일 업로드</button>
 		<input type="button" class="col-sm-1 btn btn-default" id="savebutton" value="등록" />
 	</div>

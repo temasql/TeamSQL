@@ -3,6 +3,15 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script>
+	$(document).ready(function(){
+		$(".filelabel").on("click", function() {
+			$("#fileId").val($(this).next().val())
+			$("#frm").submit();
+		})
+		
+	})
+</script>
 
 <div class="tableContainer">
 	<h3 class="sub-header">${boardVo.board_name }</h3>
@@ -28,6 +37,18 @@
 			
 			<tr>
 				<td colspan="4">${postVo.post_content }</td>
+			</tr>
+			
+		
+			<tr>
+				<td style="border: 1px solid #dadada;" align="center">첨부파일</td>
+				<td colspan="3">
+				<c:forEach items="${fileList }" var="file">
+					<label class="filelabel">${file.tsfile_filename }</label>
+					<input type="hidden" class="hiddenFile" name="fileIds" value="${file.tsfile_id }">
+					<br>
+				</c:forEach>
+				</td>
 			</tr>
 	</table>	
 	

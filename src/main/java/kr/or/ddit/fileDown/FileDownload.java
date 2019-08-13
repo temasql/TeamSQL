@@ -22,7 +22,7 @@ public class FileDownload extends AbstractView {
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-			String fileId = (String) model.get("fileId");
+			String fileId = (String) model.get("file_Id");
 
 			// 아이디에 맞는 정보를 담은 첨부파일 객체
 			//UploadFileVO fileVo = fileService.getFileVo(fileId);

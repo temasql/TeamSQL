@@ -93,7 +93,7 @@ public class LoginController {
 			}
 			
 			// 게시판 리스트
-			model.addAttribute("boardList", boardService.boardList());
+			session.setAttribute("boardList", boardService.boardList());
 			
 			// remeberme 쿠키를 생성하는 유틸클래스
 			ReMemberMeCookieUtil.rememberMeCookie(userVo.getUser_id(), rememberme, response);
