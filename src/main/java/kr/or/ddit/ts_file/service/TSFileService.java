@@ -58,10 +58,10 @@ public class TSFileService implements ITSFileService{
 	* 변경이력 :
 	* @param tsfile_id
 	* @return
-	* Method 설명 : 해당 게시글에 첨부된 파일 리스트
+	* Method 설명 : 해당 게시글에 첨부된 파일 조회
 	*/
 	@Override
-	public TSFileVO getFile(String tsfile_id) {
+	public TSFileVO getFile(int tsfile_id) {
 		return tsFiledao.getFile(tsfile_id);
 	}
 
