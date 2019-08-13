@@ -1,6 +1,13 @@
 @charset "UTF-8";
 
-.sequencePackageMenu {
+.modal_index{
+    height: 723px;
+    width: 622px;
+    margin-left: 31%;
+    margin-top: 3%;
+}
+
+.indexPackageMenu {
   display: none;
   position: absolute;
   width: 200px;
@@ -16,12 +23,12 @@
   z-index: 999999;
 }
 
-.sequencePackageMenu li {
+.indexPackageMenu li {
   border-left: 3px solid transparent;
   transition: ease .2s;
 }
 
-.sequencePackageMenu li span {
+.indexPackageMenu li span {
   display: block;
   padding: 10px;
   color: black;
@@ -30,11 +37,29 @@
   cursor: pointer;
 }
 
-.sequencePackageMenu li:hover {
+.indexPackageMenu li:hover {
   background: black;
   border-left: 3px solid black;
 }
 
-.sequencePackageMenu li:hover span {
+.indexPackageMenu li:hover span {
   color: #FFFFFF;
 }
+
+
+#table-scroll{
+    overflow-y: auto;
+    width: 608px;
+    height: 354px;
+}
+
+#index_table{
+    width: 591px;
+}
+
+#createIndexBtn{
+    float: right;
+    margin-top: 14px;
+    left: 7px;
+}
+

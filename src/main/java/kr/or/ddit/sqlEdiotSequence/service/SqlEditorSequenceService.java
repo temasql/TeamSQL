@@ -47,9 +47,9 @@ public class SqlEditorSequenceService implements ISqlEditorSequenceService {
 	@Override
 	public int createSequence(String query) {
 		
-		int createSeq =sqlEditorSequenceDao.createSequence(query);
 		
-		return createSeq;
+		
+		return sqlEditorSequenceDao.createSequence(query);
 	}
 
 	/**
@@ -63,9 +63,8 @@ public class SqlEditorSequenceService implements ISqlEditorSequenceService {
 	 */
 	@Override
 	public String selectSequence(SelectSeqVO seqVO) {
-		String selectSeq = sqlEditorSequenceDao.selectSequence(seqVO);
 		
-		return selectSeq ;
+		return sqlEditorSequenceDao.selectSequence(seqVO);
 	}
 
 	/**
@@ -79,8 +78,7 @@ public class SqlEditorSequenceService implements ISqlEditorSequenceService {
 	 */
 	@Override
 	public DetailSeqVO selectSequenceTable(Map<String, String> map) {
-		DetailSeqVO seqTable = sqlEditorSequenceDao.selectSequenceTable(map);
-		return seqTable;
+		return sqlEditorSequenceDao.selectSequenceTable(map);
 	}
 	
 	/**
@@ -94,8 +92,7 @@ public class SqlEditorSequenceService implements ISqlEditorSequenceService {
 	 */
 	@Override
 	public SelectSeqVO beforeSequence(Map<String, String> map) {
-		SelectSeqVO seqVO = sqlEditorSequenceDao.beforeSequence(map);
-		return seqVO;
+		return sqlEditorSequenceDao.beforeSequence(map);
 	}
 
 	/**
@@ -109,8 +106,7 @@ public class SqlEditorSequenceService implements ISqlEditorSequenceService {
 	 */
 	@Override
 	public int updateSequence(String query) {
-		int updateCnt = sqlEditorSequenceDao.updateSequence(query);
-		return updateCnt;
+		return sqlEditorSequenceDao.updateSequence(query);
 	}
 	
 	/**
@@ -125,8 +121,7 @@ public class SqlEditorSequenceService implements ISqlEditorSequenceService {
 	@Override
 	public int deleteSequence(String query) {
 		
-		int deleteCnt = sqlEditorSequenceDao.deleteSequence(query);
-		return deleteCnt;
+		return sqlEditorSequenceDao.deleteSequence(query);
 	}
 
 }
