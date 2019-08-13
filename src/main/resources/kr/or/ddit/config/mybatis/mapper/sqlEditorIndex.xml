@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqlEditorIndex">
+
+	<!-- 인덱스 생성 -->
+	<insert id="createIndex" parameterType="String">
+		${value}
+	</insert>
+	<!-- 테이블 조회 -->
+	<select id='indexTable' parameterType='String' resultType='String'>
+		SELECT TABLE_NAME FROM SYS.ALL_TABLES
+	  	WHERE OWNER = #{index_owner}
+	</select>
+	
+	<!-- 컬럼명 조회 -->
+	<select id="tableColumn" parameterType = 'Map' resultType='String'>
+		SELECT COLUMN_NAME
+		FROM ALL_TAB_COLUMNS
+		WHERE OWNER = #{owner}
+		AND TABLE_NAME = #{table_name}
+	</select>
+	
+	<!-- 인덱스 쿼리 조회 -->
+	<select id="indexQuery" parameterType="Map" resultType="String">
+		SELECT DBMS_METADATA.GET_DDL ('INDEX', #{index_name}, #{index_owner})FROM DUAL
+	</select>
+	
+	
+	<!-- 인덱스 열 조회 -->
+	<select id="indexCol" parameterType="Map" resultType="indexColVO">
+		SELECT * FROM ALL_IND_COLUMNS
+	    WHERE INDEX_NAME = #{index_name}
+	    AND TABLE_OWNER = #{index_owner}
+	</select>
+	
+	<!-- 인덱스 세부 정보 조회 -->	
+	<select id="indexDetail" parameterType="Map" resultType="indexDetailVO">
+		SELECT A.CREATED, A.LAST_DDL_TIME ,B.*
+		FROM
+		(
+		SELECT CREATED
+		     , LAST_DDL_TIME
+		     , OBJECT_NAME
+		     , OWNER
+		FROM SYS.ALL_OBJECTS
+		WHERE OBJECT_TYPE = 'INDEX'
+		AND OBJECT_NAME = #{index_name}
+		AND OWNER= #{table_owner})A,ALL_INDEXES B
+		WHERE INDEX_NAME = A.OBJECT_NAME
+		AND B.OWNER = A.OWNER
+	</select>
+	
+	<!-- 인덱스 삭제 -->
+	<delete id="indexDelete" parameterType="String">
+		DROP INDEX ${value}
+	</delete>
+	
+	<!-- 편집 전 데이터(계정명, 테이블명, 인덱스명, 정렬) -->
+	<select id="beforeIndexOwner" parameterType="Map" resultType="indexColVO">
+		SELECT TABLE_OWNER
+		     , TABLE_NAME
+		     , INDEX_NAME
+		     , DESCEND
+		     , COLUMN_NAME
+		FROM ALL_IND_COLUMNS
+		WHERE TABLE_OWNER = UPPER(#{table_owner})
+		AND INDEX_NAME = #{index_name}
+	</select>
+	
+	<!-- 편집 전 데이터("인덱스 유형") -->
+	<select id="beforeIndexType" parameterType="Map" resultType="String">
+	SELECT UNIQUENESS
+	FROM SYS.ALL_INDEXES
+	WHERE TABLE_OWNER = UPPER(#{table_owner})
+	AND INDEX_NAME = #{index_name}
+	</select>
+</mapper>

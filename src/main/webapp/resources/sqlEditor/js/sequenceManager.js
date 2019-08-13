@@ -32,7 +32,7 @@ $(document).ready(function() {
 		var accountid = $("#hiddenSeqName").val(); 		// 계정명
 		var tempid = accountid.toUpperCase();			// 계정 풀네임
 		// 시퀀스명 정규식
-		var nameReg = /^[a-zA-Z][a-zA-Z0-9#$_]{2,13}$/;
+		var nameReg = /^[a-zA-Z][a-zA-Z0-9#$_]{2,19}$/;
 		
 		// 음수가능 숫자 정규식
 		var numbReg = /^-?[0-9]*$/;
@@ -197,7 +197,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	
+	// 시퀀스 조회 셀렉박스 change 이벤트
 	$("#readSequenceSelect").on("change",function(){
 		$("#readSequenceDiv").empty();
 		
@@ -293,7 +293,7 @@ $(document).ready(function() {
 			var sequence_owner = owner.toUpperCase();					// DB계정명 대문자 치환
 			var sequence_name= $("#sequenceName").val().trim();			// 시퀀스명
 			var idx = sequence_owner.indexOf("_");
-			var owner = sequence_owner.substring(0, idx); 
+			owner = sequence_owner.substring(0, idx); 
 			
 			$.ajax({
 				url : "/sqlEditor/beforeSequence"
@@ -304,7 +304,7 @@ $(document).ready(function() {
 				  "<label id='updateSeqSchema'>"+ owner +"</lable>" + 
 				  "<input type='text' class='form-control' id='updateSeqName' name='updateSeqName' value='"+
 				  data.sequence_name+"'>" +
-				  "<small class='form-text text-muted' id='updateTableNameHint'>영문으로 시작하여 특수문자(#,$,_)포함 3~13글자 사이입니다.</small>"+
+				  "<small class='form-text text-muted' id='updateTableNameHint'>영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>"+
 				  "</div>" +
 				  "<label id='updateLblOption'>속성</label>" +
 				  "<input type='text' class='form-control' id='updateSeqIncrement' name='updateSeqIncrement' value='"+
@@ -369,7 +369,7 @@ $(document).ready(function() {
 		var seqOrder = $("#updateSeqOrder").val();			// 정렬
 		
 		// 시퀀스명 정규식
-		var nameReg = /^[a-zA-Z][a-zA-Z0-9#$_]{2,13}$/;
+		var nameReg = /^[a-zA-Z][a-zA-Z0-9#$_]{2,19}$/;
 		
 		// 음수가능 숫자 정규식
 		var numbReg = /^-?[0-9]*$/;
