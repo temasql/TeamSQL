@@ -35,8 +35,8 @@ public class BoardController {
 	*/
 	@RequestMapping("/manager")
 	public String viewGet(Model model) {
-		List<BoardVO> boardList = boardService.boardList();
-		model.addAttribute("boardList", boardList);
+//		List<BoardVO> boardList = boardService.boardList();
+//		model.addAttribute("boardList", boardList);
 		return "/admin/boardMG.tiles";
 	}
 	
@@ -62,7 +62,7 @@ public class BoardController {
 		BoardVO boardVo = new BoardVO(user_id, board_name, board_use);
 		
 		if(boardService.addBoard(boardVo) == 1 ) {
-			model.addAttribute("boardList", boardService.boardList());
+			session.setAttribute("boardList", boardService.boardList());
 			return "/admin/boardMG.tiles";
 		} else {
 			return "/admin/boardMG.tiles";
@@ -94,7 +94,7 @@ public class BoardController {
 		
 		if(updateCnt == 1) {
 			List<BoardVO> boardList = boardService.boardList();
-			model.addAttribute("boardList", boardList);
+			session.setAttribute("boardList", boardList);
 		}
 		return "/admin/boardMG.tiles";
 	}

@@ -13,7 +13,7 @@
 			enctype="multipart/form-data">
 
 			<div class="form-group">
-				<div class="col-sm-10">
+				<div class="col-sm-11 ">
 					<%@include file="/SE2/index.jsp"%>
 				</div>
 			</div>

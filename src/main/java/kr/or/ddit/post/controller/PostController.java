@@ -58,8 +58,8 @@ public class PostController {
 	*/
 	@RequestMapping(path =  "/boardList", method = RequestMethod.GET)
 	public String boardList(int board_id, Model model) {
-		logger.debug("boardList get() : [{}]", board_id);
-		model.addAttribute("boardList", boardService.boardList());
+//		logger.debug("boardList get() : [{}]", board_id);
+//		model.addAttribute("boardList", boardService.boardList());
 		model.addAttribute("board_id", board_id);
 		return "/board/boardList.tiles";
 	}
@@ -99,7 +99,7 @@ public class PostController {
 		int paginationSize = (int) resultMap.get("paginationSize");
 		
 		model.addAttribute("board_id", board_id);
-		model.addAttribute("boardList", boardList);
+		model.addAttribute("postList", boardList);
 		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("paginationSize", paginationSize);
 		
@@ -164,10 +164,13 @@ public class PostController {
 					} catch (IllegalStateException | IOException e ) {
 						e.printStackTrace();					
 					}
-					TSFileVO fileVo = new TSFileVO(fileId, post_id, path, file.getOriginalFilename());
+					logger.debug("post_id : {}", post_id);
+					logger.debug("fileId : {}", fileId);
+					logger.debug("fileOFN : {}", file.getOriginalFilename());
+					TSFileVO fileVo = new TSFileVO(post_id, fileId, file.getOriginalFilename());
 					uploadFileList.add(fileVo);
+					fileService.insertFile(uploadFileList);
 				}
-				fileService.insertFile(uploadFileList);
 			}
 			redirectAttributes.addAttribute("post_id", post_id);
 			return "redirect:/post/readPost";

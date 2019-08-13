@@ -3,7 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:forEach items="${boardList}" var="postVo">
+<c:forEach items="${postList}" var="postVo">
 	<tr class="postTr">
 		<form>
 			<input type="hidden" class="post_yns" value="${postVo.post_use }"/>
