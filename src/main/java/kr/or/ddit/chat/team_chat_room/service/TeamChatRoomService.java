@@ -31,9 +31,17 @@ public class TeamChatRoomService implements ITeamChatRoomService{
 		return teamChatRoomDao.insertTeamChatRoom(teamChatRoomVo);
 	}
 	
+	/**
+	* Method : getChatRoomId
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param id
+	* @return
+	* Method 설명 : 유저 아이디로 채팅방 아이디, 채팅방명 얻기
+	*/
 	@Override
-	public TeamChatRoomVO get(String id) {
-		return teamChatRoomDao.get(id);
+	public TeamChatRoomVO getChatRoomId(String accountId) {
+		return teamChatRoomDao.getChatRoomId(accountId);
 	}
 	
 	/**

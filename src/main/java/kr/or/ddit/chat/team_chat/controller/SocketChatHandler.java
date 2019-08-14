@@ -2,7 +2,11 @@ package kr.or.ddit.chat.team_chat.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,24 +15,40 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import kr.or.ddit.account.model.AccountVO;
+import kr.or.ddit.chat.team_chat.model.TeamChatVO;
+import kr.or.ddit.chat.team_chat.service.ITeamChatService;
+import kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO;
+import kr.or.ddit.chat.team_chat_room.service.ITeamChatRoomService;
 import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.user.model.UserVO;
-
 
 public class SocketChatHandler extends TextWebSocketHandler {
 	private static final Logger logger = LoggerFactory.getLogger(SocketChatHandler.class);
 
 	private List<WebSocketSession> sessionList; // 소켓에 연결된 세션정보
-
+	private Map<String, List<CrewVO>> map;
+	
+	@Resource(name="teamChatRoomService")
+	private ITeamChatRoomService chatRoomService;
+	@Resource(name="teamChatService")
+	private ITeamChatService chatService;
+	
+	
 	public SocketChatHandler() {
 		sessionList = new ArrayList<>();
+		map = new HashMap<String, List<CrewVO>>();
 	}
 
 	// 클라이언트가 웹소켓에 접속하여 연결이 맺어진 후에 호출
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		String user = getUser(session);
+		
+		// roomID와 채팅방명 가져오기
+		TeamChatVO teamChatVO = getRoomVO(session);
+		// 채팅방 유저리스트 가져오기
+		List<CrewVO> crewList = getCrewList(session);
+		
 		sessionList.add(session);
 		logger.debug("채팅 접속 : {}", user);
 	}
@@ -37,12 +57,15 @@ public class SocketChatHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String user = getUser(session);
-		String account = getAccount(session);
+		// roomID와 채팅방명 가져오기
+		TeamChatVO teamChatVO = getRoomVO(session);
+		teamChatVO.setChat_content(message.getPayload());
+		
 		logger.debug("메세지전송 = {} : {}", user, message.getPayload());
+		
+		chatService.insertChat(teamChatVO);
 		for (WebSocketSession currentSession : sessionList)
-			if(currentSession.getAttributes().get("crewAccount").equals(getAccount(session))) {
-				currentSession.sendMessage(new TextMessage(user + ":" + message.getPayload()));
-			}
+			currentSession.sendMessage(new TextMessage(user + ":" + message.getPayload()));
 	}
 
 	// 클라이언트 연결이 종료된경우 : 연결 리스트에서 해당 사용자 제거
@@ -59,10 +82,16 @@ public class SocketChatHandler extends TextWebSocketHandler {
 		return userVO.getUser_id();
 	}
 	
-	// webSocketSession으로부터 account 정보 조회
-	private String getAccount(WebSocketSession session) {
-		String accountId = (String) session.getAttributes().get("crewAccount");
-		return accountId;
+	// webSocketSession으로부터 roomId와 채팅방명 정보 조회
+	private TeamChatVO getRoomVO(WebSocketSession session) {
+		TeamChatVO teamChatVO = (TeamChatVO) session.getAttributes().get("TEAM_INFO");
+		return teamChatVO;
+	}
+	
+	// webSocketSession으로부터 채팅방 유저리스트 정보 조회
+	private List<CrewVO> getCrewList(WebSocketSession session){
+		List<CrewVO> crewList = (List<CrewVO>) session.getAttributes().get("CREWLIST");
+		return crewList;
 	}
 	
 	// 서버측에서 모든 websocket session으로 보내는 메세지
