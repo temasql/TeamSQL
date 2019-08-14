@@ -344,7 +344,10 @@ public class SqlEditorController {
 	@RequestMapping("/createTable")
 	public String createTable(HttpSession session,  Model model,
 			@RequestBody String[][] array) {
-		
+		for (String[] strings : array) {
+			logger.debug("array : {}", strings);
+			
+		}
 		// json으로 받은 2차원 배열을 매개변수로 전달
 		sqlEditorTableService.createTable(array, "create");
 		return "jsonView";
@@ -365,7 +368,9 @@ public class SqlEditorController {
 	@RequestMapping(path = "/selectTable", method = RequestMethod.GET)
 	public String selectTable(String account_id, String select, String TableName, Model model, HttpSession session) {
 		
+		logger.debug("account_id : {}", account_id);
 		AccountVO accountVO = accountService.getAccountOne(account_id);
+		logger.debug("accountVO : {}", accountVO);
 		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
 		
 		List<List<String>> resultList = sqlEditorTableService.selectTable(select, TableName, conn);
