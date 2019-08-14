@@ -38,6 +38,7 @@
         		SELECT DISTINCT(PO.POST_ID) POST_ID, PO.PARENT_ID_FK, LPAD(' ', (LEVEL-1)*4) || PO.POST_TITLE  POST_TITLE, LEVEL LV, PO.POST_GROUP_SEQ, PO.POST_DT, PO.USER_ID_FK, PO.POST_USE
         		FROM POST PO, BOARD BO
         		WHERE PO.BOARD_ID_FK = #{board_id} AND BO.BOARD_ID = #{board_id}
+        		AND ${select} LIKE '%'||#{search}||'%'
         		START WITH PO.PARENT_ID_FK IS NULL
         		CONNECT BY PRIOR PO.POST_ID = PO.PARENT_ID_FK
         		ORDER SIBLINGS BY PO.POST_GROUP_SEQ DESC, PO.POST_ID)A)B
@@ -112,4 +113,6 @@
 				, POST_USE = 'N'
 		WHERE POST_ID = #{post_id}
 	</update>
+	
+	
 </mapper>
