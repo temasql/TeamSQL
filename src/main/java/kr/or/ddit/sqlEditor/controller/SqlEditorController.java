@@ -540,6 +540,7 @@ public class SqlEditorController {
 	@RequestMapping("/updateView")
 	public String updateView(String oldVN, String view_name, String sc_id, String viewQuery, HttpSession session, Model model) {
 		AccountVO accountVO = accountService.getAccountOne(sc_id.trim());
+		logger.debug("sc_id b: {}", sc_id);
 		Connection conn = DBUtilForWorksheet.getConnection(sc_id.trim(), accountVO.getAccount_pw(), session);
 		
 		sqlEditorViewService.updateViewPost(oldVN,view_name,viewQuery, conn);

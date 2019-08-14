@@ -55,6 +55,7 @@
 				            	<input type="hidden" id="radioId">
 				            	<strong class="accounts">
 				            		${account_id}
+			            		<input type="hidden" id="acco_id2" value="${accountId}"/>
 				            	</strong>
 			            		<input type="hidden" id="acco_id" value="${accountId}"/>
 				                <ul class="depth_2" >
