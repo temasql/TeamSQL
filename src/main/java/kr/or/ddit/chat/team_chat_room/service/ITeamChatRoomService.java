@@ -18,7 +18,15 @@ public interface ITeamChatRoomService {
 	 */
 	int insertTeamChatRoom(TeamChatRoomVO teamChatRoomVo);
 	
-	TeamChatRoomVO get(String id);
+	/**
+	* Method : getChatRoomId
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param id
+	* @return
+	* Method 설명 : 유저 아이디로 채팅방 아이디, 채팅방명 얻기
+	*/
+	TeamChatRoomVO getChatRoomId(String accountId);
 	
 	/**
 	* Method : chatRoomList
