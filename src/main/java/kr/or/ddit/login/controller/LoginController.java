@@ -75,9 +75,13 @@ public class LoginController {
 			HttpServletResponse response, HttpSession session, Model model, 
 			RedirectAttributes redirectAttributes) {
 		
+		if (userVo.getUser_id().equals("") || userVo.getUser_pw().equals("")) {
+			return "redirect:/login";
+		}
+		
 		// 입력받은 아이디에 해당하는 사용자 VO
 		UserVO loginUserVo = userService.getUser(userVo.getUser_id());
-		
+		logger.debug("userVo : {}", loginUserVo);
 		// 요청 받은 비밀번호를 암호화
 		String encryptPassword = KISA_SHA256.encrypt(userVo.getUser_pw());
 		

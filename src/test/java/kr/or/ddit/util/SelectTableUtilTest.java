@@ -130,12 +130,12 @@ public class SelectTableUtilTest {
 	
 	@Test
 	public void operationTest() {
-		String dragText = "select * from users, (select * from asd where sal = 255000*30 ) where  bal + 12 = 35000000".toUpperCase();
+		String dragText = "select * from users, (select * from asd where sal = 255000*20 ) where  bal = 35000000/20".toUpperCase();
 		dragText = dragText.replaceAll(" ", "");
 		
 		List<String> oldQList = new ArrayList<String>();
 		List<String> newQList = new ArrayList<String>();
-		
+		List<String> check = new ArrayList<String>();
 		logger.debug("dragText : {}", dragText);
 		
 		
@@ -211,6 +211,10 @@ public class SelectTableUtilTest {
 					String[] rightValArr = split[i].split("=");
 					for (String rightVal : rightValArr) {
 						logger.debug("rightVal : {}",rightVal);
+						if (rightVal.contains("*") || rightVal.contains("-") 
+								|| rightVal.contains("+")  || rightVal.contains("/")) {
+							 
+						}
 					}
 					String leftVar = "";
 					if (rightValArr[0].contains("*")) {
@@ -218,6 +222,7 @@ public class SelectTableUtilTest {
 						logger.debug("leftVar : {}", leftVar);
 						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("*") + 1);
 						logger.debug("leftOpStr : {}", leftOpStr);
+						check.add("check");
 						rightValArr[1] += "/" + leftOpStr;
 						oldQList.add(split[i]);
 						String newQuery = leftVar + "=" + rightValArr[1];
@@ -228,6 +233,7 @@ public class SelectTableUtilTest {
 						logger.debug("leftVar : {}", leftVar);
 						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("+") + 1);
 						logger.debug("leftOpStr : {}", leftOpStr);
+						check.add("check");
 						rightValArr[1] += "-" + leftOpStr;
 						oldQList.add(split[i]);
 						String newQuery = leftVar + "=" + rightValArr[1];
@@ -238,6 +244,7 @@ public class SelectTableUtilTest {
 						logger.debug("leftVar : {}", leftVar);
 						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("-") + 1);
 						logger.debug("leftOpStr : {}", leftOpStr);
+						check.add("check");
 						rightValArr[1] += "+" + leftOpStr;
 						oldQList.add(split[i]);
 						String newQuery = leftVar + "=" + rightValArr[1];
@@ -248,6 +255,7 @@ public class SelectTableUtilTest {
 						logger.debug("leftVar : {}", leftVar);
 						String leftOpStr = rightValArr[0].substring(rightValArr[0].indexOf("/") + 1);
 						logger.debug("leftOpStr : {}", leftOpStr);
+						check.add("check");
 						rightValArr[1] += "*" + leftOpStr;
 						oldQList.add(split[i]);
 						String newQuery = leftVar + "=" + rightValArr[1];
@@ -268,8 +276,61 @@ public class SelectTableUtilTest {
 		dragText = dragText.replaceAll("WHERE", "\n WHERE ");
 		dragText = dragText.replaceAll("AND", "\n AND ");
 		dragText = dragText.replaceAll("=", " = ");
+		logger.debug("chSize : {}", check.size());
 		logger.debug("proc : {}", dragText);
 		
+	}
+	
+	@Test
+	public void countNullCheckTest() {
+		String dragText = "select count(*) from users".toUpperCase();
+		dragText = dragText.replaceAll(" ", "");
+		dragText = dragText.replaceAll("COUNT\\(\\*\\)", "*");
+		dragText = dragText.replaceAll("SELECT", " SELECT ");
+		dragText = dragText.replaceAll("FROM", "\n FROM ");
+		dragText = dragText.replaceAll("WHERE", "\n WHERE ");
+		dragText = dragText.replaceAll("AND", "\n AND ");
+		dragText = dragText.replaceAll("=", " = ");
+		String proc = "SELECT 1 AS CNT FROM DUAL WHERE EXISTS (" + dragText + ")";
+		logger.debug("proc : {}", proc);
+	}
+	
+	@Test
+	public void decodeCheckTest() {
+		String dragText = "case when a case when  b case when c then end  then end  then end  ".toUpperCase();
+		dragText = dragText.replaceAll(" ", "");
+		logger.debug("drt : {}", dragText);
+		int caseIdx = dragText.indexOf("CASEWHEN");
+		int caseEndIdx = caseIdx + 8;
+		logger.debug("{}",dragText.substring(caseIdx + caseEndIdx));
+		logger.debug("{}",dragText.substring(caseIdx + caseEndIdx).substring(caseIdx + caseEndIdx +1));
+		logger.debug("{}",dragText.substring(caseIdx + caseEndIdx).substring(caseIdx + caseEndIdx).substring(caseIdx + caseEndIdx + 2));
+		logger.debug("hio : {}",caseCheck(dragText, 0, 8));
+		dragText = dragText.replaceAll("COUNT\\(\\*\\)", "*");
+		dragText = dragText.replaceAll("SELECT", " SELECT ");
+		dragText = dragText.replaceAll("FROM", "\n FROM ");
+		dragText = dragText.replaceAll("WHERE", "\n WHERE ");
+		dragText = dragText.replaceAll("AND", "\n AND ");
+		dragText = dragText.replaceAll("=", " = ");
+		String proc = "SELECT 1 AS CNT FROM DUAL WHERE EXISTS (" + dragText + ")";
+		logger.debug("proc : {}", proc);
+	}
+	public int caseCheck(String dragText, int cnt, int length) {
+		logger.debug("dragT : {}", dragText);
+		logger.debug("cnt : {}", cnt);
+		if (!dragText.startsWith("CASEWHEN") && !dragText.startsWith(")THENEND") ||!dragText.startsWith("THENEND")) {
+			int cIdx = dragText.indexOf("CASEWHEN");
+			dragText = dragText.substring(cIdx);
+		} if (dragText.startsWith("CASEWHEN(") || dragText.startsWith("(CASEWHEN") || dragText.startsWith("CASEWHEN") ) {
+			int caseIdx = dragText.indexOf("CASEWHEN");
+			logger.debug("lenghth : {}", length);
+			int caseEndIdx = caseIdx + length;
+			cnt = caseCheck(dragText.substring(caseIdx + caseEndIdx), cnt +1, length +1);
+		}
+		if (cnt >= 3) {
+			return cnt;
+		}
+		return 0;
 	}
 	
 }

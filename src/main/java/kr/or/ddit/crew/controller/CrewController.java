@@ -128,6 +128,12 @@ public class CrewController {
 		int paginationSize = (int) resultMap.get("paginationSize");
 		AccountVO accountVo = (AccountVO) resultMap.get("accountVo");
 		
+		String select = "";
+		if (crewService.crewSelectList(user_id) != null && crewService.crewSelectList(user_id).size() > 0) {
+			select = crewService.crewSelectList(user_id).get(0).getAccount_id_fk();
+		}
+		model.addAttribute("selected", select);
+		
 		logger.debug("accountVo =============================>>>>>>>>>>>>>>>>>>>>>>>[{}]", accountVo);
 		model.addAttribute("crewList", crewList);
 		model.addAttribute("pageMap", pageMap);
@@ -185,8 +191,17 @@ public class CrewController {
 	@RequestMapping("/deleteCrew")
 	public String deleteUserMG(String[] deleteCheck,String acc_id ,  Model model, HttpSession session) {
 
+		UserVO userVo =  (UserVO) session.getAttribute("USER_INFO");
+		logger.debug("acc_id : {}", acc_id);
 		for (int i = 0; i < deleteCheck.length; i++) {
+			if (deleteCheck[i].equals(userVo.getUser_id())) {
+				model.addAttribute("msg", "자기 자신은 탈퇴 시킬 수 없습니다.");
+				return crewManagerGet(model, session);
+			}
+			
 			crewService.deleteCrew(new CrewVO(acc_id, deleteCheck[i]));
+			
+			model.addAttribute("msg", "회원 아이디 " + deleteCheck[i] + "님을 구성원에서 탈퇴 시켰습니다.");
 		}
 		return crewManagerGet(model, session);
 	}

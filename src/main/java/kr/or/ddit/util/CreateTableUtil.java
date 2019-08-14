@@ -9,6 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
 * CreateTableUtil.java
 *
@@ -289,7 +292,7 @@ public class CreateTableUtil {
 		commentQueryList.clear();
 		query.setLength(0);
 	}
-	
+	private static final Logger logger = LoggerFactory.getLogger(CreateTableUtil.class);
 	/**
 	* Method : getQuery
 	* 작성자 : 이중석
@@ -306,7 +309,7 @@ public class CreateTableUtil {
 		
 		// 스키마 아이디
 		String account_id = array[0][8];
-		
+		logger.debug("account_id : {}", account_id);
 		// 스키마. 테이블명
 		String stNm = account_id + "." + tableName;
 		
@@ -405,6 +408,7 @@ public class CreateTableUtil {
 		
 		// CREATE SCHEMA.TABLENAME (
 		query.append("CREATE TABLE " + stNm + "\n(\n\t");
+		logger.debug("stNm : {}", stNm);
 		for (int i = 0; i < array.length; i++) {
 			
 			// ajax JSON 배열로 온 문자열의 키와 값이 든 배열

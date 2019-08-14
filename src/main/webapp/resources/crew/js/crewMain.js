@@ -3,7 +3,9 @@ $(function (){
 		$("#accountSelect").val($(this).val());
 		crewPagingListAjaxHtml(1,10);
 	});
-	
+	if($("#msg").val() != ""){
+		alert($("#msg").val())
+	}
 	// modal
 	$(document).on("click","#btnInviteCrew", function() {
 		$("#inviteModal").css("display", "block");
@@ -13,7 +15,6 @@ $(function (){
 	$(".close").on("click", function() {
 		$("#inviteModal").css("display", "none");
 	});
-	
 	$(document).on("click","#btnInviteCrewOk", function(){
 		var user_id = $("#user_id").val();
 		var account_id_fk = $("#select").val();
@@ -39,7 +40,7 @@ $(function (){
 			});
 		}
 	});
-	
+	$("#acc_id").val($("#ac_id").val())
 	$(document).on("change", ".checkbox", function (){
 		if($(this).is(":checked")){
             $("#deleteForm").append("<input type='hidden' class='deleteChecked' name='deleteCheck' value='"+ $(this).val()+"'/>")
@@ -48,7 +49,6 @@ $(function (){
             $("#deleteForm :last-child").remove();
         }
 	})
-	
 	$(document).on("click", "#deleteCrew", function (){
 		if($(".deleteChecked").length == 0){
 			alert("탈퇴 시킬 회원을 선택 해 주세요")

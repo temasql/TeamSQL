@@ -45,3 +45,6 @@
     color: black;
     border-bottom: 1px solid;
 }
+.pagination{
+	justify-content: center;
+}
