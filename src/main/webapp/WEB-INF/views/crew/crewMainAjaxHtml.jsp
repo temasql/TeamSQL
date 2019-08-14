@@ -5,8 +5,8 @@
 <c:if test="${accountVo ne null }">
 <form action="/crew/deleteCrew" id="deleteForm">
 		<input type="hidden" id="acc_id" name="acc_id" value="${selected}"> 
-	<button type="button" id="deleteCrew" class="btn btn-default pull-right" >구성원 탈퇴</button>
-<button type="button" id="btnInviteCrew" class="btn btn-default pull-right" >구성원 초대</button>
+	<button type="button" id="deleteCrew" class="btn" style="background: black; color: white;" >구성원 탈퇴</button>
+<button type="button" id="btnInviteCrew" class="btn" style="background: black; color: white;">구성원 초대</button>
 </form>
 </c:if>
 SEPERATORSEPERATOR

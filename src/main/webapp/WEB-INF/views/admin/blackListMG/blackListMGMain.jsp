@@ -4,17 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="${cp }/resources/blackList/js/blackListMG.js"></script>
 <link href="${cp }/resources/blackList/css/insertBlackList"/>
-<form id="search"
-		action="${cp}/blackList/blackListManager" >
-		<div id="searchdiv" class="col-lg-8">
-			<div class="input-group">
 				<input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }"
 					placeholder="Search for...">  <span class="input-group-btn">
 					<button type="button" class="btn btn-default" id="btnSearch" >Search!</button>
 				</span>
-			</div>
-		</div>
-	</form>
 	
 <form action="/blackList/deleteBlackList" id="deleteForm">
 	<button type="button" id="deleteBlackList" class="btn btn-default pull-right" >블랙리스트 해제</button>

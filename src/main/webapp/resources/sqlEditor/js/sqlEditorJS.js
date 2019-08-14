@@ -665,7 +665,16 @@ $(document).ready(function() {
 			,success : function(data) {
 				console.log(data)
 				if(data.result == null){
-					alert("해당 문장 [" + data.dragText + "] 는 개선할 수 없습니다.")
+					if (data.dragText == null) {
+						alert("해당 문장은 개선할 수 없습니다.")
+						return;
+					}else{
+						alert("해당 문장 [" + data.dragText + "] 는 개선할 수 없습니다.")
+						return;
+					}
+				}
+				if (data.dt == null) {
+					alert("해당 문장 [" +  data.dragText  + "]는 " + data.result)
 					return;
 				}
 				var result = confirm("기존쿼리 " + data.dragText + "\n\n는 " + data.result + data.dt+" 으로 개선하실 수 있습니다. \n\n개선하시겠습니까?");
@@ -758,6 +767,7 @@ $(document).ready(function() {
 	
     // 라디오버튼 클릭 이벤트
     $(".radioClass").on("click", function() {
+    	$("#acco_id").val($(this).nextAll("#acco_id").val());
 		var temp = $(this).attr("id");
 		$("#radioId").val(temp);
 		$.ajax({

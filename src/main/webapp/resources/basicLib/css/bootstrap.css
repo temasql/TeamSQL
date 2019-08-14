@@ -115,6 +115,10 @@ dl {
   margin-top: 0;
   margin-bottom: 1rem;
 }
+.page-link.active{
+	color : white;
+	background: black;
+}
 
 ol ol,
 ul ul,
