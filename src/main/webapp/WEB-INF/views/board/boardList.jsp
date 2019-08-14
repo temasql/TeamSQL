@@ -12,20 +12,18 @@
 	</form>
 	
 	<div>
-		<form id="search" action="${cp }/post/search">
 			<div id="searchdiv" style="display: inline;">
-				<select class="form-control" id="searchSel" style="width: 10%; display: inline;">
-					<option value="searchT">제목으로 검색</option>
-					<option value="searchW">작성자로 검색</option>
+				<select class="form-control"  id="select" name="selectBox" style="width: 10%; display: inline;">
+					<option value="post_title">제목으로 검색</option>
+					<option value="po.user_id_fk">작성자로 검색</option>
 				</select>
-				<input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }" style="width: 15%; display: inline;">
+				<input type="text" class="form-control" name="search" id="searchfor" value="${searchVal }" style="width: 15%; display: inline;">
 				<button type="button" class="btn" style="background: black; color: white;" id="btnSearch">검색</button>
 			</div>
-			<c:if test="${USER_INFO != null }">
+			<c:if test="${USER_INFO.user_id != null }">
 				<a href="${cp }/post/postForm?board_id=${board_id}&user_id=${USER_INFO.user_id }"
 				class="btn" style="background: black; color: white; margin-left: 60%; display: inline;">게시글 작성</a>
 			</c:if>
-		</form>
 	</div>
 	
 	<br><br>

@@ -76,11 +76,15 @@ public class PostController {
 	* Method 설명 : 게시글 페이징 처리 응답 화면
 	*/
 	@RequestMapping(path = "/boardList", method = RequestMethod.POST)
-	public String boardList(PageVo pageVo, int board_id, Model model) {
+	public String boardList(PageVo pageVo, int board_id, Model model,
+			@RequestParam(name = "selectBox", defaultValue = "post_title")String  selectBox
+			, @RequestParam(name = "search", defaultValue = "") String search) {
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 		pageMap.put("page", pageVo.getPage());
 		pageMap.put("pageSize", pageVo.getPageSize());
 		pageMap.put("board_id", board_id);
+		pageMap.put("select", selectBox);
+		pageMap.put("search", search);
 		
 		logger.debug("boardList post page() : [{}]", pageVo.getPage());
 		logger.debug("boardList post pageSize() : [{}]", pageVo.getPageSize());
@@ -107,6 +111,71 @@ public class PostController {
 		return "/board/boardListAjaxHtml";
 	}
 
+
+	/**
+	* Method : noticeList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param board_id
+	* @param model
+	* @return
+	* Method 설명 : 공지사항 리스트 요청 화면
+	*/
+	@RequestMapping(path =  "/noticeList", method = RequestMethod.GET)
+	public String noticeList(int board_id, Model model) {
+		model.addAttribute("board_id", board_id);
+		return "/notice/noticeList.tiles";
+	}
+	
+	
+	/**
+	* Method : noticeList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param pageVo
+	* @param board_id
+	* @param model
+	* @param selectBox
+	* @param search
+	* @return
+	* Method 설명 : 공지사항 페이징 처리 응답화면
+	*/
+	@RequestMapping(name = "/noticeList", method = RequestMethod.POST)
+	public String noticeList(PageVo pageVo, int board_id, Model model,
+			@RequestParam(name = "selectBox", defaultValue = "post_title")String  selectBox
+			, @RequestParam(name = "search", defaultValue = "") String search) {
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("page", pageVo.getPage());
+		pageMap.put("pageSize", pageVo.getPageSize());
+		pageMap.put("board_id", board_id);
+		pageMap.put("select", selectBox);
+		pageMap.put("search", search);
+		
+		logger.debug("boardList post page() : [{}]", pageVo.getPage());
+		logger.debug("boardList post pageSize() : [{}]", pageVo.getPageSize());
+		logger.debug("boardList post board_id () : [{}]", board_id);
+	 	
+		
+		Map<String, Object> resultMap = postService.postPagingList(pageMap);
+		
+		for (String key : resultMap.keySet()) {
+			logger.debug("resultMap : [{}]", resultMap.get(key));
+		}
+		
+		
+		List<PostVO> boardList = (List<PostVO>) resultMap.get("postList");
+		logger.debug("boardList Post boardList : {}", boardList);
+		
+		int paginationSize = (int) resultMap.get("paginationSize");
+		
+		model.addAttribute("board_id", board_id);
+		model.addAttribute("postList", boardList);
+		model.addAttribute("pageMap", pageMap);
+		model.addAttribute("paginationSize", paginationSize);
+		
+		return "/notice/noticeListAjaxHtml";
+	}
+	
 	
 	/**
 	* Method : postForm
