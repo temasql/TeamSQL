@@ -24,9 +24,16 @@
 					<ul class="ul-header-two">
 						<c:forEach items="${boardList }" var="board">
 							<c:if test="${board.board_use eq 'Y'}">
-								<li class="li-two"><a class="two-menu" href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
+								<c:choose>
+									<c:when test="${board.board_id == 1 }">
+										<li class="li-two"><a class="two-menu" href="${cp }/post/noticeList?board_id=${board.board_id}">${board.board_name }</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="li-two"><a class="two-menu" href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
+									</c:otherwise>
+								</c:choose>
 							</c:if>
-						</c:forEach>	
+						</c:forEach>
 					</ul>
 				</li>
 				<li><a class="aNav" href="/quizMain">퀴즈관리</a></li>
@@ -40,9 +47,16 @@
 					<ul class="ul-header-two">
 						<c:forEach items="${boardList }" var="board">
 							<c:if test="${board.board_use eq 'Y'}">
-								<li class="li-two"><a class="two-menu" href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
+								<c:choose>
+									<c:when test="${board.board_id == 1 }">
+										<li class="li-two"><a class="two-menu" href="${cp }/post/noticeList?board_id=${board.board_id}">${board.board_name }</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="li-two"><a class="two-menu" href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
+									</c:otherwise>
+								</c:choose>
 							</c:if>
-						</c:forEach>
+						</c:forEach>	
 					</ul>
 				</li>
 				<li><a class="aNav" href="${cp}/quizRealMain">SQL퀴즈</a></li>
