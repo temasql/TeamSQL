@@ -47,7 +47,7 @@
 		SELECT ACCOUNT_ID_FK
 		     , SUBSTR(
 		        XMLAGG(
-		            XMLELEMENT(COL ,',', USER_ID_FK)).EXTRACT('//text()'
+		            XMLELEMENT(COL ,'/', USER_ID_FK)).EXTRACT('//text()'
 		        ).GETSTRINGVAL()
 		       , 2) USER_ID_FK
 		FROM CREW

@@ -16,11 +16,11 @@ but I would appreciate an attribution from my work. I hope you enjoy it.
 $(document).ready(function(){
   //Show contextmenu:
   $(".accounts").contextmenu(function(e){
-	$("#deleteId").val($(this).find("#acco_id").val());
-	$("#findId").val($(this).find("#acco_id").val());
-	$("#updateId").val($(this).find("#acco_id").val());
-	$("#accou_id").val($(this).find("#acco_id").val());
-	$("#acc_id").val($(this).find("#acco_id").val());
+	$("#deleteId").val($(this).find("#acco_id2").val());
+	$("#findId").val($(this).find("#acco_id2").val());
+	$("#updateId").val($(this).find("#acco_id2").val());
+	$("#accou_id").val($(this).find("#acco_id2").val());
+	$("#acc_id").val($(this).find("#acco_id2").val());
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();
