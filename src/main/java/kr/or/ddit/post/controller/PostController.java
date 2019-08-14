@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -150,7 +151,6 @@ public class PostController {
 		
 		if(insertPost == 1) {
 			if(files != null) {
-				int result = 0;
 				List<TSFileVO> uploadFileList = new ArrayList<TSFileVO>();
 				
 				for(MultipartFile file : files) {
@@ -210,4 +210,206 @@ public class PostController {
 		return "/board/boardPostDetail.tiles";
 		
 	}
+	
+	
+	/**
+	* Method : fileDownLoad
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param file_id
+	* @param model
+	* @return
+	* Method 설명 : 첨부 파일 다운로드 뷰
+	*/
+	@RequestMapping("/fileDownLoad")
+	public String fileDownLoad(int file_id, Model model) {
+		model.addAttribute("file_id", file_id);
+		return "fileDownloadView";
+	}
+	
+	
+	/**
+	* Method : modifyPost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @param model
+	* @return
+	* Method 설명 : 게시글 수정화면 요청
+	*/
+	@RequestMapping(path = "/modifyPost", method = RequestMethod.GET)
+	public String modifyPost(int post_id, Model model) {
+		PostVO postVo = new PostVO();
+		postVo = postService.getPost(post_id);
+		List<TSFileVO> fileList = fileService.getFileList(post_id);
+		
+		model.addAttribute("post_id", post_id);
+		model.addAttribute("postVo", postVo);
+		model.addAttribute("fileList", fileList);
+		
+		return "/board/boardPostUpdate.tiles";
+	}
+	
+	
+	/**
+	* Method : modifyPost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @param user_id
+	* @param post_title
+	* @param smarteditor
+	* @param delFile
+	* @param files
+	* @param redirectAttributes
+	* @return
+	* Method 설명 : 게시글 수정
+	*/
+	@RequestMapping(path = "/modifyPost", method = RequestMethod.POST)
+	public String modifyPost(int post_id, String user_id, String post_title, String smarteditor,
+			String[] delFile, MultipartFile[] files, RedirectAttributes redirectAttributes) {
+		
+		if(delFile != null && delFile.length > 0) {
+			fileService.delUpdateFiles(delFile);
+		}
+		
+		PostVO postVo = new PostVO();
+		postVo.setUser_id_fk(user_id);
+		postVo.setPost_id(post_id);
+		postVo.setPost_title(post_title);
+		postVo.setPost_content(smarteditor);
+		
+		int updateCnt = postService.updatePost(postVo);
+		
+		if(updateCnt == 1) {
+			if(files != null) {
+				List<TSFileVO> uploadFileList = new ArrayList<TSFileVO>();
+				
+				for(MultipartFile file : files) {
+					String path = PartUtil.getUploadPath();
+					String ext = PartUtil.getExt(file.getOriginalFilename());
+					String fileName = UUID.randomUUID().toString();
+					String fileId = path  + File.separator + fileName + ext;
+					
+					try {
+						file.transferTo(new File(fileId));
+					} catch (IllegalStateException | IOException e ) {
+						e.printStackTrace();
+					}
+					
+					TSFileVO fileVo = new TSFileVO(post_id, fileId, file.getOriginalFilename());
+					uploadFileList.add(fileVo);
+				}
+				fileService.insertFile(uploadFileList);
+			}
+			redirectAttributes.addAttribute("post_id", postVo.getPost_id());
+			return "redirect:/post/readPost";
+		} else {
+			redirectAttributes.addAttribute("post_id", postVo.getPost_id());
+			return "redirect:/post/modifyPost";
+		}
+	}
+
+	
+	/**
+	* Method : answerPostView
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param user_id
+	* @param post_id
+	* @param model
+	* @return
+	* Method 설명 : 답글 작성화면 요청
+	*/
+	@RequestMapping(path = "/answerPost", method = RequestMethod.GET)
+	public String answerPostView(String user_id, int post_id, Model model) {
+		model.addAttribute("post_id", post_id);
+		return "/board/boardPostAnswer.tiles";
+	}
+	
+	
+	/**
+	* Method : answerPost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @param user_id
+	* @param post_title
+	* @param smarteditor
+	* @param files
+	* @param redirectAttributes
+	* @return
+	* Method 설명 : 답글 작성
+	*/
+	@RequestMapping(path = "/answerPost", method = RequestMethod.POST)
+	public String answerPost(int post_id, String user_id, String post_title, String smarteditor,
+			MultipartFile[] files, RedirectAttributes redirectAttributes) {
+		int parent_id_fk = post_id;
+		
+		PostVO parentPostVo = postService.getPost(parent_id_fk);
+		
+		int post_group_seq = parentPostVo.getPost_group_seq();
+		int board_id = parentPostVo.getBoard_id_fk();
+		post_id = postService.postMaxCnt();
+		
+		PostVO postVo = new PostVO(post_id, parent_id_fk, user_id, board_id, post_title, smarteditor, "Y", post_group_seq);
+		
+		int answerPost = postService.answerPost(postVo);
+		
+		if(answerPost == 1) {
+			if(files != null) {
+				List<TSFileVO> uploadFileList = new ArrayList<TSFileVO>();
+				
+				for(MultipartFile file : files) {
+					String path = PartUtil.getUploadPath();
+					String ext = PartUtil.getExt(file.getOriginalFilename());
+					String fileName = UUID.randomUUID().toString();
+					String fileId = path + File.separator + fileName + ext;
+					
+					try {
+						file.transferTo(new File(fileId));
+					} catch (IllegalStateException | IOException e ) {
+						e.printStackTrace();					
+					}
+					logger.debug("post_id : {}", post_id);
+					logger.debug("fileId : {}", fileId);
+					
+					logger.debug("fileOFN : {}", file.getOriginalFilename());
+					TSFileVO fileVo = new TSFileVO(post_id, fileId, file.getOriginalFilename());
+					uploadFileList.add(fileVo);
+					fileService.insertFile(uploadFileList);
+				}
+			}
+			redirectAttributes.addAttribute("post_id", post_id);
+			return "redirect:/post/readPost";
+		}
+		return "redirect:/post/answerPost";
+	}
+	
+	
+	/**
+	* Method : deletePost
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @param redirectAttributes
+	* @return
+	* Method 설명 : 게시글 삭제(사용여부 변경)
+	*/
+	@RequestMapping(path = "/deletePost", method = RequestMethod.GET)
+	public String deletePost(int post_id, RedirectAttributes redirectAttributes) {
+		PostVO postVo = postService.getPost(post_id);
+		int board_id = postVo.getBoard_id_fk();
+		
+		int deleteCnt = postService.deletePost(post_id);
+		
+		if(deleteCnt == 1) {
+			int delReply = replyService.deleteReply(post_id);
+		}
+		redirectAttributes.addAttribute("board_id", board_id);
+		return "redirect:/post/boardList";
+	}
+	
+	
+	
 }

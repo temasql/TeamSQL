@@ -38,17 +38,3 @@
 .sequencePackageMenu li:hover span {
   color: #FFFFFF;
 }
-.tableManagerText {
-	width : 100px;
-	height : 20px;
-	margin: 1px;
-}
-.tableManagerSelectBox {
-	width : 100px;
-	height : 24px;
-	margin: 1px;
-	padding: 3px;
-}
-#submit{
-	float: right;
-}

@@ -61,7 +61,10 @@ function initSocket(url) {
 $(document).ready(function() {
 	var userId = "${userId}";	//사용자 아이디를 파라미터로 받는다
 	$("#userId").text($("#account").val());
-		
+	var userChat = "${userChat}";
+	
+	$("#data").append(userChat);
+	
 	initSocket("/socketChat?userId=" + userId);	//websocket 연결
 });
 </script>
@@ -69,15 +72,20 @@ $(document).ready(function() {
 <body>
 	<h1 id="userId"></h1>
 	<select id="account">
-		<c:forEach items="${crewList}" var="crewVO">
-			<option class="accountNM" value="${crewVO.account_id_fk}">${crewVO.account_id_fk}</option>
+		<c:forEach begin="0" end="${crewList.size()-1}" step="1" var="i" >
+			<c:set var="crewVO" value="${crewList.get(i)}"/>
+			<c:set var="crewVOCopy" value="${crewListCopy.get(i)}"/>
+				<option class="accountNM" value="${crewVO.account_id_fk}">${crewVOCopy.account_id_fk}</option>
 		</c:forEach>
+			<option class="accountNM" value="가짜계정">가짜계정</option>
 	</select>
 	<br><br>
 	<div id="data" style=" width:500px; height:500px; border:1px solid black;"></div>
 	<br>
-	<input type="text" id="message"/>
-	<button id="sendBtn">전송</button><br>
+	<input type="text" id="message" autofocus="autofocus"/>
+	<button id="sendBtn" class="btn" style="background: black; color: white;">전송</button><br>
 	<input type="hidden" id="sessionuserid" value="${userId}">
+	
+	<input type="text" id="roomId" value="방번호 : ${teamChatRoomVo.chat_room_id}">
 </body>
 </html>

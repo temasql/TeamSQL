@@ -16,7 +16,7 @@
 			<div class="form-group">
 			<label id="seqSchema"></label>
 		    <input type="text" class="form-control" id="seqName" name="seqName" placeholder="시퀀스명">
-		    <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~13글자 사이입니다.</small>
+		    <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>
 		   	</div>
 			<label id="lblOption">속성</label>
 			<input type="text" class="form-control setSeq" id="seqStart" name="seqStart" placeholder="다음으로 시작">
@@ -76,22 +76,6 @@
   <div class="modal-content" id="updateSeqModal">
     <span class="close">&times;</span>   
 	<form action="${cp}/sqlEditor/beforeSequence" method="post" id="updateSequenceFrm">
-	  <fieldset>
-	    <legend id="updateSeqLegend">시퀀스 편집</legend>
-			<div id="updateSequence">
-			</div>
-		<button type="button" class="btn btn-secondary" id="updateSeqBtn">확인</button>
-		</fieldset>
-	</form>
-  </div>
-</div>
-
-<!-- 시퀀스 삭제 모달 -->
-<div id="deleteSequenceModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content" id="deleteSeqModal">
-    <span class="close">&times;</span>   
-	<form action="${cp}/sqlEditor/deleteSequence" method="post" id="deleteSequenceFrm">
 	  <fieldset>
 	    <legend id="updateSeqLegend">시퀀스 편집</legend>
 			<div id="updateSequence">

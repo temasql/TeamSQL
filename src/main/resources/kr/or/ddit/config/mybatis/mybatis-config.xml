@@ -47,6 +47,8 @@
 		<typeAlias type="kr.or.ddit.sqlEdiotTable.model.SqlEditorTableVO" alias="sqlTableVO" />
 		<typeAlias type="kr.or.ddit.sqlEditorFunction.model.FunctionDetailVO" alias="functionDetailVO" />
 		<typeAlias type="kr.or.ddit.sqlEditorProcedure.model.ProcedureDetailVO" alias="procedureDetailVO" />
+		<typeAlias type="kr.or.ddit.sqlEditorIndex.model.IndexDetailVO" alias="indexDetailVO" />
+		<typeAlias type="kr.or.ddit.sqlEditorIndex.model.IndexColVO" alias="indexColVO" />
 	</typeAliases>
 	
 	<mappers>
@@ -81,5 +83,6 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorFunction.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorProcedure.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/testData.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/sqlEditorIndex.xml" />
 	</mappers>
 </configuration>

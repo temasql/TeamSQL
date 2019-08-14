@@ -10,6 +10,7 @@
 <%@include file="/WEB-INF/views/sqlEditor/modal/ProcedurePackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/templatePackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/viewPackage.jsp" %>
+<%@include file="/WEB-INF/views/sqlEditor/modal/indexPackage.jsp" %>	
 
 <link href="${cp}/resources/sqlEditor/css/sqlEditorStyle.css" rel="stylesheet">
 <link href="${cp}/resources/sqlEditor/css/treeMenu.css" rel="stylesheet">
@@ -80,11 +81,17 @@
 				                        </ul>
 				                    </li>
 				                    <li>
-				                        <a href="#none"><em>폴더</em> 인덱스</a>
+				                        <a class="indexPackage" href="#none"><em>폴더</em> 인덱스
+				                        	<input type="hidden" id="hogil_index1" value="${accountId}"/>
+				                        </a>
 				                        <ul class="depth_3">
 				                            <c:forEach items="${indexList}" var="indexVO">
 				                        		<c:if test="${indexVO.owner == ac_id}">
-						                            <li><a href="#none">${indexVO.index_name}</a></li>
+						                            <li>
+						                            	<a class="indexs" href="#none">${indexVO.index_name}
+						                            		<input type="hidden" id="hogil_index2" value="${accountId}"/>
+						                            	</a>
+					                            	</li>
 				                        		</c:if>
 				                        	</c:forEach>
 				                        </ul>
@@ -293,6 +300,18 @@
   <li><span id="updateSequenceSpan">시퀀스 편집</span></li>
   <li><span id="deleteSequenceSpan">시퀀스 삭제</span></li>
 </ul>
+
+<!-- 인덱스 패키지 우클릭 -->
+<ul class="indexPackageMenu">
+  <li><span id="createIndexSpan">인덱스 생성</span></li>
+</ul>
+<!-- 인덱스 우클릭 -->
+<ul class="indexMenu">
+  <li><span id="readIndexSpan">인덱스 조회</span></li>
+  <li><span id="updateIndexSpan">인덱스 편집</span></li>
+  <li><span id="deleteIndexSpan">인덱스 삭제</span></li>
+</ul>
+
 
 <input type="hidden" id="accou_id"/>
 <input type="hidden" id="accountListSize" value="${accountListSize}"/>

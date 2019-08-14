@@ -144,8 +144,8 @@ public class SqlEditorSequenceDaoTest extends LogicTestEnv {
 		String query = "\""+ sequence_owner +"\" .\""+ sequence_name + "\"";
 		/***When***/
 		
-		
-		int deleteCnt = sqlEditorSequenceDao.deleteSequence(query);
+		int deleteCnt = -1;
+		deleteCnt = sqlEditorSequenceDao.deleteSequence(query);
 		/***Then***/
 		logger.debug("삭제카운트 : {}", deleteCnt);
 	}
