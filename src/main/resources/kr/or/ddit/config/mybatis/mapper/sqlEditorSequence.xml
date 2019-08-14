@@ -16,28 +16,28 @@
 	
 	<!-- 시퀀스 테이블 조회 -->
 	<select id="selectSequenceTable" parameterType="Map" resultType="detailSeqVO">
-	select a.created
-     , a.last_ddl_time
-     , b.*
-	from
-		(select created
-		     , last_ddl_time
-		     , object_name
-		     , owner 
-		from sys.all_objects
-		where object_type = 'SEQUENCE'
-			and object_name = #{sequence_name} 
-			and owner = #{sequence_owner})a,sys.all_sequences b
-	where sequence_owner = a.owner 
-	and sequence_name = a.object_name
+	SELECT A.CREATED
+     , A.LAST_DDL_TIME
+     , B.*
+	FROM
+		(SELECT CREATED
+		     , LAST_DDL_TIME
+		     , OBJECT_NAME
+		     , OWNER 
+		FROM SYS.ALL_OBJECTS
+		WHERE OBJECT_TYPE = 'SEQUENCE'
+			AND OBJECT_NAME = #{sequence_name} 
+			AND OWNER = #{sequence_owner})A,SYS.ALL_SEQUENCES B
+	WHERE SEQUENCE_OWNER = A.OWNER 
+	AND SEQUENCE_NAME = A.OBJECT_NAME
 	</select>
 	
 	<!-- 시퀀스 편집 전 데이터 -->
 	<select id = "beforeSequence" parameterType="Map" resultType="selectSeqVO">
-	select *
-	from sys.all_sequences
-	where sequence_owner = #{sequence_owner}
-	and sequence_name = #{sequence_name}
+	SELECT *
+	FROM SYS.ALL_SEQUENCES
+	WHERE SEQUENCE_OWNER = #{sequence_owner}
+	AND SEQUENCE_NAME = #{sequence_name}
 	</select>
 	
 	<!-- 시퀀스 편집 -->

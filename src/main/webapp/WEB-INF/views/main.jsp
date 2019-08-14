@@ -83,7 +83,7 @@
 	    </div>
       <br><br><br>
 	<div id="leftLayout">
-		<span id="infoSpan">TeamSQL&nbsp;Information</span>
+		<span id="infoSpan">Summary</span>
 	   <!-- DB계정 -->	
 	  <div id="leftTopLayout">	  
 	  <table class="table table-hover">

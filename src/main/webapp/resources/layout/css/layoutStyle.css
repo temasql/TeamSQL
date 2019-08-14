@@ -6,5 +6,42 @@
     margin-left: 15%;
     margin-right: 15%;
 	width: 70%;
-    height: auto;
+	min-height: 700px;
+}
+
+#footerLogo{
+	width: 70px;
+	height: 70px;
+}
+
+.footerDiv{
+	float: left;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	margin-right: 150px;
+}
+
+#firtsFooterDiv{
+	margin-left: 250px;
+}
+
+.text{
+	text-align: left;
+	margin-top: 40px;
+}
+
+#phoneSpan{
+    font-size: 2.4em;
+    font-weight: bold;
+}
+
+.footerSpan{
+	font-size: 1.2em;
+    font-weight: 400;
+}
+
+.category{
+    font-weight: bold;
+    color: black;
+    border-bottom: 1px solid;
 }

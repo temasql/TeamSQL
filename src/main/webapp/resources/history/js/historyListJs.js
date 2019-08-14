@@ -5,7 +5,6 @@ $(document).ready(function(){
 		
 		// 계정명
 		var object_owner = $(this).find(".original_owners").val();
-		alert(object_owner);
 		$("#object_owner").val(object_owner);
 		$("#frm").submit();
 	});

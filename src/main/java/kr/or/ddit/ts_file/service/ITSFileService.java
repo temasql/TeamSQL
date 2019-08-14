@@ -37,7 +37,7 @@ public interface ITSFileService {
 	* @return
 	* Method 설명 : 해당 게시글에 첨부된 파일 조회
 	*/
-	TSFileVO getFile(String tsfile_id);
+	TSFileVO getFile(int tsfile_id);
 	
 	
 	

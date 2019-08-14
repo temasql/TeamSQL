@@ -9,9 +9,10 @@ import kr.or.ddit.sqlEdiotSequence.model.DetailSeqVO;
 import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
 
 /**
-* ISqlEditorTable.java
+ * 
+* ISqlEditorSequenceDao.java
 *
-* @author 이중석
+* @author 강호길
 * @version 1.0
 * @see
 *
@@ -20,10 +21,10 @@ import kr.or.ddit.sqlEdiotSequence.model.SelectSeqVO;
 *
 * 수정자 수정내용
 * ------ ------------------------
-* 이중석 최초 생성
+* 강호길 최초 생성
 *
 * </pre>
-*/
+ */
 public interface ISqlEditorSequenceDao {
 
 	/**
