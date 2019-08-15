@@ -40,12 +40,19 @@
 		)
 	</insert>
 	
-	<!-- SelectOne -->
+	<!-- 중복된 약어가 있는지 확인하는 쿼리문 -->
 	<select id="getAbb" parameterType="map" resultType="String">
 		SELECT 	UTEMPLATE_ABB
 		FROM 	USER_TEMPLATE
 		WHERE 	UTEMPLATE_ABB = #{utemplate_abb}
 		AND		USER_ID_FK = #{user_id_fk}
+	</select>
+	
+	<!-- 입력한 템플릿 id와 일치하는 약어 검색 -->
+	<select id="sameAbb" parameterType="map" resultType="string">
+		SELECT  UTEMPLATE_ABB
+		FROM    USER_TEMPLATE
+		WHERE   UTEMPLATE_ID = #{utemplate_id}
 	</select>
 	
 	<!-- SelectList -->

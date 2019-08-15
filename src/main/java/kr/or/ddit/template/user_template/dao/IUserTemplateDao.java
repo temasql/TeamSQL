@@ -22,4 +22,14 @@ public interface IUserTemplateDao {
 	int updateUserTemplate(UserTemplateVO userTemplateVO);
 
 	int deleteUserTemplate(UserTemplateVO userTemplateVO);
+	
+	/**
+	* Method : sameAbb
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 입력한 템플릿ID와 일치하는 약어 검색
+	*/
+	String sameAbb(Map<String, Object> map);
 }
