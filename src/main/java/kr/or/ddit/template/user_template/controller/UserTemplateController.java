@@ -124,17 +124,15 @@ public class UserTemplateController {
 		String sameAbb = service.sameAbb(map); 
 		int result = 0;
 		
-		if(abb != null) {
-			if(sameAbb.equals(abb)){
-				result = service.updateUserTemplate(userTemplateVO);
-				
-			}else if(abb.equals(userTemplateVO.getUtemplate_abb())) {
-				String msg = "존재하는 약어";
-				
-				model.addAttribute("msg", msg);
-				
-				return "jsonView";
-			}
+		if(sameAbb != null){
+			result = service.updateUserTemplate(userTemplateVO);
+			
+		}else if(abb.equals(userTemplateVO.getUtemplate_abb())) {
+			String msg = "존재하는 약어";
+			
+			model.addAttribute("msg", msg);
+			
+			return "jsonView";
 		}
 		
 		if(result > 0) {
