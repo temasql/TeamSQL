@@ -26,7 +26,7 @@ public class SocketChatHandler extends TextWebSocketHandler {
 	private static final Logger logger = LoggerFactory.getLogger(SocketChatHandler.class);
 
 	private List<WebSocketSession> sessionList; // 소켓에 연결된 세션정보
-	private Map<String, List<CrewVO>> map;
+	private Map<String, List<CrewVO>> map = null;
 	
 	@Resource(name="teamChatRoomService")
 	private ITeamChatRoomService chatRoomService;
@@ -49,6 +49,16 @@ public class SocketChatHandler extends TextWebSocketHandler {
 		// 채팅방 유저리스트 가져오기
 		List<CrewVO> crewList = getCrewList(session);
 		
+		Map<String, Object> map = null;
+		
+		for (WebSocketSession currentSession : sessionList) {
+			map = currentSession.getAttributes();
+			TeamChatVO teamChatVO2 = (TeamChatVO) map.get("TEAM_INFO");
+			
+			if(teamChatVO.getChat_room_id_fk() == teamChatVO2.getChat_room_id_fk())
+				currentSession.sendMessage(new TextMessage(user + ":님이 입장하셨습니다." ));
+		}
+		
 		sessionList.add(session);
 		logger.debug("채팅 접속 : {}", user);
 	}
@@ -56,22 +66,48 @@ public class SocketChatHandler extends TextWebSocketHandler {
 	// 클라이언트가 웹소켓에 메세지를 전송한 경우 : 모든 사용자에게 메세지를 전달
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		logger.debug("소켓 session : {}", session);
+		
 		String user = getUser(session);
 		// roomID와 채팅방명 가져오기
 		TeamChatVO teamChatVO = getRoomVO(session);
 		teamChatVO.setChat_content(message.getPayload());
 		
 		logger.debug("메세지전송 = {} : {}", user, message.getPayload());
+		Map<String, Object> map = null;
 		
 		chatService.insertChat(teamChatVO);
-		for (WebSocketSession currentSession : sessionList)
-			currentSession.sendMessage(new TextMessage(user + ":" + message.getPayload()));
+		
+		for (WebSocketSession currentSession : sessionList) {
+			map = currentSession.getAttributes();
+			TeamChatVO teamChatVO2 = (TeamChatVO) map.get("TEAM_INFO");
+			
+			if(teamChatVO.getChat_room_id_fk() == teamChatVO2.getChat_room_id_fk())
+				currentSession.sendMessage(new TextMessage(user + ":" + message.getPayload()));
+		}
 	}
 
 	// 클라이언트 연결이 종료된경우 : 연결 리스트에서 해당 사용자 제거
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		String user = getUser(session);
+		// roomID와 채팅방명 가져오기
+		
+//		Map<String, Object> map = null;
+//		
+//		for (WebSocketSession currentSession : sessionList) {
+//			map = currentSession.getAttributes();
+//			TeamChatVO teamChatVO2 = (TeamChatVO) map.get("TEAM_INFO");
+//			
+//			TeamChatVO teamChatVO = getRoomVO(session);
+//			
+//			if(teamChatVO.getChat_room_id_fk() == teamChatVO2.getChat_room_id_fk()) {
+//				currentSession.sendMessage(new TextMessage(user + ":님의 연결이 종료되었습니다."));
+//				sessionList.remove(session);
+//			}
+//			break;
+//		}
+				
 		sessionList.remove(session);
 		logger.debug("연결 끊김 : {}", user);
 	}

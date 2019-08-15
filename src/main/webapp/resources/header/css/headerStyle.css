@@ -107,6 +107,19 @@ z-index:200;
 line-height: 30px;
 }
 
+.quiz-header:after {content:''; display:block; zoom:1; clear:both;}
+.one:hover ul{display: block;}
+.quiz-header{
+	display:none;
+    height: auto;
+    padding: 0px;
+    margin: 0px;
+    margin-left: -84px;
+    position: absolute;
+    width: 221px;
+    z-index: 200;
+    line-height: 30px;
+}
 
 .ul-header-one li{
 	list-style: none;

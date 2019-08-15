@@ -134,7 +134,7 @@ var calendar = $('#calendar').fullCalendar({
   header: {
     left: 'today, prevYear, nextYear, viewWeekends',
     center: 'prev, title, next',
-    right: ''
+    right: 'month,agendaWeek,agendaDay,listWeek'
   },
   views: {
     month: {
@@ -291,17 +291,17 @@ var calendar = $('#calendar').fullCalendar({
         hours: today.hours(),
         minute: today.minutes()
       });
-      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
+      startDate = moment(startDate).format('YYYY-MM-DD 00:00');
       endDate = moment(endDate).subtract(1, 'days');
 
       endDate.set({
         hours: today.hours() + 1,
         minute: today.minutes()
       });
-      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
+      endDate = moment(endDate).format('YYYY-MM-DD 00:00');
     } else {
-      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
-      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
+      startDate = moment(startDate).format('YYYY-MM-DD 00:00');
+      endDate = moment(endDate).format('YYYY-MM-DD 00:00');
     }
 
     //날짜 클릭시 카테고리 선택메뉴
@@ -348,7 +348,7 @@ var calendar = $('#calendar').fullCalendar({
   },
   eventLimitClick: 'week', //popover
   navLinks: true,
-  defaultDate: moment('2019-07'), //실제 사용시 삭제
+  defaultDate: moment(), //실제 사용시 삭제
   timeFormat: 'HH:mm',
   defaultTimedEventDuration: '01:00:00',
   editable: true,

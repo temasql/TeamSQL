@@ -20,6 +20,15 @@ function initSocket(url) {
 		var sessionid = null;
 		var message = null;
 		
+		var todate = new Date();
+		var year = todate.getFullYear();
+		var month = todate.getMonth() + 1;
+		var date = todate.getDate();
+		var hours = todate.getHours();
+		var seconds = todate.getSeconds();
+		
+		var today = year+"."+month+"."+date+" "+hours+":"+seconds;
+		
 		var strArray = data.split(":");
 		
 		for(var i=0; i<strArray.length; i++){
@@ -36,8 +45,11 @@ function initSocket(url) {
 		//나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.
 		if(sessionid == currentuser_session){
 			var printHTML = "<div class='well'>";
+			printHTML += "<div class='userInfo'>";
+			printHTML += "Me <div class='dt'>" +today + "</div>";
+			printHTML += "</div><br><br>";
 			printHTML += "<div class='alert alert-info'>";
-			printHTML += "<strong>" + message + " : [Me]</strong>";
+			printHTML += "<strong>" + message + "</strong>";
 			printHTML += "</div>";
 			printHTML += "</div><br>";
 			
@@ -62,6 +74,10 @@ $(document).ready(function() {
 	var userId = "${userId}";	//사용자 아이디를 파라미터로 받는다
 	$("#userId").text($("#account").val());
 	var userChat = "${userChat}";
+	var account_id = "${account_id}";
+	account_id = account_id.substring(0, account_id.lastIndexOf("_"));
+	
+	$("select[name=account]").val(account_id);
 	
 	$("#data").append(userChat);
 	
@@ -70,14 +86,13 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<h1 id="userId"></h1>
-	<select id="account">
+	채팅방 명 : <h1 id="userId"></h1>
+	계정명 : <select id="account" name="account" class="form-control">
 		<c:forEach begin="0" end="${crewList.size()-1}" step="1" var="i" >
 			<c:set var="crewVO" value="${crewList.get(i)}"/>
 			<c:set var="crewVOCopy" value="${crewListCopy.get(i)}"/>
 				<option class="accountNM" value="${crewVO.account_id_fk}">${crewVOCopy.account_id_fk}</option>
 		</c:forEach>
-			<option class="accountNM" value="가짜계정">가짜계정</option>
 	</select>
 	<br><br>
 	<div id="data" style=" width:500px; height:500px; border:1px solid black;"></div>
@@ -86,6 +101,9 @@ $(document).ready(function() {
 	<button id="sendBtn" class="btn" style="background: black; color: white;">전송</button><br>
 	<input type="hidden" id="sessionuserid" value="${userId}">
 	
-	<input type="text" id="roomId" value="방번호 : ${teamChatRoomVo.chat_room_id}">
+	<form id="frm" action="/teamChat/changeAccount" method="post">
+		<input type="hidden" id="account_id" name="account_id">
+		<input type="hidden" id="roomId" name="chat_room_id" value="${teamChatRoomVo.chat_room_id}">
+	</form>
 </body>
 </html>

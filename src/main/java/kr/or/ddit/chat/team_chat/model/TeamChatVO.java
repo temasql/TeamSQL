@@ -10,7 +10,7 @@ public class TeamChatVO {
 	private String account_id_fk;   // 계정아이디
 	private String user_id_fk;      // 사용자아이디
 	private String chat_content;    // 팀채팅내용
-	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
+	@DateTimeFormat(pattern = "yyyy.MM.dd a hh:mm:ss")
 	private Date chat_dt;           // 팀채팅일시
 	
 	public TeamChatVO() {

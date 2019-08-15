@@ -2,7 +2,7 @@
 #message{
 	width : 498px;	
 }
-.alert-info{
+.alert-info,.userInfo{
     float: right;
     margin-right: 10px;
 }
@@ -12,4 +12,7 @@
 }
 #data{
 	overflow-y: auto;
+}
+.dt{
+	font-size: 10px;
 }
