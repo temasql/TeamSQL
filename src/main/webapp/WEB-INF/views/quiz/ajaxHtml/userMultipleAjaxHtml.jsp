@@ -10,7 +10,7 @@
 <div id="question">문제 : ${quizAndAnswerVO.quiz_question}</div>
 <div id="example">
 	<ol>
-		<c:forEach items="${exampleList}" var="exampleVO">
+		<c:forEach items="${quizExampleList}" var="exampleVO">
 			<li>
 				<div class="custom-control custom-radio" style="display:contents;">
 			      <label class="example_content" for="customRadio1">${exampleVO.example_content}</label>

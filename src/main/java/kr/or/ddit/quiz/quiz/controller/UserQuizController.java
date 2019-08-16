@@ -126,6 +126,8 @@ public class UserQuizController {
 		if(quizVo.getQuiz_right().equals("01")) {
 			List<QuizExampleVO> quizExampleList = service.userMultipleList(quizAndAnswerVO);
 			
+			logger.debug("객관식 리스트 : {}", quizExampleList);
+			
 			model.addAttribute("quizExampleList", quizExampleList);
 			
 			returnResult = "/quiz/ajaxHtml/userMultipleAjaxHtml";
