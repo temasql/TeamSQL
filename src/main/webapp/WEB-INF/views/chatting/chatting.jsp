@@ -9,6 +9,11 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
 <script src="/resources/chatting/js/chattingJS.js"></script>
+<script src="${cp}/resources/loginBootstrap/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="${cp}/resources/loginBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="${cp}/resources/loginBootstrap/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="${cp}/resources/loginBootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <script>
 var socket;
 function initSocket(url) {
@@ -25,9 +30,9 @@ function initSocket(url) {
 		var month = todate.getMonth() + 1;
 		var date = todate.getDate();
 		var hours = todate.getHours();
-		var seconds = todate.getSeconds();
+		var min = todate.getMinutes();
 		
-		var today = year+"."+month+"."+date+" "+hours+":"+seconds;
+		var today = year+"."+month+"."+date+" "+hours+":"+min;
 		
 		var strArray = data.split(":");
 		
@@ -45,21 +50,21 @@ function initSocket(url) {
 		//나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.
 		if(sessionid == currentuser_session){
 			var printHTML = "<div class='well'>";
-			printHTML += "<div class='userInfo'>";
-			printHTML += "Me <div class='dt'>" +today + "</div>";
-			printHTML += "</div><br><br>";
 			printHTML += "<div class='alert alert-info'>";
-			printHTML += "<strong>" + message + "</strong>";
+			printHTML += "Me <div class='dt'>" +today + "</div>";
+			printHTML += "<strong class='Mmessage'>" + message + "</strong>";
 			printHTML += "</div>";
 			printHTML += "</div><br>";
+			printHTML += "<br><br>";
 			
 			$("#data").append(printHTML);
 		}else{
 			var printHTML = "<div class='well'>";
 			printHTML += "<div class='alert alert-warning'>";
-			printHTML += "<strong>[" + sessionid + "] : " + message + "</strong>";
+			printHTML += sessionid + "<div class='dt'>" + today + "</div>";
+			printHTML += "<strong class='Ymessage'>"+ message + "</strong>";
 			printHTML += "</div>";
-			printHTML += "</div><br>";
+			printHTML += "</div><br><br><br>";
 			
 			$("#data").append(printHTML);
 		}
@@ -72,7 +77,7 @@ function initSocket(url) {
 
 $(document).ready(function() {
 	var userId = "${userId}";	//사용자 아이디를 파라미터로 받는다
-	$("#userId").text($("#account").val());
+	$("#userId").text("${chat_room_name}");
 	var userChat = "${userChat}";
 	var account_id = "${account_id}";
 	account_id = account_id.substring(0, account_id.lastIndexOf("_"));
@@ -86,18 +91,20 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	채팅방 명 : <h1 id="userId"></h1>
-	계정명 : <select id="account" name="account" class="form-control">
-		<c:forEach begin="0" end="${crewList.size()-1}" step="1" var="i" >
-			<c:set var="crewVO" value="${crewList.get(i)}"/>
-			<c:set var="crewVOCopy" value="${crewListCopy.get(i)}"/>
-				<option class="accountNM" value="${crewVO.account_id_fk}">${crewVOCopy.account_id_fk}</option>
-		</c:forEach>
-	</select>
+	<div id="chatNM">방 제목 : <div id="userId"></div></div>
+	<div id="accountDiv">계정명 : 
+		<select id="account" class="form-control" name="account" class="form-control">
+			<c:forEach begin="0" end="${crewList.size()-1}" step="1" var="i" >
+				<c:set var="crewVO" value="${crewList.get(i)}"/>
+				<c:set var="crewVOCopy" value="${crewListCopy.get(i)}"/>
+					<option class="accountNM" value="${crewVO.account_id_fk}">${crewVOCopy.account_id_fk}</option>
+			</c:forEach>
+		</select>
+	</div>
 	<br><br>
-	<div id="data" style=" width:500px; height:500px; border:1px solid black;"></div>
+	<div id="data" style=" width:500px; height:500px; border:1px solid #DADFEC;"></div>
 	<br>
-	<input type="text" id="message" autofocus="autofocus"/>
+	<span><input type="text" id="message" autofocus="autofocus"/></span>
 	<button id="sendBtn" class="btn" style="background: black; color: white;">전송</button><br>
 	<input type="hidden" id="sessionuserid" value="${userId}">
 	

@@ -66,7 +66,7 @@ public class TeamChatController {
 			e.printStackTrace();
 			logger.debug("outOfIndex");
 			model.addAttribute("msg","계정을 생성 후 접속을 시도해 주세요.");
-			return "jsonView";
+			return "/chatting/errorChatting";
 		}
 		int roomId = teamChatRoomVo.getChat_room_id();
 		logger.debug("채팅 방번호 : {}", roomId);
@@ -87,25 +87,26 @@ public class TeamChatController {
 		
 		String temp = "";
 		for(TeamChatVO ChatVO : userChatList) {
+			String date = sdf.format(ChatVO.getChat_dt());
 			if(userVO.getUser_id().equals(ChatVO.getUser_id_fk())) {
-				String date = sdf.format(ChatVO.getChat_dt());
 				temp += "<div class='well'>";
-				temp += "<div class='userInfo'>";
-				temp += "Me <div class='dt'>" +date + "</div>";
-				temp += "</div><br><br>";
 				temp += "<div class='alert alert-info'>";
-				temp += "<strong>" + ChatVO.getChat_content() + "</strong>";
+				temp += "Me <div class='dt'>" +date + "</div>";
+				temp += "<strong class='Mmessage'>" + ChatVO.getChat_content() + "</strong>";
 				temp += "</div>";
 				temp += "</div><br>";
+				temp += "<br><br>";
 			}else {
 				temp += "<div class='well'>";
 				temp += "<div class='alert alert-warning'>";
-				temp += "<strong>[" + ChatVO.getUser_id_fk() + "] : " + ChatVO.getChat_content() + "</strong>";
+				temp += ChatVO.getUser_id_fk() + "<div class='dt'>" + date + "</div>";
+				temp += "<strong class='Ymessage'>" + ChatVO.getChat_content() + "</strong>";
 				temp += "</div>";
-				temp += "</div><br>";
+				temp += "</div><br><br><br>";
 			}
 		}
 		
+		model.addAttribute("chat_room_name", teamChatRoomVo.getChat_room_name());
 		model.addAttribute("account_id", account_id);
 		model.addAttribute("crewList", crewList);
 		model.addAttribute("crewListCopy", crewListCopy);
@@ -154,24 +155,31 @@ public class TeamChatController {
 			crewListCopy.get(i).setAccount_id_fk(accountId);
 		}
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		
 		String temp = "";
 		for(TeamChatVO ChatVO : userChatList) {
+			String date = sdf.format(ChatVO.getChat_dt());
 			if(userVO.getUser_id().equals(ChatVO.getUser_id_fk())) {
 				temp += "<div class='well'>";
 				temp += "<div class='alert alert-info'>";
-				temp += "<strong>" + ChatVO.getChat_content() + " : [Me]</strong>";
+				temp += "Me <div class='dt'>" +date + "</div>";
+				temp += "<strong class='Mmessage'>" + ChatVO.getChat_content() + "</strong>";
 				temp += "</div>";
 				temp += "</div><br>";
+				temp += "<br><br>";
 			}else {
 				temp += "<div class='well'>";
 				temp += "<div class='alert alert-warning'>";
-				temp += "<strong>[" + ChatVO.getUser_id_fk() + "] : " + ChatVO.getChat_content() + "</strong>";
+				temp += ChatVO.getUser_id_fk() + "<div class='dt'>" + date + "</div>";
+				temp += "<strong class='Ymessage'>" + ChatVO.getChat_content() + "</strong>";
 				temp += "</div>";
-				temp += "</div><br>";
+				temp += "</div><br><br><br>";
 			}
 		}
 		
+		model.addAttribute("userId", userVO.getUser_id());
+		model.addAttribute("chat_room_name", teamChatRoomVo.getChat_room_name());
 		model.addAttribute("account_id", account_id);
 		model.addAttribute("crewList", crewList);
 		model.addAttribute("crewListCopy", crewListCopy);

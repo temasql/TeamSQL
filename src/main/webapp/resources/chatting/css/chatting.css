@@ -1,18 +1,51 @@
 @charset "UTF-8";
+body{
+    font-family :'나눔고딕', 'Malgun Gothic', sans-serif;
+}
 #message{
 	width : 498px;	
 }
-.alert-info,.userInfo{
+.alert-info{
     float: right;
     margin-right: 10px;
+    background-color: #E5F1F0;
+    border-radius: 5px;
+    max-width: 200px;
 }
 .alert-warning{
     float: left;
     margin-left: 6px;
+    border: 1px solid #BBDEFB;
+    border-radius: 5px;
+    max-width: 200px;
 }
 #data{
 	overflow-y: auto;
+	border-radius: 2px;
 }
 .dt{
 	font-size: 10px;
+	margin-bottom: 5px;
+}
+.Mmessage{
+	background-color: #BBDEFB;
+	border-radius: 5px;
+}
+.Ymessage{
+	background-color: antiquewhite;
+	border-radius: 5px;
+}
+#userId{
+	display: inline;
+}
+.well{
+    padding-bottom: 5px;
+}
+#chatNM{
+	font-size : 24pt;
+	display: inline;
+}
+#accountDiv{
+	display: inline;
+    padding-left: 177px;
 }
