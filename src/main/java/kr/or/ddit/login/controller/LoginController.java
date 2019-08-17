@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ddit.board.service.IBoardService;
-import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
-import kr.or.ddit.history.model.ChangedVO;
 import kr.or.ddit.history.model.HistoryTempVO;
 import kr.or.ddit.history.service.IHistoryService;
 import kr.or.ddit.invite.model.InviteVO;
@@ -56,8 +54,20 @@ public class LoginController {
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String loginGet(String user_id, String user_pw, Model model) {
 		
-		model.addAttribute("user_id", user_id);
-		model.addAttribute("user_pw", user_pw);
+		if (user_id != null && !user_id.equals("") ) {
+			if (userService.getUser(user_id) == null) {
+				model.addAttribute("user_id", user_id);
+				model.addAttribute("msg", "아이디를 잘못 입력하셨습니다.");
+				return "/login/login";
+			}
+		}
+		if (user_pw != null && !user_pw.equals("") ) {
+			if (userService.getUser(user_id) != null) {
+				model.addAttribute("user_pw", user_pw);
+				model.addAttribute("msg", "비밀번호를 잘못 입력하셨습니다.");
+				return "/login/login";
+			}
+		}
 		return "/login/login";
 	}
 	
@@ -151,10 +161,10 @@ public class LoginController {
 			List<List<CrawlingVO>> itNewsList = new Crawling().getITNews();
 			model.addAttribute("itNewsList", itNewsList);
 			return "main.tiles";
-		}
-		if(loginUserVo.getExit_right().equals("Y")) {
-			model.addAttribute("deleteMsg", "탈퇴한 회원입니다.");
-			return "/login/login.tiles";
+		}else if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
+				&& loginUserVo.getExit_right().equals("Y")) {
+			model.addAttribute("msg", "탈퇴한 회원입니다.");
+			return "/login/login";
 		}
 		redirectAttributes.addAttribute("user_id", userVo.getUser_id());
 		redirectAttributes.addAttribute("user_pw", userVo.getUser_pw());

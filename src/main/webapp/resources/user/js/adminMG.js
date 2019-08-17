@@ -12,7 +12,15 @@ $(function (){
 		if($(".deleteChecked").length == 0){
 			alert("탈퇴 시킬 회원을 선택 해 주세요")
 		}else{
-			$("#deleteForm").submit();
+			var tmp = "";
+			$.each($(".deleteChecked"), function(idx, dt){
+				tmp += dt.value + " ";
+			})
+			var result = confirm("관리자 " + tmp + "을 삭제 시키시겠습니까?");
+			if(result){
+				alert("관리자 " + tmp + "을 삭제 했습니다.")
+				$("#deleteForm").submit();
+			}
 		}
 	})
 	adminPagingListAjaxHtml(1, 10);
@@ -20,6 +28,11 @@ $(function (){
 	$("#btnSearch").on("click", function(){
 		search()
 	})
+	$('#searchfor').keydown(function(e) {
+        if (e.keyCode == 13) {
+        	search();
+        }
+    });
 	
 })
 function adminPagingListAjaxHtml(page, pageSize){

@@ -103,8 +103,8 @@ public class UserDao implements IUserDao{
 	* Method 설명 : 사용자 아이디 찾기
 	*/
 	@Override
-	public String findUserId(UserVO userVo) {
-		return sqlSession.selectOne("user.findUserId", userVo);
+	public List<String> findUserId(UserVO userVo) {
+		return sqlSession.selectList("user.findUserId", userVo);
 	}
 
 	/**

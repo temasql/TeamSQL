@@ -62,6 +62,12 @@ $(function (){
 		search()
 	})
 	
+	$('#searchfor').keydown(function(e) {
+        if (e.keyCode == 13) {
+        	search();
+        }
+    });
+	
 })
 function crewPagingListAjaxHtml(page, pageSize){
 	$.ajax({

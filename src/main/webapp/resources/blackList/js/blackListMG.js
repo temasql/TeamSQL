@@ -28,6 +28,7 @@ $(function (){
 								if(data.user_id == null){
 									$("legend").html("입력하신 아이디와 일치하는 계정이 없습니다.")
 								}else{
+									alert(data.user_id + "를 블랙리스트에 추가했습니다.")
 									$("#insertBlackListModal").css("display", "none");
 									blackListPagingListAjaxHtml(1, 10);
 								}
@@ -50,7 +51,16 @@ $(function (){
 		if($(".deleteChecked").length == 0){
 			alert("해제 시킬 회원을 선택 해 주세요")
 		}else{
-			$("#deleteForm").submit();
+			var tmp = "";
+			$.each($(".deleteChecked"), function(idx, dt){
+				console.log(dt)
+				tmp += $("#blackListTbody").find("input[value=" + dt.value + "]").parent().next().text() + " ";
+			})
+			var result = confirm("회원 " + tmp + "을 블랙리스트에서 해제 시키시겠습니까?");
+			if(result){
+				alert("회원 " + tmp + "을 블랙리스트에서 해제 했습니다.")
+				$("#deleteForm").submit();
+			}
 		}
 	})
 	blackListPagingListAjaxHtml(1, 10);
@@ -58,6 +68,12 @@ $(function (){
 	$("#btnSearch").on("click", function(){
 		search()
 	})
+	
+	$('#searchfor').keydown(function(e) {
+        if (e.keyCode == 13) {
+        	search();
+        }
+    });
 	
 })
 function blackListPagingListAjaxHtml(page, pageSize){
