@@ -347,6 +347,190 @@ $(document).ready(function() {
 							"top="+y+",left="+x+",width=912,height=984");
 	});
 	
+	
+	// 도메인 모달창 띄우기
+	$("#domainId").on("click", function(){
+		var user_id = $("#userId").val();
+		
+		domainList();
+		
+		$("#domainModal").css("display", "block");
+		$("#tableBody").html();
+	})
+	
+
+	// 도메인 화면에서 테이블 클릭 이벤트
+	$(document).on("click", "tr", function(){
+		var domainId = $(this).children().find(".udomain_id").val();
+		var domainName = $(this).find(".domainTdName").text();
+		var domainType = $(this).find(".domainTdType").text();
+		
+		$("tr").css("background-color", "white");
+		$(this).css("background-color", "rgba(0, 0, 0, 0.075)");
+		$("#inputDomainId").val(domainId);
+		$("#inputDomainUpdateName").val(domainName);
+		$("#inputDomainUpdateType").val(domainType);
+	})
+	
+	
+	// 도메인 추가 버튼 클릭 이벤트
+	$("#domainAdd").on("click", function(){
+		$("#domainAddModal").css("display", "block");
+		
+	})
+	
+	// 도메인 추가 화면에서의 추가버튼 클릭 이벤트
+	$("#domAdd").on("click", function(){
+		var udomain_name = $("#inputName").val();
+		var udomain_type = $("#inputType").val();
+		var user_id = $("#userId").val();
+		
+		$.ajax({
+			method : "post",
+			url : "/userDomain/insertUserDomain",
+			data : $("#domainFrm").serialize(),
+			success : function(data){
+				if(data.msg == "존재하는 도메인"){
+					alert("이미 존재하는 도메인명 입니다.\n다른 도메인명을 입력해주세요.");
+					return;
+				}
+				
+				alert("도메인 등록 성공");
+				
+				$("#inputName").val("");
+				$("#inputType").val("");
+				
+				domainList();
+			},
+			error : function(error){
+				console.log("등록 실패");
+			}
+		})
+		
+		$("#domainAddModal").css("display", "none");
+		
+	})
+
+				
+	// 도메인 취소버튼 클릭 이벤트
+	$("#domCancel").on("click", function(){
+		$("#domainAddModal").css("display", "none");
+		$("tr").css("background-color", "white");
+		
+		$("#inputDomainId").val("");
+		$("#inputDomainUpdateName").val("");
+		$("#inputDomainUpdateType").val("");
+	})
+	$("#domUpdateCancle").on("click", function(){
+		$("#domainUpdateModal").css("display", "none");
+		$("tr").css("background-color", "white");
+		
+		$("#inputDomainId").val("");
+		$("#inputDomainUpdateName").val("");
+		$("#inputDomainUpdateType").val("");
+	})
+	
+	
+	// 도메인 수정버튼 클릭 이벤트(수정화면 전환)
+	$("#domainUpdate").on("click", function(){
+		if($("#inputDomainId").val() == ""){
+			alert("수정하실 도메인을 선택 후 클릭해 주세요.");
+			return;
+		}
+		
+		$("#domainUpdateModal").css("display", "block");
+		
+		$("#domId").val($("#inputDomainId").val());
+		$("#inputUpdateName").val($("#inputDomainUpdateName").val());
+		$("#inputUpdateType").val($("#inputDomainUpdateType").val());
+	})
+	
+	
+	// 도메인 수정화면에서 수정버튼 클릭 이벤트
+	$("#domUpdate").on("click",function(){
+		var domId = $("#domId").val();
+		var name = $("#inputUpdateName").val();
+		var type = $("#inputUpdateType").val();
+		
+		if(domId == ""){
+			alert("ID 에러");
+		}
+		if(name == ""){
+			alert("도메인명을 입력해주세요.");
+			return;
+		}
+		if(type == ""){
+			alert("데이터 타입을 입력해주세요.");
+			return;
+		}
+		
+		$.ajax({
+			method : "post",
+			url : "/userDomain/updateUserDomain",
+			data : $("#domainUpdateFrm").serialize(),
+			success : function(data){
+				if(data.msg == "존재하는 도메인"){
+					alert("이미 존재하는 도메인명 입니다.\n다른 도메인명을 입력해주세요.");
+					return;
+				}else{
+					alert("도메인 수정 성공");
+					$("#domainUpdateModal").css("display", "none");
+					
+					domainList();
+				}
+			},
+			error : function(error){
+				alert("도메인 수정 실패");
+			}
+		})
+		
+		var user_id = $("#userId").val();
+		
+		domainList();
+	})
+	
+	// 도메인 삭제 버튼 클릭 이벤트
+	$("#domainDelete").on("click", function(){
+		var user_id = $("#userId").val();
+		var udomain_id = $("#inputDomainId").val();
+		
+		if(udomain_id <= 0){
+			alert("삭제할 도메인을 클릭해 주세요.");
+			return;
+		}
+		
+		var boolean = "";
+		
+	// 도메인 삭제
+	$.ajax({
+		method : "post",
+		url : "/userDomain/deleteUserDomain",
+		data : "udomain_id="+udomain_id,
+		success : function(data){
+			alert("도메인 삭제 성공");
+			boolean = "성공";
+				
+			domainList();
+		},
+		error : function(error){
+			alert("도메인 삭제 실패");
+			boolean = "실패";
+		}
+	})
+})
+	
+	// 도메인 모달 안의 모달창 닫기 버튼 클릭 이벤트
+	$(".addClose").on("click", function(){
+		$("#domainAddModal").css("display", "none");
+		$("#domainUpdateModal").css("display", "none");
+		$("tr").css("background-color", "white");
+		
+		$("#inputDomainId").val("");
+		$("#inputDomainUpdateName").val("");
+		$("#inputDomainUpdateType").val("");
+	})
+	
+	
 	//템플릿 모달창 띄우기(손주형)
 	$("#templateId").on("click", function(){
 		var user_id = $("#userId").val();
@@ -584,10 +768,22 @@ $(document).ready(function() {
 		$("#inputTmpId").val("");
 		$("inputTmpUpdateAbb").val("");
 		$("inputTmpUpdateOriArea").val("");
+		
+		
+		$("#domainModal").css("display", "none");
+		$("#domainUpdateModal").css("display", "none");
+		$("tr").css("background-color", "white");
+		$("#domainTbody").empty();
+		
+		$("#inputDomainId").val("");
+		$("inputDomainUpdateName").val("");
+		$("inputDomainUpdateType").val("");
 	});
 	
 	$(".addClose").on("click", function(){
 		$("#templateAddModal").css("display", "none");
+		$("#domainAddModal").css("display", "none");
+
 	})
 	
 	// DB계정 생성
@@ -1036,4 +1232,36 @@ function processFile(file) {
 	};
 	
 	reader.readAsText(file, "UTF-8");
+}
+
+function domainList(){
+	var user_id = $("#userId").val();
+	
+	$.ajax({
+		method:"post",
+		url : "/userDomain/userDomain",
+		dataType : "json",
+		data : "user_id_fk="+user_id,
+		success : function(response){
+			
+			console.log(response.domainList);
+			var list = response.domainList;
+			
+			var rowData = "";
+			
+			response.domainList.forEach(function (domainVo){
+				rowData += "<tr class='table table-hover domainRow'>";
+				rowData += "<td class='domainTdName'><input type='hidden' id='udomain_id' class='udomain_id' value='"+ domainVo.udomain_id +"'>" + domainVo.udomain_name + "</td>";
+				rowData += "<td class='domainTdType'>" + domainVo.udomain_type + "</td>";
+				rowData += "</tr>";
+			})
+			
+			
+			$("#domainTbody").empty();
+			$("#domainTbody").append(rowData);
+		},
+		error : function(error){
+			console.log(error);
+		}
+	})
 }

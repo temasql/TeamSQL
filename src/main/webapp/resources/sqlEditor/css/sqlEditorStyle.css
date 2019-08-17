@@ -191,6 +191,14 @@
 	z-index:1;
 }
 
+.domainRow{
+	cursor: pointer;
+}
+
+.domainType{
+	text-align: center;
+}
+
 
 #tdTable{
 	text-align: center;
