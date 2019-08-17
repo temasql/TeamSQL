@@ -7,31 +7,34 @@
 <script src="${cp}/resources/quiz/js/quizList.js"></script>
 <script src="${cp}/resources/quiz/js/userMultipleQuiz.js"></script>
 
-<div id="question">문제 : ${quizAndAnswerVO.quiz_question}</div>
-<div id="example">
-	<ol>
-		<c:forEach items="${quizExampleList}" var="exampleVO">
-			<li>
-				<div class="custom-control custom-radio" style="display:contents;">
-			      <label class="example_content" for="customRadio1">${exampleVO.example_content}</label>
-			      <input type="hidden" value="${exampleVO.example_num}">
-			      <input type="hidden" name="example_content" value="${exampleVO.example_content}">
-			    </div>
-		    </li>
-		</c:forEach>
-	</ol>
+<div id="quizHeader">객관식 퀴즈</div>
+<div id="gruopDiv">
+	<div id="question">문제 : ${quizAndAnswerVO.quiz_question}</div>
+	<div id="example">
+		<ol>
+			<c:forEach items="${quizExampleList}" var="exampleVO">
+				<li>
+					<div class="custom-control custom-radio" style="display:contents;">
+				      <label class="example_content" for="customRadio1">${exampleVO.example_content}</label>
+				      <input type="hidden" value="${exampleVO.example_num}">
+				      <input type="hidden" name="example_content" value="${exampleVO.example_content}">
+				    </div>
+			    </li>
+			</c:forEach>
+		</ol>
+	</div>
+	<div id="answer">답 : <input type="text" id="quiz_answer"  name="quiz_answer" 
+						class="form-control" maxlength="1" oninput="numberMaxLength(this);"
+						onKeyup="this.value=this.value.replace(/[^1-5]/g,'');">
+						
+						<input id="hiddenAnswer" type="hidden" value="${quizAndAnswerVO.quiz_answer}">
+	</div>
+	<div id="explain">해설 : ${quizAndAnswerVO.quiz_explain}</div>
+	
+	<input type="hidden" id="quiz_right" name="quiz_right" value="${quizAndAnswerVO.quiz_right}">
+	<input type="hidden" id="quiz_id" value="${quizAndAnswerVO.quiz_id}">
+	<input type="hidden" id="msg"	value="${msg}">
 </div>
-<div id="answer">답 : <input type="text" id="quiz_answer"  name="quiz_answer" 
-					class="form-control" maxlength="1" oninput="numberMaxLength(this);"
-					onKeyup="this.value=this.value.replace(/[^1-5]/g,'');">
-					
-					<input id="hiddenAnswer" type="text" value="${quizAndAnswerVO.quiz_answer}">
-</div>
-<div id="explain">해설 : ${quizAndAnswerVO.quiz_explain}</div>
-
-<input type="hidden" id="quiz_right" name="quiz_right" value="${quizAndAnswerVO.quiz_right}">
-<input type="hidden" id="quiz_id" value="${quizAndAnswerVO.quiz_id}">
-<input type="hidden" id="msg"	value="${msg}">
 
 <div id="BtnDiv">
 	<button id="answerBtn" class="btn btn-secondary">정답 확인</button>

@@ -89,20 +89,15 @@ public class TeamChatController {
 		for(TeamChatVO ChatVO : userChatList) {
 			String date = sdf.format(ChatVO.getChat_dt());
 			if(userVO.getUser_id().equals(ChatVO.getUser_id_fk())) {
-				temp += "<div class='well'>";
-				temp += "<div class='alert alert-info'>";
-				temp += "Me <div class='dt'>" +date + "</div>";
-				temp += "<strong class='Mmessage'>" + ChatVO.getChat_content() + "</strong>";
+				temp += "<div class='myDiv'>";
+//				temp += "Me <div class='dt'>" +date + "</div>";
+				temp += "<p class='Mmessage'>" + ChatVO.getChat_content() + "</p>";
 				temp += "</div>";
-				temp += "</div><br>";
-				temp += "<br><br>";
 			}else {
-				temp += "<div class='well'>";
-				temp += "<div class='alert alert-warning'>";
+				temp += "<div class='youDiv'>";
 				temp += ChatVO.getUser_id_fk() + "<div class='dt'>" + date + "</div>";
-				temp += "<strong class='Ymessage'>" + ChatVO.getChat_content() + "</strong>";
+				temp += "<p class='Ymessage'>" + ChatVO.getChat_content() + "</p>";
 				temp += "</div>";
-				temp += "</div><br><br><br>";
 			}
 		}
 		
@@ -161,20 +156,15 @@ public class TeamChatController {
 		for(TeamChatVO ChatVO : userChatList) {
 			String date = sdf.format(ChatVO.getChat_dt());
 			if(userVO.getUser_id().equals(ChatVO.getUser_id_fk())) {
-				temp += "<div class='well'>";
-				temp += "<div class='alert alert-info'>";
+				temp += "<div class='myDiv'>";
 				temp += "Me <div class='dt'>" +date + "</div>";
-				temp += "<strong class='Mmessage'>" + ChatVO.getChat_content() + "</strong>";
+				temp += "<p class='Mmessage'>" + ChatVO.getChat_content() + "</p>";
 				temp += "</div>";
-				temp += "</div><br>";
-				temp += "<br><br>";
 			}else {
-				temp += "<div class='well'>";
-				temp += "<div class='alert alert-warning'>";
+				temp += "<div class='youDiv'>";
 				temp += ChatVO.getUser_id_fk() + "<div class='dt'>" + date + "</div>";
-				temp += "<strong class='Ymessage'>" + ChatVO.getChat_content() + "</strong>";
+				temp += "<p class='Ymessage'>" + ChatVO.getChat_content() + "</p>";
 				temp += "</div>";
-				temp += "</div><br><br><br>";
 			}
 		}
 		

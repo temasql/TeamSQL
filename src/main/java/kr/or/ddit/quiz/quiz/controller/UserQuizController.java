@@ -135,6 +135,7 @@ public class UserQuizController {
 			
 			returnResult = "/quiz/ajaxHtml/userOXAjaxHtml";
 		}else if(quizVo.getQuiz_right().equals("03")) {
+			logger.debug("quiz_right 입니다 : {}", quizVo.getQuiz_right());
 			
 			returnResult = "/quiz/ajaxHtml/userShortAjaxHtml";
 		}else{
