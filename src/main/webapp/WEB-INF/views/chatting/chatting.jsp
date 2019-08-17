@@ -50,14 +50,15 @@ function initSocket(url) {
 		//나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.
 		if(sessionid == currentuser_session){
 			var printHTML = "<div class='well'>";
-			printHTML += "<div class='alert alert-info'>";
+			printHTML += "<div class='myDiv'>";
 			printHTML += "Me <div class='dt'>" +today + "</div>";
-			printHTML += "<strong class='Mmessage'>" + message + "</strong>";
+			printHTML += "<p class='Mmessage'>" + message + "</p>";
 			printHTML += "</div>";
-			printHTML += "</div><br>";
-			printHTML += "<br><br>";
 			
 			$("#data").append(printHTML);
+			
+			$("#data").scrollTop($("#data")[0].scrollHeight);
+			$(".chattingArticle").scrollTop($(".chattingArticle")[0].scrollHeight);
 		}else{
 			var printHTML = "<div class='well'>";
 			printHTML += "<div class='alert alert-warning'>";
@@ -67,6 +68,9 @@ function initSocket(url) {
 			printHTML += "</div><br><br><br>";
 			
 			$("#data").append(printHTML);
+			
+			$("#data").scrollTop($("#data")[0].scrollHeight);
+			$(".chattingArticle").scrollTop($(".chattingArticle")[0].scrollHeight);
 		}
 	};
 	
@@ -85,13 +89,14 @@ $(document).ready(function() {
 	$("select[name=account]").val(account_id);
 	
 	$("#data").append(userChat);
+	$("#data").scrollTop($("#data")[0].scrollHeight);
+	$(".chattingArticle").scrollTop($(".chattingArticle")[0].scrollHeight);
 	
 	initSocket("/socketChat?userId=" + userId);	//websocket 연결
 });
 </script>
 </head>
 <body>
-	<div id="chatNM">방 제목 : <div id="userId"></div></div>
 	<div id="accountDiv">계정명 : 
 		<select id="account" class="form-control" name="account" class="form-control">
 			<c:forEach begin="0" end="${crewList.size()-1}" step="1" var="i" >
@@ -102,7 +107,11 @@ $(document).ready(function() {
 		</select>
 	</div>
 	<br><br>
-	<div id="data" style=" width:500px; height:500px; border:1px solid #DADFEC;"></div>
+	<section>
+		<article class="chattingArticle">
+			<div id="userId"></div><div id="data" style="height:500px; border:1px solid #DADFEC;"></div>
+		</article>
+	</section>
 	<br>
 	<span><input type="text" id="message" autofocus="autofocus"/></span>
 	<button id="sendBtn" class="btn" style="background: black; color: white;">전송</button><br>

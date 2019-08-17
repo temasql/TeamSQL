@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	
 	//input type text 초기화
 	function sendClick(){
 		var msg = $("#message").val();
@@ -22,6 +23,8 @@ $(document).ready(function(){
 	
 	//채팅창에서 계정 변경시 이벤트
 	$("#account").change(function(){
+		$("#data").scrollTop($("#data")[0].scrollHeight);
+		
 		$("#userId").text($(this).val());
 		var account = $(this).val();
 		$("#account_id").val(account);

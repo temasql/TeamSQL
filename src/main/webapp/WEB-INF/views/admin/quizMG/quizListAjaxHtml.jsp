@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:forEach items="${quizList}" var="quizVO">
-	<tr class="table-light">
+	<tr class="table-light tableRow">
       <th scope="row">${quizVO.quiz_id}</th>
       <td>${quizVO.quiz_question}</td>
       <td style="text-align: center;">${quizVO.user_id_fk}</td>

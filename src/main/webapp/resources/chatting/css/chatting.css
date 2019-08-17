@@ -1,45 +1,34 @@
 @charset "UTF-8";
-body{
-    font-family :'나눔고딕', 'Malgun Gothic', sans-serif;
-}
-#message{
-	width : 498px;	
-}
-.alert-info{
-    float: right;
-    margin-right: 10px;
-    background-color: #E5F1F0;
-    border-radius: 5px;
-    max-width: 200px;
-}
-.alert-warning{
-    float: left;
-    margin-left: 6px;
-    border: 1px solid #BBDEFB;
-    border-radius: 5px;
-    max-width: 200px;
-}
 #data{
-	overflow-y: auto;
 	border-radius: 2px;
-}
-.dt{
-	font-size: 10px;
-	margin-bottom: 5px;
+	overflow-y: auto;
+	height: 10px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+    color:#fff;
+    font-weight: 900;
+    border-bottom: 1px solid #ddd;
 }
 .Mmessage{
-	background-color: #BBDEFB;
-	border-radius: 5px;
+    background-color: #0084FF;
+    margin-top: 4px;
+    float: right;
+    border-radius: 15px;
+    padding: 0px 13px 0px 13px;
+    max-width: 60%;
 }
-.Ymessage{
-	background-color: antiquewhite;
-	border-radius: 5px;
+.myDiv{
+	width: 100%;
+    margin: 0%;
+    display: flow-root;
 }
-#userId{
-	display: inline;
-}
-.well{
-    padding-bottom: 5px;
+.youDiv{
+	background-color: yellow;
+	float: left;
+	width : 70%;
+	word-break:break-word;
+    margin-top: 4px;
 }
 #chatNM{
 	font-size : 24pt;
@@ -47,5 +36,13 @@ body{
 }
 #accountDiv{
 	display: inline;
-    padding-left: 177px;
+    padding-left: 154px;
+}
+#userId{
+	height: 60px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 25px;
+    font-weight: 900;
+    border-bottom: 1px solid #ddd;
 }

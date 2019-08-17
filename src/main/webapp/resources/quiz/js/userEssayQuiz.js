@@ -62,7 +62,7 @@ $(function(){
 						return;
 					}
 					
-					$("#gruopDiv").html(data);
+					$("#overrite").html(data);
 				}
 			})
 		})

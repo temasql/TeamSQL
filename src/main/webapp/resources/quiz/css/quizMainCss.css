@@ -30,6 +30,10 @@
 #gruopDiv{
 	margin: 0px auto;
 	width: 50%;
+    border: 3px solid #C7E4E1;
+    border-radius: 5px;
+    padding: 19px;
+    margin-top: 73px;
 }
 #answer, #explain, #multiple{
 	margin-top: 50px;
@@ -48,7 +52,7 @@
 /*     overflow: hidden; */
 }
 #insertBtn,#updateOXBtn,#updateOXBtnDB{
-    margin-left: 91%;
+    margin-left: 77%;
     margin-top: 2%;
 }
 
@@ -65,4 +69,13 @@ ol{
 }
 #example{
 	margin-top: 50px;
+	margin-left: -15px;
+	font-size: 20px;
+}
+
+#insertOXDB{
+    border: 3px solid #C7E4E1;
+    border-radius : 5px;
+    padding: 19px;
+    margin-top: 73px;
 }
