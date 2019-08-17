@@ -59,7 +59,14 @@
 						</c:forEach>	
 					</ul>
 				</li>
-				<li><a class="aNav" href="${cp}/quizRealMain">SQL퀴즈</a></li>
+				<li class="one"><a class="aNav" href="${cp}/quizRealMain">SQL퀴즈</a>
+					<ul class="quiz-header">
+						<li class="li-three"><a class="two-menu" href="/userQuiz?quiz_right=02">OX퀴즈</a></li>
+						<li class="li-three"><a class="two-menu" href="/userQuiz?quiz_right=03">단답식퀴즈</a></li>
+						<li class="li-three"><a class="two-menu" href="/userQuiz?quiz_right=01">객관식퀴즈</a></li>
+						<li class="li-three"><a class="two-menu" href="/userQuiz?quiz_right=04">주관식퀴즈</a></li>
+					</ul>
+				</li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

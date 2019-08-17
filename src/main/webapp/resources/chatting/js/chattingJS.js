@@ -24,20 +24,12 @@ $(document).ready(function(){
 	$("#account").change(function(){
 		$("#userId").text($(this).val());
 		var account = $(this).val();
-//		alert(account);
-//		
-//		$.ajax({
-//			method : "post",
-//			url : "/changeAccount",
-//			data : "account="+account,
-//			success : function(data){
-//				console.log(data);
-//			},
-//			error : function(error){
-//				alert(error);
-//			}
-//		});
+		$("#account_id").val(account);
+		
+		$("#frm").submit();
 	});
 	
 	$("#data").scrollTop($("#data")[0].scrollHeight);
+	
+	
 })

@@ -53,6 +53,9 @@ public class QuizController {
 		logger.debug("퀴즈");
 		
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
+//		if(userVO.getUser_right().equals("C")) {
+//			return "/quiz/quizUserMain.tiles";
+//		}
 		
 		return "/quiz/quizMain.tiles";
 	}

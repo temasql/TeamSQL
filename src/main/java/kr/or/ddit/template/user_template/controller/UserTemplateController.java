@@ -113,23 +113,27 @@ public class UserTemplateController {
 		userTemplateVO.setUtemplate_abb(userTemplateVO.getUtemplate_abb().toUpperCase());
 		userTemplateVO.setUtemplate_original(userTemplateVO.getUtemplate_original().toUpperCase());
 		
+		logger.debug("수정버튼 클릭 시 템플릿 VO : {}", userTemplateVO);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("user_id_fk", userTemplateVO.getUser_id_fk());
 		map.put("utemplate_abb", userTemplateVO.getUtemplate_abb());
+		map.put("utemplate_id", userTemplateVO.getUtemplate_id());
 		
 		String abb = service.getAbb(map);
+		String sameAbb = service.sameAbb(map); 
+		int result = 0;
 		
-		if(abb != null) {
-			if(abb.equals(userTemplateVO.getUtemplate_abb())) {
-				String msg = "존재하는 약어";
-				
-				model.addAttribute("msg", msg);
-				
-				return "jsonView";
-			}
+		if(sameAbb != null){
+			result = service.updateUserTemplate(userTemplateVO);
+			
+		}else if(abb.equals(userTemplateVO.getUtemplate_abb())) {
+			String msg = "존재하는 약어";
+			
+			model.addAttribute("msg", msg);
+			
+			return "jsonView";
 		}
-		
-		int result = service.updateUserTemplate(userTemplateVO);
 		
 		if(result > 0) {
 			logger.debug(result + "수정 성공");
