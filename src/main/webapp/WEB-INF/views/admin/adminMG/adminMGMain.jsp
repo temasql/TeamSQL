@@ -8,6 +8,7 @@
 placeholder="    아이디로 검색"  style="width: 180px;display: inline;float: right;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 42px;margin-right: 15px;">  <span class="input-group-btn">
 </span>
 	
+	<input type="hidden" id="msg" value="${msg}">
 <a href="/user/insertAdmin"><button type="button" class="btn" style="background: black; color: white;">관리자 추가</button></a>
 <form action="/user/deleteAdminMG" style=" display: contents;" id="deleteForm">
 	<button type="button" id="deleteAdmin" class="btn" style="background: black; color: white;">관리자 삭제</button>

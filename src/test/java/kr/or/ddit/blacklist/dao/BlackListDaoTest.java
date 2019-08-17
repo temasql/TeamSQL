@@ -1,6 +1,7 @@
 package kr.or.ddit.blacklist.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.blacklist.model.BlackListVO;
 import kr.or.ddit.testenv.LogicTestEnv;
@@ -33,6 +36,9 @@ public class BlackListDaoTest extends LogicTestEnv{
 
 	@Resource(name = "blackListDao")
 	private IBlackListDao blackListDao;
+	
+	private static final Logger logger = LoggerFactory.getLogger(BlackListDaoTest.class);
+
 	
 	/**
 	* Method : insertBlackListTest
@@ -116,4 +122,17 @@ public class BlackListDaoTest extends LogicTestEnv{
 		assertEquals(1, deleteBlackListCount);
 	}
 
+	@Test
+	public void loginBlackListUserCheck() {
+		/***Given***/
+		String user_id_fk = "js1450";
+		/***When***/
+		List<BlackListVO> blackList = blackListDao.loginBlackListUserCheck(user_id_fk);
+		logger.debug("[{}]",blackList);
+		/***Then***/
+		assertNotNull(blackList);
+		assertEquals(1, blackList.size());
+
+	}
+	
 }

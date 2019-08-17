@@ -19,6 +19,13 @@
 		)
 	</insert>
 	
+	<select id="loginBlackListUserCheck" parameterType="String" resultType="blackListVo">
+		 SELECT USER_ID_FK
+		 FROM BLACKLIST
+		 WHERE USER_ID_FK = #{values}
+		 AND CANCEL_DT IS NULL
+	</select>	
+	
 	<!-- 블랙리스트 페이징 처리 -->
 	<select id="blackList" parameterType="map" resultType="blackListVo">
 		<![CDATA[ 

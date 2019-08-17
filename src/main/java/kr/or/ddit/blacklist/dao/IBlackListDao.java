@@ -27,6 +27,7 @@ public interface IBlackListDao {
 	*/
 	List<BlackListVO> blackList(Map<String, Object> pageMap);
 	
+	List<BlackListVO> loginBlackListUserCheck(String user_id_fk);
 
 	/**
 	* Method : blackListSearchCount

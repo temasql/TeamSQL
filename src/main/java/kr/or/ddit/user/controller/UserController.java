@@ -423,11 +423,12 @@ public class UserController {
 	* Method : adminManager
 	* 작성자 : 이중석
 	* 변경이력 :
+	 * @param model 
 	* @return
 	* Method 설명 : 관리자 관리 메인 요청 화면
 	*/
 	@RequestMapping(path = "/adminManager", method = RequestMethod.GET)
-	public String adminManager() {
+	public String adminManager(Model model) {
 		return "/admin/adminMG/adminMGMain.tiles";
 	}
 	
@@ -496,10 +497,11 @@ public class UserController {
 		}
 		
 		// 등록
-		if(userService.insertAdmin(userVo) == 1)
+		if(userService.insertAdmin(userVo) == 1) {
+			model.addAttribute("msg", "관리자" + userVo.getUser_id() + "를 추가했습니다.");
 			// 로그인페이지로 이동
-			return adminManager();
-		
+			return adminManager(model);
+		}
 		model.addAttribute("userVo", userVo);
 		return "/admin/adminMG/adminMGInsert.tiles";
 	}
@@ -514,12 +516,19 @@ public class UserController {
 	* Method 설명 : 관리자 삭제
 	*/
 	@RequestMapping("/deleteAdminMG")
-	public String deleteAdminMG(String[] deleteCheck, Model model) {
+	public String deleteAdminMG(String[] deleteCheck, Model model, HttpSession session) {
+		
+		UserVO userVo =  (UserVO) session.getAttribute("USER_INFO");
 		
 		for (int i = 0; i < deleteCheck.length; i++) {
+			if (deleteCheck[i].equals(userVo.getUser_id())) {
+				model.addAttribute("msg", "자기 자신은 삭제 시킬 수 없습니다.");
+				return adminManager(model);
+			}
 			userService.deleteUserMG(deleteCheck[i]);
+			model.addAttribute("msg", "관리자 [" + deleteCheck[i] + "] 을 삭제했습니다.");
 		}
-		return adminManager();
+		return adminManager(model);
 	}
 	
 }

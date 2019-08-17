@@ -69,6 +69,11 @@ public class BlackListDao implements IBlackListDao{
 		return sqlSession.update("blackList.deleteBlackListMG", userMap);
 	}
 
+	@Override
+	public List<BlackListVO> loginBlackListUserCheck(String user_id_fk) {
+		return sqlSession.selectList("blackList.loginBlackListUserCheck", user_id_fk);
+	}
+
 	
 
 }

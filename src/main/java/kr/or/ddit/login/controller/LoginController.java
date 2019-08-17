@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.or.ddit.blacklist.service.IBlackListService;
 import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
@@ -43,6 +44,8 @@ public class LoginController {
 	private ICrewService crewService;
 	@Resource(name = "boardService")
 	private IBoardService boardService;
+	@Resource(name = "blackListService")
+	private IBlackListService blackListService;
 	
 	/**
 	* Method : userLoginGet
@@ -94,6 +97,13 @@ public class LoginController {
 		logger.debug("userVo : {}", loginUserVo);
 		// 요청 받은 비밀번호를 암호화
 		String encryptPassword = KISA_SHA256.encrypt(userVo.getUser_pw());
+
+		if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
+				&& blackListService.loginBlackListUserCheck(loginUserVo.getUser_id()).size() > 0) {
+			model.addAttribute("msg", "블랙리스트 회원입니다.");
+			return "/login/login";
+			
+		}
 		
 		// 입력받은 아이디에 해당하는 사용자 VO객체가 존재하고 VO에 비밀번호와 입력받은 비밀번호가 일치할 때
 		if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
@@ -108,7 +118,7 @@ public class LoginController {
 			
 			// 게시판 리스트
 			session.setAttribute("boardList", boardService.boardList());
-			
+			logger.debug("loginBlackListUserCheck(loginUserVo.getUser_id()).size() : {}", blackListService.loginBlackListUserCheck(loginUserVo.getUser_id()).size());
 			// remeberme 쿠키를 생성하는 유틸클래스
 			ReMemberMeCookieUtil.rememberMeCookie(userVo.getUser_id(), rememberme, response);
 			
@@ -169,7 +179,8 @@ public class LoginController {
 			model.addAttribute("msg", "탈퇴한 회원입니다.");
 			return "/login/login";
 
-		}
+		}	
+		
 		redirectAttributes.addAttribute("user_id", userVo.getUser_id());
 		redirectAttributes.addAttribute("user_pw", userVo.getUser_pw());
 		
