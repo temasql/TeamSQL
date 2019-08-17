@@ -8,6 +8,7 @@
 <%@include file="/WEB-INF/views/sqlEditor/modal/tablePackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/functionPackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/ProcedurePackage.jsp" %>
+<%@include file= "/WEB-INF/views/sqlEditor/modal/domainPackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/templatePackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/viewPackage.jsp" %>
 <%@include file="/WEB-INF/views/sqlEditor/modal/indexPackage.jsp" %>	
@@ -29,7 +30,7 @@
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="worksheetLoad" title="워크시트 불러오기" src="${cp}/resources/img/open.png"></li>
 				<li class="breadcrumb-item">
-					<img class="imgBtn" title="도메인" src="${cp}/resources/img/domain.png"></li>
+					<img class="imgBtn" id="domainId" title="도메인" src="${cp}/resources/img/domain.png"></li>
 				<li class="breadcrumb-item">
 					<img class="imgBtn" id="templateId" title="템플릿" src="${cp}/resources/img/template.png"></li>
 				<li class="breadcrumb-item">
