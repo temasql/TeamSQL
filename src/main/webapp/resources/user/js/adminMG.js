@@ -7,6 +7,9 @@ $(function (){
             $("#deleteForm :last-child").remove();
         }
 	})
+	if($("#msg").val() != ""){
+		alert($("#msg").val())
+	}
 	
 	$("#deleteAdmin").on("click", function (){
 		if($(".deleteChecked").length == 0){
@@ -18,11 +21,12 @@ $(function (){
 			})
 			var result = confirm("관리자 " + tmp + "을 삭제 시키시겠습니까?");
 			if(result){
-				alert("관리자 " + tmp + "을 삭제 했습니다.")
+				alert("관리자 " + tmp + "을 삭제 합니다.")
 				$("#deleteForm").submit();
 			}
 		}
 	})
+	
 	adminPagingListAjaxHtml(1, 10);
 	
 	$("#btnSearch").on("click", function(){

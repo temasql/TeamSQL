@@ -61,4 +61,10 @@ public class BlackListService implements IBlackListService{
 		return blackListDao.deleteBlackListMG(userMap);
 	}
 
+
+	@Override
+	public List<BlackListVO> loginBlackListUserCheck(String user_id_fk) {
+		return blackListDao.loginBlackListUserCheck(user_id_fk);
+	}
+
 }

@@ -1,5 +1,6 @@
 package kr.or.ddit.blacklist.service;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.blacklist.model.BlackListVO;
@@ -35,4 +36,7 @@ public interface IBlackListService {
 	* Method 설명 : 블랙리스트 해제
 	*/
 	int deleteBlackListMG(Map<String, Object> userMap);
+	
+	
+	List<BlackListVO> loginBlackListUserCheck(String user_id_fk);
 }
