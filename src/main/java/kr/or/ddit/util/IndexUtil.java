@@ -47,4 +47,14 @@ public class IndexUtil {
 		
 		
 	}
+	
+	public String updateIndex(String update_name) {
+		String query = "DROP INDEX " + update_name;
+		
+		
+		logger.debug("편집쿼리문 : {}",query);
+		return query;
+		
+		
+	}
 }

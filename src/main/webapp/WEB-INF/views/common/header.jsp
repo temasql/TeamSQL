@@ -11,45 +11,48 @@
 <header>
   <!-- Navigation -->
  <nav class="navMenu">
-  <div class="divNav">
- 	<div class="navLogo">
- 	<a class="aLogo"  id ="mainLogo" href="${cp}/main"><img id="logo" src="${cp}/resources/img/logo.png" alt="Main" title="Main"></a>
- 	</div>
-	<ul class="ul-header-one">
-		<c:choose>
-			<c:when test="${USER_INFO.user_right eq 'A' }">
-				<li><a class="aNav" href="${cp }/user/userManager">회원관리</a></li>
-				<li><a class="aNav" href="${cp }/blackList/blackListManager">블랙리스트관리</a></li>
-				<li class="one"><a class="aNav" href="${cp }/board/manager">게시판관리</a>
-					<ul class="ul-header-two">
-						<c:forEach items="${boardList }" var="board">
-							<c:if test="${board.board_use eq 'Y'}">
-								<li class="li-two"><a class="two-menu" href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
-							</c:if>
-						</c:forEach>	
-					</ul>
-				</li>
-				<li><a class="aNav" href="/quizMain">퀴즈관리</a></li>
-				<li><a class="aNav" href="${cp }/user/adminManager">관리자관리</a></li>
-			</c:when>
-			<c:otherwise>
-			<li><a class="aNav" href="${cp}/sqlEditor/sqlEditorMain">SQL에디터</a></li>
-		  		<li><a class="aNav" href="${cp}/history/historyList">DB변경이력관리</a></li>
-				<li><a class="aNav" href="${cp}/crew/crewManager">구성원관리</a></li>
-				<li class="one"><a class="aNav" href="#">게시판</a>
-					<ul class="ul-header-two">
-						<c:forEach items="${boardList }" var="board">
-							<c:if test="${board.board_use eq 'Y'}">
-								<li class="li-two"><a class="two-menu" href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
-							</c:if>
-						</c:forEach>
-					</ul>
-				</li>
-				<li><a class="aNav" href="${cp}/quizRealMain">SQL퀴즈</a></li>
-			</c:otherwise>
-		</c:choose>
-	</ul>
-	</div>
+ <div class="menubar">
+<ul>
+	<c:choose>
+	  <c:when test="${USER_INFO.user_right eq 'A' }">
+	    <li><a href="${cp }/user/userManager">회원관리</a></li>
+	    <li><a href="${cp }/blackList/blackListManager">블랙리스트관리</a></li>
+	    <li><a href="${cp }/board/manager">게시판관리</a>
+		  <ul class="ul-header-two">
+			<c:forEach items="${boardList }" var="board">
+	    	  <li><a href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a>
+			</c:forEach>	
+		  </ul>
+	    </li>
+	    <li class="one"><a class="aNav" href="${cp}/quizRealMain">SQL퀴즈</a>
+          <ul class="quiz-header">
+             <li><a href="/userQuiz?quiz_right=02">OX퀴즈</a></li>
+             <li><a href="/userQuiz?quiz_right=03">단답식퀴즈</a></li>
+             <li><a href="/userQuiz?quiz_right=01">객관식퀴즈</a></li>
+             <li><a href="/userQuiz?quiz_right=04">주관식퀴즈</a></li>
+          </ul>
+        </li>
+	    <li><a href="${cp }/user/adminManager">관리자관리</a>
+	  </c:when>
+	<c:otherwise>
+	 <li><a href="${cp}/sqlEditor/sqlEditorMain">SQL에디터</a></li>
+	 <li><a href="${cp}/history/historyList" id="current">DB변경이력관리</a></li>
+	 <li><a href="${cp}/crew/crewManager">구성원관리</a></li>
+	 <li><a href="#">게시판</a>
+	 	<ul class="ul-header-two">
+			<c:forEach items="${boardList }" var="board">
+				<c:if test="${board.board_use eq 'Y'}">
+					<li><a href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
+				</c:if>
+			</c:forEach>
+		</ul>
+	 </li>
+	 <li><a class="aNav" href="${cp}/quizRealMain">SQL퀴즈</a></li>
+	 </c:otherwise>
+	</c:choose>
+</ul>
+</div>
+  
 
 <!-- 챗봇 -->	
 <div class="chatbot">

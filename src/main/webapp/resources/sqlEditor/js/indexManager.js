@@ -2,8 +2,8 @@ $(document).ready(function() {
 
 	// 인덱스 생성 모달창 띄우기
 	$("#createIndexSpan").on("click", function() {
-		var owner = $("#table_owner").val().trim();				// DB계정명		
-		var table_owner= owner.toUpperCase();					// DB계정명 대문자 치환
+		var owner = $("#table_owner").val().trim();				// DB계정명
+		var table_owner= owner.toUpperCase();					// DB계정명 대문자 변경
 		
 		$("#craeteIndexModal").css("display", "block"); // 모달창 띄우기
 		$("#index_tableBody").empty();	// 테이블 초기화
@@ -50,14 +50,41 @@ $(document).ready(function() {
 	
 	// 인덱스 컬럼 삭제
 	$("#removeIndex").on("click", function() {
-		$("#" + $("#deleteHidden").val()).remove()
-		var deleteId = $("#deleteHidden").val();
+		$("#" + $("#deleteCol").val()).remove()
+		var deleteId = $("#deleteCol").val();
+		
+		$("#" + deleteId).remove();
+	});
+	$(document).on("click", ".selecCol", function() {
+		$("#deleteCol").val($(this).parent().attr("id"));
+		console.log("태그 아이디 : " + $("#deleteCol").val($(this).parent().attr("id")).val())
+	});
+	
+	// 인덱스 편집 컬럼 삭제
+	$("#updateRemoveIndex").on("click", function() {
+		$("#" + $("#updateDeleteHidden").val()).remove()
+		var deleteId = $("#updateDeleteHidden").val();
 		$("#" + deleteId).remove();
 	});
 	
-	$(document).on("click", ".selecCol", function() {
-		$("#deleteHidden").val($(this).parent().attr("id"));
+	// 인덱스 편집 원래 있던 컬럼 선택시 이벤트
+	$(document).on("click", ".beforeSelecCol", function() {
+		console.log("클릭")
+		
+		$("#updateDeleteHidden").val($(this).parent().attr("id"));
+		
+		console.log($("#updateDeleteHidden").val($(this).parent().attr("id")).val());
 	});
+	
+	// 인덱스 편집 추가된 컬럼 선택시 이벤트
+	$(document).on("click", ".updateSelecCol", function() {
+		console.log("클릭")
+		
+		$("#updateDeleteHidden").val($(this).parent().attr("id"));
+		console.log($("#updateDeleteHidden").val($(this).parent().attr("id")).val());
+	});
+	
+	
 	
 	
 	// DDL 쿼리 출력
@@ -69,7 +96,6 @@ $(document).ready(function() {
 		  , type : "post"
 		  , data : $("#createIndexFrm").serialize()
 		  , success : function(data){
-//			var rowIndex= "<input type='hidden' id = 'ddlQuery' value='"+trCnt +"'>";
 			$("#hidden_table").empty();
 			var temp = "<br><br><h5>" + data.trim() + "</h5>";
 			$("#hidden_table").append(temp);
@@ -90,7 +116,7 @@ $(document).ready(function() {
 		
 	})
 	
-	// 인덱스 생성
+	// 인덱스 생성 버튼 클릭 이벤트
 	$("#createIndexBtn").on("click",function(){
 		
 		if($("#indexName").val().trim() <= 0){
@@ -119,6 +145,36 @@ $(document).ready(function() {
 		  }
 		})
 	});
+		
+	// 인덱스 편집 버튼 클릭 이벤트
+	$("#updateIndexBtn").on("click",function(){
+		
+		if($("#updateIndexName").val().trim() <= 0){
+			alert("인덱스 이름을 입력해주세요.");
+			$("#updateIndexName").val("");
+			$("#updateIndexName").focus();
+			return;
+		}
+		if($("#updateTd_indexType_select").val() == "BITMAP"){
+			alert("오류발생 : \n" +
+			"ORA-00439: feature not enabled: Bit-mapped indexes")
+			return;
+		}
+		$.ajax({
+			url : "/sqlEditor/updateIndex"
+				, type : "post"
+					, data : $("#updateIndexFrm").serialize()
+					, success : function(data){
+						$("#updateIndexModal").css("display","none");
+						alert("인덱스가 생성 되었습니다.")
+						location.replace("/sqlEditor/sqlEditorMain");
+						$("#data.hidden_tableName").val(data.hidden_tableName);
+						
+					},error : function(){
+						alert("인덱스 생성에 실패하였습니다.")
+					}
+		})
+	});
 	
 	// 모달창 닫기
 	$(".close").on("click", function() {
@@ -132,9 +188,10 @@ $(document).ready(function() {
 	$("#appendIndex").on("click",function(){
 		appendIndexAjax();
 	})
+	
 	// 인덱스 변경 컬럼 추가
 	$("#updateaApendIndex").on("click",function(){
-		appendIndexAjax();
+		updateAppendIndexAjax();
 	})
 	
 	
@@ -145,8 +202,8 @@ $(document).ready(function() {
 		$("#readIndexDiv").empty();// div 비우기
 		
 		var selectVal = $("#readIndexSelect").val().trim();		// 선택된 옵션
-		var owner = $("#tableOwner").val().trim();				// DB계정명		
-		var table_owner= owner.toUpperCase();					// DB계정명 대문자 치환
+		var owner = $("#tableOwner").val().trim();				// DB계정명
+		var table_owner= owner.toUpperCase();					// DB계정명 대문자 변경
 		var index_name= $("#indexName").val().trim();			// 인덱스명
 		
 		$.ajax({
@@ -169,8 +226,8 @@ $(document).ready(function() {
 		$("#readIndexDiv").empty();
 		
 		var selectVal = $("#readIndexSelect").val().trim();		// 선택된 옵션
-		var owner = $("#tableOwner").val().trim();				// DB계정명		
-		var table_owner= owner.toUpperCase();					// DB계정명 대문자 치환
+		var owner = $("#tableOwner").val().trim();				// DB계정명
+		var table_owner= owner.toUpperCase();					// DB계정명 대문자 변경
 		var index_name= $("#indexName").val().trim();			// 인덱스명
 		
 		if(selectVal == "코드"){
@@ -483,8 +540,8 @@ $(document).ready(function() {
 	
 	// 인덱스 삭제
 	$("#deleteIndexSpan").on("click",function(){
-		var owner = $("#tableOwner").val().trim();				// DB계정명		
-		var table_owner= owner.toUpperCase();					// DB계정명 대문자 치환
+		var owner = $("#tableOwner").val().trim();				// DB계정명
+		var table_owner= owner.toUpperCase();					// DB계정명 대문자 변경
 		var index_name= $("#indexName").val().trim();			// 인덱스명
 		
 		$.ajax({
@@ -508,11 +565,12 @@ $(document).ready(function() {
 	
 // 인덱스 컬럼 추가
 	function appendIndexAjax(){
-		var owner = $("#table_owner").val().trim();				// DB계정명		
-		var table_owner= owner.toUpperCase();					// DB계정명 대문자 치환
+		var owner = $("#table_owner").val().trim();				// DB계정명
+		var table_owner= owner.toUpperCase();					// DB계정명 대문자 변경
 		var table_name = $("#td_select").val();
 		
 		cnt += 1;
+		console.log(cnt)
 		
 		$.ajax({
 			url :"/sqlEditor/indexTblCol"
@@ -520,7 +578,7 @@ $(document).ready(function() {
 					, data : "owner=" + table_owner + "&table_name=" + table_name 
 					, success : function(data){
 						
-						// 컬럼 개수만큼
+						// 컬럼 개수 지정
 						var trCnt = $(".tableColumnTr").length;
 						if(data.length <= trCnt) {
 							alert("테이블에 컬럼을 추가해주세요.");
@@ -548,10 +606,16 @@ $(document).ready(function() {
 		})
 	}
 	
+
+	
 	// 인덱스 편집 모달창 띄우기
 	$("#updateIndexSpan").on("click",function(){
+		
 		var owner = $("#tableOwner").val().trim();				// DB계정명
-		var table_upperOwner = owner.toUpperCase();					// DB계정명 대문자 치환
+		var table_upperOwner = owner.toUpperCase();					// DB계정명 대문자 변경
+		console.log(owner)
+		$("#hidden_owner").val(owner);
+		console.log($("#hidden_owner").val())
 		var index_name= $("#indexName").val().trim();			// 시퀀스명
 		var idx = table_upperOwner.indexOf("_");
 		var table_owner = table_upperOwner.substring(0, idx);
@@ -580,165 +644,113 @@ $(document).ready(function() {
 		
 			url : "/sqlEditor/beforeIndex"
 		  , method : "post"
-		  , data : "table_owner=" + table_upperOwner + "&index_name=" + index_name + "&owner=" + table_upperOwner + "&table_name=" + fff
+		  , data : "table_owner=" + table_upperOwner + "&index_name=" + index_name + "&table_name=" + fff
 		  , dataType : "json"
 		  , success : function(data){
 			  console.log(data)
 			  console.log(data.idxVO[0].index_name)
+			  console.log(data.idxVO[0].table_owner)
 			  
-			  $("#tblOwner").text(data.idxVO[0].table_owner); // db계정명
-			  $("#updateIndexName").val(data.idxVO[0].index_name); // 인덱스명 
+			  var owner = data.idxVO[0].table_owner;	// db계정명
+			  var table_upperOwner = owner.toUpperCase();	// 대문자 변환
+			  var idx = table_upperOwner.indexOf("_");	// 구분자
+			  var table_owner = table_upperOwner.substring(0, idx);	// 구분자부터 끝까지 짜르기
+			  
+			  $("#update_owner").val(table_upperOwner);
+			  $("#tblOwner").text(table_owner); // db계정명
+			  $("#updateIndexName").val(data.idxVO[0].index_name); // 인덱스명
 			  $("#selectedTable_name").val(data.idxVO[0].table_name); // 테이블명
+			  
+			  
 			  if(data.tbl_name == "NONUNIQUE"){
 				  $("#updateTd_indexType_select option:eq(0)").prop("selected", true);
-
-//				  $("#nonUnique").prop("selected",true);
 			  }else if(data.tbl_name == "UNIQUE"){
-//				  $("#updateTd_indexType_select").val("UNIQUE").prop("selected", true);
 				  $("#updateTd_indexType_select option:eq(1)").prop("selected", true);
 			  }else{
-//				  $("#updateTd_indexType_select").val("BITMAP").prop("selected", true);
 				  $("#updateTd_indexType_select option:eq(2)").prop("selected", true);
 			  }
 			  
-//			  var beforeCol = "<tr class='tableColumnTr' id='tableColumnTr"+cnt+"'>" +
-//				"<td class='selecCol'><select class='form-control' id='tableColumn' name='param_column'>";
-//				for(var i =0; i <data.idxVO.length; i++){
-//					beforeCol += "<option value='" + data.idxVO[i].column_name + "'>" + data.idxVO[i].column_name + "</option>";
-//				}
-//				beforeCol += "</select>" +
-//				"</td>" +
-//				"<td>" +
-//				"<select class='form-control' class= 'columnOrder' id='updateColumnOrder' name='updateColumnOrder'";
-//				
-//				for(var i =0; i <data.idxVO.length; i++){
-//					if(data.idxVO[i].descend == "ASC"){
-//						beforeCol +="<option selected='selected' value='ASC'>ASC</option>" +
-//								"<option value='DESC'>DESC</option>";
-//					}else{
-//						$("#updateColumnOrder option:eq(1)").prop("selected", true);
-//					} 
-//				}
-//				beforeCol += "</select></td>";
 			  var beforeCol = "";
-			  var cnt = 0;
+			  
 			  for(var i = 0; i < data.idxVO.length; i++){
-				  beforeCol += "<tr class='tableColmunTr' id='tableColumnTr'"+ cnt +"'>" +
-				  "<td class='selecCol'><select class='form-control' id='tableColumn' name='update_column'>";
-				  for(var j = 0; j < data.idxVO.length; j++){
-				  beforeCol +="<option value='"+ data.idxVO[j].column_name + "'>" + data.idxVO[j].column_name + "</option>";
+				  console.log("idxVO[i] : " +   data.idxVO[i].column_name)
+				  beforeCol += "<tr class='tableColmunTr' id='updateTableColumnTr"+i +"'>" +
+				  "<td class='beforeSelecCol'><select class='form-control update_column' id='update_column' name='update_column'>";
+				  for(var j = 0; j < data.col_name.length; j++){
+					  if (data.col_name[j] == data.idxVO[i].column_name) {
+						  beforeCol +="<option value='"+ data.col_name[j] + "' selected>" + data.col_name[j] + "</option>";
+					}else {
+						beforeCol +="<option value='"+ data.col_name[j] + "'>" + data.col_name[j] + "</option>";
+					}
 				  }
-				  beforeCol +="</select>"+
-				  "</td>" +
-				  "<td>" +
-				  "<select class='form-control' class= 'columnOrder' id='updateColumnorder' name='updateColumnOrder'";
-				  for(var k = 0; k < data.idxVO.length; k++){
-						  beforeCol += "<option selected='selected' value='ASC'>ASC</option>"
-						  
-				  }
-				  beforeCol +="</td>";
 				  beforeCol +="</select>";
-				  
-//				  if($("#tableColumn").val() == )
-				  
+				  beforeCol +="</td>" +
+					  "<td>" +
+						  "<select class='form-control updateColumnorder' id='updateColumnorder' name='update_order'>";
+					   	if (data.idxVO[i].descend == 'ASC'){ 	
+							  beforeCol +="<option value='ASC' selected>ASC</option>";
+							  beforeCol +="<option value='DESC' >DESC</option>";
+							
+						} else if(data.idxVO[i].descend == 'DESC'){
+							beforeCol +="<option value='ASC' >ASC</option>";
+							beforeCol +="<option value='DESC' selected>DESC</option>";
+						}
+				  	
+				  beforeCol += "</select>" +
+					  "</td>" +
+				  "</tr>";
 				  
 			  }
-			  beforeCol +="</tr>"
 				$("#updateIndex_tableBody").append(beforeCol);
-//			  			  var owner = "<div class='form-group'>" +
-//			  "<label id='updateOwner'>"+ data.idxVO[0].table_owner +"</lable>" +
-//			  "<input type = 'text' class='form-control' id='updateIndexName' name = 'update_name'"+
-//			  " value='"+data.idxVO[0].index_name+ "'>" +
-//			  "<small class='form-text text-muted' id='updateTableNameHint'>영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>"+
-//			  "</div>";
-//			  $("#ownerNname").append(owner);
-//			  "<label id='updateIdxOption'>속성</label>" +
-//			  "<div id='update_table'>" +
-//			  "<input type ='hidden' id='update_tableOwner' name='update_tableOwner'>" +
-//			  "<table id='updateIndex_option'>" +
-//			  "<tr>" +
-//			  "<td id='updateTd_table_name'>테이블 : </td>" +
-//			  "<td>"
-//			  "<select class='form-control' id='updateTd_select' name='update_table'>" +
-//			  "<option value='"+ data.idxVO[0].table_name +"'>" + data.idxVO[0].table_name + "</option>" +
-//			  "</select>" +
-//			  "</td>" +
-//			  "</tr>" +
-//			  "<tr id='updateIndex_type'>" +
-//			  "<td id='td_updateIndexType'>인덱스 유형 : </td>" +
-//			  "<td>" +
-//			  "<select class='form-control' id='updateTd_indexType_select' name='updateTd_indexType'>" +
-//			  "<option value=''><지정되지 않음></option>" +
-//			  "<option value=''><고유하지 않음></option>" +
-//			  "<option value='UNIQUE'><고유></option>" +
-//			  "<option value='BITMAP'><비트맵></option>" +
-//			  "</select>" +
-//			  "</td>" +
-//			  "</tr>" +
-//			  "</table>" +
-//			  "</div>" +
-//			  "<div id='selectDiv_2'>" +
-//			  "<select id='select_2'>" +
-//			  "<option id='updateDefine'>정의</option>" +
-//			  "<option>DDL</option>" +
-//			  "</select>" +
-//			  "<div id='pAndm2'>" +
-//			  "<input type='hidden' id='table_name'>" +
-//			  "<img class='plustBtn' id='updateAppendIndex' src='${cp}/resources/img/add.png'>  " +
-//			  "<img class='minusBtn' id='updateRemoveIndex' src='${cp}/resources/img/delete.png'>" +
-//			  "</div>" +
-//			  "</div>" +
-//			  "<div id='updateTable_scroll'>" +
-//			  "<div id='hidden_updateTable'></div>" +
-//			  "<input type='hidden' id='updateDeleteHidden'>" +
-//			  "<table class='table table-hover index' id='updateIndex_table'>" +
-//			  "<thead>" +
-//			  "<tr>" +
-//			  "<th id='updateExpression' scope='col'>표현식</th>" +
-//			  "<th id='order' scope='col'>정렬</th>" +
-//			  "</tr>" +
-//			  "</thead>" +
-//			  "<tbody id='updateIndex_tableBody'>";
-//			  "<tr class='tableColumnTr' id='updateTableColumnTr"+cnt+"'>" +
-//				"<td class='selecCol'><select class='form-control' id='tableColumn' name='param_column'>";
-//				for (var i = 0; i < data.col_name.length; i++) {
-//					temp += "<option value='" + data.col_name[i] + "'>" + data.col_name[i] + "</option>";
-//				}
-//				// 컬럼 개수만큼
-//				var trCnt = $(".tableColumnTr").length;
-//				if(data.col_name.length <= trCnt) {
-//					alert("테이블에 컬럼을 추가해주세요.");
-//					return;
-//				}
 				
-//				temp += "</select>" +
-//				"</td>" +
-//				"<td>"+
-//				"<select class='form-control' class= 'columnOrder' id='update_order' name='update_order'>" +
-//				"<option value='지정되지 않음'>지정되지 않음</option>"+ 
-//				"<option value='ASC'>ASC</option>" +
-//				"<option value='DESC'>DESC</option>"+
-//				"</select>"
-//				"<input type='hidden' id = 'updateTrCnt' value='"+trCnt +"'>" +
-//				"</tbody>" +
-//				"</table>" +
-//				"</div>";
-				
-				
-			  
-			  	
-			  
-			  
-			  
-			  
-//			  $('#updateTd_select').prop('disabled', true);
-//			  $("#updateIndex").append(temp);
 			  
 		  }
 		});
 	});
 	
+	colCnt = 0;
+	// 업데이트 인덱스 컬럼 추가
+	function updateAppendIndexAjax(){
+		var owner = $("#tblOwner").text().trim();				// DB계정명
+		var table_owner= owner.toUpperCase();					// DB계정명 대문자 변환
+		var table_name = $("#selectedTable_name").val();
+		
+		
+		
+		$.ajax({
+			url :"/sqlEditor/indexTblCol"
+				, type : "post"
+					, data : "owner=" + table_owner + "&table_name=" + table_name 
+					, success : function(data){
+						var optionCnt = $(".update_column").length;
+						optionCnt = data.length - optionCnt;
+						// 컬럼 개수 지정
+						var trCnt = $(".updateTableColumnTr").length;
+						if(optionCnt <= trCnt) {
+							alert("테이블에 컬럼을 추가해주세요.");
+							return;
+						}
+						var rowIndex = "<tr class='updateTableColumnTr' id='addTableColumnTr"+ colCnt++ +"'>" +
+						"<td class='updateSelecCol'><select class='form-control' id='updateColumn' name='update_column'>";
+						for (var i = 0; i < data.length; i++) {
+							rowIndex += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+						}
+						rowIndex += "</select>"+
+						"</td>" +
+						"<td>"+
+						"<select class='form-control' class= 'columnOrder' id='columnOrder' name='update_order'>" +
+						"<option value='지정되지 않음'>지정되지 않음</option>"+ 
+						"<option value='ASC'>ASC</option>" +
+						"<option value='DESC'>DESC</option>"+
+						"</select>"
+						"<input type='hidden' id = 'trCnt' value='"+trCnt +"'>";
+						$("#updateIndex_tableBody").append(rowIndex);
+						
+					}
+		});
+	}
 	
-});
+  });
+
 
 

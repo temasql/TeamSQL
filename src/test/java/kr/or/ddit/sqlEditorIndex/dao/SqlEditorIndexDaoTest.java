@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import kr.or.ddit.sqlEditorIndex.model.IndexColVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexDetailVO;
 import kr.or.ddit.testenv.LogicTestEnv;
-import kr.or.ddit.util.IndexUtil;
 
 public class SqlEditorIndexDaoTest extends LogicTestEnv {
 

@@ -17,6 +17,7 @@
 	    <label id="owner"></label>
 	    <div class="form-group">
 	      <input type="text" class="form-control" id="indexName" name="param_name" placeholder="인덱스명">
+	      <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>
 	    </div>
 	    <div id="select_table">
 			  <input type="hidden" id="table_owner" name="param_owner">
@@ -58,7 +59,7 @@
 	    </div>
 	    <div id="table_scroll">
 	    <div id="hidden_table"></div>
-		    <input type="hidden" id="deleteHidden"/>
+		    <input type="hidden" id="deleteCol"/>
 	    <table class="table table-hover index" id="index_table">
 			<thead>
 				<tr>
@@ -92,23 +93,6 @@
 	  	<div id="readIndexDiv"></div>
 	</div>
 </div>
-<!-- 인덱스 편집 모달 -->
-<%-- <div id="updateIndexModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content index" id="updateModal_index">
-    <span class="close">&times;</span>   
-    <br><br>                  
-	<form action="${cp}/sqlEditor/updateIndex" method="post" id="updateIndexFrm">
-	  <fieldset>
-	    <legend>인덱스 편집</legend>
-	      <div id="updateIndex">
-	      <input type="hidden"  id="hidden_tableName">
-	      </div>
-		<button type="button" class="btn btn-secondary" id="updateIdxBtn">확인</button>	   
-      </fieldset>
-     </form>
-  </div>
-</div> --%>
 
 <!-- 인덱스 편집 모달 -->
 <div id="updateIndexModal" class="modal">
@@ -119,24 +103,27 @@
 	<form action="${cp}/sqlEditor/updateIndex" method="post" id="updateIndexFrm">
 	  <fieldset>
 	    <legend>인덱스 편집</legend>
-	    <div><label id="tblOwner"></label></div>
+	    <div><label id="tblOwner"></label>
+	    <input type="hidden" id="hidden_owner" name="low_owner">
+	    </div>
 	    <div class="form-group">
 	      <label id= "upIdxName"> 인덱스 명 :</label>
 	      <input type="text" class="form-control indexText" id="updateIndexName" name="update_name" placeholder="인덱스명">
+	      <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>
 	    </div>
 	    <div id="select_table">
-			  <input type="hidden" id="table_owner" name="param_owner">
+			  <input type="hidden" id="update_owner" name="update_owner">
 	    	<table id="index_option">
 	    		<tr>
 		    		<td id ="updateTd_tableName" >테이블 :</td>
 		    		<td>
-			    		<input type="text" class="form-control indexText" id="selectedTable_name" name="update_table" placeholder="테이블명">
+			    		<input type="text" class="form-control indexText" id="selectedTable_name" name="update_table" readonly="readonly">
 		    		</td>
 	    		</tr>
 	    		<tr id="index_type">
 	    			<td id="td_indexType">인덱스 유형 :</td>
 	    			<td>
-	    			<select class="form-control tdSelect" id="updateTd_indexType_select" name="param_indexType">
+	    			<select class="form-control tdSelect" id="updateTd_indexType_select" name="update_indexType">
 	    				<option id="nonUinque" value="">고유하지않음</option>
 	    				<option id="unique" value="UNIQUE">고유</option>
 	    				<option id="bitMap" value="BITMAP">비트맵</option>
@@ -147,9 +134,9 @@
 	    	
 	    </div>
 	    
-	    <div id="selectDiv_1">
-	    	<select id="select_1">
-	    		<option id="define">정의</option>
+	    <div id="updateSelectDiv_1">
+	    	<select id="updateSelect_1">
+	    		<option id="updateDefine">정의</option>
 	    		<option>DDL</option>
 	    	</select>
 	    	<div id="pAndm">
@@ -161,8 +148,8 @@
 		    </div>
 	    </div>
 	    <div class="table_scroll">
-	    <div id="hidden_table"></div>
-		    <input type="hidden" id="deleteHidden"/>
+	    <div id="hidden_updateTable"></div>
+		    <input type="hidden" id="updateDeleteHidden"/>
 	    <table class="table table-hover index" id="index_table">
 			<thead>
 				<tr>

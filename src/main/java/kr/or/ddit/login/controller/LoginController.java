@@ -147,7 +147,11 @@ public class LoginController {
 			List<List<CrawlingVO>> itNewsList = new Crawling().getITNews();
 			model.addAttribute("itNewsList", itNewsList);
 			return "main.tiles";
+		}else if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
+				&& loginUserVo.getUser_right().equals("A")){
+			return "adminMain.tiles";
 		}
+		
 		if(loginUserVo.getExit_right().equals("Y")) {
 			model.addAttribute("deleteMsg", "탈퇴한 회원입니다.");
 			return "/login/login.tiles";

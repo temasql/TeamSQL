@@ -95,8 +95,9 @@ $(document).ready(function() {
 				)
 			// 같을 경우
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataSelect+"</p></div></div></div>");
-		else
+		else{
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+defined+"</p></div></div></div>");
+		}
 			// 스크롤 자동 하단 이동
 			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
 

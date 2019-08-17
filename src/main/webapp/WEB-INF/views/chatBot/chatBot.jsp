@@ -80,7 +80,7 @@ CREATE TABLE 테이블명 (
 </div>
 
 <!-- 테이블 삭제 -->
-<div id='tableDelete' hidden="hidden">
+<div id='tableDrop' hidden="hidden">
 <pre >
 테이블 삭제하기
 <br>
