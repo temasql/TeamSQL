@@ -49,6 +49,9 @@ public class QueryManagerUtil {
 			resultMap.put("result", "");
 			return resultMap;
 		}
+		if (dragText.contains("CASEWHEN") || dragText.contains("DECODE")) {
+			resultMap = decodeCaseCheck(dragText);
+		}
 		
 		// 쿼리의 공백을 제거한다.
 		dragText = dragText.replaceAll(" ", "");
@@ -59,10 +62,6 @@ public class QueryManagerUtil {
 		}
 		if (dragText.contains("WHERE")) {
 			resultMap = leftProcessingQueryCheck(dragText);
-		}
-		if (dragText.contains("CASEWHEN") || dragText.contains("DECODE")) {
-			resultMap = 
-					decodeCaseCheck(dragText);
 		}
 		
 		return resultMap;
@@ -100,7 +99,7 @@ public class QueryManagerUtil {
 			if (operator.contains("*") || operator.contains("-") || operator.contains("+") || operator.contains("/")) return operationProcessing(dragText); 
 				
 		}
-		return null;
+		return new HashMap<String, Object>();
 	}
 	
 	static Map<String, Object> operationProcessing(String dragText){
@@ -297,17 +296,22 @@ public class QueryManagerUtil {
 	}
 	
 	static int caseCheck(String dragText, int cnt) {
-		if (!dragText.startsWith("CASEWHEN") && !dragText.startsWith(")THENEND") ||dragText.startsWith("THENEND")) {
-			int cIdx = dragText.indexOf("CASEWHEN");
-			dragText = dragText.substring(cIdx);
-		} if (dragText.startsWith("CASEWHEN(") || dragText.startsWith("(CASEWHEN") || dragText.startsWith("CASEWHEN")) {
-			int caseIdx = dragText.indexOf("CASEWHEN");
-			int caseEndIdx = caseIdx + 9;
-			cnt = caseCheck(dragText.substring(caseIdx + caseEndIdx), cnt +1);
-		}
-		if (cnt >= 3) {
-			return cnt;
-		}
-		return 0;
+		if (dragText.contains("CASEWHEN")) {
+				int caseIdx = dragText.indexOf("CASEWHEN");
+				int caseEndIdx = caseIdx + 8;
+				dragText = dragText.substring(caseIdx + caseEndIdx);
+				cnt++;
+				if (dragText.indexOf("CASEWHEN") != -1) {
+					caseIdx = dragText.indexOf("CASEWHEN");
+					dragText = dragText.substring(caseIdx);
+				}
+				if (dragText.startsWith("CASEWHEN")) {
+					cnt = caseCheck(dragText, cnt +1);
+				}
+			}
+			if (cnt >= 3) {
+				return cnt;
+			}
+			return 0;
 	}
 }

@@ -10,7 +10,7 @@ placeholder="    아이디로 검색"  style="width: 180px;display: inline;float
 	
 <a href="/user/insertAdmin"><button type="button" class="btn" style="background: black; color: white;">관리자 추가</button></a>
 <form action="/user/deleteAdminMG" style=" display: contents;" id="deleteForm">
-	<button type="button" id="deleteAdmin" class="btn" style="background: black; color: white;">회원 탈퇴</button>
+	<button type="button" id="deleteAdmin" class="btn" style="background: black; color: white;">관리자 삭제</button>
 </form>
 <div class="tableContainer">
 	<table class="table table-hover">

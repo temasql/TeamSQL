@@ -94,6 +94,7 @@ public class UserController {
       
       if(result.hasErrors()) {
     	  model.addAttribute("userVo", userVo);
+    	  model.addAttribute("btnSignIn", "true");
          return "/user/signIn";
       }
       

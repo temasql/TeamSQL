@@ -36,7 +36,7 @@
 		}
 		
 		
-		var msg = '${deleteMsg}';
+		var msg = '${msg}';
 		if(msg != ''){
 			alert(msg);
 		}

@@ -297,15 +297,25 @@ public class SelectTableUtilTest {
 	
 	@Test
 	public void decodeCheckTest() {
-		String dragText = "case when a case when  b case when c then end  then end  then end  ".toUpperCase();
+		String dragText = "select a,  case when a case when b  case when c then end  then end  then end from asd where asd=ads ".toUpperCase();
 		dragText = dragText.replaceAll(" ", "");
-		logger.debug("drt : {}", dragText);
-		int caseIdx = dragText.indexOf("CASEWHEN");
-		int caseEndIdx = caseIdx + 8;
-		logger.debug("{}",dragText.substring(caseIdx + caseEndIdx));
-		logger.debug("{}",dragText.substring(caseIdx + caseEndIdx).substring(caseIdx + caseEndIdx +1));
-		logger.debug("{}",dragText.substring(caseIdx + caseEndIdx).substring(caseIdx + caseEndIdx).substring(caseIdx + caseEndIdx + 2));
-		logger.debug("hio : {}",caseCheck(dragText, 0, 8));
+//		logger.debug("drt : {}", dragText);
+//		int caseIdx = dragText.indexOf("CASEWHEN");
+//		int caseEndIdx = caseIdx + 8;
+//		dragText = dragText.substring(caseIdx + caseEndIdx);
+//		logger.debug("caseEndidx 1 : {}", caseEndIdx);
+//		logger.debug("dt1 : {}",dragText);
+//		caseIdx = dragText.indexOf("CASEWHEN");
+//		caseEndIdx = caseIdx + 8;
+//		dragText = dragText.substring(caseIdx + caseEndIdx);
+//		logger.debug("caseEndidx 2 : {}", caseEndIdx);
+//		logger.debug("dt2 : {}",dragText);
+//		caseIdx = dragText.indexOf("CASEWHEN");
+//		caseEndIdx = caseIdx + 8;
+//		dragText = dragText.substring(caseIdx + caseEndIdx);
+//		logger.debug("caseEndidx 3 : {}", caseEndIdx);
+//		logger.debug("dt3 : {}",dragText);
+		logger.debug("hio : {}",caseCheck(dragText, 0));
 		dragText = dragText.replaceAll("COUNT\\(\\*\\)", "*");
 		dragText = dragText.replaceAll("SELECT", " SELECT ");
 		dragText = dragText.replaceAll("FROM", "\n FROM ");
@@ -315,22 +325,29 @@ public class SelectTableUtilTest {
 		String proc = "SELECT 1 AS CNT FROM DUAL WHERE EXISTS (" + dragText + ")";
 		logger.debug("proc : {}", proc);
 	}
-	public int caseCheck(String dragText, int cnt, int length) {
-		logger.debug("dragT : {}", dragText);
-		logger.debug("cnt : {}", cnt);
-		if (!dragText.startsWith("CASEWHEN") && !dragText.startsWith(")THENEND") ||!dragText.startsWith("THENEND")) {
-			int cIdx = dragText.indexOf("CASEWHEN");
-			dragText = dragText.substring(cIdx);
-		} if (dragText.startsWith("CASEWHEN(") || dragText.startsWith("(CASEWHEN") || dragText.startsWith("CASEWHEN") ) {
-			int caseIdx = dragText.indexOf("CASEWHEN");
-			logger.debug("lenghth : {}", length);
-			int caseEndIdx = caseIdx + length;
-			cnt = caseCheck(dragText.substring(caseIdx + caseEndIdx), cnt +1, length +1);
-		}
-		if (cnt >= 3) {
-			return cnt;
-		}
-		return 0;
+	public int caseCheck(String dragText, int cnt) {
+		 if (dragText.contains("CASEWHEN")) {
+			 logger.debug("인");
+				int caseIdx = dragText.indexOf("CASEWHEN");
+				int caseEndIdx = caseIdx + 8;
+				logger.debug("자르기 1 전 : {}", dragText);
+				dragText = dragText.substring(caseIdx + caseEndIdx);
+				cnt++;
+				logger.debug("자르기 1 : {}", dragText);
+				if (dragText.indexOf("CASEWHEN") != -1) {
+					caseIdx = dragText.indexOf("CASEWHEN");
+					dragText = dragText.substring(caseIdx);
+					logger.debug("자르기 2 : {}", dragText);
+				}
+				if (dragText.startsWith("CASEWHEN")) {
+					logger.debug("인 2");
+					cnt = caseCheck(dragText, cnt +1);
+				}
+			}
+			if (cnt >= 3) {
+				return cnt;
+			}
+			return 0;
 	}
 	
 }

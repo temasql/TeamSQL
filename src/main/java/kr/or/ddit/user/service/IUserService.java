@@ -1,5 +1,6 @@
 package kr.or.ddit.user.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -77,7 +78,7 @@ public interface IUserService {
 	* @return
 	* Method 설명 : 사용자의 이름과 이메일을 입력하여 아이디 조회
 	*/
-	String findUserId(UserVO userVo);
+	List<String> findUserId(UserVO userVo);
 	
 	/**
 	 * Method : findUserPw

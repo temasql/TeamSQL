@@ -178,7 +178,7 @@ public class UserService implements IUserService{
 	* Method 설명 : 사용자의 이름과 이메일을 입력하여 아이디 조회
 	*/
 	@Override
-	public String findUserId(UserVO userVo) {
+	public List<String> findUserId(UserVO userVo) {
 		return userDao.findUserId(userVo);
 	}
 

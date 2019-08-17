@@ -163,7 +163,7 @@ public class UserDaoTest extends LogicTestEnv{
 		userVo.setUser_name("TEST_NAME20");
 		userVo.setUser_email("TEST_MAIL20@TEST.COM");
 		/***When***/
-		String findUserId = userDao.findUserId(userVo);
+		List<String> findUserId = userDao.findUserId(userVo);
 		/***Then***/
 		assertEquals("TEST_ID20", findUserId);
 	}
