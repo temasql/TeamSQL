@@ -51,6 +51,14 @@
 	margin-left : 100px;
     width: 400px;
 }
+#updateSelect_1{
+    width: 50px;
+    border: none;
+}
+#td_select{
+	margin-left : 100px;
+    width: 400px;
+}
 
 #pAndm{
 	float: right;
@@ -93,4 +101,9 @@
 	width: 17px;
 	height: 17px;
 	cursor: pointer;	
+}
+
+#selectedTable_name:disabled{
+	background: #dddddd;
+    color: black;
 }

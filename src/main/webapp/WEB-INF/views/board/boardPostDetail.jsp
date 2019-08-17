@@ -10,6 +10,7 @@
 			$("#frm").submit();
 		})
 		
+
 		$("#addReply").on("click", function() {
 			$("#replyFrm").submit();
 		})
@@ -49,7 +50,7 @@
 				<td colspan="4">${postVo.post_content }</td>
 			</tr>
 			
-		
+
 			<tr>
 				<td style="border: 1px solid #dadada;" align="center">첨부파일</td>
 				<td colspan="3">

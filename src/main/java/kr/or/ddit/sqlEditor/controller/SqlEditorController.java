@@ -679,6 +679,7 @@ public class SqlEditorController {
 				String[] param_column, String[] param_order, HttpSession session, Model model) {
 
 			AccountVO accountVO = accountService.getAccountOne(param_owner);
+			logger.debug("인덱스생성계정 : {}", param_owner);
 			Connection conn = DBUtilForWorksheet.getConnection(param_owner, accountVO.getAccount_pw(), session);
 
 			String query = new IndexUtil().createIndex(param_name, param_table, param_indexType, param_column, param_order);
@@ -688,6 +689,40 @@ public class SqlEditorController {
 			
 			return createCnt;
 
+		}
+		
+		// 인덱스 편집 생성
+		@RequestMapping(path = "/updateIndex", method = { RequestMethod.POST, RequestMethod.GET })
+		@ResponseBody
+		public int updateIndex(String update_owner, String update_name, String low_owner, String update_table, String update_indexType,
+			String[] update_column, String[] update_order, HttpSession session, Model model) {
+			logger.debug("편집빠끄");
+			logger.debug("편집owner : {}", update_owner);
+			logger.debug("편집name : {}", update_name);
+			logger.debug("편집table : {}", update_table);
+			logger.debug("편집type : {}", update_indexType);
+			logger.debug("편집column : {}", update_column[0]);
+			logger.debug("편집order : {}", update_order[0]);
+			
+			
+			
+			logger.debug("편집owner소문자1 : {}", low_owner);
+			AccountVO accountVO = accountService.getAccountOne(low_owner);
+			logger.debug("권한가진VO : {}", accountVO.getAccount_pw());
+			Connection conn = DBUtilForWorksheet.getConnection(low_owner, accountVO.getAccount_pw(), session);
+			
+			
+			String deleteQuery = new IndexUtil().updateIndex(update_name);
+			logger.debug("삭제쿼리 : {}",deleteQuery);
+			int createCnt = sqlEditorIndexService.updateIndex(deleteQuery, conn);
+			String query = new IndexUtil().createIndex(update_name, update_table, update_indexType, update_column, update_order);
+			logger.debug("생성쿼리 : {}",query);
+			createCnt = sqlEditorIndexService.createIndex(query, conn);
+			
+			model.addAttribute("ddlQuery", query);
+			
+			return createCnt;
+			
 		}
 		
 		// 인덱스 테이블명 조회
@@ -802,47 +837,34 @@ public class SqlEditorController {
 			logger.debug("오너빠끄 : {}", owner);
 			map.put("table_name", table_name);
 			logger.debug("테이블네임빠끄 : {}", table_name);
-
+			
 			List<String> tableColumn = sqlEditorIndexService.tableColumn(map);
-
+			
 			return tableColumn;
-
+			
 		}
 		
 		// 인덱스 편집 뷰
-			@RequestMapping(path = "/beforeIndex", method = RequestMethod.POST)
-			public String beforeIndex(String table_owner, String index_name,String table_name, Model model ) {
-				Map<String, String> map = new HashMap<String, String>();
-				
-				map.put("table_owner", table_owner);
-				map.put("index_name", index_name);
-				map.put("owner", table_owner);
-				map.put("table_name", table_name);
-				logger.debug("테이블 네임 : {}", table_owner);
-				logger.debug("테이블 네임 : {}", index_name);
-				logger.debug("테이블 네임 : {}", table_owner	);
-				logger.debug("!!!!테이블 네임 : {}", table_name);
-				
-				List<IndexColVO> idxVO = sqlEditorIndexService.beforeIndexOwner(map);
-				String tbl_name = sqlEditorIndexService.beforeIndexType(map);
-				List<String> col_name = sqlEditorIndexService.tableColumn(map);
-				
-				model.addAttribute("idxVO", idxVO);
-				model.addAttribute("tbl_name", tbl_name);
-				model.addAttribute("col_name", col_name);
-				return "jsonView";
-			}
+		@RequestMapping(path = "/beforeIndex", method = RequestMethod.POST)
+		public String beforeIndex(String table_owner, String index_name,String table_name, Model model, HttpSession session) {
+			Map<String, String> map = new HashMap<String, String>();
+			
+			map.put("table_owner", table_owner);
+			map.put("index_name", index_name);
+			map.put("owner", table_owner);
+			map.put("table_name", table_name);
+			logger.debug("테이블계정명 : {}", table_owner);
+			
+			List<IndexColVO> idxVO = sqlEditorIndexService.beforeIndexOwner(map);
+			String tbl_name = sqlEditorIndexService.beforeIndexType(map);
+			List<String> col_name = sqlEditorIndexService.tableColumn(map);
+			
+			model.addAttribute("idxVO", idxVO);
+			model.addAttribute("tbl_name", tbl_name);
+			model.addAttribute("col_name", col_name);
+			return "jsonView";
+		}
 
-//			// 시퀀스 편집
-//			@RequestMapping(path = "/updateSequence", method = RequestMethod.POST)
-//			@ResponseBody
-//			public int updateSequence(String query) {
-	//
-//				int updateSequence = -1;
-	//
-//				updateSequence = sqlEditorSequenceService.updateSequence(query);
-//				return updateSequence;
-//			}
 	
 	@RequestMapping(path = "/createFunction", method = RequestMethod.POST)
 	@ResponseBody

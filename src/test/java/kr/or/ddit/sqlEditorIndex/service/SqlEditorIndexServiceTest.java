@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import kr.or.ddit.sqlEditor.service.SqlEditorService;
 import kr.or.ddit.sqlEditorIndex.model.IndexColVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexDetailVO;
 import kr.or.ddit.testenv.LogicTestEnv;

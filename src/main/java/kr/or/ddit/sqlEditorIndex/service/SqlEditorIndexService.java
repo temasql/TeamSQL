@@ -120,6 +120,21 @@ public class SqlEditorIndexService implements ISqlEditorIndexService{
 	
 	/**
 	 * 
+	 * Method : updateIndex
+	 * 작성자 : 강호길
+	 * 변경이력 :
+	 * @param query
+	 * @return
+	 * Method 설명 : 인덱스 편집
+	 */
+	@Override
+	public int updateIndex(String deleteQuery, Connection conn) {
+		boolean result = sqlEditorIndexDao.updateIndex(deleteQuery, conn);
+		return 0; 
+	}
+	
+	/**
+	 * 
 	* Method : beforeIndexOwner
 	* 작성자 : 강호길
 	* 변경이력 :

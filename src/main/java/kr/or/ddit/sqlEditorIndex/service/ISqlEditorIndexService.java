@@ -125,4 +125,16 @@ public interface ISqlEditorIndexService {
 	* Method 설명 : 편집 전 데이터("인덱스 유형")
 	 */
 	String beforeIndexType(Map<String, String> map);
+
+	/**
+	 * 
+	* Method : updateIndex
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param query
+	* @param conn
+	* @return
+	* Method 설명 : 인덱스 편집
+	 */
+	int updateIndex(String deleteQuery, Connection conn);
 }

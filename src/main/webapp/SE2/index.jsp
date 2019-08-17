@@ -116,6 +116,7 @@ function validation(){
 <br><br>
 <div class="form-group">
 	<div id="plus" class="col-sm-offset-2 col-sm-11">
+
 	 	<button type="button" id="plusFile" class="btn" style="background: black; color: white;">파일 업로드</button>
 		<input type="button" class="btn" style="background: black; color: white;" id="savebutton" value="등록" />
 	</div>

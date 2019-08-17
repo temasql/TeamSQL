@@ -8,6 +8,11 @@
 	<insert id="createIndex" parameterType="String">
 		${value}
 	</insert>
+	
+	<!-- 인덱스 생성 -->
+	<insert id="updateIndex" parameterType="String">
+		${value}
+	</insert>
 	<!-- 테이블 조회 -->
 	<select id='indexTable' parameterType='String' resultType='String'>
 		SELECT TABLE_NAME FROM SYS.ALL_TABLES

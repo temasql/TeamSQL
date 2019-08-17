@@ -162,9 +162,13 @@ public class LoginController {
 			model.addAttribute("itNewsList", itNewsList);
 			return "main.tiles";
 		}else if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
+				&& loginUserVo.getUser_right().equals("A")){
+			return "adminMain.tiles";
+		}	else if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
 				&& loginUserVo.getExit_right().equals("Y")) {
 			model.addAttribute("msg", "탈퇴한 회원입니다.");
 			return "/login/login";
+
 		}
 		redirectAttributes.addAttribute("user_id", userVo.getUser_id());
 		redirectAttributes.addAttribute("user_pw", userVo.getUser_pw());

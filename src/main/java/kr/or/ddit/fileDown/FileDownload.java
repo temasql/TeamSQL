@@ -29,8 +29,10 @@ public class FileDownload extends AbstractView {
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-			
+		
+		
 			int fileId = (int) model.get("file_id");
+
 
 			logger.debug("filedownload fileId : {}", fileId);
 			
