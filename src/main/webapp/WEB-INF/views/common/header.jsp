@@ -11,6 +11,7 @@
 <header>
   <!-- Navigation -->
  <nav class="navMenu">
+
  <div class="menubar">
 <ul>
 	<c:choose>
@@ -53,6 +54,7 @@
 </ul>
 </div>
   
+
 
 <!-- 챗봇 -->	
 <div class="chatbot">

@@ -3,23 +3,16 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="${cp }/resources/blackList/js/blackListMG.js"></script>
-<link href="${cp }/resources/blackList/css/insertBlackList"/>
-<form id="search"
-		action="${cp}/blackList/blackListManager" >
-		<div id="searchdiv" class="col-lg-8">
-			<div class="input-group">
+<link href="${cp }/resources/blackList/css/insertBlackList.css" rel="stylesheet"/>
+					<button type="button" class="btn" id="btnSearch" style="background: black;color: white;float: right;">검색</button>
 				<input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }"
-					placeholder="Search for...">  <span class="input-group-btn">
-					<button type="button" class="btn btn-default" id="btnSearch" >Search!</button>
+					placeholder="    아이디로 검색"style="width: 180px;display: inline;float: right;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 42px;margin-right: 15px;">  <span class="input-group-btn">
 				</span>
-			</div>
-		</div>
-	</form>
 	
-<form action="/blackList/deleteBlackList" id="deleteForm">
-	<button type="button" id="deleteBlackList" class="btn btn-default pull-right" >블랙리스트 해제</button>
+<button id="btnInsertBlackList" class="btn" style="background: black; color: white;">블랙리스트 추가</button>
+<form action="/blackList/deleteBlackList" id="deleteForm" style=" display: contents;" >
+	<button type="button" id="deleteBlackList" class="btn" style="background: black; color: white;">블랙리스트 해제</button>
 </form>
-<button id="btnInsertBlackList" class="btn btn-default pull-right" >블랙리스트 추가</button>
 <div class="tableContainer">
 	<table class="table table-hover">
 		<thead>
@@ -59,7 +52,7 @@
 	    <label for="exampleInputEmail1">사유</label>
 	    <input type="text" class="form-control" id="reason" name="reason" placeholder="블랙리스트 사유"/>
 	    <br><br>
-	    <button type="button" id="insertBlackListModalOk" class="btn btn-secondary">확인</button>
+	    <button type="button" id="insertBlackListModalOk" class="btn" style="background: black; color: white;">확인</button>
   	 </fieldset>
 	</form>
   </div>

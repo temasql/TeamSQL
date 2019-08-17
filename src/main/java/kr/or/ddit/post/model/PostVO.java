@@ -19,6 +19,19 @@ public class PostVO {
 	
 	public PostVO() {	}
 	
+	public PostVO(int post_id, int parent_id_fk, String user_id_fk, int board_id_fk, String post_title,
+			String post_content, String post_use, int post_group_seq) {
+		super();
+		this.post_id = post_id;
+		this.parent_id_fk = parent_id_fk;
+		this.user_id_fk = user_id_fk;
+		this.board_id_fk = board_id_fk;
+		this.post_title = post_title;
+		this.post_content = post_content;
+		this.post_use = post_use;
+		this.post_group_seq = post_group_seq;
+	}
+
 	public PostVO(int post_id, String user_id_fk, int board_id_fk, String post_title
 								, String post_content, int post_group_seq) {
 		this.post_id = post_id;

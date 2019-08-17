@@ -118,33 +118,30 @@
 	<form action="${cp }/post/modifyPost"	class="form-horizontal" method="post" enctype="multipart/form-data" id="frm2">
 		<div class="form-group">
 			<div class="col-sm-11">
-				<input type="text" class="form-control" id="postTitle"
-					name="postTitle" value="${postVo.postTitle}" placeholder="제목">
+				<input type="text" class="form-control" id="postTitle" name="post_title" value="${postVo.post_title}" placeholder="제목">
 			</div>
 			<div class="col-sm-2"></div>
 		</div>
 
-		<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
-			style="width: 766px; height: 412px;">${postVo.postContent}</textarea>
-<%-- 		<input type="hidden" id="boardId" name="boardId" value="${boardId}" /> --%>
-		<input type="hidden" id="userId" name="userId"
-			value="${USER_INFO.userId }" /> <input type="hidden" id="userId"
-			name="postId" value="${postId}" /> <br>
+		<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"	style="width: 766px; height: 412px;">
+		${postVo.post_content}</textarea>
+		<input type="hidden" id="boardId" name="boardId" value="${board_id}"/>
+		<input type="hidden" id="userId" name="user_id"	value="${USER_INFO.user_id }" />
+		<input type="hidden" id="postId" name="post_id" value="${post_id}" /> <br>
 		<br>
 
 		<c:forEach items="${fileList}" var="file">
-			<input type="hidden" name="files" value="${file.fileId }">
-			<label class="existFile">${file.fileName }</label>
-			<button type="button" class="btn btn-default delFileBtn">삭제</button>
+			<input type="hidden" name="files" value="${file.tsfile_id }">
+			<label class="existFile">${file.tsfile_filename }</label>
+			<a class="delFileBtn"><img src="${cp }/img/deleteBtn.png"></a>
 			<script> count += 1</script>
 			<br>
 		</c:forEach>	 
-
+		<br><br><br>
 		<div class="form-group">
-			<div id="plus" class="col-sm-offset-2 col-sm-10">
-				<button type="button" id="plusFile" class="col-sm-2 btn btn-default">파일
-					업로드</button>
-				<input type="button" class="col-sm-1 btn btn-default"
+			<div id="plus" class="col-sm-offset-2 col-sm-11">
+				<button type="button" id="plusFile" class="btn" style="background: black; color: white;">파일업로드</button>
+				<input type="button"class="btn" style="background: black; color: white;" 
 					id="savebutton" value="등록" />
 			</div>
 		</div>

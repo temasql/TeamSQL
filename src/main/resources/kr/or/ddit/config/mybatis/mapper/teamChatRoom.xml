@@ -7,14 +7,24 @@
 	<!-- Insert -->
 	<insert id="insertTeamChatRoom" parameterType="teamChatRoomVo">
 		INSERT INTO TEAM_CHAT_ROOM
-		VALUES (TEAM_CHAT_ROOM_SEQ.NEXTVAL, #{account_id_fk}, #{user_id_fk}, #{chat_room_name} )
+		VALUES (
+			TEAM_CHAT_ROOM_SEQ.NEXTVAL,
+			#{account_id_fk},
+			#{user_id_fk},
+			#{chat_room_name}
+		)
 	</insert>
 	
 	<!-- SelectOne -->
-	<select id="get" parameterType="String" resultType="teamChatRoomVo">
-		SELECT *
-		FROM TEAM_CHAT_ROOM
-		WHERE ID = #{id}
+	<select id="getChatRoomId" parameterType="String" resultType="teamChatRoomVo">
+		SELECT 	CHAT_ROOM_ID,
+				CHAT_ROOM_NAME
+		FROM 	TEAM_CHAT_ROOM
+		WHERE 	USER_ID_FK =
+		    (SELECT USER_ID_FK
+		    FROM ACCOUNT
+		    WHERE ACCOUNT_ID = #{accountId})
+		AND ACCOUNT_ID_FK = #{accountId}
 	</select>
 	
 	<!-- SelectList -->

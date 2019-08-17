@@ -6,3 +6,6 @@
 #addBtnDiv{
 	margin-left: 69%;
 }
+.tableRow{
+	cursor: pointer;
+}

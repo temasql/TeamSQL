@@ -21,8 +21,8 @@
 	      <small class="form-text text-muted" id="tableNameHint">영문자, 숫자 포함 3~6자이며 첫 글자는 영문자로 시작</small>
 	    </div>
 	    <br><br>
-	    <a href="#" id="appendData">플러스 이미지</a>
-	    <a href="#" id="removeData">마이너스 이미지</a>
+	    <img class="plustBtn" id="appendData" style="margin : 5px;" src="${cp}/resources/img/add.png"/>&nbsp;&nbsp;
+	    <img class="minusBtn" id="removeData" src="${cp}/resources/img/delete.png"/>
 	    <table class="table table-hover">
 			<thead>
 				<tr>
@@ -38,7 +38,7 @@
 			<tbody id="tableDataTbody">
 			</tbody>
 		</table>
-	    <button type="button" id="createTableBtn" class="btn btn-secondary">생성</button>
+	    <button type="button" id="createTableBtn" class="btn" style="background: black; color: white;">생성</button>
 	  </fieldset>
 	</form>
   </div>
@@ -52,7 +52,7 @@
 	<form action="${cp}/sqlEditor/selectTable" method="post" id="SelcetTableFrm">
 	  <fieldset>
 	    <legend id="readTableTitle"></legend>
-	    <select id="tableSelectChoice">
+	    <select id="tableSelectChoice" class="form-control" style=" width: 100px;">
 	    	<option value="column">column</option>
 	    	<option value="data">data</option>
 	    	<option value="constraint">constraint</option>
@@ -85,7 +85,7 @@
 	    <div id="updateView"></div>
 	  </fieldset>
 	</form>
-	 <button type="button" id="updateTableBtn" class="btn btn-secondary">수정</button>
+	 <button type="button" id="updateTableBtn" class="btn" style="background: black; color: white;">수정</button>
   </div>
 </div>
 
@@ -98,17 +98,25 @@
 	<form action="${cp}/sqlEditor/tableExport" method="post" >
 	  <fieldset>
 	    <legend id="tableExportTitle"></legend>
-	    <div id="tableExportView">
-    		<input type="checkbox" name="exportChecked" value="CONSTRAINT"> 제약조건
-    		<input type="checkbox" name="exportChecked" value="INDEX"> 인덱스
-    		<input type="checkbox" name="exportChecked" value="VIEW"> 뷰
-    		<input type="checkbox" name="exportChecked" value="TRIGGER"> 트리거
-    		<input type="checkbox" name="exportChecked" value="DATA"> 데이터
+	    	<div class="ckDiv">
+    			<input type="checkbox" name="exportChecked" value="CONSTRAINT"> 제약조건
+    		</div>
+    		<div>
+    			<input type="checkbox" name="exportChecked" value="INDEX"> 인덱스
+    		</div>
+    		<div>
+    			<input type="checkbox" name="exportChecked" value="VIEW"> 뷰
+    		</div>
+    		<div>
+    			<input type="checkbox" name="exportChecked" value="TRIGGER"> 트리거
+    		</div>
+    		<div>
+    			<input type="checkbox" name="exportChecked" value="DATA"> 데이터
+    		</div>
     		<input type="hidden" id="exportChk">
-	    </div>
 	  </fieldset>
 	</form>
-	 <button type="button" id="tableExportBtn" class="btn btn-secondary">EXPORT</button>
+	 <button type="button" id="tableExportBtn" class="btn" style="background: black; color: white;">EXPORT</button>
   </div>
 </div>
 

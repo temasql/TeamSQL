@@ -151,6 +151,7 @@
 				EXAMPLE_CONTENT
 		FROM	QUIZ_EXAMPLE
 		WHERE	QUIZ_ID_FK = #{quiz_id}
+		ORDER BY EXAMPLE_ID
 	</select>
 	
 	<!-- 주관식 정답 조회 리스트 -->

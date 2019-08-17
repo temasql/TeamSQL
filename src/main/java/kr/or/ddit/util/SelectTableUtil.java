@@ -123,9 +123,6 @@ public class SelectTableUtil {
 		getDetailQuery.append(", INI_TRANS");
 		getDetailQuery.append(", MAX_TRANS");
 		getDetailQuery.append(", INITIAL_EXTENT");
-		getDetailQuery.append(", NEXT_EXTENT");
-		getDetailQuery.append(", MIN_EXTENTS");
-		getDetailQuery.append(", MAX_EXTENTS");
 		getDetailQuery.append(" FROM USER_TABLES");
 		getDetailQuery.append(" WHERE TABLE_NAME LIKE '" + tableName + "'");
 		return getDetailQuery.toString();

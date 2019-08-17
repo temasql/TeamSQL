@@ -3,20 +3,13 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="${cp }/resources/user/js/userMG.js"></script>
-<form id="search"
-		action="${cp}/user/userManager" >
-		<div id="searchdiv" class="col-lg-8">
-			<div class="input-group">
+				<button type="button" class="btn" style="background: black;color: white;float: right;"id="btnSearch" >검색</button>
 				<input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }"
-					placeholder="Search for...">  <span class="input-group-btn">
-					<button type="button" class="btn btn-default" id="btnSearch" >Search!</button>
+					placeholder="    아이디로 검색"style="width: 180px;display: inline;float: right;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 42px;margin-right: 15px;">  <span class="input-group-btn">
 				</span>
-			</div>
-		</div>
-	</form>
 	
 <form action="/user/deleteUserMG" id="deleteForm">
-	<button type="button" id="deleteUser" class="btn btn-default pull-right" >회원 탈퇴</button>
+	<button type="button" id="deleteUser" class="btn" style="background: black; color: white;">회원 탈퇴</button>
 </form>
 <div class="tableContainer">
 	<table class="table table-hover">

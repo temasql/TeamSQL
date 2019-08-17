@@ -44,7 +44,7 @@ $(function(){
 					
 					var html = data.split();
 					
-					$("#gruopDiv").html(data);
+					$("#overrite").html(data);
 				}
 			})
 		})

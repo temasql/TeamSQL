@@ -3,7 +3,6 @@ $(function(){
 		var quiz_id = $("#quiz_id").val();
 		var quiz_right = $("#quiz_right").val();
 		
-		
 		//정답버튼 클릭시 이벤트
 		$("#answerBtn").on("click", function(){
 			if($("#quiz_answer").val() == ""){
@@ -14,20 +13,20 @@ $(function(){
 			}
 			
 			if($("#hiddenAnswer").val() == $("#quiz_answer").val()){
-				alert("성공");
+				alert("정답");
 				
 				$("#answerBtn").css("display", "none");
 				
 				$("#nextBtn").css("display", "inline");
 			}else{
 				alert("땡!!!!! 다시 입력해 주세요!");
+				$("#quiz_answer").val("");
+				$("#quiz_answer").focus();
 			}
 		})
 		
 		//다음문제 버튼 클릭 시 이벤트
 		$("#nextBtn").on("click", function(){
-			alert("다음 문제 버튼 클릭 시 " + quiz_id);
-			
 			$.ajax({
 				url : "/userQuizRead",
 				method : "post",
@@ -38,7 +37,7 @@ $(function(){
 						return;
 					}
 					
-					$("#gruopDiv").html(data);
+					$("#overrite").html(data);
 				}
 			})
 		})

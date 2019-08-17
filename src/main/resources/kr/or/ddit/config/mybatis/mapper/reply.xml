@@ -16,8 +16,8 @@
 		INSERT INTO REPLY
 		VALUES(
 			  #{reply_id}
-			, #{user_id}
-			, #{post_id}
+			, #{user_id_fk}
+			, #{post_id_fk}
 			, #{reply_content}
 			, 'Y'
 			, SYSDATE
@@ -29,7 +29,7 @@
 	<select id="replyList" parameterType="int" resultType="replyVo">
 		SELECT *
 		FROM REPLY
-		WHERE POST_ID_FK = #{post_id}
+		WHERE POST_ID_FK = #{post_id_fk}
 		ORDER BY REPLY_ID
 	</select>
 	

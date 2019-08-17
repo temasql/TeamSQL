@@ -1,15 +1,48 @@
 @charset "UTF-8";
-#message{
-	width : 498px;	
-}
-.alert-info{
-    float: right;
-    margin-right: 10px;
-}
-.alert-warning{
-    float: left;
-    margin-left: 6px;
-}
 #data{
+	border-radius: 2px;
 	overflow-y: auto;
+	height: 10px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+    color:#fff;
+    font-weight: 900;
+    border-bottom: 1px solid #ddd;
+}
+.Mmessage{
+    background-color: #0084FF;
+    margin-top: 4px;
+    float: right;
+    border-radius: 15px;
+    padding: 0px 13px 0px 13px;
+    max-width: 60%;
+}
+.myDiv{
+	width: 100%;
+    margin: 0%;
+    display: flow-root;
+}
+.youDiv{
+	background-color: yellow;
+	float: left;
+	width : 70%;
+	word-break:break-word;
+    margin-top: 4px;
+}
+#chatNM{
+	font-size : 24pt;
+	display: inline;
+}
+#accountDiv{
+	display: inline;
+    padding-left: 154px;
+}
+#userId{
+	height: 60px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 25px;
+    font-weight: 900;
+    border-bottom: 1px solid #ddd;
 }

@@ -5,15 +5,25 @@
 <mapper namespace="teamChat">
 
 	<!-- Insert -->
-	<insert id="insert" parameterType="teamChatVo">
-		INSERT INTO TEAM_CHAT
-		(
-			...
-		)
-		VALUES
-		(
-			...
-		)
+	<insert id="insertChat" parameterType="teamChatVo">
+		insert into team_chat
+	    (
+		    chat_id,
+		    chat_room_id_fk,
+		    account_id_fk,
+		    user_id_fk,
+		    chat_content,
+		    chat_dt
+		    )
+		values
+		    (
+			    TEAM_CHAT_SEQ.NEXTVAL,
+			    #{chat_room_id_fk},
+			    #{account_id_fk},
+			    #{user_id_fk},
+				#{chat_content},
+			    sysdate
+		    )
 	</insert>
 	
 	<!-- SelectOne -->
@@ -23,10 +33,14 @@
 		WHERE ID = #{id}
 	</select>
 	
-	<!-- SelectList -->
-	<select id="list" resultType="teamChatVo">
-		SELECT *
-		FROM TEAM_CHAT
+	<!-- 구성원들이 입력한 모든 채팅내역 반환 -->
+	<select id="userChatList" parameterType="teamChatVo" resultType="teamChatVo">
+		SELECT  CHAT_ID,
+	            USER_ID_FK,
+	            CHAT_CONTENT,
+	            CHAT_DT
+	    FROM    TEAM_CHAT
+	    WHERE   CHAT_ROOM_ID_FK = #{chat_room_id_fk}
 	</select>
 	
 	<select id="map" parameterType="map" resultType="teamChatVo">

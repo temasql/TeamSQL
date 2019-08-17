@@ -5,7 +5,7 @@
 
 
 <div id="imgDiv">
-	<a href="/quizOX?quiz_right=02"><img class="questionImg" id="oxImg" alt="" src="/resources/img/ox.png"></a>
+	<a href="/quizListView?quiz_right=02"><img class="questionImg" id="oxImg" alt="" src="/resources/img/ox.png"></a>
 	<div class="questionDiv">
 		<a href="/quizListView?quiz_right=03"><img class="questionImg" id="shortImg" alt="" src="/resources/img/short.png"></a>
 	</div>

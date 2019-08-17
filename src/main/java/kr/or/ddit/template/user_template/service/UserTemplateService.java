@@ -93,4 +93,17 @@ public class UserTemplateService implements IUserTemplateService{
 	public String getOriginal(UserTemplateVO userTemplateVO) {
 		return userTemplateDao.getOriginal(userTemplateVO);
 	}
+
+	/**
+	* Method : sameAbb
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 입력한 템플릿ID와 일치하는 약어 검색
+	*/
+	@Override
+	public String sameAbb(Map<String, Object> map) {
+		return userTemplateDao.sameAbb(map);
+	}
 }

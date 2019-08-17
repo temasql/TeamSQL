@@ -54,7 +54,7 @@ public class TSFileDao implements ITSFileDao{
 	* Method 설명 : 해당 게시글에 첨부된 파일 조회
 	*/
 	@Override
-	public TSFileVO getFile(String tsfile_id) {
+	public TSFileVO getFile(int tsfile_id) {
 		return sqlSession.selectOne("tsFile.getFile", tsfile_id);
 	}
 

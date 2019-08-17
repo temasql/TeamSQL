@@ -101,7 +101,7 @@ function validation(){
 <form action="${cp }/post/answerPost" class="form-horizontal" method="post" enctype="multipart/form-data" id="frm2">
 	<div class="form-group">
 		<div class="col-sm-11">
-			<input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="제목">
+			<input type="text" class="form-control" id="postTitle" name="post_title" placeholder="제목">
 		</div>
 		<div class="col-sm-2">
 		</div>
@@ -109,14 +109,14 @@ function validation(){
 
 
 	<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:766px; height:412px;"></textarea> 
-	<input type="hidden" id="boardId" name="boardId" value="${boardId}"/>
-	<input type="hidden" id="userId" name="userId" value="${USER_INFO.userId }"/>
-	<input type="hidden" id="userId" name="postId" value="${postId}"/>
+	<input type="hidden" id="boardId" name="board_id" value="${board_id}"/>
+	<input type="hidden" id="userId" name="user_id" value="${USER_INFO.user_id }"/>
+	<input type="hidden" id="userId" name="post_id" value="${post_id}"/>
 <br><br>
 <div class="form-group">
-	<div id="plus" class="col-sm-offset-2 col-sm-10">
-	 	<button type="button" id="plusFile" class="col-sm-2 btn btn-default">파일 업로드</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="button" class="col-sm-1 btn btn-default" id="savebutton" value="등록" />
+	<div id="plus" class="col-sm-offset-2 col-sm-11">
+	 	<button type="button" id="plusFile" class="btn" style="background: black; color: white;">파일 업로드</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" class="btn" style="background: black; color: white;" id="savebutton" value="등록" />
 	</div>
 </div>
 </form>

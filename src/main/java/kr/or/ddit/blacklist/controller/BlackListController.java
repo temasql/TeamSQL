@@ -62,7 +62,7 @@ public class BlackListController {
 			model.addAttribute("user_id", null);
 			return "jsonView";
 		}else {
-			model.addAttribute("user_id", " ");
+			model.addAttribute("user_id", blackListVo.getUser_id_fk());
 		}
 		String reg_user_id_fk = ((UserVO)session.getAttribute("USER_INFO")).getUser_id();
 

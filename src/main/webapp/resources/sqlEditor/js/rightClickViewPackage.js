@@ -20,6 +20,7 @@ $(document).ready(function(){
 	  var tempIdx = tempId.lastIndexOf("_");
 	  var schemaName = tempId.substring(0, tempIdx);
 	  $("#sc_id").val(tempId);
+	  $("#sc_id1").val(tempId);
 	  $("#sName").val(schemaName);
     //Get window size:
     var winWidth = $(document).width();

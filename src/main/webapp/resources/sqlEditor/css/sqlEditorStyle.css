@@ -191,6 +191,14 @@
 	z-index:1;
 }
 
+.domainRow{
+	cursor: pointer;
+}
+
+.domainType{
+	text-align: center;
+}
+
 
 #tdTable{
 	text-align: center;
@@ -246,7 +254,7 @@
 
 #tempBtnDiv{
 	padding-top : 10px;
-    margin-left: 770px;
+    margin-left: 762px;
 }
 
 #tempAddView{

@@ -9,6 +9,11 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
 <script src="/resources/chatting/js/chattingJS.js"></script>
+<script src="${cp}/resources/loginBootstrap/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="${cp}/resources/loginBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="${cp}/resources/loginBootstrap/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="${cp}/resources/loginBootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <script>
 var socket;
 function initSocket(url) {
@@ -19,6 +24,15 @@ function initSocket(url) {
 		var data = evt.data;
 		var sessionid = null;
 		var message = null;
+		
+		var todate = new Date();
+		var year = todate.getFullYear();
+		var month = todate.getMonth() + 1;
+		var date = todate.getDate();
+		var hours = todate.getHours();
+		var min = todate.getMinutes();
+		
+		var today = year+"."+month+"."+date+" "+hours+":"+min;
 		
 		var strArray = data.split(":");
 		
@@ -36,20 +50,27 @@ function initSocket(url) {
 		//나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.
 		if(sessionid == currentuser_session){
 			var printHTML = "<div class='well'>";
-			printHTML += "<div class='alert alert-info'>";
-			printHTML += "<strong>" + message + " : [Me]</strong>";
+			printHTML += "<div class='myDiv'>";
+			printHTML += "Me <div class='dt'>" +today + "</div>";
+			printHTML += "<p class='Mmessage'>" + message + "</p>";
 			printHTML += "</div>";
-			printHTML += "</div><br>";
 			
 			$("#data").append(printHTML);
+			
+			$("#data").scrollTop($("#data")[0].scrollHeight);
+			$(".chattingArticle").scrollTop($(".chattingArticle")[0].scrollHeight);
 		}else{
 			var printHTML = "<div class='well'>";
 			printHTML += "<div class='alert alert-warning'>";
-			printHTML += "<strong>[" + sessionid + "] : " + message + "</strong>";
+			printHTML += sessionid + "<div class='dt'>" + today + "</div>";
+			printHTML += "<strong class='Ymessage'>"+ message + "</strong>";
 			printHTML += "</div>";
-			printHTML += "</div><br>";
+			printHTML += "</div><br><br><br>";
 			
 			$("#data").append(printHTML);
+			
+			$("#data").scrollTop($("#data")[0].scrollHeight);
+			$(".chattingArticle").scrollTop($(".chattingArticle")[0].scrollHeight);
 		}
 	};
 	
@@ -60,24 +81,45 @@ function initSocket(url) {
 
 $(document).ready(function() {
 	var userId = "${userId}";	//사용자 아이디를 파라미터로 받는다
-	$("#userId").text($("#account").val());
-		
+	$("#userId").text("${chat_room_name}");
+	var userChat = "${userChat}";
+	var account_id = "${account_id}";
+	account_id = account_id.substring(0, account_id.lastIndexOf("_"));
+	
+	$("select[name=account]").val(account_id);
+	
+	$("#data").append(userChat);
+	$("#data").scrollTop($("#data")[0].scrollHeight);
+	$(".chattingArticle").scrollTop($(".chattingArticle")[0].scrollHeight);
+	
 	initSocket("/socketChat?userId=" + userId);	//websocket 연결
 });
 </script>
 </head>
 <body>
-	<h1 id="userId"></h1>
-	<select id="account">
-		<c:forEach items="${crewList}" var="crewVO">
-			<option class="accountNM" value="${crewVO.account_id_fk}">${crewVO.account_id_fk}</option>
-		</c:forEach>
-	</select>
+	<div id="accountDiv">계정명 : 
+		<select id="account" class="form-control" name="account" class="form-control">
+			<c:forEach begin="0" end="${crewList.size()-1}" step="1" var="i" >
+				<c:set var="crewVO" value="${crewList.get(i)}"/>
+				<c:set var="crewVOCopy" value="${crewListCopy.get(i)}"/>
+					<option class="accountNM" value="${crewVO.account_id_fk}">${crewVOCopy.account_id_fk}</option>
+			</c:forEach>
+		</select>
+	</div>
 	<br><br>
-	<div id="data" style=" width:500px; height:500px; border:1px solid black;"></div>
+	<section>
+		<article class="chattingArticle">
+			<div id="userId"></div><div id="data" style="height:500px; border:1px solid #DADFEC;"></div>
+		</article>
+	</section>
 	<br>
-	<input type="text" id="message"/>
-	<button id="sendBtn">전송</button><br>
+	<span><input type="text" id="message" autofocus="autofocus"/></span>
+	<button id="sendBtn" class="btn" style="background: black; color: white;">전송</button><br>
 	<input type="hidden" id="sessionuserid" value="${userId}">
+	
+	<form id="frm" action="/teamChat/changeAccount" method="post">
+		<input type="hidden" id="account_id" name="account_id">
+		<input type="hidden" id="roomId" name="chat_room_id" value="${teamChatRoomVo.chat_room_id}">
+	</form>
 </body>
 </html>

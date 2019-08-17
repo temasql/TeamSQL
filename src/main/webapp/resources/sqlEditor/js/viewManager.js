@@ -15,14 +15,13 @@ $(document).ready(function() {
 		$("#viewNm").val($(this).text())
 		$("#oldVN").val($(this).text())
 	})
-	$(".sc_id").val($("#acco_id").val())
 	
 	$("#readViewSpan").on("click", function() {
 		$("#readViewTitle").text($("#viewNm").val())
 		$("#readViewModal").css("display", "block");
 		readViewAjax()
 	});
-	
+	$(".sc_id").val($("#acco_id").val())
 	$(document).on("change", "#viewSelectChoice", function(){
 		$("#viewReadThead").empty();
 		$("#viewReadTbody").empty();
@@ -57,7 +56,7 @@ $(document).ready(function() {
 	
 	$("#deleteViewSpan").on("click", function(){
 		var viewName = $("#viewNm").val();
-		var ac_id = $("#acco_id").val();
+		var ac_id = $("#acco_id").val()
 		location.href="/sqlEditor/deleteView?view_name=" + viewName + "&sc_id= " + ac_id; 
 	})
 	
@@ -65,7 +64,8 @@ $(document).ready(function() {
 
 function updateViewTextArea(){
 	var viewName = $("#viewNm").val();
-	var scName = $("#acco_id").val();
+	var scName =$("#acco_id").val()
+	alert(scName)
 	$.ajax({
 		 url    : "/sqlEditor/updateViewTA"
 		 ,data : "view_name=" +viewName + "&sc_id=" + scName

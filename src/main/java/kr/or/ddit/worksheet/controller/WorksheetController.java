@@ -255,11 +255,21 @@ public class WorksheetController {
 	public String queryManager(String dragText, Model model) {
 		
 		Map<String, Object> manager = QueryManagerUtil.managerment(dragText);
-		String result = (String) manager.get("result");
-		String dt = (String) manager.get("dragText");
+		String result = (String) manager.getOrDefault("result", "");
+		if (result.equals("")) {
+			result = null;
+		}
+		String dt = (String) manager.getOrDefault("dragText", "");
+		if (dt.equals("")) {
+			dt = null;
+		}
 		model.addAttribute("result", result);
 		model.addAttribute("dt", dt);
-		model.addAttribute("dragText", dragText.toUpperCase());
+		try {
+			model.addAttribute("dragText", dragText.toUpperCase());
+		} catch (Exception e) {
+			model.addAttribute("dragText", dragText);
+		}
 		return "jsonView";
 	}
 

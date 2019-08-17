@@ -126,6 +126,8 @@ public class UserQuizController {
 		if(quizVo.getQuiz_right().equals("01")) {
 			List<QuizExampleVO> quizExampleList = service.userMultipleList(quizAndAnswerVO);
 			
+			logger.debug("객관식 리스트 : {}", quizExampleList);
+			
 			model.addAttribute("quizExampleList", quizExampleList);
 			
 			returnResult = "/quiz/ajaxHtml/userMultipleAjaxHtml";
@@ -133,6 +135,7 @@ public class UserQuizController {
 			
 			returnResult = "/quiz/ajaxHtml/userOXAjaxHtml";
 		}else if(quizVo.getQuiz_right().equals("03")) {
+			logger.debug("quiz_right 입니다 : {}", quizVo.getQuiz_right());
 			
 			returnResult = "/quiz/ajaxHtml/userShortAjaxHtml";
 		}else{

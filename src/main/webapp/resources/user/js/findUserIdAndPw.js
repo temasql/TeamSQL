@@ -32,9 +32,14 @@ $(document).ready(function() {
 				console.log(data)
 				console.log(data.user_id)
 				if(data.user_id == null){
-					$("legend").html("입력하신 내용과 일치하는 계정이 없습니다.")
+					$("#findUserIdModal legend").html("입력하신 내용과 일치하는 계정이 없습니다.")
 				}else{
-					$("legend").html("입력하신 사용자 ID는 '" + data.user_id + "'입니다.")
+					var tp = "";
+					$.each(data.user_id, function(idx ,dt){
+						console.log(dt)
+						tp += dt + " ";
+					})
+					$("#findUserIdModal legend").html("입력하신 내용과 일치하는 사용자 ID는 '" + tp + "'입니다.")
 				}
 			}
 		});
@@ -47,9 +52,9 @@ $(document).ready(function() {
 					,success : function(data){
 						console.log(data)
 						if(data.userVo.user_pw == null){
-							$("legend").html("입력하신 정보와 일치하는 계정이 없습니다.")
+							$("#findUserPwModal legend").html("입력하신 정보와 일치하는 계정이 없습니다.")
 						}else{
-							$("legend").html(data.userVo.user_id + "님의 이메일" + data.userVo.user_email + "으로 임시 비밀번호를 발송 하였습니다")
+							$("#findUserPwModal legend").html(data.userVo.user_id + "님의 이메일" + data.userVo.user_email + "으로 임시 비밀번호를 발송 하였습니다")
 						}
 					}
 		});

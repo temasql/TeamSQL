@@ -10,10 +10,23 @@ public class TeamChatVO {
 	private String account_id_fk;   // 계정아이디
 	private String user_id_fk;      // 사용자아이디
 	private String chat_content;    // 팀채팅내용
-	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
+	@DateTimeFormat(pattern = "yyyy.MM.dd a hh:mm:ss")
 	private Date chat_dt;           // 팀채팅일시
 	
+	public TeamChatVO() {
+	}
 	
+	public TeamChatVO(int chat_id, int chat_room_id_fk, String account_id_fk, String user_id_fk, String chat_content,
+			Date chat_dt) {
+		super();
+		this.chat_id = chat_id;
+		this.chat_room_id_fk = chat_room_id_fk;
+		this.account_id_fk = account_id_fk;
+		this.user_id_fk = user_id_fk;
+		this.chat_content = chat_content;
+		this.chat_dt = chat_dt;
+	}
+
 	public int getChat_id() {
 		return chat_id;
 	}

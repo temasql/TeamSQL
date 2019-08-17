@@ -87,7 +87,7 @@ public interface IUserDao {
 	* @return
 	* Method 설명 : 사용자의 이름과 이메일을 입력하여 아이디 조회
 	*/
-	String findUserId(UserVO userVo);
+	List<String> findUserId(UserVO userVo);
 	
 	/**
 	 * Method : findUserPw

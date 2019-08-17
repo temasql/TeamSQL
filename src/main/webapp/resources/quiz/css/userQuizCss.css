@@ -1,6 +1,6 @@
 @charset "UTF-8";
 #BtnDiv{
-	margin-left: 82%;
+    margin-left: 62%;
     margin-top: 2%;
     width : 300px;
 }
@@ -9,4 +9,7 @@
 }
 #explain{
 	display: none;
+}
+#xRadio{
+	margin-left: 25px;
 }
