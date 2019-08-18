@@ -291,6 +291,15 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 		return primaryKeyList;
 	}
 
+	/**
+	* Method : createVO
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param tableName
+	* @param conn
+	* @return
+	* Method 설명 : 자바 모델 생성
+	*/
 	@Override
 	public String createVO(String tableName, Connection conn) {
 		Connection cc = conn;

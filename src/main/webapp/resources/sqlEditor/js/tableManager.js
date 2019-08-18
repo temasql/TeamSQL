@@ -10,6 +10,7 @@ $(document).ready(function() {
 		$("#tableExportTitle").text($("#tableNm").val())
 	});
 	
+	// 자바 모델 생성
 	$("#createVO").on("click", function() {
 		$.ajax({
 			url    : "/sqlEditor/createVO"
