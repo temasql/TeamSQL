@@ -547,4 +547,19 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		sqlEditorTableDao.createTable(dropTableQuery);
 	}
 	
+	
+	/**
+	* Method : createVO
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param tableName
+	* @param conn
+	* @return
+	* Method 설명 : 자바 모델 생성
+	*/
+	@Override
+	public String createVO(String tableName, Connection conn) {
+		return sqlEditorTableDao.createVO(tableName.toLowerCase(), conn);
+	}
+	
 }

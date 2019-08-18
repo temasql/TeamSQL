@@ -97,4 +97,16 @@ public interface ISqlEditorTableService {
 	*/
 	String tableExport(String tableName, String account_id, HttpSession session
 			,String[]exportChecked);
+
+	
+	/**
+	* Method : createVO
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param tableName
+	* @param conn
+	* @return
+	* Method 설명 : 자바모델생성 
+	*/
+	String createVO(String tableName, Connection conn);
 }

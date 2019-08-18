@@ -101,6 +101,17 @@ public interface ISqlEditorTableDao {
 	*/
 	String getDDL(String checked,String account_id, String target);
 	String getCommentDDL(String account_id, String tableName);
+
+	/**
+	* Method : createVO
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param lowerCase
+	* @param conn
+	* @return
+	* Method 설명 : 자바 모델 생성
+	*/
+	String createVO(String lowerCase, Connection conn);
 	
 	
 }

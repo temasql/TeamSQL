@@ -9,6 +9,24 @@ $(document).ready(function() {
 		$("#tableExportModal").css("display", "block");
 		$("#tableExportTitle").text($("#tableNm").val())
 	});
+	
+	// 자바 모델 생성
+	$("#createVO").on("click", function() {
+		$.ajax({
+			url    : "/sqlEditor/createVO"
+				,data   :  "tableName=" + $("#tableNm").val() + "&account_id=" + $("#acco_id").val() 
+				,success : function(data) {
+					console.log(data.data)
+					for(var i = 0; i < 200; i++){
+						editor.getSelection().moveCursorLineEnd();
+						editor.getSelection().moveCursorDown();
+					}
+					editor.insert(data.data);
+					saveToFile_Chrome("javaVO", data.data)
+				}
+		})
+	})
+	
 	$("#tableExportBtn").on("click", function(){
 		$.ajax({
 			url    : "/sqlEditor/tableExport"

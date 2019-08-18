@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.account.model.AccountVO;
 import kr.or.ddit.account.service.IAccountService;
+import kr.or.ddit.domain.user_domain.model.UserDomainVO;
+import kr.or.ddit.domain.user_domain.service.IUserDomainService;
+import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.util.DBUtilForWorksheet;
 import kr.or.ddit.util.QueryManagerUtil;
 import kr.or.ddit.worksheet.service.IWorkSheetService;
@@ -35,6 +38,9 @@ public class WorksheetController {
 	
 	@Resource(name = "accountService")
 	IAccountService accountServcie;
+	
+	@Resource(name = "userDomainService")
+	IUserDomainService userDomainService;
 	
 	/**
 	 * 
@@ -144,6 +150,24 @@ public class WorksheetController {
 	public String ddlRun(String dragText, String account_id, Model model, HttpSession session) {
 		AccountVO accountVO = accountServcie.getAccountOne(account_id);
 		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		
+		// 세션에 들어있는 유저아이디를 추출
+		UserVO userVo = (UserVO) session.getAttribute("USER_INFO");
+		String user_id = userVo.getUser_id();
+		// List로 해당 유저의 도메인 조회
+		UserDomainVO userDomainVO = new UserDomainVO();
+		userDomainVO.setUser_id_fk(user_id);
+		List<UserDomainVO> domainList = userDomainService.userDomainList(userDomainVO);
+		// 리스트의 사이즈만큼 반복하여 dragText에 해당 도메인의 이름이 있는지 검증
+		if (dragText.contains("@")) {
+			dragText = dragText.replaceAll("@", "");
+			for (UserDomainVO userDomainVo : domainList) {
+				if(dragText.contains(userDomainVo.getUdomain_name())) {
+					// 있으면 도메인이 가지고 있는 데이터 타입으로 해당 부분을 치환
+					dragText = dragText.replaceAll(userDomainVo.getUdomain_name(), userDomainVo.getUdomain_type());
+				}
+			}
+		}
 		
 		if(dragText.contains("CREATE") && dragText.contains("PROCEDURE")) {
 			

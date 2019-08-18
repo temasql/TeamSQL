@@ -290,6 +290,7 @@
   <li><span id="updateTableSpan">테이블 편집</span></li>
   <li><span id="deleteTableSpan">테이블 삭제</span></li>
   <li><span id="exportTable">테이블 EXPORT</span></li>
+  <li><span id="createVO">자바 모델 생성</span></li>
 </ul>
 
 <!-- 시퀀스 패키지 우클릭 -->
