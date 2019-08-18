@@ -49,12 +49,16 @@ public class QueryManagerUtil {
 			resultMap.put("result", "");
 			return resultMap;
 		}
-		if (dragText.contains("CASEWHEN") || dragText.contains("DECODE")) {
-			resultMap = decodeCaseCheck(dragText);
-		}
-		
 		// 쿼리의 공백을 제거한다.
 		dragText = dragText.replaceAll(" ", "");
+		if (dragText.contains("CASEWHEN") || dragText.contains("DECODE")) {
+			resultMap = decodeCaseCheck(dragText);
+			for (String res : resultMap.keySet()) {
+				logger.debug("res : {}", res);
+			}
+			return resultMap;
+		}
+		
 		if (dragText.contains("SELECTCOUNT(*)")) {
 			if(!dragText.contains("SELECTCOUNT(*),")) {
 				resultMap =	countNullCheck(dragText);
@@ -284,15 +288,17 @@ public class QueryManagerUtil {
 	static Map<String, Object> decodeCaseCheck(String dragText){
 		int caseCnt = caseCheck(dragText, 0) ;
 		Map<String, Object> map = new HashMap<String, Object>();
+		logger.debug("caseCnt : {}", caseCnt);
 		if (caseCnt >= 3) {
+			logger.debug("{}",CASECHECK_PROCESSING);
 			map.put("result", CASECHECK_PROCESSING);
 			map.put("dragText", "");
+			return map;
 		}else {
 			map.put("result", "");
 			map.put("dragText", dragText);
-			
+			return map;
 		}
-		return map;
 	}
 	
 	static int caseCheck(String dragText, int cnt) {

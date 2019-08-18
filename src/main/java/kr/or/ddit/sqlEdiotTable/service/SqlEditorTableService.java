@@ -546,5 +546,9 @@ public class SqlEditorTableService extends CreateTableUtil implements ISqlEditor
 		String dropTableQuery = "drop table " + stNm + " cascade constraints PURGE";
 		sqlEditorTableDao.createTable(dropTableQuery);
 	}
+	@Override
+	public String createVO(String tableName, Connection conn) {
+		return sqlEditorTableDao.createVO(tableName.toLowerCase(), conn);
+	}
 	
 }

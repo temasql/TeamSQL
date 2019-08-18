@@ -291,5 +291,39 @@ public class SqlEditorTableDao implements ISqlEditorTableDao {
 		return primaryKeyList;
 	}
 
+	@Override
+	public String createVO(String tableName, Connection conn) {
+		Connection cc = conn;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		List<String> createVOList= new ArrayList<String>();
+		StringBuffer voStr = new StringBuffer();
+		try {
+			stmt = cc.createStatement();
+			
+			StringBuffer query = new StringBuffer(); 
+					query.append("select 'private ' || decode(lower(data_type), 'number', 'int ', 'date', 'Date ', 'String ') || ");  
+					query.append("lower(column_name) || ';' as javaVO "); 
+					query.append("from cols ");
+					query.append("where lower(table_name) = '" + tableName+ "'");
+			rs = stmt.executeQuery(query.toString());
+			while(rs.next()) {
+				createVOList.add(rs.getString("JAVAVO"));
+			}
+			
+			for (String var : createVOList) {
+				voStr.append(var + "\r\n");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try{ rs.close(); }catch(SQLException e){}
+			if(stmt!=null) try{ stmt.close(); }catch(SQLException e){}
+		}
+		
+		return voStr.toString();
+	}
+
 	
 }

@@ -464,6 +464,17 @@ public class SqlEditorController {
 		return "jsonView";
 	}
 	
+	
+	@RequestMapping("/createVO")
+	public String createVO(String tableName, String account_id, HttpSession session, Model model) {
+		AccountVO accountVO = accountService.getAccountOne(account_id);
+		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
+		String data =  sqlEditorTableService.createVO(tableName, conn);
+		model.addAttribute("data", data);
+		return "jsonView";
+	}
+	
+	
 	/**
 	* Method : createView
 	* 작성자 : 이중석
