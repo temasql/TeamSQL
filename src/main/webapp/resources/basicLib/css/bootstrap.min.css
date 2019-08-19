@@ -50,6 +50,9 @@
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box
 }
+.table-hover{
+	text-align: center;
+}
 
 html {
 	font-family: sans-serif;
