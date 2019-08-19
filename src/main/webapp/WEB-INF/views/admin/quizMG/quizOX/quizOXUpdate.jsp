@@ -3,7 +3,7 @@
 <link href="/resources/quiz/css/quizMainCss.css" rel="stylesheet">
 <script src="/resources/quiz/js/quizList.js"></script>
 
-<div id="quizHeader">OX퀴즈 수정</div>
+<div id="quizHeader">OX퀴즈 수정</div> 
 <div id="gruopDiv">
 	<form id="updateOXDB" action="/updateQuiz" method="post" >
 		<div id="question">문제 :<input class="form-control" id="question" name="quiz_question" type="text" value="${quizAndAnswerVO.quiz_question}"></div>

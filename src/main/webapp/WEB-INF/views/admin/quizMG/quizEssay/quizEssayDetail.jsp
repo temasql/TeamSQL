@@ -4,7 +4,7 @@
 <link href="${cp}/resources/quiz/css/quizMainCss.css"  rel="stylesheet">
 <script src="/resources/quiz/js/quizList.js"></script>
 <script src="/resources/quiz/js/quizEssay.js"></script>
-
+ 
 <div id="quizHeader">${quizName} 문제</div>
 <div id="gruopDiv">
 	<form id="insertOXDB" action="/updateOX" method="post" >

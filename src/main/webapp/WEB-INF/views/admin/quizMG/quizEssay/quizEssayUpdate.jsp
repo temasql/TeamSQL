@@ -4,7 +4,7 @@
 <script src="/resources/quiz/js/quizList.js"></script>
 
 
-<div id="quizHeader">${quizName} 수정</div>
+<div id="quizHeader">${quizName} 수정</div> 
 <div id="gruopDiv">
 	<form id="updateDB" action="/updateEssay" method="post" >
 		<div id="question">문제 :<input class="form-control" id="question" name="quiz_question" type="text" value="${quizAndAnswerVO.quiz_question}"></div>

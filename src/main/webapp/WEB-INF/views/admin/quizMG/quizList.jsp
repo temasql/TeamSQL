@@ -31,7 +31,7 @@ pageEncoding="UTF-8"%>
 	
 	</ul>
 </div>
-
+ 
 <!-- 퀴즈 추가 화면 이동 -->
 <div id="addBtnDiv">
 	<c:if test="${quiz_right==01}">

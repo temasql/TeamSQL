@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="${cp}/resources/header/js/headerJs.js"></script>
-<!-- 헤더 -->
+<!-- 헤더 -->  
 <div class="header-right">
 	<a class="aHeader"  href="${cp}/user/mypage"><img id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" alt="Mypage" title="Mypage">MyPage</a>
 	<a class="aHeader" href="${cp}/user/logout">로그아웃</a>

@@ -15,7 +15,7 @@
 		
 		<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
 	</form>
-
+ 
 </div>
 <div class="btnGroup">
 	<input type="button" id="updateOXBtn" value="퀴즈 수정" class="btn btn-secondary"style="background: black; color: white;">

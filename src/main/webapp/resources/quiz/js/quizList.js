@@ -44,7 +44,7 @@ $(function(){
 			$("#updateOXFrm").submit();
 			$("#updateQuizFrm").submit();
 		})
-		
+		 
 		// OX 퀴즈 DB 수정
 		$("#updateOXBtnDB").on("click", function(){
 			$("#updateOXDB").submit();

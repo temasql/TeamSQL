@@ -31,7 +31,7 @@
 						<div id="multiple4" class="custom-control custom-radio">
 				      		<input name="example_content" class="custom-control-label form-control" value="${exampleList[3].example_content}"/>
 					    </div>
-					</li>
+					</li> 
 					<li>&nbsp;&nbsp;
 						<div id="multiple5" class="custom-control custom-radio">
 				      	  <input name="example_content" class="custom-control-label form-control" value="${exampleList[4].example_content}"/>

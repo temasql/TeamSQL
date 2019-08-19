@@ -44,7 +44,7 @@
 				      <input type="hidden" value="${exampleList[4].example_num}">
 				      <input type="hidden" name="example_content" value="${exampleList[4].example_content}">
 				    </div>
-			    </li>
+			    </li> 
 			</ol>
 		</div>
 		<div id="answer">답 : ${quizAndAnswerVO.quiz_answer}</div>
