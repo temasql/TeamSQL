@@ -26,11 +26,20 @@ function initSocket(url) {
 		var message = null;
 		
 		var todate = new Date();
-		var year = todate.getFullYear();
+		var year = todate.getFullYear().toString();
 		var month = todate.getMonth() + 1;
 		var date = todate.getDate();
 		var hours = todate.getHours();
 		var min = todate.getMinutes();
+		
+		//한자리수로 표현되는 걸 두자릿수로 표현방식을 바꾸기
+		year = year.substring(2,4);
+		
+		month = ("0" + month).slice(-2);
+		date = ("0" + date).slice(-2);
+		hours = ("0" + hours).slice(-2);
+		hours = ("0" + hours).slice(-2);
+		min = ("0" + min).slice(-2);
 		
 		var today = year+"."+month+"."+date+" "+hours+":"+min;
 		
@@ -47,11 +56,11 @@ function initSocket(url) {
 		sessionid = strArray[0];	//현재 메세지를 보낸 사람의 세션 등록
 		message = strArray[1];		//현재 메세지 저장
 		
+		var printHTML = "";
 		//나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.
 		if(sessionid == currentuser_session){
-			var printHTML = "<div class='well'>";
 			printHTML += "<div class='myDiv'>";
-			printHTML += "Me <div class='dt'>" +today + "</div>";
+			printHTML += "Me <div class='myDt'>" +today + "</div>";
 			printHTML += "<p class='Mmessage'>" + message + "</p>";
 			printHTML += "</div>";
 			
@@ -60,12 +69,11 @@ function initSocket(url) {
 			$("#data").scrollTop($("#data")[0].scrollHeight);
 			$(".chattingArticle").scrollTop($(".chattingArticle")[0].scrollHeight);
 		}else{
-			var printHTML = "<div class='well'>";
-			printHTML += "<div class='alert alert-warning'>";
-			printHTML += sessionid + "<div class='dt'>" + today + "</div>";
+			printHTML += "<div class='youDiv'>";
+			printHTML += "<p class='youId'>"+ sessionid+"</p>";
 			printHTML += "<strong class='Ymessage'>"+ message + "</strong>";
+			printHTML += "<div class='youDt'>" + today + "</div>";
 			printHTML += "</div>";
-			printHTML += "</div><br><br><br>";
 			
 			$("#data").append(printHTML);
 			
@@ -84,7 +92,7 @@ $(document).ready(function() {
 	$("#userId").text("${chat_room_name}");
 	var userChat = "${userChat}";
 	var account_id = "${account_id}";
-	account_id = account_id.substring(0, account_id.lastIndexOf("_"));
+// 	account_id = account_id.substring(0, account_id.lastIndexOf("_"));
 	
 	$("select[name=account]").val(account_id);
 	
@@ -97,24 +105,26 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<div id="accountDiv">계정명 : 
-		<select id="account" class="form-control" name="account" class="form-control">
-			<c:forEach begin="0" end="${crewList.size()-1}" step="1" var="i" >
-				<c:set var="crewVO" value="${crewList.get(i)}"/>
-				<c:set var="crewVOCopy" value="${crewListCopy.get(i)}"/>
-					<option class="accountNM" value="${crewVO.account_id_fk}">${crewVOCopy.account_id_fk}</option>
-			</c:forEach>
-		</select>
-	</div>
 	<br><br>
 	<section>
 		<article class="chattingArticle">
-			<div id="userId"></div><div id="data" style="height:500px; border:1px solid #DADFEC;"></div>
+			<div id="userId"></div>
+			<div id="accountDiv">계정명 : 
+				<select id="account" class="form-control" name="account" class="form-control">
+					<c:forEach begin="0" end="${crewList.size()-1}" step="1" var="i" >
+						<c:set var="crewVO" value="${crewList.get(i)}"/>
+						<c:set var="crewCopy" value="${crewListCopy.get(i)}"/>
+							<option class="accountNM" value="${crewVO.account_id_fk}">${crewCopy}</option>
+					</c:forEach>
+				</select>
+	</div>
+			<div id="data" style="height:500px; border:1px solid #f1f0f0;"></div>
 		</article>
 	</section>
-	<br>
-	<span><input type="text" id="message" autofocus="autofocus"/></span>
-	<button id="sendBtn" class="btn" style="background: black; color: white;">전송</button><br>
+	<div id="chatFooter">
+		<input type="text" id="message" autofocus="autofocus" placeholder="메세지 입력"/>
+		<button id="sendBtn" class="btn">보내기</button><br>
+	</div>
 	<input type="hidden" id="sessionuserid" value="${userId}">
 	
 	<form id="frm" action="/teamChat/changeAccount" method="post">
