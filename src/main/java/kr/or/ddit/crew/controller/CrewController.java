@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,7 +94,6 @@ public class CrewController {
 		return "/crew/crewMain.tiles";
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(CrewController.class);
 	
 	/**
 	* Method : crewManager
@@ -128,14 +125,33 @@ public class CrewController {
 		int paginationSize = (int) resultMap.get("paginationSize");
 		AccountVO accountVo = (AccountVO) resultMap.get("accountVo");
 		
+		 int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+	      if(pageVo.getPage()==1) {
+	         startPage =1;
+	      }
+	      
+	      if(startPage>=2) {
+	            startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+	        }
+	      
+	       paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+	         
+	         int lastpaginationSize= (int) resultMap.get("paginationSize");
+	         
+	         if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+	            paginationSize= lastpaginationSize;
+	         }
+
+		
 		String select = "";
 		if (crewService.crewSelectList(user_id) != null && crewService.crewSelectList(user_id).size() > 0) {
 			select = crewService.crewSelectList(user_id).get(0).getAccount_id_fk();
 		}
 		model.addAttribute("selected", select);
 		
-		logger.debug("accountVo =============================>>>>>>>>>>>>>>>>>>>>>>>[{}]", accountVo);
 		model.addAttribute("crewList", crewList);
+		model.addAttribute("lastpaginationSize", lastpaginationSize);
+		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("paginationSize", paginationSize);
 		model.addAttribute("accountVo", accountVo);
@@ -192,7 +208,6 @@ public class CrewController {
 	public String deleteUserMG(String[] deleteCheck,String acc_id ,  Model model, HttpSession session) {
 
 		UserVO userVo =  (UserVO) session.getAttribute("USER_INFO");
-		logger.debug("acc_id : {}", acc_id);
 		for (int i = 0; i < deleteCheck.length; i++) {
 			if (deleteCheck[i].equals(userVo.getUser_id())) {
 				model.addAttribute("msg", "자기 자신은 탈퇴 시킬 수 없습니다.");

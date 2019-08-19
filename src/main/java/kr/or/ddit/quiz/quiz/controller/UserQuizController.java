@@ -1,6 +1,5 @@
 package kr.or.ddit.quiz.quiz.controller;
 
-import java.sql.SQLSyntaxErrorException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -21,7 +20,6 @@ import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz.service.IQuizService;
 import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
-import kr.or.ddit.user.model.UserVO;
 
 @Controller
 public class UserQuizController {

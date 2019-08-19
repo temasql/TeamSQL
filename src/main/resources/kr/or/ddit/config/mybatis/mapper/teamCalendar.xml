@@ -50,12 +50,6 @@
 		AND     U.USER_ID = #{user_id_fk}
 	</select>
 	
-	<!-- SelectOne -->
-	<select id="get" parameterType="String" resultType="teamCalendarVo">
-		SELECT *
-		FROM TEAM_CALENDAR
-		WHERE ID = #{id}
-	</select>
 	
 	<!-- SelectList -->
 	<select id="readCal" parameterType="crewVo" resultType="teamCalendarVo">
@@ -74,13 +68,6 @@
 		WHERE	ACCOUNT_ID_FK = #{account_id_fk}
 	</select>
 	
-	<select id="map" parameterType="map" resultType="teamCalendarVo">
-		SELECT *
-		FROM TEAM_CALENDAR
-		WHERE ID = #{map1}
-		AND .. = #{map2}
-		...
-	</select>
 	
 	<!-- update -->
 	<update id="updateCal" parameterType="teamCalendarVo">

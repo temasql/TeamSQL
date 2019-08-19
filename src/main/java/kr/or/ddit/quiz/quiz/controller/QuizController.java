@@ -21,7 +21,6 @@ import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
 import kr.or.ddit.user.model.UserVO;
 
-//@RequestMapping("/quiz")
 @Controller
 public class QuizController {
 	private static final Logger logger = LoggerFactory.getLogger(QuizController.class);

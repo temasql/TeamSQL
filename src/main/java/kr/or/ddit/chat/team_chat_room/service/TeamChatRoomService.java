@@ -1,8 +1,6 @@
 package kr.or.ddit.chat.team_chat_room.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -54,23 +52,6 @@ public class TeamChatRoomService implements ITeamChatRoomService{
 	@Override
 	public List<TeamChatRoomVO> chatRoomList(String userId) {
 		return teamChatRoomDao.chatRoomList(userId);
-	}
-
-	@Override
-	public Map<String, Object> map(Map<String, Object> map) {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<TeamChatRoomVO> mapList =  teamChatRoomDao.map(map);
-		return resultMap;
-	}
-
-	@Override
-	public int update(String id) {
-		return teamChatRoomDao.update(id);
-	}
-	
-	@Override
-	public int delete(String id) {
-		return teamChatRoomDao.delete(id);
 	}
 
 	/**
