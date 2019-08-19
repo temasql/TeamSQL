@@ -421,7 +421,7 @@ $(document).ready(function() {
 		$("#inputDomainUpdateName").val("");
 		$("#inputDomainUpdateType").val("");
 	})
-	$("#domUpdateCancle").on("click", function(){
+	$("#domUpdateCancel").on("click", function(){
 		$("#domainUpdateModal").css("display", "none");
 		$("tr").css("background-color", "white");
 		
