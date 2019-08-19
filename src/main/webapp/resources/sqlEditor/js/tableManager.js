@@ -7,7 +7,7 @@ $(document).ready(function() {
 	
 	$("#exportTable").on("click", function() {
 		$("#tableExportModal").css("display", "block");
-		$("#tableExportTitle").text($("#tableNm").val())
+		$("#tableExportTitle").text($("#tableNm").val() + " Table Export")
 	});
 	
 	// 자바 모델 생성

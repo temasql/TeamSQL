@@ -64,7 +64,7 @@
 			</table>
 			<br><br>
 			<input type="hidden" id="deleteHidden"/>
-			<button type="button" id="createFunctionBtn" class="btn btn-secondary">생성</button>
+			<button type="button" id="createFunctionBtn" class="btn" style="background: black; color: white;">생성</button>
 		</fieldset>
 	</form>
   </div>

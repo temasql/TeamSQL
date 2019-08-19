@@ -1,6 +1,7 @@
 package kr.or.ddit.chat.team_chat.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -51,12 +52,13 @@ public class TeamChatController {
 		model.addAttribute("userId", userVO.getUser_id());
 
 		List<CrewVO> crewList = crewService.crewSelectList(userVO.getUser_id());
-		List<CrewVO> crewListCopy = crewList;
+		List<String> crewListCopy = new ArrayList<String>();
 		
 		String account_id = null;
 		try {
 			// 채팅방 아이디 조회
 			account_id = crewList.get(0).getAccount_id_fk();
+			logger.debug("복제 안한거 : {}", account_id);
 			teamChatRoomVo = chatRoomService.getChatRoomId(account_id);
 			model.addAttribute("teamChatRoomVo", teamChatRoomVo);
 			logger.debug("teamChatRoomVo : {}", teamChatRoomVo);
@@ -78,25 +80,29 @@ public class TeamChatController {
 		List<TeamChatVO> userChatList = chatService.userChatList(teamChatVO);
 		logger.debug("채팅 리스트 : {}", userChatList);
 		
-		for(int i=0; i<crewListCopy.size(); i++) {
-			String accountId = crewListCopy.get(i).getAccount_id_fk().substring(0, crewListCopy.get(i).getAccount_id_fk().lastIndexOf("_"));
+		for(int i=0; i<crewList.size(); i++) {
+			String accountId = crewList.get(i).getAccount_id_fk().substring(0, crewList.get(i).getAccount_id_fk().lastIndexOf("_"));
 			logger.debug("계정아이디 언더바 삭제 : {}", accountId);
-			crewListCopy.get(i).setAccount_id_fk(accountId);
+			crewListCopy.add(accountId);
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		logger.debug("crewListCopy : {}", crewListCopy.get(0));
+		logger.debug("crewList : {}", crewList.get(0));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd HH:mm");
 		
 		String temp = "";
 		for(TeamChatVO ChatVO : userChatList) {
 			String date = sdf.format(ChatVO.getChat_dt());
 			if(userVO.getUser_id().equals(ChatVO.getUser_id_fk())) {
 				temp += "<div class='myDiv'>";
-//				temp += "Me <div class='dt'>" +date + "</div>";
+				temp += "<div class='myDt'>" +date + "</div>";
 				temp += "<p class='Mmessage'>" + ChatVO.getChat_content() + "</p>";
 				temp += "</div>";
 			}else {
 				temp += "<div class='youDiv'>";
-				temp += ChatVO.getUser_id_fk() + "<div class='dt'>" + date + "</div>";
+				temp += "<p class='youId'>"+ChatVO.getUser_id_fk()+"</p>";
 				temp += "<p class='Ymessage'>" + ChatVO.getChat_content() + "</p>";
+				temp += "<div class='youDt'>" + date + "</div>";
 				temp += "</div>";
 			}
 		}
@@ -124,10 +130,10 @@ public class TeamChatController {
 		logger.debug("chat_room_id : {}", chat_room_id);
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
 		
-		account_id = account_id + "_" + userVO.getUser_id();
+//		account_id = account_id + "_" + userVO.getUser_id();
 		
 		List<CrewVO> crewList = crewService.crewSelectList(userVO.getUser_id());
-		List<CrewVO> crewListCopy = crewList;
+		List<String> crewListCopy = new ArrayList<String>();
 		
 		TeamChatVO teamChatVO = new TeamChatVO();
 		TeamChatRoomVO teamChatRoomVo = null;
@@ -143,30 +149,35 @@ public class TeamChatController {
 		session.setAttribute("TEAM_INFO", teamChatVO);
 		List<TeamChatVO> userChatList = chatService.userChatList(teamChatVO);
 		logger.debug("채팅 리스트 : {}", userChatList);
+		logger.debug("채팅 crewList : {}", crewList);
 		
-		for(int i=0; i<crewListCopy.size(); i++) {
-			String accountId = crewListCopy.get(i).getAccount_id_fk().substring(0, crewListCopy.get(i).getAccount_id_fk().lastIndexOf("_"));
+		
+		for(int i=0; i<crewList.size(); i++) {
+			String accountId = crewList.get(i).getAccount_id_fk().substring(0, crewList.get(i).getAccount_id_fk().lastIndexOf("_"));
 			logger.debug("계정아이디 언더바 삭제 : {}", accountId);
-			crewListCopy.get(i).setAccount_id_fk(accountId);
+			crewListCopy.add(accountId);
 		}
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd HH:mm");
 		
 		String temp = "";
 		for(TeamChatVO ChatVO : userChatList) {
 			String date = sdf.format(ChatVO.getChat_dt());
 			if(userVO.getUser_id().equals(ChatVO.getUser_id_fk())) {
 				temp += "<div class='myDiv'>";
-				temp += "Me <div class='dt'>" +date + "</div>";
+				temp += "<div class='myDt'>" +date + "</div>";
 				temp += "<p class='Mmessage'>" + ChatVO.getChat_content() + "</p>";
 				temp += "</div>";
 			}else {
 				temp += "<div class='youDiv'>";
-				temp += ChatVO.getUser_id_fk() + "<div class='dt'>" + date + "</div>";
+				temp += "<p class='youId'>"+ChatVO.getUser_id_fk()+"</p>";
 				temp += "<p class='Ymessage'>" + ChatVO.getChat_content() + "</p>";
+				temp += "<div class='youDt'>" + date + "</div>";
 				temp += "</div>";
 			}
 		}
+		
+		logger.debug("채팅 crewListCopy : {}", crewListCopy);
 		
 		model.addAttribute("userId", userVO.getUser_id());
 		model.addAttribute("chat_room_name", teamChatRoomVo.getChat_room_name());

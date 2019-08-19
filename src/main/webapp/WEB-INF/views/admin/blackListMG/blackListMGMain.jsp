@@ -14,7 +14,7 @@
 	<button type="button" id="deleteBlackList" class="btn" style="background: black; color: white;">블랙리스트 해제</button>
 </form>
 <div class="tableContainer">
-	<table class="table table-hover">
+	<table class="table table-hover" style="text-align: center;">
 		<thead>
 			<tr>
 				<th scope="col"></th>

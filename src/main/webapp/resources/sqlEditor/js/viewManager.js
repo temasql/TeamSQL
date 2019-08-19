@@ -65,7 +65,6 @@ $(document).ready(function() {
 function updateViewTextArea(){
 	var viewName = $("#viewNm").val();
 	var scName =$("#acco_id").val()
-	alert(scName)
 	$.ajax({
 		 url    : "/sqlEditor/updateViewTA"
 		 ,data : "view_name=" +viewName + "&sc_id=" + scName

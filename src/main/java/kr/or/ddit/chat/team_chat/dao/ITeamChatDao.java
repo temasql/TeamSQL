@@ -33,4 +33,5 @@ public interface ITeamChatDao {
 	int update(String id);
 
 	int delete(String id);
+	
 }

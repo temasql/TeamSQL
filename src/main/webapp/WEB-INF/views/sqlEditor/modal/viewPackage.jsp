@@ -24,7 +24,8 @@
 	      <input type="text" class="form-control" id="viewName" name="view_name" placeholder="뷰이름">
 	    </div>
 	    <br><br>
-		<textarea class="form-control" id="viewText" name="viewQuery" rows="10" cols="229" autofocus required></textarea>
+		<textarea class="form-control" id="viewText" name="viewQuery" rows="10" cols="229" autofocus required style="height: 200px;
+"></textarea>
 		<br>
 	    <button type="button" id="createViewBtn" class="btn" style="background: black; color: white;">생성</button>
 	  </fieldset>
@@ -67,7 +68,7 @@
     <br><br>                  
 	  <fieldset>
 	    <legend id="readViewTitle"></legend>
-	    <select id="viewSelectChoice" class="form-control" style=" width: 100px;">
+	    <select id="viewSelectChoice" class="form-control" style="width: 100px;font-size: 15px;text-align-last: center;font-weight: bold;">
 	    	<option value="column">column</option>
 	    	<option value="data">data</option>
 	    </select>
