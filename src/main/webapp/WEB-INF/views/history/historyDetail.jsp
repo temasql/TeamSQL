@@ -6,7 +6,7 @@
 <script type="text/javascript" src="${cp}/resources/history/js/historyDetailListJs.js"></script>
 
 <!-- DB 상세 변경 이력 테이블 -->
-<div class="tableContainer">
+<div class="tableCon">
 <table class="table table-hover" id="tableContainer">
   <thead>
     <tr>
