@@ -7,15 +7,55 @@ import kr.or.ddit.domain.common_domain.model.CommonDomainVO;
 
 public interface ICommonDomainDao {
 
-	int insert(CommonDomainVO commonDomainVo);
+	/**
+	* Method : allDomainList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @return
+	* Method 설명 : 전체 도메인 리스트 조회
+	*/
+	List<CommonDomainVO> allDomainList();
 	
-	CommonDomainVO get(String id);
 	
-	List<CommonDomainVO> list();
+	/**
+	* Method : domainCnt
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @return
+	* Method 설명 : 도메인 갯수
+	*/
+	int domainCnt();
 	
-	List<CommonDomainVO> map(Map<String, Object> map);
 	
-	int update(String id);
+	/**
+	* Method : domainPagingList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 도메인 페이징 리스트
+	*/
+	List<CommonDomainVO> domainPagingList(Map<String, Object> map);
+	
+	
+	/**
+	* Method : addDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param domainVo
+	* @return
+	* Method 설명 : 공통 도메인 추가
+	*/
+	int addDomain(CommonDomainVO domainVo);
 
-	int delete(String id);
+
+	/**
+	* Method : modifyDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param domainVo
+	* @return
+	* Method 설명 : 공통 도메인 수정
+	*/
+	int modifyDomain(CommonDomainVO domainVo);
 }

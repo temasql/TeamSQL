@@ -1,8 +1,6 @@
 package kr.or.ddit.chat.team_chat_room.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -56,23 +54,6 @@ public class TeamChatRoomService implements ITeamChatRoomService{
 		return teamChatRoomDao.chatRoomList(userId);
 	}
 
-	@Override
-	public Map<String, Object> map(Map<String, Object> map) {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<TeamChatRoomVO> mapList =  teamChatRoomDao.map(map);
-		return resultMap;
-	}
-
-	@Override
-	public int update(String id) {
-		return teamChatRoomDao.update(id);
-	}
-	
-	@Override
-	public int delete(String id) {
-		return teamChatRoomDao.delete(id);
-	}
-
 	/**
 	* Method : getChatRoomNM
 	* 작성자 : 손주형
@@ -85,4 +66,5 @@ public class TeamChatRoomService implements ITeamChatRoomService{
 	public String getAccount_id_fk(int chat_room_id) {
 		return teamChatRoomDao.getAccount_id_fk(chat_room_id);
 	}
+
 }

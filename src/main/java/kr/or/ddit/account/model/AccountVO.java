@@ -1,7 +1,5 @@
 package kr.or.ddit.account.model;
 
-import javax.validation.constraints.Pattern;
-
 public class AccountVO {
 	
 	private String account_id; // 계정아이디

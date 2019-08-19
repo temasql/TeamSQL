@@ -6,45 +6,81 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import kr.or.ddit.domain.common_domain.dao.ICommonDomainDao;
 import kr.or.ddit.domain.common_domain.model.CommonDomainVO;
 
-//@Service
+@Service
 public class CommonDomainService implements ICommonDomainService{
 
 	@Resource(name = "commonDomainDao")
 	private ICommonDomainDao commonDomainDao;
 
-	@Override
-	public int insert(CommonDomainVO commonDomainVo) {
-		return commonDomainDao.insert(commonDomainVo);
-	}
 	
+	/**
+	* Method : allDomainList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @return
+	* Method 설명 : 전체 도메인 리스트
+	*/
 	@Override
-	public CommonDomainVO get(String id) {
-		return commonDomainDao.get(id);
-	}
-	
-	@Override
-	public List<CommonDomainVO> list() {
-		return commonDomainDao.list();
+	public List<CommonDomainVO> allDomainList() {
+		return commonDomainDao.allDomainList();
 	}
 
+	
+	/**
+	* Method : domainPagingList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 도메인 페이징 리스트
+	*/
 	@Override
-	public Map<String, Object> map(Map<String, Object> map) {
+	public Map<String, Object> domainPagingList(Map<String, Object> map) {
+		
+		List<CommonDomainVO> domainPagingList =commonDomainDao.domainPagingList(map);
+		
+		int domainCnt = commonDomainDao.domainCnt();
+		int pageSize = (int) map.get("pageSize");
+		int pagination = (int) Math.ceil((double)domainCnt/pageSize);
+				
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<CommonDomainVO> mapList =  commonDomainDao.map(map);
+		resultMap.put("domainList", domainPagingList);
+		resultMap.put("paginationSize", pagination);
+		
 		return resultMap;
 	}
 
+
+	/**
+	* Method : addDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param domainVo
+	* @return
+	* Method 설명 : 공통 도메인 추가
+	*/
 	@Override
-	public int update(String id) {
-		return commonDomainDao.update(id);
+	public int addDomain(CommonDomainVO domainVo) {
+		return commonDomainDao.addDomain(domainVo);
 	}
-	
+
+
+	/**
+	* Method : modifyDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param domainVo
+	* @return
+	* Method 설명 : 공통 도메인 수정
+	*/
 	@Override
-	public int delete(String id) {
-		return commonDomainDao.delete(id);
+	public int modifyDomain(CommonDomainVO domainVo) {
+		return commonDomainDao.modifyDomain(domainVo);
 	}
 
 }

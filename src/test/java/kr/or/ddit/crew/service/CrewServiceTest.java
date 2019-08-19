@@ -1,6 +1,6 @@
 package kr.or.ddit.crew.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.testenv.LogicTestEnv;
-import kr.or.ddit.user.model.UserVO;
 
 /**
 * CommonsDaoTest.java

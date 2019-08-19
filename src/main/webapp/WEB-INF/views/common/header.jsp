@@ -20,8 +20,10 @@
 	    <li><a href="${cp }/board/manager">게시판관리</a>
 		  <ul>
 			<c:forEach items="${boardList }" var="board">
-	    	  <li><a href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a>
-			</c:forEach>	
+				<c:if test="${board.board_use eq 'Y'}">
+					<li><a href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
+				</c:if>
+			</c:forEach>
 		  </ul>
 	    </li>
 	    <li><a href="${cp}/quizRealMain">SQL퀴즈</a>
@@ -32,8 +34,11 @@
              <li><a href="/userQuiz?quiz_right=04">주관식퀴즈</a></li>
           </ul>
         </li>
+        <li><a href="${cp }/commonDomain/manager">도메인 관리</a></li>
 	    <li><a href="${cp }/user/adminManager">관리자관리</a>
 	  </c:when>
+	  
+	  
 	<c:otherwise>
 	 <li><a href="${cp}/sqlEditor/sqlEditorMain">SQL에디터</a></li>
 	 <li><a href="${cp}/history/historyList" id="current">DB변경이력관리</a></li>

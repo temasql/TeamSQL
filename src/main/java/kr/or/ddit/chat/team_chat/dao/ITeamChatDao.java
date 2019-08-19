@@ -1,7 +1,6 @@
 package kr.or.ddit.chat.team_chat.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import kr.or.ddit.chat.team_chat.model.TeamChatVO;
 
@@ -16,8 +15,6 @@ public interface ITeamChatDao {
 	*/
 	int insertChat(TeamChatVO teamChatVo);
 	
-	TeamChatVO get(String id);
-	
 	/**
 	* Method : userChatList
 	* 작성자 : 손주형
@@ -28,10 +25,5 @@ public interface ITeamChatDao {
 	*/
 	List<TeamChatVO> userChatList(TeamChatVO teamChatVO);
 	
-	List<TeamChatVO> map(Map<String, Object> map);
-	
-	int update(String id);
 
-	int delete(String id);
-	
 }

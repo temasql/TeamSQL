@@ -8,14 +8,14 @@
 <div class="tableContainer">
 	<h3 class="sub-header">게시판 생성</h3>
 	<form class="form-inline" id="addBoardFrm" action="${cp }/board/addBoard" method="post">
-		<label class="mb-2 mr-sm-2">게시판명</label> 
-		<input type="text" class="form-control mb-2 mr-sm-2" id="boardName" 	name="board_name" 	placeholder="게시판명"> 
-		<label	class="mb-2 mr-sm-2">사용여부</label> 
-		<select class="form-control createUse_yn" name="board_use" required>
+		<label class="mb-2 mr-sm-2" style="margin-top: 10px;">게시판명</label> 
+		<input type="text" class="form-control mb-2 mr-sm-2" id="boardName" 	name="board_name"> 
+		<label	class="mb-2 mr-sm-2" style="margin-left: 20px; margin-top: 10px;">사용여부</label> 
+		<select class="form-control createUse_yn" name="board_use" style="width : 5%;" required>
 			<option class="use_yes" value="Y">사용</option>
 			<option class="use_no" value="N">미사용</option>
 		</select> 
-		<input type="submit"	class="btn" style="background: black; color: white;" value="생성">
+		<input type="submit"	class="btn" style="background: black; color: white; margin-left: 30px;" value="생성">
 	</form>
 
 	<br><br><br><br>
@@ -37,11 +37,11 @@
 
 		<c:forEach items="${boardList }" var="board">
 			<tr class="boardTr">
-				<td class="boardId">${board.board_id }</td>
-				<td >${board.board_name}</td>
+				<td class="boardId" style="vertical-align: middle;">${board.board_id }</td>
+				<td style="vertical-align: middle;">${board.board_name}</td>
 
 				<td class="modiSel">
-					<select class="form-control updateUse_yn" 	name="use_yn">
+					<select class="form-control updateUse_yn" 	name="use_yn" style="width: 25%;">
 						<c:choose>
 							<c:when test="${board.board_use eq 'Y' }">
 								<option class="use_yes" value="Y" selected="selected">사용</option>

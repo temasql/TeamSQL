@@ -38,28 +38,7 @@
 		SELECT  ACCOUNT_ID_FK
 		FROM    TEAM_CHAT_ROOM
 		WHERE   CHAT_ROOM_ID = #{chat_room_id}
-	</select>
-	
-	<select id="map" parameterType="map" resultType="teamChatRoomVo">
-		SELECT *
-		FROM TEAM_CHAT_ROOM
-		WHERE ID = #{map1}
-		AND .. = #{map2}
-		...
-	</select>
-	
-	<!-- update -->
-	<update id="update" parameterType="teamChatRoomVo">
-		UPDATE TEAM_CHAT_ROOM
-		SET COLUMN = #{..}
-		WHERE ID = #{id}
-	</update>
-	
-	<!-- delete -->
-	<delete id="delete" parameterType="String">
-		DELETE
-		FROM TEAM_CHAT_ROOM
-		WHERE ID = #{id}
-	</delete>
 
+	</select>
+	
 </mapper>
