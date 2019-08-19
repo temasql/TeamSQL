@@ -90,8 +90,15 @@
 
 #createIndexBtn{
 	float: right;
+    margin-top: 14px;
+    left: 2px;
 }
 
+#updateIndexBtn{
+	float: right;
+    margin-top: 14px;
+    left: 2px;
+}
 .plustBtn{
 	width: 17px;
 	height: 17px;	
