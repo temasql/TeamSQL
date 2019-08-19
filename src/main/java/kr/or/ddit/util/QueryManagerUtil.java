@@ -85,7 +85,8 @@ public class QueryManagerUtil {
 		dragText = dragText.replaceAll("WHERE", "\n WHERE ");
 		dragText = dragText.replaceAll("AND", "\n AND ");
 		dragText = dragText.replaceAll("=", " = ");
-		String proc = "SELECT 1 AS CNT FROM DUAL WHERE EXISTS (" + dragText + ")";
+		dragText = dragText.replaceAll(";", "");
+		String proc = "SELECT 1 AS CNT FROM DUAL WHERE EXISTS (" + dragText + ");";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", NULLCHECK_PROCESSING);
 		map.put("dragText", proc);
@@ -205,6 +206,8 @@ public class QueryManagerUtil {
 		dragText = dragText.replaceAll("WHERE", "\n WHERE ");
 		dragText = dragText.replaceAll("AND", "\n AND ");
 		dragText = dragText.replaceAll("=", " = ");
+		dragText = dragText.replaceAll(";", "");
+		dragText += ";";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", LEFT_PROCESSING);
 		map.put("dragText", dragText);
@@ -279,6 +282,8 @@ public class QueryManagerUtil {
 		dragText = dragText.replaceAll("WHERE", "\n WHERE ");
 		dragText = dragText.replaceAll("AND", "\n AND ");
 		dragText = dragText.replaceAll("=", " = ");
+		dragText = dragText.replaceAll(";", "");
+		dragText += ";";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", LEFT_PROCESSING);
 		map.put("dragText", dragText);
