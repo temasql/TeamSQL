@@ -26,7 +26,8 @@ public class IndexUtil {
 			index_type = " ";
 		}
 		logger.debug("인덱스 타입 : {}", index_type);
-
+		
+		
 		query += index_type + " " +"INDEX " + param_name + " ON " + param_table + "(";
 		logger.debug("여기빠끄 : {}",query);
 		for (int i = 0; i < param_column.length; i++) {
