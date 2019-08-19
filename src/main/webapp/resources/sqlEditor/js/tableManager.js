@@ -109,7 +109,7 @@ $(document).ready(function() {
 //		$("#createTableFrm").submit();
 		var tableName = $("#tableName").val();
 		var tableReg = /^[a-zA-Z][a-zA-Z0-9]{2,5}$/;
-		var columnReg = /^[a-zA-Z][a-zA-Z0-9]{2,19}$/;
+		var columnReg = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
 		if(tableReg.test(tableName)){
 			var col = $(".col");
 			$(".col").length

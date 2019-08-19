@@ -78,6 +78,7 @@ public class WorksheetController {
 	@RequestMapping(path = "/selectRun", method = RequestMethod.GET)
 	public String selectRun(String dragText, String account_id, Model model, HttpSession session) {
 		logger.debug("account_id : {}", account_id);
+		logger.debug("dragText : {}", dragText);
 		AccountVO accountVO = accountServcie.getAccountOne(account_id);
 		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
 		logger.debug("ession.getAttribute('conn') : {}", session.getAttribute("conn"));

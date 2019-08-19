@@ -969,7 +969,9 @@ $(document).ready(function() {
 		$.ajax({
 			url : "/worksheet/accountChange",
 			method : "get",
-			success : function(data) {}
+			success : function(data) {
+				alert("계정이 변경되었습니다.");
+			}
 		});
 	});
     
