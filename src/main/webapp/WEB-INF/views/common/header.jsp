@@ -34,7 +34,14 @@
           <li ><a href="/quizListView?quiz_right=04">주관식퀴즈</a></li>
           </ul>
         </li>
-        <li><a href="${cp }/commonDomain/manager">도메인 관리</a></li>
+        
+        <li><a href="#">에디터 기능 관리</a>
+			<ul class="editor-header">
+				<li><a href="${cp }/commonDomain/manager">도메인 관리</a></li>
+				<li><a href="${cp }/commonTemplate/manager">템플릿 관리</a></li>
+          </ul>
+        </li>
+        
 	    <li><a href="${cp }/user/adminManager">관리자관리</a>
 	  </c:when>
 	  
