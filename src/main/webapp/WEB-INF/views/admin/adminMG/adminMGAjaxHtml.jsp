@@ -29,7 +29,7 @@ SEPERATORSEPERATOR
 	</c:otherwise>
 </c:choose>
 
-<c:forEach var="i" begin="1" end="${paginationSize}">
+<c:forEach var="i" begin="${startPage }" end="${paginationSize}">
 	<li><c:choose>
 			<c:when test="${pageMap.page == i}">
 				<li class="page-link active"><span>${i }</span></li>
@@ -42,7 +42,7 @@ SEPERATORSEPERATOR
 </c:forEach>
 
 <c:choose>
-	<c:when test="${pageMap.page  == paginationSize}">
+	<c:when test="${pageMap.page  == lastpaginationSize}">
 		<li class="page-link disabled"><span>next</span></li>
 		<li class="page-link disabled"><span>»</span></li>
 	</c:when>
@@ -50,6 +50,6 @@ SEPERATORSEPERATOR
 		<li class="page-link"><a
 			href="javascript:userPagingListAjaxHtml(${pageMap.page + 1 },${pageMap.pageSize});">next</a></li>
 		<li class="page-link"><a
-			href="javascript:userPagingListAjaxHtml(${paginationSize},${pageMap.pageSize});">»</a></li>
+			href="javascript:userPagingListAjaxHtml(${lastpaginationSize},${pageMap.pageSize});">»</a></li>
 	</c:otherwise>
 </c:choose>

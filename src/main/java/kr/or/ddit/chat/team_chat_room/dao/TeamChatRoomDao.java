@@ -1,7 +1,6 @@
 package kr.or.ddit.chat.team_chat_room.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -53,21 +52,6 @@ public class TeamChatRoomDao implements ITeamChatRoomDao{
 	@Override
 	public List<TeamChatRoomVO> chatRoomList(String userId) {
 		return sqlSession.selectList("teamChatRoom.chatRoomList", userId);
-	}
-
-	@Override
-	public List<TeamChatRoomVO> map(Map<String, Object> map) {
-		return sqlSession.selectList("teamChatRoom.map", map);
-	}
-	
-	@Override
-	public int update(String id) {
-		return sqlSession.update("teamChatRoom.update", id);
-	}
-
-	@Override
-	public int delete(String id) {
-		return sqlSession.delete("teamChatRoom.delete", id);
 	}
 
 	/**
