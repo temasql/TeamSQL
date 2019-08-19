@@ -24,8 +24,8 @@
 }
 #question{
 	font-size: 20px;
-/* 	margin-top: 5%; */
 	height: 20px;
+    margin-bottom: 5%;
 }
 #gruopDiv{
 	margin: 0px auto;
@@ -79,6 +79,7 @@ ol{
 	margin-top: 50px;
 	margin-left: -15px;
 	font-size: 20px;
+    margin-bottom: 4%;
 }
 
 #insertOXDB{
@@ -99,4 +100,14 @@ ol{
 #quiz_answer{
     display: inline;
     width: 6%;
+}
+#multipleUpdateBtn{
+    margin-left: 43%;
+}
+#insertBtn{
+	margin-left: 68%;
+	margin-top: 1%;
+}
+.example_content{
+    font-size: 20px;
 }
