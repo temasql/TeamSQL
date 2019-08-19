@@ -70,5 +70,19 @@ public class CommonDomainDao implements ICommonDomainDao{
 		return sqlSession.insert("commonDomain.addDomain", domainVo);
 	}
 
+
+	/**
+	* Method : modifyDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param domainVo
+	* @return
+	* Method 설명 : 공통 도메인 수정
+	*/
+	@Override
+	public int modifyDomain(CommonDomainVO domainVo) {
+		return sqlSession.update("commonDomain.modifyDomain", domainVo);
+	}
+
 	
 }

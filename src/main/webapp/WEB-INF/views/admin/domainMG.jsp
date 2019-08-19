@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script src="${cp }/resources/domain/js/domainList.js"></script>
+<script src="${cp }/resources/domain/domainList.js"></script>
 
 	
 <div class="tableContainer">
@@ -18,12 +18,18 @@
 
 	<br><br><br><br>
 
-	<form id="frm" method="post" action="${cp }/board/modifyBoard">
-		<input type="hidden" id="boardId" name="board_id" /> 
-		<input type="hidden" id="updateUse_yn" name="board_use" />
+	<form id="frm" method="post" action="${cp }/commonDomain/modifyDomain">
+		<input type="hidden" id="updateName" name="cdomain_name" /> 
+		<input type="hidden" id="updateType" name="cdomain_type" />
+		<input type="hidden" id="updateId" name="cdomain_id"/>
+	</form>
+
+	<form id="delFrm" method="post" action="${cp }/commonDomain/deleteDomain">
+		<input type="hidden" id="deleteId" name="cdomain_id" />
 	</form>
 
 	<h3 class="sub-header">공통 도메인</h3>
+
 	<table class="table table-hover">
 	<tr class="domainModi">
 		<th class="domainModi">도메인명</th>
@@ -31,9 +37,13 @@
 		<th class="domainModi">편집</th>
 	</tr>
 
-
+	
 		<c:forEach items="${domainList }" var="domain">
 			<tr class="domainTr">
+				<td class="domainId" style="display: none;">
+					<input type="hidden" value="${domain.cdomain_id }">
+				</td>
+			
 				<td class="domainName" style="vertical-align: middle;">
 					<input type="text" value="${domain.cdomain_name }">
 				</td>

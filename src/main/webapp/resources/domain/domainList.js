@@ -1,64 +1,29 @@
-$(function (){
-	$(document).on("change", ".checkbox", function (){
-		if($(this).is(":checked")){
-            $("#deleteForm").append("<input type='hidden' class='deleteChecked' name='deleteCheck' value='"+ $(this).val()+"'/>")
-        }else{
-            $(this).removeAttr("name")
-            $("#deleteForm :last-child").remove();
-        }
+$(document).ready(function(){
+	$(".modiBtn").on("click", function() {
+			
+		var domainId = $(this).parents("td").prevAll(".domainId").children().val();
+		var domainName = $(this).parents("td").prevAll(".domainName").children().val();
+		var domainType = $(this).parents("td").prevAll(".domainType").children().val();
+			
+		$("#updateId").val(domainId);
+		$("#updateName").val(domainName);
+		$("#updateType").val(domainType);
+//		console.log($("#domainId").val())
+//		console.log($("#domainName").val())
+//		console.log($("#domainType").val())
+//		console.log($("#frm").serialize())
+			
+		$("#frm").submit();
 	})
 	
-	$("#deleteUser").on("click", function (){
-		if($(".deleteChecked").length == 0){
-			alert("탈퇴 시킬 회원을 선택 해 주세요")
-		}else{
-			var tmp = "";
-			$.each($(".deleteChecked"), function(idx, dt){
-				tmp += dt.value + " ";
-			})
-			var result = confirm("회원 " + tmp + "을 탈퇴 시키시겠습니까?");
-			if(result){
-				alert("회원 " + tmp + "을 탈퇴 했습니다.")
-				$("#deleteForm").submit();
-			}
-		}
+	
+		$(".delBtn").on("click", function() {
+			
+		var domainId = $(this).parents("td").prevAll(".domainId").children().val();
+			
+		$("#deleteId").val(domainId);
+			
+		$("#delFrm").submit();
 	})
-	userPagingListAjaxHtml(1, 10);
-	
-	$("#btnSearch").on("click", function(){
-		search()
-	})
-	
-	$('#searchfor').keydown(function(e) {
-        if (e.keyCode == 13) {
-        	search();
-        }
-    });
-	
+
 })
-function userPagingListAjaxHtml(page, pageSize){
-	$.ajax({
-				url    : "/user/userManager"
-				,method : "post"
-				,data   : "page=" + page + "&pageSize=" + pageSize + "&searchfor=" + $("#searchfor").val()
-				,success : function(data){
-					// html
-					var html = data.split("SEPERATORSEPERATOR");
-					$("#userListTbody").html(html[0]);
-					$(".pagination").html(html[1]);
-				}
-	});
-}
-function search(){
-	$.ajax({
-		url    : "/user/userManager"
-			,method : "post"
-				,data   : "page=1&pageSize=10&searchfor=" +$("#searchfor").val()
-				,success : function(data){
-					// html
-					var html = data.split("SEPERATORSEPERATOR");
-					$("#userListTbody").html(html[0]);
-					$(".pagination").html(html[1]);
-				}
-	});
-}
