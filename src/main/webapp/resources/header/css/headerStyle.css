@@ -69,7 +69,7 @@ header {
 
 /* 헤더 네비*/
 
-header #lnb { position: absolute; z-index: 20; width: 98%; box-sizing: border-box;}
+header #lnb { position: absolute; z-index: 9; width: 98%; box-sizing: border-box;}
 header #lnb nav {position:relative; border-bottom: 1px solid #e5e5e5; text-align: center; font-size: 0;}
 header #lnb nav > ul { display:inline-block; overflow: hidden; height : 59px; transition : all 0.5s;}
 header #lnb nav > ul:hover{overflow: visible;}
