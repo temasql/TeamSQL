@@ -16,7 +16,7 @@
 				<th scope="col">설명</th>
 			</tr>
 		</thead>
-		<tbody id="tableUpdateTbody">
+		<tbody id="tableUpdateTbody" style="font-size: 10px;">
 		<c:set value="100" var="i"></c:set>
 		<c:forEach items="${columnDataList}" var="columnData">
 			<tr class='tableDataTr' id='tableDataTr${i}'>

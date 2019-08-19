@@ -852,7 +852,7 @@ $(document).ready(function() {
 	$("#queryManager").on("click", function(){
 		var dragText = editor.getSelectedText();
 		if(dragText == "") {
-			alert("쿼리매니저를 사용하고 싶은 쿼리를 드래그해주세요.");
+			alert("쿼리매니저는 쿼리를 분석하여 해당 쿼리의 개선 할 점을 알려줍니다.\n쿼리매니저를 사용하고 싶은 쿼리를 드래그해주세요.");
 			return;
 		}
 		$.ajax({
@@ -881,7 +881,6 @@ $(document).ready(function() {
 					}
 					editor.insert("\n");
 					editor.insert("\n");
-					editor.insert("--개선된 쿼리");
 					editor.insert("\n");
 					editor.insert(data.dt);
 				 }

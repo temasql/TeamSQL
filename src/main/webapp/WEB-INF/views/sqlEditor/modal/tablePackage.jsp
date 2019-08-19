@@ -18,7 +18,7 @@
 	    <legend>테이블 생성</legend>
 	    <div class="form-group">
 	      <input type="text" class="form-control" id="tableName" name="table_name" placeholder="테이블명">
-	      <small class="form-text text-muted" id="tableNameHint">영문자, 숫자 포함 3~6자이며 첫 글자는 영문자로 시작</small>
+	      <small class="form-text text-muted" id="tableNameHint" style="font-size: 1.5em;" >영문자, 숫자 포함 3~6자이며 첫 글자는 영문자로 시작</small>
 	    </div>
 	    <br><br>
 	    <img class="plustBtn" id="appendData" style="margin : 5px;" src="${cp}/resources/img/add.png"/>&nbsp;&nbsp;
@@ -35,7 +35,7 @@
 					<th scope="col">설명</th>
 				</tr>
 			</thead>
-			<tbody id="tableDataTbody">
+			<tbody id="tableDataTbody" style="font-size: 10px;">
 			</tbody>
 		</table>
 	    <button type="button" id="createTableBtn" class="btn" style="background: black; color: white;">생성</button>
@@ -52,7 +52,7 @@
 	<form action="${cp}/sqlEditor/selectTable" method="post" id="SelcetTableFrm">
 	  <fieldset>
 	    <legend id="readTableTitle"></legend>
-	    <select id="tableSelectChoice" class="form-control" style=" width: 100px;">
+	    <select id="tableSelectChoice" class="form-control" style="width: 100px;font-size: 15px;text-align-last: center;font-weight: bold;">
 	    	<option value="column">column</option>
 	    	<option value="data">data</option>
 	    	<option value="constraint">constraint</option>
@@ -92,7 +92,7 @@
 <!-- EXPORT Modal -->
 <div id="tableExportModal" class="modal">
   <!-- Modal content -->
-  <div class="modal-content">
+  <div class="modal-content" style=" width: 363px;">
     <span class="close">&times;</span>   
     <br><br>                  
 	<form action="${cp}/sqlEditor/tableExport" method="post" >
@@ -101,22 +101,22 @@
 	    	<div class="ckDiv">
     			<input type="checkbox" name="exportChecked" value="CONSTRAINT"> 제약조건
     		</div>
-    		<div>
+    		<div class="ckDiv">
     			<input type="checkbox" name="exportChecked" value="INDEX"> 인덱스
     		</div>
-    		<div>
+    		<div class="ckDiv">
     			<input type="checkbox" name="exportChecked" value="VIEW"> 뷰
     		</div>
-    		<div>
+    		<div class="ckDiv">
     			<input type="checkbox" name="exportChecked" value="TRIGGER"> 트리거
     		</div>
-    		<div>
+    		<div class="ckDiv">
     			<input type="checkbox" name="exportChecked" value="DATA"> 데이터
     		</div>
     		<input type="hidden" id="exportChk">
 	  </fieldset>
 	</form>
-	 <button type="button" id="tableExportBtn" class="btn" style="background: black; color: white;">EXPORT</button>
+	 <button type="button" id="tableExportBtn" class="btn" style="background: black;color: white;margin-top: 20px;">EXPORT</button>
   </div>
 </div>
 
