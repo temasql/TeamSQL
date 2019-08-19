@@ -191,6 +191,10 @@
 	z-index:1;
 }
 
+.domainModi {
+	text-align: center;	
+}
+
 .domainRow{
 	cursor: pointer;
 }
@@ -208,14 +212,14 @@
 	margin-top: 20px;
 }
 
-#templateBtnDiv{
+#templateBtnDiv, #domainBtnDiv {
 	display: inline-block;
 	margin-left: 65px;
 	float: left;
 	padding-top: 80px;
 }
 
-#templateTableDiv{
+#templateTableDiv, #domainTableDiv {
 	width : 80%;
 	height : 300px;
 	display: inline-block;
@@ -223,36 +227,36 @@
 	float:left;
 }
 
-#templateAdd{
+#templateAdd, #domainAdd {
 	margin-bottom: 5px;
 }
 
-#templateUpdate{
+#templateUpdate, #domainUpdate {
 	margin-bottom: 5px;
 }
 
-#templateDelete{
+#templateDelete, #domainDelete{
 	margin-bottom: 5px;
 }
 
-.tmpOriginal{
+.tmpOriginal, .domainType {
 	text-align: center;
 }
 
-.templateRow{
+.templateRow, .domainRow {
 	cursor: pointer;
 }
 
-#tempAdd{
+#tempAdd, #domAdd, #domUpdate {
 	display: inline;
 }
 
-#tempCancle{
+#tempCancle, #domCancel, #domUpdateCancel{
 	display: inline;
 	margin-left: 4px;
 }
 
-#tempBtnDiv{
+#tempBtnDiv, #domBtnDiv{
 	padding-top : 10px;
     margin-left: 762px;
 }

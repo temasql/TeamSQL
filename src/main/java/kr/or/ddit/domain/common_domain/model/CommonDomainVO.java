@@ -5,6 +5,8 @@ public class CommonDomainVO {
 	private String cdomain_name;  // 도메인이름
 	private String cdomain_type;  // 도메인타입
 	
+	public CommonDomainVO() {}
+	
 	public int getCdomain_id() {
 		return cdomain_id;
 	}

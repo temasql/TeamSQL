@@ -34,7 +34,7 @@ public class BoardController {
 	* Method 설명 : 게시판 관리 메인 화면 요청
 	*/
 	@RequestMapping("/manager")
-	public String viewGet(Model model) {
+	public String viewGet() {
 //		List<BoardVO> boardList = boardService.boardList();
 //		model.addAttribute("boardList", boardList);
 		return "/admin/boardMG.tiles";

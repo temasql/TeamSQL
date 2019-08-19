@@ -55,14 +55,19 @@ public class PostController {
 	* 작성자 : 이영은
 	* 변경이력 :
 	* @return
-	* Method 설명 : 게시글 리스트 요청 화면
+	* Method 설명 : 게시글 리스트 화면 요청
 	*/
 	@RequestMapping(path =  "/boardList", method = RequestMethod.GET)
 	public String boardList(int board_id, Model model) {
 //		logger.debug("boardList get() : [{}]", board_id);
 //		model.addAttribute("boardList", boardService.boardList());
 		model.addAttribute("board_id", board_id);
-		return "/board/boardList.tiles";
+		
+		if(board_id ==1) {
+			return "/notice/noticeList.tiles";
+		} else {
+			return "/board/boardList.tiles";
+		}
 	}
 	
 	
@@ -108,23 +113,9 @@ public class PostController {
 		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("paginationSize", paginationSize);
 		
+
 		return "/board/boardListAjaxHtml";
-	}
 
-
-	/**
-	* Method : noticeList
-	* 작성자 : 이영은
-	* 변경이력 :
-	* @param board_id
-	* @param model
-	* @return
-	* Method 설명 : 공지사항 리스트 요청 화면
-	*/
-	@RequestMapping(path =  "/noticeList", method = RequestMethod.GET)
-	public String noticeList(int board_id, Model model) {
-		model.addAttribute("board_id", board_id);
-		return "/notice/noticeList.tiles";
 	}
 	
 	
