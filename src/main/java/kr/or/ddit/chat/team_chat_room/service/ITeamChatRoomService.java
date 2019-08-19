@@ -1,7 +1,6 @@
 package kr.or.ddit.chat.team_chat_room.service;
 
 import java.util.List;
-import java.util.Map;
 
 import kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO;
 
@@ -36,12 +35,6 @@ public interface ITeamChatRoomService {
 	* Method 설명 : 채팅방 리스트 반환
 	*/
 	List<TeamChatRoomVO> chatRoomList(String userId);
-	
-	Map<String, Object> map(Map<String, Object> map);
-	
-	int update(String id);
-	
-	int delete(String id);
 	
 	/**
 	* Method : getChatRoomNM

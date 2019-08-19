@@ -26,13 +26,6 @@
 		    )
 	</insert>
 	
-	<!-- SelectOne -->
-	<select id="get" parameterType="String" resultType="teamChatVo">
-		SELECT *
-		FROM TEAM_CHAT
-		WHERE ID = #{id}
-	</select>
-	
 	<!-- 구성원들이 입력한 모든 채팅내역 반환 -->
 	<select id="userChatList" parameterType="teamChatVo" resultType="teamChatVo">
 		SELECT  CHAT_ID,
@@ -43,26 +36,5 @@
 	    WHERE   CHAT_ROOM_ID_FK = #{chat_room_id_fk}
 	</select>
 	
-	<select id="map" parameterType="map" resultType="teamChatVo">
-		SELECT *
-		FROM TEAM_CHAT
-		WHERE ID = #{map1}
-		AND .. = #{map2}
-		...
-	</select>
-	
-	<!-- update -->
-	<update id="update" parameterType="teamChatVo">
-		UPDATE TEAM_CHAT
-		SET COLUMN = #{..}
-		WHERE ID = #{id}
-	</update>
-	
-	<!-- delete -->
-	<delete id="delete" parameterType="String">
-		DELETE
-		FROM TEAM_CHAT
-		WHERE ID = #{id}
-	</delete>
 
 </mapper>

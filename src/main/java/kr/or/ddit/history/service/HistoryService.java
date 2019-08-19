@@ -107,12 +107,15 @@ public class HistoryService implements IHistoryService{
 		
 		// 컨트롤러에서 담아온 pageSize
 		int pageSize = (int) pageMap.get("pageSize");
+		logger.debug("페이지사이즈빠끄 : {}", pageSize);
 		int paginationSize = (int) Math.ceil((double)changedCnt / pageSize);
+		
+		logger.debug("첸지빠끄 : {}", changedCnt);
+		logger.debug("페이지네이션빠끄 : {}", paginationSize);
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("changedDetailPagingList", historyDao.changedDetailPagingList(pageMap));
-		resultMap.put("paginationSize", paginationSize);
-		
+		resultMap.put("paginationSize", paginationSize); 
 		return resultMap;
 		
 	}

@@ -132,6 +132,24 @@ public class BlackListController {
 		List<BlackListVO>blackList = (List<BlackListVO>) resultMap.get("blackList");
 		int paginationSize = (int) resultMap.get("paginationSize");
 		
+		 int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+	      if(pageVo.getPage()==1) {
+	         startPage =1;
+	      }
+	      
+	      if(startPage>=2) {
+	            startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+	        }
+	      
+	       paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+	         
+	         int lastpaginationSize= (int) resultMap.get("paginationSize");
+	         
+	         if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+	            paginationSize= lastpaginationSize;
+	         }
+		model.addAttribute("lastpaginationSize", lastpaginationSize);
+		model.addAttribute("startPage", startPage);
 		model.addAttribute("blackList", blackList);
 		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("paginationSize", paginationSize);

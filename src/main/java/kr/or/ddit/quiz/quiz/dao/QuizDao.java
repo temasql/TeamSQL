@@ -16,7 +16,6 @@ import kr.or.ddit.quiz.quiz.model.QuizAndAnswerVO;
 import kr.or.ddit.quiz.quiz.model.QuizVO;
 import kr.or.ddit.quiz.quiz_answer.model.QuizAnswerVO;
 import kr.or.ddit.quiz.quiz_example.model.QuizExampleVO;
-import kr.or.ddit.user.model.UserVO;
 
 @Repository
 public class QuizDao implements IQuizDao{
