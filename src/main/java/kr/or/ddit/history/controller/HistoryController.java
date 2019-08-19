@@ -59,13 +59,31 @@ public class HistoryController {
 		
 		// 페이지네이션
 		List<HistoryVO> changedPagingList = (List<HistoryVO>) resultMap.get("changedPagingList");
-		int paginationSize = (int) resultMap.get("paginationSize");
+
+		int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+		if(pageVo.getPage()==1) {
+			startPage =1;
+		}
+		
+		if(startPage>=2) {
+            startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+        }
+		
+		 int paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+         
+         int lastpaginationSize= (int) resultMap.get("paginationSize");
+         
+         if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+            paginationSize= lastpaginationSize;
+         }
 		
 		// 파라미터 보내기
 		model.addAttribute("user_id",user_id);
 		model.addAttribute("changedPagingList", changedPagingList);
 		model.addAttribute("pageMap",pageMap);
 		model.addAttribute("paginationSize",paginationSize);
+		model.addAttribute("lastpaginationSize",lastpaginationSize);
+		model.addAttribute("startPage",startPage);
 		
 		return "history/historyListAjaxHtml";
 	}
@@ -97,6 +115,9 @@ public class HistoryController {
 	@RequestMapping(path = "/historyDetail",method = RequestMethod.POST)
 	public String dbChangedDetail(String object_owner,PageVo pageVo, HistoryVO hVo, Model model) {
 		Map<String, Object> pageMap = new HashMap<String, Object>();
+		logger.debug("소문자 : {}", object_owner);
+		object_owner = object_owner.toUpperCase();
+		logger.debug("대문자 : {}", object_owner);
 		
 		// 해당 DB계정
 		pageMap.put("object_owner", object_owner);
@@ -112,7 +133,25 @@ public class HistoryController {
 		
 		// 페이지네이션
 		List<HistoryVO> changedDetailPagingList = (List<HistoryVO>) resultMap.get("changedDetailPagingList");
-		int paginationSize = (int) resultMap.get("paginationSize");
+		
+		
+		int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+		if(pageVo.getPage()==1) {
+			startPage =1;
+		}
+		
+		if(startPage>=2) {
+            startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+        }
+		
+		 int paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+         
+         int lastpaginationSize= (int) resultMap.get("paginationSize");
+         
+         if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+            paginationSize= lastpaginationSize;
+         }
+
 		
 		// 파라미터 보내기
 		model.addAttribute("object_owner",object_owner);
@@ -120,7 +159,11 @@ public class HistoryController {
 		logger.debug("변경일시 : {}", changedDetailPagingList.get(0).getExec_dtm());
 		model.addAttribute("pageMap",pageMap);
 		model.addAttribute("paginationSize",paginationSize);
-	
+		logger.debug("페이지빠끄 : {}",paginationSize);
+		model.addAttribute("lastpaginationSize", lastpaginationSize);
+		logger.debug("마지막페이지빠끄 : {}",lastpaginationSize);
+		model.addAttribute("startPage", startPage);
+		logger.debug("시작페이지빠끄 : {}",startPage);
 		return "history/historyDetailAjaxHtml";
 	}
 	
