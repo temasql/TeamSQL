@@ -10,22 +10,21 @@
 <!-- 헤더 -->
 <header>
   <!-- Navigation -->
- <nav class="navMenu">
-
- <div class="menubar">
-<ul>
+  <div id="lnb">
+ <nav id="lnb"class="navMenu">
+	<ul>
 	<c:choose>
 	  <c:when test="${USER_INFO.user_right eq 'A' }">
 	    <li><a href="${cp }/user/userManager">회원관리</a></li>
 	    <li><a href="${cp }/blackList/blackListManager">블랙리스트관리</a></li>
 	    <li><a href="${cp }/board/manager">게시판관리</a>
-		  <ul class="ul-header-two">
+		  <ul>
 			<c:forEach items="${boardList }" var="board">
 	    	  <li><a href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a>
 			</c:forEach>	
 		  </ul>
 	    </li>
-	    <li class="one"><a class="aNav" href="${cp}/quizRealMain">SQL퀴즈</a>
+	    <li><a href="${cp}/quizRealMain">SQL퀴즈</a>
           <ul class="quiz-header">
              <li><a href="/userQuiz?quiz_right=02">OX퀴즈</a></li>
              <li><a href="/userQuiz?quiz_right=03">단답식퀴즈</a></li>
@@ -39,8 +38,8 @@
 	 <li><a href="${cp}/sqlEditor/sqlEditorMain">SQL에디터</a></li>
 	 <li><a href="${cp}/history/historyList" id="current">DB변경이력관리</a></li>
 	 <li><a href="${cp}/crew/crewManager">구성원관리</a></li>
-	 <li><a href="#">게시판</a>
-	 	<ul class="ul-header-two">
+	 <li ><a href="#">게시판</a>
+	 	<ul >
 			<c:forEach items="${boardList }" var="board">
 				<c:if test="${board.board_use eq 'Y'}">
 					<li><a href="${cp }/post/boardList?board_id=${board.board_id}">${board.board_name }</a></li>
@@ -48,12 +47,20 @@
 			</c:forEach>
 		</ul>
 	 </li>
-	 <li><a class="aNav" href="${cp}/quizRealMain">SQL퀴즈</a></li>
+	<li ><a  href="${cp}/quizRealMain">SQL퀴즈</a>
+       <ul class="quiz-header">
+          <li ><a href="/userQuiz?quiz_right=02">OX퀴즈</a></li>
+          <li ><a href="/userQuiz?quiz_right=03">단답식퀴즈</a></li>
+          <li ><a href="/userQuiz?quiz_right=01">객관식퀴즈</a></li>
+          <li ><a href="/userQuiz?quiz_right=04">주관식퀴즈</a></li>
+       </ul>
+	</li>
 	 </c:otherwise>
 	</c:choose>
 </ul>
-</div>
-  
+ </nav>
+<div></div>
+</div> 
 
 
 <!-- 챗봇 -->	
@@ -76,6 +83,6 @@
 </div>
 <!-- 그룹채팅 -->
 
-</nav>
+
 </header>
 <!-- Navigation -->
