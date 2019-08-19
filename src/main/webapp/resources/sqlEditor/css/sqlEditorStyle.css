@@ -272,3 +272,19 @@
 #tempUpdate, #tempUpdateCancle{
 	display: inline;
 }
+
+#addAccountBtn {
+	margin-left: 840px;
+}
+
+#accountDeleteBtn{
+	margin-left: 840px;
+}
+
+#accountPwFindBtn{
+	margin-left: 840px;
+}
+
+#accountPwUpdateBtn{
+	margin-left: 840px;
+}
