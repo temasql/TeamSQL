@@ -38,3 +38,7 @@
 .procedureMenu li:hover span {
   color: #FFFFFF;
 }
+
+#createProcedureBtn{
+	margin-left: 840px;
+}

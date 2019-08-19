@@ -55,7 +55,7 @@
 			</table>
 			<br><br>
 			<input type="hidden" id="procedureHidden"/>
-			<button type="button" id="createProcedureBtn" class="btn btn-secondary">생성</button>
+			<button type="button" id="createProcedureBtn" class="btn" style="background: black; color: white;">생성</button>
 		</fieldset>
 	</form>
   </div>

@@ -38,3 +38,7 @@
 .functionMenu li:hover span {
   color: #FFFFFF;
 }
+
+#createFunctionBtn{
+	margin-left: 840px;
+}
