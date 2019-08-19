@@ -83,4 +83,18 @@ public class CommonDomainService implements ICommonDomainService{
 		return commonDomainDao.modifyDomain(domainVo);
 	}
 
+
+	/**
+	* Method : deleteDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param cdomain_id
+	* @return
+	* Method 설명 : 공통 도메인 삭제
+	*/
+	@Override
+	public int deleteDomain(int cdomain_id) {
+		return commonDomainDao.deleteDomain(cdomain_id);
+	}
+
 }

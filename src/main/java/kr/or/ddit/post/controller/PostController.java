@@ -108,6 +108,25 @@ public class PostController {
 		
 		int paginationSize = (int) resultMap.get("paginationSize");
 		
+		int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+	    if(pageVo.getPage()==1) {
+	    	startPage =1;
+	    }
+	      
+	    if(startPage>=2) {
+	    	startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+	    }
+	      
+	    paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+	         
+	    int lastpaginationSize= (int) resultMap.get("paginationSize");
+	         
+	    if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+	    	paginationSize= lastpaginationSize;
+	    }
+
+	    model.addAttribute("lastpaginationSize", lastpaginationSize);
+	    model.addAttribute("startPage", startPage);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("postList", boardList);
 		model.addAttribute("pageMap", pageMap);
@@ -159,6 +178,25 @@ public class PostController {
 		
 		int paginationSize = (int) resultMap.get("paginationSize");
 		
+		int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+	    if(pageVo.getPage()==1) {
+	    	startPage =1;
+	    }
+	      
+	    if(startPage>=2) {
+	    	startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+	    }
+	      
+	    paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+	         
+	    int lastpaginationSize= (int) resultMap.get("paginationSize");
+	         
+	    if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+	    	paginationSize= lastpaginationSize;
+	    }
+
+	    model.addAttribute("lastpaginationSize", lastpaginationSize);
+	    model.addAttribute("startPage", startPage);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("postList", boardList);
 		model.addAttribute("pageMap", pageMap);

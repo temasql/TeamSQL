@@ -36,6 +36,7 @@
 				<th scope="col">작성일시</th>
 			</tr>
 		</thead>
+	
 		<tbody id="boardListTbody">
 		</tbody>
 	</table>
