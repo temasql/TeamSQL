@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	historyPagingListAjaxHtml(1,10);
 	
-	$("#dbChangedListBody").on("click", ".table-active.clickEvent", function() {
+	$("#dbChangedListBody").on("click", ".clickEvent", function() {
 		
 		// 계정명
 		var object_owner = $(this).find(".original_owners").val();

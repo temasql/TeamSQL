@@ -35,7 +35,7 @@ public interface ITeamChatRoomDao {
 	* Method 설명 : 채팅방 리스트 반환
 	*/
 	List<TeamChatRoomVO> chatRoomList(String userId);
-	
+
 	/**
 	* Method : getChatRoomNM
 	* 작성자 : 손주형
