@@ -19,7 +19,7 @@
 	    <label for="exampleInputEmail1">변경 비밀번호 확인</label>
 	    <input type="password" class="form-control" id="reUpdatePw" name="reUpdatePw" placeholder="변경 비밀번호 확인">
 	    <br><br>
-	    <button type="button" id="accountPwUpdateBtn" class="btn btn-secondary">확인</button>
+	    <button type="button" id="accountPwUpdateBtn" class="btn" style="background: black; color: white;">확인</button>
 	    <input type="hidden" id="updateId" name="updateId"/>
   	 </fieldset>
 	</form>
@@ -44,7 +44,7 @@
 	    <br><br>
 	    <label for="exampleInputEmail1">비밀번호는 회원님의 이메일로 보내집니다.</label>
 	    <br><br>
-	    <button type="button" id="accountPwFindBtn" class="btn btn-secondary">확인</button>
+	    <button type="button" id="accountPwFindBtn" class="btn" style="background: black; color: white;">확인</button>
 	    <input type="hidden" id="findId" name="findId"/>
   	 </fieldset>
 	</form>
@@ -65,7 +65,7 @@
 	    <input type="password" class="form-control" id="deletePw" name="deletePw" placeholder="DB계정 비밀번호">
 	    <input type="hidden" id="deleteId" name="deleteId"/>
 	    <br><br>
-	    <button type="button" id="accountDeleteBtn" class="btn btn-secondary">확인</button>
+	    <button type="button" id="accountDeleteBtn" class="btn" style="background: black; color: white;">확인</button>
   	 </fieldset>
 	</form>
   </div>
@@ -97,7 +97,7 @@
 	      <input type="text" class="form-control" id="chatRoomName" name="chatRoomName" placeholder="채팅방이름">
 	      <small class="form-text text-muted">3~20자의 문자, 숫자, 특수문자로 입력</small>
 	    </div>
-	    <button type="button" id="addAccountBtn" class="btn btn-secondary">생성</button>
+	    <button type="button" id="addAccountBtn" class="btn" style="background: black; color: white;">생성</button>
 	    <input type="hidden" id="msg" value="${msg}"/>
 	  </fieldset>
 	</form>
