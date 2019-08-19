@@ -71,7 +71,7 @@
 			</tbody>
 		</table>
 		</div>
-	    <button type="button" id="createIndexBtn" class="btn btn-secondary">생성</button>
+	    <button type="button" style="background: black; color: white;" id="createIndexBtn" class="btn btn-secondary">생성</button>
 	  </fieldset>
 	</form>
   </div>
@@ -95,7 +95,7 @@
 </div>
 
 <!-- 인덱스 편집 모달 -->
-<div id="updateIndexModal" class="modal">
+<div id="updateIndexModal" class="modal index">
   <!-- Modal content -->
   <div class="modal-content index" id="updateModal_index">
     <span class="close">&times;</span>   
@@ -161,7 +161,7 @@
 			</tbody>
 		</table>
 		</div>
-	    <button type="button" id="updateIndexBtn" class="btn btn-secondary">생성</button>
+	    <button type="button" id="updateIndexBtn" class="btn btn-secondary" style="background: black; color: white;">생성</button>
 	  </fieldset>
 	</form>
   </div>
