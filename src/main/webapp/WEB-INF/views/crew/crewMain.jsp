@@ -53,7 +53,7 @@ placeholder="    아이디로 검색" style="width: 180px;display: inline;float:
   	<br><br>
   	<form action="${cp}/crew/inviteCrew" method="post" id="inviteCrewForm">
 	  <fieldset>
-	    <legend>초대할 회원 ID</legend>
+	    <legend>구성원 초대</legend>
 	    <br><br>
 	    <label for="exampleInputEmail1">아이디</label>
 	    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="초대할 계정 아이디">

@@ -62,7 +62,7 @@
 	    	<option value="DDL">DDL</option>
 	    </select>
 	    <br><br>
-	    <table class="table table-hover">
+	    <table class="table table-hover" style=" font-size: 12px;">
 			<thead id="tableReadThead">
 			</thead>
 			<tbody id="tableReadTbody">
@@ -92,22 +92,22 @@
 <!-- EXPORT Modal -->
 <div id="tableExportModal" class="modal">
   <!-- Modal content -->
-  <div class="modal-content" style=" width: 363px;">
+  <div class="modal-content" style=" text-align-last: center;width: 356px;">
     <span class="close">&times;</span>   
     <br><br>                  
 	<form action="${cp}/sqlEditor/tableExport" method="post" >
 	  <fieldset>
 	    <legend id="tableExportTitle"></legend>
-	    	<div class="ckDiv">
+	    	<div class="ckDiv"style="margin-left: 55px;">
     			<input type="checkbox" name="exportChecked" value="CONSTRAINT"> 제약조건
     		</div>
-    		<div class="ckDiv">
-    			<input type="checkbox" name="exportChecked" value="INDEX"> 인덱스
-    		</div>
+<!--     		<div class="ckDiv"> -->
+<!--     			<input type="checkbox" name="exportChecked" value="INDEX"> 인덱스 -->
+<!--     		</div> -->
     		<div class="ckDiv">
     			<input type="checkbox" name="exportChecked" value="VIEW"> 뷰
     		</div>
-    		<div class="ckDiv">
+    		<div class="ckDiv"style="margin-left: 55px;">
     			<input type="checkbox" name="exportChecked" value="TRIGGER"> 트리거
     		</div>
     		<div class="ckDiv">
