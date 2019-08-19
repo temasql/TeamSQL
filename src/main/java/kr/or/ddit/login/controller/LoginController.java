@@ -125,12 +125,6 @@ public class LoginController {
 			// 로그인한 사용자의 정보를 세션에 저장
 			session.setAttribute("USER_INFO", loginUserVo);
 			
-//			// 메인페이지내 DB변경이력 리스트를 출력
-//			List<ChangedVO> changedMainList = historyService.changedMainList(userVo.getUser_id());
-//			logger.debug("DB변경이력 갯수 : {}", changedMainList.size());
-//			// DB변경이력
-//			model.addAttribute("changedMainList", changedMainList);
-			
 			// DB변경이력
 			String user_id = loginUserVo.getUser_id();
 			
@@ -170,11 +164,11 @@ public class LoginController {
 			// IT뉴스
 			List<List<CrawlingVO>> itNewsList = new Crawling().getITNews();
 			model.addAttribute("itNewsList", itNewsList);
+			if(loginUserVo.getUser_right().equals("A")){
+				return "/admin/userMG.tiles";
+			}
 			return "main.tiles";
-		}else if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
-				&& loginUserVo.getUser_right().equals("A")){
-			return "adminMain.tiles";
-		}	else if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
+		} else if(loginUserVo != null &&loginUserVo.getUser_pw().equals(encryptPassword)
 				&& loginUserVo.getExit_right().equals("Y")) {
 			model.addAttribute("msg", "탈퇴한 회원입니다.");
 			return "/login/login";
