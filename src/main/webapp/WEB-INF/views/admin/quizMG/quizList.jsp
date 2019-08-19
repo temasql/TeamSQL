@@ -31,30 +31,30 @@ pageEncoding="UTF-8"%>
 	
 	</ul>
 </div>
-
+ 
 <!-- 퀴즈 추가 화면 이동 -->
 <div id="addBtnDiv">
 	<c:if test="${quiz_right==01}">
 		<form id="insertFrm" action="/insertMultiple" method="get">
-			<button id="insertBtn" type="submit" class="btn btn-secondary">객관식 퀴즈 추가</button>
+			<button id="insertBtn" type="submit" class="btn btn-secondary" style="background: black; color: white;">객관식 퀴즈 추가</button>
 			<input type="hidden" name="quiz_right" value="${quiz_right}">
 		</form>
 	</c:if>
 	<c:if test="${quiz_right==02}">
 		<form id="insertFrm" action="/insertOX" method="get">
-			<button id="insertBtn" type="submit" class="btn btn-secondary">OX 퀴즈 추가</button>
+			<button id="insertBtn" type="submit" class="btn btn-secondary" style="background: black; color: white;">OX 퀴즈 추가</button>
 			<input type="hidden" name="quiz_right" value="${quiz_right}">
 		</form>
 	</c:if>
 	<c:if test="${quiz_right==03}">
 		<form action="/insertShort">
-			<button id="insertBtn" type="submit" class="btn btn-secondary">단답식 퀴즈 추가</button>
+			<button id="insertBtn" type="submit" class="btn btn-secondary" style="background: black; color: white;">단답식 퀴즈 추가</button>
 			<input type="hidden" name="quiz_right" value="${quiz_right}">
 		</form>
 	</c:if>
 	<c:if test="${quiz_right==04}">
 		<form action="/insertEssay">
-			<button id="insertBtn" type="submit" class="btn btn-secondary">주관식 퀴즈 추가</button>
+			<button id="insertBtn" type="submit" class="btn btn-secondary" style="background: black; color: white;">주관식 퀴즈 추가</button>
 			<input type="hidden" name="quiz_right" value="${quiz_right}">
 		</form>
 	</c:if>

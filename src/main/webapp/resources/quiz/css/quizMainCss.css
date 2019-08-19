@@ -43,16 +43,23 @@
 	display: flex;
 }
 #answer{
-	display: inline-block;	
+	display: inline;	
 	width : 100%;
 }
 #disabledInput{
 	height: 300px;
     font-size: 20px;
-/*     overflow: hidden; */
 }
-#insertBtn,#updateOXBtn,#updateOXBtnDB{
-    margin-left: 77%;
+.explanMultiple{
+    margin-top: -3%;
+    display:inline;
+}
+#updateOXBtn{
+    margin-left: 76%;
+    margin-top: 2%;
+}
+#updateOXBtnDB{
+	margin-left: 68%;
     margin-top: 2%;
 }
 
@@ -63,9 +70,10 @@
 }
 ol{
 	margin-top:1%;
-}
+} 
 .custom-control, .custom-radio, .custom-control-label, .form-control{
 	display: inline-grid;
+    width: 90%;
 }
 #example{
 	margin-top: 50px;
@@ -74,8 +82,21 @@ ol{
 }
 
 #insertOXDB{
-    border: 3px solid #C7E4E1;
     border-radius : 5px;
     padding: 19px;
-    margin-top: 73px;
+}
+#updateBtnDB{
+    margin-left: 68%;
+    margin-top: 2%;
+}
+.btnGroup{
+	margin-right: 16%;
+}
+#multipleBtn{
+    margin-left: 44%;
+    margin-top: 1%;
+}
+#quiz_answer{
+    display: inline;
+    width: 6%;
 }

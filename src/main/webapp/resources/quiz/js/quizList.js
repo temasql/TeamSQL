@@ -28,6 +28,10 @@ $(function(){
 			$("#insertOXDB").submit();
 		})
 		
+		$("#multipleBtn").on("click", function(){
+			$("#multipleFrm").submit();
+		})
+		
 		// 퀴즈리스트 클릭 시 해당 퀴즈 조회 화면 이동 
 		$("#tableQuizList").on("click", ".table-light", function(){
 			var quiz_id = $(this).find(":first-child").text();
@@ -40,7 +44,7 @@ $(function(){
 			$("#updateOXFrm").submit();
 			$("#updateQuizFrm").submit();
 		})
-		
+		 
 		// OX 퀴즈 DB 수정
 		$("#updateOXBtnDB").on("click", function(){
 			$("#updateOXDB").submit();
@@ -48,7 +52,6 @@ $(function(){
 		
 		// 퀴즈 DB 수정
 		$("#updateBtnDB").on("click", function(){
-			console.log($("#disabledInput").val());
 			$("#updateDB").submit();
 		})
 		
