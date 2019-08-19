@@ -395,8 +395,28 @@ public class UserController {
 		List<UserVO>userList = (List<UserVO>) resultMap.get("userList");
 		int paginationSize = (int) resultMap.get("paginationSize");
 		
+		
+		 int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+	      if(pageVo.getPage()==1) {
+	         startPage =1;
+	      }
+	      
+	      if(startPage>=2) {
+	            startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+	        }
+	      
+	       paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+	         
+	         int lastpaginationSize= (int) resultMap.get("paginationSize");
+	         
+	         if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+	            paginationSize= lastpaginationSize;
+	         }
+	         
 		model.addAttribute("userList", userList);
 		model.addAttribute("pageMap", pageMap);
+		model.addAttribute("lastpaginationSize", lastpaginationSize);
+		model.addAttribute("startPage", startPage);
 		model.addAttribute("paginationSize", paginationSize);
 		return "admin/userMGAjaxHtml";
 	}
@@ -456,6 +476,24 @@ public class UserController {
 		List<UserVO>adminList = (List<UserVO>) resultMap.get("adminList");
 		int paginationSize = (int) resultMap.get("paginationSize");
 
+		int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+	      if(pageVo.getPage()==1) {
+	         startPage =1;
+	      }
+	      
+	      if(startPage>=2) {
+	            startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+	        }
+	      
+	       paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+	         
+	         int lastpaginationSize= (int) resultMap.get("paginationSize");
+	         
+	         if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+	            paginationSize= lastpaginationSize;
+	         }
+	    model.addAttribute("lastpaginationSize", lastpaginationSize);
+ 		model.addAttribute("startPage", startPage);
 		model.addAttribute("adminList", adminList);
 		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("paginationSize", paginationSize);

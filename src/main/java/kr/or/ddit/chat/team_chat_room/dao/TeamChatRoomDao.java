@@ -1,7 +1,6 @@
 package kr.or.ddit.chat.team_chat_room.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -55,19 +54,17 @@ public class TeamChatRoomDao implements ITeamChatRoomDao{
 		return sqlSession.selectList("teamChatRoom.chatRoomList", userId);
 	}
 
+	/**
+	* Method : getChatRoomNM
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : 채팅방 번호로 채팅방 ID을 조회하는 메서드
+	*/
 	@Override
-	public List<TeamChatRoomVO> map(Map<String, Object> map) {
-		return sqlSession.selectList("teamChatRoom.map", map);
-	}
-	
-	@Override
-	public int update(String id) {
-		return sqlSession.update("teamChatRoom.update", id);
-	}
-
-	@Override
-	public int delete(String id) {
-		return sqlSession.delete("teamChatRoom.delete", id);
+	public String getAccount_id_fk(int chat_room_id) {
+		return sqlSession.selectOne("teamChatRoom.getAccount_id_fk", chat_room_id);
 	}
 
 	/**

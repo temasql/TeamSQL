@@ -17,7 +17,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import kr.or.ddit.chat.team_chat.model.TeamChatVO;
 import kr.or.ddit.chat.team_chat.service.ITeamChatService;
-import kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO;
 import kr.or.ddit.chat.team_chat_room.service.ITeamChatRoomService;
 import kr.or.ddit.crew.model.CrewVO;
 import kr.or.ddit.user.model.UserVO;

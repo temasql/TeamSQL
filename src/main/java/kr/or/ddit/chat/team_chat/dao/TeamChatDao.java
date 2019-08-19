@@ -29,11 +29,6 @@ public class TeamChatDao implements ITeamChatDao{
 		return sqlSession.insert("teamChat.insertChat", teamChatVo);
 	}
 	
-	@Override
-	public TeamChatVO get(String id) {
-		return sqlSession.selectOne("teamChat.get", id);
-	}
-	
 	/**
 	* Method : userChatList
 	* 작성자 : 손주형
@@ -47,18 +42,4 @@ public class TeamChatDao implements ITeamChatDao{
 		return sqlSession.selectList("teamChat.userChatList", teamChatVO);
 	}
 
-	@Override
-	public List<TeamChatVO> map(Map<String, Object> map) {
-		return sqlSession.selectList("teamChat.map", map);
-	}
-	
-	@Override
-	public int update(String id) {
-		return sqlSession.update("teamChat.update", id);
-	}
-
-	@Override
-	public int delete(String id) {
-		return sqlSession.delete("teamChat.delete", id);
-	}
 }

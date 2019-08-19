@@ -5,12 +5,12 @@
 
 <!-- DB 상세 변경 이력 테이블 -->
 <c:forEach items="${changedDetailPagingList}" var="cVO">
-   <tr class="table-active.none">
-  	<td>${cVO.action_event }</td>	<!-- 발생이벤트 -->
-  	<td>${cVO.object_type }</td>	<!-- 객체타입 -->
-  	<td>${cVO.object_name }</td>	<!-- 객체명 -->
-  	<td>${cVO.sql_text }</td>		<!-- 원문 -->
-  	<td><fmt:formatDate value="${cVO.exec_dtm }" pattern="yyyy-MM-dd HH:mm:ss"/></td>	<!-- 변경일시 -->
+   <tr >
+  	<td scope="row">${cVO.action_event }</td>	<!-- 발생이벤트 -->
+  	<td scope="row">${cVO.object_type }</td>	<!-- 객체타입 -->
+  	<td scope="row">${cVO.object_name }</td>	<!-- 객체명 -->
+  	<td scope="row">${cVO.sql_text }</td>		<!-- 원문 -->
+  	<td scope="row"><fmt:formatDate value="${cVO.exec_dtm }" pattern="yyyy-MM-dd HH:mm:ss"/></td>	<!-- 변경일시 -->
    </tr>
    </c:forEach>
 
@@ -24,14 +24,12 @@ SEPERATORSEPERATOR
 		<li class="page-link disabled"><span>Previous</span></li>
 	</c:when>
 	<c:otherwise>
-		<li class="page-link"><a
-			href="javascript:historyDetailPagingListAjaxHtml(1,${pageMap.pageSize});">«</a></li>
-		<li class="page-link"><a
-			href="javascript:historyDetailPagingListAjaxHtml(${pageMap.page - 1 },${pageMap.pageSize});">Previous</a></li>
+		<li class="page-link"><a href="javascript:historyDetailPagingListAjaxHtml(1,${pageMap.pageSize});">«</a></li>
+		<li class="page-link"><a href="javascript:historyDetailPagingListAjaxHtml(${pageMap.page - 1 },${pageMap.pageSize});">Previous</a></li>
 	</c:otherwise>
 </c:choose>
 
-<c:forEach var="i" begin="1" end="${paginationSize}">
+<c:forEach var="i" begin="${startPage}" end="${paginationSize}">
 	<li><c:choose>
 			<c:when test="${pageMap.page == i}">
 				<li class="page-link active"><span>${i }</span></li>
@@ -44,7 +42,7 @@ SEPERATORSEPERATOR
 </c:forEach>
 
 <c:choose>
-	<c:when test="${pageMap.page  == paginationSize}">
+	<c:when test="${pageMap.page  == lastpaginationSize}">
 		<li class="page-link disabled"><span>next</span></li>
 		<li class="page-link disabled"><span>»</span></li>
 	</c:when>
@@ -52,6 +50,6 @@ SEPERATORSEPERATOR
 		<li class="page-link"><a
 			href="javascript:historyDetailPagingListAjaxHtml(${pageMap.page + 1 },${pageMap.pageSize});">next</a></li>
 		<li class="page-link"><a
-			href="javascript:historyDetailPagingListAjaxHtml(${paginationSize},${pageMap.pageSize});">»</a></li>
+			href="javascript:historyDetailPagingListAjaxHtml(${lastpaginationSize},${pageMap.pageSize});">»</a></li>
 	</c:otherwise>
 </c:choose>
