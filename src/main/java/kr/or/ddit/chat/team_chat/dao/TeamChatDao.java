@@ -61,7 +61,4 @@ public class TeamChatDao implements ITeamChatDao{
 	public int delete(String id) {
 		return sqlSession.delete("teamChat.delete", id);
 	}
-
-	
-
 }

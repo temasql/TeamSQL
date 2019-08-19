@@ -34,6 +34,12 @@
 		WHERE	USER_ID_FK = #{user_id_fk}
 	</select>
 	
+	<select id="getAccount_id_fk" parameterType="int" resultType="string">
+		SELECT  ACCOUNT_ID_FK
+		FROM    TEAM_CHAT_ROOM
+		WHERE   CHAT_ROOM_ID = #{chat_room_id}
+	</select>
+	
 	<select id="map" parameterType="map" resultType="teamChatRoomVo">
 		SELECT *
 		FROM TEAM_CHAT_ROOM
