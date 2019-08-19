@@ -46,7 +46,7 @@
 			<label for="exampleInputEmail1">열</label>
 			<select multiple class="form-control" id="columnSelect" name="column" disabled="disabled"></select>
 			<br><br>
-			<button type="button" id="createTriggerBtn" class="btn btn-secondary">생성</button>
+			<button type="button" id="createTriggerBtn" class="btn" style="background: black; color: white;">생성</button>
 		</fieldset>
 	</form>
   </div>

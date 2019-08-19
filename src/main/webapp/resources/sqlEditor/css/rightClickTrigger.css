@@ -38,3 +38,7 @@
 .triggerMenu li:hover span {
   color: #FFFFFF;
 }
+
+#createTriggerBtn{
+	margin-left: 840px;
+}
