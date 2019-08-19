@@ -369,7 +369,7 @@ public class QuizController {
 		int result = service.updateMultipleQuiz(quizAndAnswerVO, quizExampleVO, example_content);
 		logger.debug("객관식 수정 갯수 : {}", result);
 		
-		
+		model.addAttribute("quizName", "객관식 퀴즈");
 		model.addAttribute("quiz_right", quizAndAnswerVO.getQuiz_right());
 		return "/admin/quizMG/quizList.tiles";
 	}

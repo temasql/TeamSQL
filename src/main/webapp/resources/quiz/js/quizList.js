@@ -28,7 +28,7 @@ $(function(){
 			$("#insertOXDB").submit();
 		})
 		
-		$("#multipleBtn").on("click", function(){
+		$("#multipleUpdateBtn").on("click", function(){
 			$("#multipleFrm").submit();
 		})
 		

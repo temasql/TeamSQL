@@ -48,12 +48,11 @@
 			<div id="explain">
 				해설 : <textarea class="form-control explanMultiple" id="disabledInput" name="quiz_explain">${quizAndAnswerVO.quiz_explain}</textarea>
 			</div>
-	
+			<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
+			<input type="hidden" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
 		</form>
 	</div>
 	<div id="multipleBtn">
-		<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
-		<input type="button" id="multipleBtn" value="퀴즈 수정" class="btn btn-secondary" style="background: black; color: white;">
-		<input type="hidden" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
+		<input type="button" id="multipleUpdateBtn" value="퀴즈 수정" class="btn btn-secondary" style="background: black; color: white;">
 	</div>
 </section>

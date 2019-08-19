@@ -258,7 +258,7 @@
 
 #tempBtnDiv, #domBtnDiv{
 	padding-top : 10px;
-    margin-left: 762px;
+    margin-left: 759px;
 }
 
 #tempAddView{
@@ -274,6 +274,7 @@
 }
 
 
+
 /* 인덱스생성 */
 .modal > .index{
       background-color: #fefefe;
@@ -285,4 +286,20 @@
     position: absolute;
     left: 25%;
     top: 10%;
+}
+
+#addAccountBtn {
+	margin-left: 840px;
+}
+
+#accountDeleteBtn{
+	margin-left: 840px;
+}
+
+#accountPwFindBtn{
+	margin-left: 840px;
+}
+
+#accountPwUpdateBtn{
+	margin-left: 840px;
 }

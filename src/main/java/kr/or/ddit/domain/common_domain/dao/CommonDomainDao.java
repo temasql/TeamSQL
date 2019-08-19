@@ -84,5 +84,19 @@ public class CommonDomainDao implements ICommonDomainDao{
 		return sqlSession.update("commonDomain.modifyDomain", domainVo);
 	}
 
+
+	/**
+	* Method : deleteDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param cdomain_id
+	* @return
+	* Method 설명 : 공통 도메인 삭제
+	*/
+	@Override
+	public int deleteDomain(int cdomain_id) {
+		return sqlSession.delete("commonDomain.deleteDomain", cdomain_id);
+	}
+
 	
 }
