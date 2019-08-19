@@ -25,9 +25,9 @@
 	    </div>
 	    
 	    <div id="templateBtnDiv">
-		    <div id="templateAdd"><button class="btn btn-secondary">추가</button></div>
-		    <div id="templateUpdate"><button class="btn btn-secondary">수정</button></div>
-		    <div id="templateDelete"><button class="btn btn-secondary">삭제</button></div>
+		    <div id="templateAdd"><button class="btn btn-secondary" style="background: black; color: white;">추가</button></div>
+		    <div id="templateUpdate"><button class="btn btn-secondary" style="background: black; color: white;">수정</button></div>
+		    <div id="templateDelete"><button class="btn btn-secondary" style="background: black; color: white;">삭제</button></div>
 		    <input id="inputTmpId" type="hidden">
 		    <input id="inputTmpUpdateAbb" type="hidden">
 		    <input id="inputTmpUpdateOriArea" type="hidden">
@@ -55,8 +55,8 @@
 	    </div>
 	    
 	    <div id="tempBtnDiv">
-		    <div id="tempAdd"><button class="btn btn-secondary">추가</button></div>
-		    <div id="tempCancle"><button class="btn btn-secondary">취소</button></div>
+		    <div id="tempAdd"><button class="btn btn-secondary" style="background: black; color: white;">추가</button></div>
+		    <div id="tempCancle"><button class="btn btn-secondary" style="background: black; color: white;">취소</button></div>
 	    </div>
   	 </fieldset>
   </div>
@@ -82,8 +82,8 @@
 	    </div>
 	    
 	    <div id="tempBtnDiv">
-		    <div id="tempUpdate"><button class="btn btn-secondary">수정</button></div>
-		    <div id="tempUpdateCancle"><button class="btn btn-secondary">취소</button></div>
+		    <div id="tempUpdate"><button class="btn btn-secondary" style="background: black; color: white;">수정</button></div>
+		    <div id="tempUpdateCancle"><button class="btn btn-secondary" style="background: black; color: white;">취소</button></div>
 	    </div>
   	 </fieldset>
   </div>
