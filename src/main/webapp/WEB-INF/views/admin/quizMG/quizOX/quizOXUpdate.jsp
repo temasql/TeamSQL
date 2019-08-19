@@ -12,6 +12,6 @@
 		
 		<input type="hidden" id="quiz_id" name="quiz_id" value="${quizAndAnswerVO.quiz_id}">
 		<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
-		<input type="button" id="updateOXBtnDB" value="퀴즈 수정" class="btn btn-secondary">
 	</form>
 </div>
+<input type="button" id="updateOXBtnDB" value="퀴즈 수정" class="btn btn-secondary" style="background: black; color: white;">

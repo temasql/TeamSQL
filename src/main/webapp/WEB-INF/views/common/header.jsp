@@ -28,10 +28,10 @@
 	    </li>
 	    <li><a href="${cp}/quizRealMain">SQL퀴즈</a>
           <ul class="quiz-header">
-             <li><a href="/userQuiz?quiz_right=02">OX퀴즈</a></li>
-             <li><a href="/userQuiz?quiz_right=03">단답식퀴즈</a></li>
-             <li><a href="/userQuiz?quiz_right=01">객관식퀴즈</a></li>
-             <li><a href="/userQuiz?quiz_right=04">주관식퀴즈</a></li>
+          <li ><a href="/quizListView?quiz_right=02">OX퀴즈</a></li>
+          <li ><a href="/quizListView?quiz_right=03">단답식퀴즈</a></li>
+          <li ><a href="/quizListView?quiz_right=01">객관식퀴즈</a></li>
+          <li ><a href="/quizListView?quiz_right=04">주관식퀴즈</a></li>
           </ul>
         </li>
         <li><a href="${cp }/commonDomain/manager">도메인 관리</a></li>
