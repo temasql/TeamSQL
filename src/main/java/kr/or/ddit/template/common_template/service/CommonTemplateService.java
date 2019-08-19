@@ -6,45 +6,96 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import kr.or.ddit.template.common_template.dao.ICommonTemplateDao;
 import kr.or.ddit.template.common_template.model.CommonTemplateVO;
 
-//@Service
+@Service
 public class CommonTemplateService implements ICommonTemplateService{
 
 	@Resource(name = "commonTemplateDao")
 	private ICommonTemplateDao commonTemplateDao;
 
-	@Override
-	public int insert(CommonTemplateVO commonTemplateVo) {
-		return commonTemplateDao.insert(commonTemplateVo);
-	}
 	
+	/**
+	* Method : allTemplateList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @return
+	* Method 설명 : 전체 템플릿 리스트 조회
+	*/
 	@Override
-	public CommonTemplateVO get(String id) {
-		return commonTemplateDao.get(id);
-	}
-	
-	@Override
-	public List<CommonTemplateVO> list() {
-		return commonTemplateDao.list();
+	public List<CommonTemplateVO> allTemplateList() {
+		return commonTemplateDao.allTemplateList();
 	}
 
+	
+	/**
+	* Method : templatePagingList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 템플릿 페이징 리스트
+	*/
 	@Override
-	public Map<String, Object> map(Map<String, Object> map) {
+	public Map<String, Object> templatePagingList(Map<String, Object> map) {
+		List<CommonTemplateVO> templatePagingList = commonTemplateDao.templatePagingList(map);
+		
+		int templateCnt = commonTemplateDao.templateCnt();
+		int pageSize = (int) map.get("pageSize");
+		int pagination = (int) Math.ceil((double)templateCnt/pageSize);
+		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<CommonTemplateVO> mapList =  commonTemplateDao.map(map);
+		resultMap.put("templateList", templatePagingList);
+		resultMap.put("paginationSize", pagination);
+		
 		return resultMap;
 	}
 
-	@Override
-	public int update(String id) {
-		return commonTemplateDao.update(id);
-	}
 	
+	/**
+	* Method : addTemplate
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param templateVo
+	* @return
+	* Method 설명 : 공통 템플릿 추가
+	*/
 	@Override
-	public int delete(String id) {
-		return commonTemplateDao.delete(id);
+	public int addTemplate(CommonTemplateVO templateVo) {
+		return commonTemplateDao.addTemplate(templateVo);
 	}
+
+	
+	/**
+	* Method : modifyTemplate
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param templateVo
+	* @return
+	* Method 설명 : 공통 템플릿 수정
+	*/
+	@Override
+	public int modifyTemplate(CommonTemplateVO templateVo) {
+		return commonTemplateDao.modifyTemplate(templateVo);
+	}
+
+	
+	/**
+	* Method : deleteTemplate
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param ctemplate_id
+	* @return
+	* Method 설명 : 공통 템플릿 삭제
+	*/
+	@Override
+	public int deleteTemplate(int ctemplate_id) {
+		return commonTemplateDao.deleteTemplate(ctemplate_id);
+	}
+
+	
 
 }

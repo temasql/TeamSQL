@@ -42,7 +42,7 @@ public class CommonDomainController {
 	
 	/**
 	* Method : domainList
-	* 작성자 : 이여은
+	* 작성자 : 이영은
 	* 변경이력 :
 	* @param pageVo
 	* @param domainVo
@@ -124,8 +124,12 @@ public class CommonDomainController {
 	* Method 설명 : 공통 도메인 수정
 	*/
 	@RequestMapping(path = "/modifyDomain", method = RequestMethod.POST)
-	public String modifyDomain(PageVo pageVo, CommonDomainVO domainVo, Model model) {
+	public String modifyDomain(CommonDomainVO domainVo, Model model) {
 		logger.debug("domainVo : {}", domainVo);
+		
+		domainVo.setCdomain_name(domainVo.getCdomain_name().toUpperCase());
+		domainVo.setCdomain_type(domainVo.getCdomain_type().toUpperCase());
+		
 		domainService.modifyDomain(domainVo);
 
 		return "/admin/domainMG.tiles";
@@ -143,7 +147,7 @@ public class CommonDomainController {
 	* Method 설명 : 공통 도메인 삭제
 	*/
 	@RequestMapping(path = "/deleteDomain", method = RequestMethod.POST)
-	public String deleteDomain(PageVo pageVo, int cdomain_id, Model model) {
+	public String deleteDomain(int cdomain_id, Model model) {
 		domainService.deleteDomain(cdomain_id);
 	
 		return "/admin/domainMG.tiles";
