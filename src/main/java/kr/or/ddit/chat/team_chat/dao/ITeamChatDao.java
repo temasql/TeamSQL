@@ -25,4 +25,5 @@ public interface ITeamChatDao {
 	*/
 	List<TeamChatVO> userChatList(TeamChatVO teamChatVO);
 	
+
 }

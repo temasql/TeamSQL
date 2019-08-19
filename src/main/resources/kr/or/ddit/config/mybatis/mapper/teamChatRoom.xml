@@ -38,6 +38,7 @@
 		SELECT  ACCOUNT_ID_FK
 		FROM    TEAM_CHAT_ROOM
 		WHERE   CHAT_ROOM_ID = #{chat_room_id}
+
 	</select>
 	
 </mapper>

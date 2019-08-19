@@ -47,4 +47,15 @@ public interface ICommonDomainDao {
 	* Method 설명 : 공통 도메인 추가
 	*/
 	int addDomain(CommonDomainVO domainVo);
+
+
+	/**
+	* Method : modifyDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param domainVo
+	* @return
+	* Method 설명 : 공통 도메인 수정
+	*/
+	int modifyDomain(CommonDomainVO domainVo);
 }

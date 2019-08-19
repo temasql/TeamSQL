@@ -41,4 +41,5 @@ public class TeamChatDao implements ITeamChatDao{
 	public List<TeamChatVO> userChatList(TeamChatVO teamChatVO) {
 		return sqlSession.selectList("teamChat.userChatList", teamChatVO);
 	}
+
 }

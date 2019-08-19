@@ -24,9 +24,9 @@
 	    </div>
 	    
 	    <div id="domainBtnDiv">
-		    <div id="domainAdd"><button class="btn btn-secondary">추가</button></div>
-		    <div id="domainUpdate"><button class="btn btn-secondary">수정</button></div>
-		    <div id="domainDelete"><button class="btn btn-secondary">삭제</button></div>
+		    <div id="domainAdd"><button class="btn" style="background: black; color: white;" >추가</button></div>
+		    <div id="domainUpdate"><button class="btn" style="background: black; color: white;" >수정</button></div>
+		    <div id="domainDelete"><button class="btn" style="background: black; color: white;" >삭제</button></div>
 		    <input id="inputDomainId" type="hidden">
 		    <input id="inputDomainUpdateName" type="hidden">
 		    <input id="inputDomainUpdateType" type="hidden">
@@ -53,8 +53,8 @@
 	    </div>
 	    
 	    <div id="domBtnDiv">
-		    <div id="domAdd"><button class="btn btn-secondary">추가</button></div>
-		    <div id="domCancel"><button class="btn btn-secondary">취소</button></div>
+		    <div id="domAdd"><button class="btn" style="background: black; color: white;" >추가</button></div>
+		    <div id="domCancel"><button class="btn" style="background: black; color: white;" >취소</button></div>
 	    </div>
   	 </fieldset>
   </div>
@@ -79,8 +79,8 @@
 	    </div>
 	    
 	    <div id="domBtnDiv">
-		    <div id="domUpdate"><button class="btn btn-secondary">수정</button></div>
-		    <div id="domUpdateCancel"><button class="btn btn-secondary">취소</button></div>
+		    <div id="domUpdate"><button class="btn" style="background: black; color: white;" >수정</button></div>
+		    <div id="domUpdateCancel"><button class="btn" style="background: black; color: white;" >취소</button></div>
 	    </div>
   	 </fieldset>
   </div>

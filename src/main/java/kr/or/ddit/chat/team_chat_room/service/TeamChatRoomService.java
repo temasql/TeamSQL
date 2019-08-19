@@ -66,4 +66,5 @@ public class TeamChatRoomService implements ITeamChatRoomService{
 	public String getAccount_id_fk(int chat_room_id) {
 		return teamChatRoomDao.getAccount_id_fk(chat_room_id);
 	}
+
 }

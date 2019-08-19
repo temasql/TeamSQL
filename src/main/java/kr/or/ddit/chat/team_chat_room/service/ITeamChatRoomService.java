@@ -36,6 +36,7 @@ public interface ITeamChatRoomService {
 	*/
 	List<TeamChatRoomVO> chatRoomList(String userId);
 	
+
 	/**
 	* Method : getChatRoomNM
 	* 작성자 : 손주형

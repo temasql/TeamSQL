@@ -66,4 +66,17 @@ public class TeamChatRoomDao implements ITeamChatRoomDao{
 	public String getAccount_id_fk(int chat_room_id) {
 		return sqlSession.selectOne("teamChatRoom.getAccount_id_fk", chat_room_id);
 	}
+
+	/**
+	* Method : getChatRoomNM
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : 채팅방 번호로 채팅방 ID을 조회하는 메서드
+	*/
+	@Override
+	public String getAccount_id_fk(int chat_room_id) {
+		return sqlSession.selectOne("teamChatRoom.getAccount_id_fk", chat_room_id);
+	}
 }

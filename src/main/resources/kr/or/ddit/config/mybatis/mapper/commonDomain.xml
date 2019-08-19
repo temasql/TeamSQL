@@ -37,9 +37,26 @@
 		INSERT INTO COMMON_DOMAIN
 		VALUES
 		(
-			COMMON_DOMAIN_SEQ
+			COMMON_DOMAIN_SEQ.nextval
 			, #{cdomain_name}
 			, #{cdomain_type}
 		)
 	</insert>
+	
+	
+	<!-- 공통 도메인 수정 -->
+	<update id="modifyDomain" parameterType="commonDomainVo">
+		UPDATE  COMMON_DOMAIN
+		SET		    CDOMAIN_NAME = #{cdomain_name}
+					  , CDOMAIN_TYPE = #{cdomain_type}
+		WHERE	CDOMAIN_ID = #{cdomain_id}
+	</update>
+	
+	
+	<!-- 공통 도메인 삭제 -->
+	<delete id="deleteDomain" parameterType="int">
+		DELETE
+		FROM		COMMON_DOMAIN
+		WHERE	CDOMAIN_ID = #{cdomain_id}
+	</delete>
 </mapper>
