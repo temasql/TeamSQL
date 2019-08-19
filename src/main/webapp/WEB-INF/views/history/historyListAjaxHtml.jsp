@@ -5,9 +5,9 @@
 
 <!-- DB 상세 변경 이력 테이블 -->
 <c:forEach items="${changedPagingList}" var="cVO">
-  <tr class="table-active clickEvent">
+  <tr class="clickEvent">
   	<!-- DB계정명 -->
-    <td class="object_owners">${cVO.account_id_fkSlice }<input type="hidden" class="original_owners" value="${cVO.account_id_fk}"/></td>
+    <td class="object_owners" scope="row">${cVO.account_id_fkSlice }<input type="hidden" class="original_owners" value="${cVO.account_id_fk}"/></td>
     <!-- 변경일시 -->
     <td><fmt:formatDate value="${cVO.exec_dtm }" pattern="yyyy-MM-dd a hh:mm:ss"/></td>
   </tr>
