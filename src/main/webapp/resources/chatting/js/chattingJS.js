@@ -10,6 +10,8 @@ $(document).ready(function(){
 	}
 	
 	$("#sendBtn").on("click", function(){
+		if($("#message").val()=="")
+			return;
 		sendClick();
 	});
 

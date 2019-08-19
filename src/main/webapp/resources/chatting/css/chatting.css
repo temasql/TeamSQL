@@ -1,6 +1,5 @@
 @charset "UTF-8";
 #data{
-	border-radius: 2px;
 	overflow-y: auto;
 	height: 10px;
     text-align: center;
@@ -17,18 +16,30 @@
     border-radius: 15px;
     padding: 0px 13px 0px 13px;
     max-width: 60%;
+    display: inline;
+}
+.Ymessage{
+    background-color: #f1f0f0;;
+    margin-top: -10px;
+    float: left;
+    border-radius: 15px;
+    padding: 0px 13px 0px 13px;
+    max-width: 60%;
+    display: inline;
+    color: black;
 }
 .myDiv{
 	width: 100%;
     margin: 0%;
     display: flow-root;
+    text-align: right;
 }
 .youDiv{
-	background-color: yellow;
 	float: left;
 	width : 70%;
 	word-break:break-word;
     margin-top: 4px;
+    text-align: left;
 }
 #chatNM{
 	font-size : 24pt;
@@ -36,7 +47,8 @@
 }
 #accountDiv{
 	display: inline;
-    padding-left: 154px;
+    float: right;
+    margin-top: -50px;
 }
 #userId{
 	height: 60px;
@@ -44,5 +56,57 @@
     line-height: 60px;
     font-size: 25px;
     font-weight: 900;
-    border-bottom: 1px solid #ddd;
+    margin-left: 40%;
+    display: inline;
+}
+.myDt{
+	font-size: 10px;
+	color: #f1f0f0;
+	display: inline;
+	margin-right: 10px;
+}
+.youDt{
+	font-size: 10px;
+	color: #f1f0f0;
+	display: inline;
+	margin-right: 10px;
+}
+#message{
+	width: 89%;
+    height: calc(100% - 1px);
+    border: none;
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 6px;
+}
+#message:focus {
+    outline: none;
+}
+#chatFooter{
+/* 	border: 1px solid #f1f0f0; */
+	border-left: 1px solid #f1f0f0;
+	border-right: 1px solid #f1f0f0;
+	border-bottom: 1px solid #f1f0f0;
+}
+#sendBtn{
+	border: none;
+	background: white;
+	color: #0084FF;
+}
+.youId{
+	text-align: left;
+	font-size: 12px;
+	color:black;
+}
+#account{
+	border: none;
+	color: #0084FF;
+}
+::-webkit-scrollbar{
+	width : 7px;
+	background-color: white;
+}
+::-webkit-scrollbar-thumb{
+	border-radius : 15px;
+	background-color: #0084FF;
 }

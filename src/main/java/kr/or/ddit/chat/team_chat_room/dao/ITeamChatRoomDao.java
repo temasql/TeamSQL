@@ -42,4 +42,14 @@ public interface ITeamChatRoomDao {
 	int update(String id);
 
 	int delete(String id);
+	
+	/**
+	* Method : getChatRoomNM
+	* 작성자 : 손주형
+	* 변경이력 :
+	* @param account_id
+	* @return
+	* Method 설명 : 채팅방 번호로 채팅방 ID을 조회하는 메서드
+	*/
+	String getAccount_id_fk(int chat_room_id);
 }
