@@ -11,8 +11,8 @@
 	<div style="margin: 20px;">
 		<img class="mcl" src="${cp}/user/profile?user_id=${USER_INFO.user_id}"style="width: 100px; height: 100px; margin-right: 20px; position: relative; border-radius: 100%;    display: inline-block; vertical-align: top;float: left;" >
 		<div style="display: inline-block; vertical-align: top; width: 100px; height: 100px; text-align-last: center;margin-top: 25px;margin-right: 13px;">
-			<p id="pname" class="mclna" style=" font-weight: bold; margin: -4px 0 1px 0;">이중석</p>
-			<p id="pemail" class="mclem" style="color: #666;margin-top: 15px;">js1450@gmail.com</p>
+			<p id="pname" class="mclna" style=" font-weight: bold; margin: -4px 0 1px 0;"></p>
+			<p id="pemail" class="mclem" style="color: #666;margin-top: 15px;"></p>
 		</div>
 	</div>
 	<div style=" background: #f5f5f5; border-top: 1px solid #ccc; border-color: rgba(0,0,0,.2); padding: 10px 0; width: 100%; display: table;padding: 10px; margin-top: -27px;">
