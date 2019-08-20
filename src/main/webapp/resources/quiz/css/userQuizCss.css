@@ -1,6 +1,6 @@
 @charset "UTF-8";
 #BtnDiv{
-    margin-left: 62%;
+    margin-left: 75%;
     margin-top: 2%;
     width : 300px;
 }
@@ -12,4 +12,8 @@
 }
 #xRadio{
 	margin-left: 25px;
+}
+.multiList:hover{
+	color: red;
+    font-weight: bolder;
 }

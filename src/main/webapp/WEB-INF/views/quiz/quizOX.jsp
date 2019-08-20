@@ -5,17 +5,28 @@
 <link href="${cp}/resources/quiz/css/quizOX.css" rel="stylesheet">
 <script src="${cp}/resources/quiz/js/userQuiz.js"></script>
 
-<div id="quizHeader">OX 퀴즈</div>
+<p id="quizImg">OX 퀴즈 문제</p>
 <div id="overrite">
-	<div id="gruopDiv">
-		<div id="question">문제 : <div style="display:inline-block">${quizAndAnswerVO.quiz_question}</div></div>
-		<div id="answer">답 : <input id="oRadio" type="radio" name="quiz_answer" value="O"/>O<input id="xRadio" type="radio" name="quiz_answer" value="X"/>X</div>
-		<div id="explain">해설 : ${quizAndAnswerVO.quiz_explain}</div>
-		
-		<input id="quiz_id" type="hidden" value="${quizAndAnswerVO.quiz_id}">
-		<input id="quiz_right" type="hidden" value="${quizAndAnswerVO.quiz_right}">
-		<input id="hiddenAnswer" type="hidden" value="${quizAndAnswerVO.quiz_answer}">
+	<div class="card border-dark mb-3" style="width:986px; margin-left: 14%; margin-top: 3%;">
+	  <div class="card-header">
+	  	<div id="question">
+	  		<h4 class="card-title question">문제 : ${quizAndAnswerVO.quiz_question}</h4>
+	  	</div>
+	  </div>
+	  <div class="card-body">
+	    <div id="answer">
+	    	<p class="card-text">답 : <input id="oRadio" type="radio" name="quiz_answer" value="O"/>O<input id="xRadio" type="radio" name="quiz_answer" value="X"/>X</p>
+	    </div>
+	    <div id="explain">
+	    	<p class="card-text">해설 : ${quizAndAnswerVO.quiz_explain}</p>
+	    </div>
+	  </div>
 	</div>
+	
+	<input id="quiz_id" type="hidden" value="${quizAndAnswerVO.quiz_id}">
+	<input id="quiz_right" type="hidden" value="${quizAndAnswerVO.quiz_right}">
+	<input id="hiddenAnswer" type="hidden" value="${quizAndAnswerVO.quiz_answer}">
+	
 	<div id="BtnDiv">
 		<button id="answerBtn" class="btn" style="background: black; color: white;">정답 확인</button>
 		<button id="nextBtn" class="btn" style="background: black; color: white;">다음 문제</button>

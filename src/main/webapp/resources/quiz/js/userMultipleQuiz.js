@@ -20,8 +20,19 @@ $(function(){
 				
 				$("#nextBtn").css("display", "inline");
 			}else{
-				alert("땡!!!!! 다시 입력해 주세요!");
+				alert("땡!!!!! 다시 선택해 주세요!");
 			}
+		})
+		
+		// li태그 클릭시 이벤트
+		$(".multiList").on("click",function(){
+			var temp = $(this).children().children().next().val();
+			$(".multiList").css("color", "");
+			$(".multiList").css("font-weight", "");
+			
+			$(this).css("color", "red");
+			$(this).css("font-weight", "bolder");
+			$("#quiz_answer").val(temp);
 		})
 		
 		//다음문제 버튼 클릭 시 이벤트
