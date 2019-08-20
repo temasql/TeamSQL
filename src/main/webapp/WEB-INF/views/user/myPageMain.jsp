@@ -4,17 +4,21 @@
 <script src="${cp}/resources/user/js/findUserIdAndPw.js"></script>
 
 <div>    
-	<div style=" margin-left: 300px; margin-top: 100px;">
-		<img id="thumbnail" src="${cp}/user/profile?user_id=${userVo.user_id}" style=" width: 400px; height: 400px; margin-right: 100px;display: inline-block;vertical-align: top;margin-top: 100px;">
-		<div style="display: inline-block; text-align-last: center;margin-top: 159px;">
-			<p style="font-size: 2.5em; font-weight: bold;">${userVo.user_id}</p>
-			<p style="font-size: 2.5em;color: #666;">${userVo.user_name}</p>
-			<p style="font-size: 2.5em;color: #666;">${userVo.user_email}</p>
-			<form action="${cp}/user/modifyUser" style=" display: contents;">
-				<input type="hidden" name="user_id" value="${userVo.user_id}">
-				<input type="submit" class="btn" style="background: black; color: white;margin-right: 50px;" value="회원 정보 수정" />
-			</form>
-			<button id="btnDeleteUser" class="btn" style="background: black; color: white;">회원 탈퇴</button>
+	<div style=" margin-left: 180px; margin-top: 100px;">
+		<div style="max-width: 62rem; display: inline-block;margin-left: 100px;margin-top:50px">
+			<div style="padding: 40px;">
+				<img id="thumbnail" src="${cp}/user/profile?user_id=${userVo.user_id}" style=" width: 400px; height: 400px; margin-right: 100px;display: inline-block;vertical-align: top;">
+				<div style="display: inline-block; text-align-last: center; margin-top: 80px">
+					<p style="font-size: 2.5em; font-weight: bold;margin-bottom: 20px;">${userVo.user_id}</p>
+					<p style="font-size: 2.0em;color: #666;">${userVo.user_name}</p>
+					<p style="font-size: 2.0em;color: #666;">${userVo.user_email}</p>
+					<form action="${cp}/user/modifyUser" style=" display: contents;">
+						<input type="hidden" name="user_id" value="${userVo.user_id}">
+						<input type="submit" class="btn" style="background: black; color: white;margin-right: 10px;" value="회원 정보 수정" />
+					</form>
+					<button id="btnDeleteUser" class="btn" style="background: black; color: white;">회원 탈퇴</button>
+				</div>
+			</div>
 		</div>
 	</div> 
 </div>

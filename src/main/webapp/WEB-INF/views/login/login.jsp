@@ -68,7 +68,7 @@
 		<form id="loginForm" action="${cp }/login" method="post">
 			<input class="loginInput" type="text" id="user_id"  value="${user_id}" name="user_id" placeholder="  ID">
 			<br>
-			<input class="loginInput" type="password" id="user_pw" value="js1450@!" name="user_pw" placeholder="  PW">
+			<input class="loginInput" type="password" id="user_pw" value="kbh711482!" name="user_pw" placeholder="  PW">
 			<br>
 			<label id="loginLabel"> <input id="rememberme" name="rememberme" type="checkbox" value="remember-me">	ID저장</label>
 			<br>
