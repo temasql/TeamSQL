@@ -307,7 +307,12 @@ public class PostController {
 		List<ReplyVO> replyList = replyService.replyList(post_id);
 		model.addAttribute("replyList", replyList);
 		
-		return "/board/boardPostDetail.tiles";
+
+		if(board_id ==1) {
+			return "/notice/noticePostDetail.tiles";
+		} else {
+			return "/board/boardPostDetail.tiles";
+		}
 		
 	}
 	
