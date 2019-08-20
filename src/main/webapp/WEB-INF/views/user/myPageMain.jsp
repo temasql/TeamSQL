@@ -3,9 +3,6 @@
 <link href="${cp}/resources/user/css/findUserIdAndPwModal.css" rel="stylesheet">
 <script src="${cp}/resources/user/js/findUserIdAndPw.js"></script>
 
-<!--     <h4 class="card-title">Dark card title</h4> -->
-<!--     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-
 <div>    
 	<div style=" margin-left: 180px; margin-top: 100px;">
 		<div class="card border-dark" style="max-width: 62rem; display: inline-block;margin-left: 130px;margin-top:50px">
