@@ -32,10 +32,10 @@
 	<!-- 게시글 페이징 리스트 조회 -->
 	<select id="postPagingList" parameterType="map" resultType="postVo">
 		SELECT *
-		FROM(
-    		SELECT A.*, ROWNUM RN
-    		FROM(
-        		SELECT DISTINCT(PO.POST_ID) POST_ID, PO.PARENT_ID_FK, LPAD(' ', (LEVEL-1)*4) || PO.POST_TITLE  POST_TITLE, LEVEL LV, PO.POST_GROUP_SEQ, PO.POST_DT, PO.USER_ID_FK, PO.POST_USE
+		FROM
+			(SELECT A.*, ROWNUM RN
+    		FROM
+    			(SELECT DISTINCT(PO.POST_ID) POST_ID, PO.PARENT_ID_FK, LPAD(' ', (LEVEL-1)*4) || PO.POST_TITLE  POST_TITLE, LEVEL LV, PO.POST_GROUP_SEQ, PO.POST_DT, PO.USER_ID_FK, PO.POST_USE
         		FROM POST PO, BOARD BO
         		WHERE PO.BOARD_ID_FK = #{board_id} AND BO.BOARD_ID = #{board_id}
         		AND ${select} LIKE '%'||#{search}||'%'
