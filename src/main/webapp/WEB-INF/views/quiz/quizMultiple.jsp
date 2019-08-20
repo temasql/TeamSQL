@@ -8,36 +8,76 @@
 <script src="${cp}/resources/quiz/js/userMultipleQuiz.js"></script>
 
 <div id="overrite">
-	<div id="quizHeader">객관식 퀴즈</div>
-	<div id="gruopDiv">
-		<div id="question">문제 : ${quizAndAnswerVO.quiz_question}</div>
-		<div id="example">
-			<ol>
-				<c:forEach items="${exampleList}" var="exampleVO">
-					<li>
-						<div class="custom-control custom-radio" style="display:contents;">
-					      <label class="example_content" for="customRadio1">${exampleVO.example_content}</label>
-					      <input type="hidden" value="${exampleVO.example_num}">
-					      <input type="hidden" name="example_content" value="${exampleVO.example_content}">
-					    </div>
-				    </li>
-				</c:forEach>
-			</ol>
-		</div>
-		<div id="answer">답 : <input type="text" id="quiz_answer"  name="quiz_answer" 
+	<p id="quizImg">객관식 퀴즈 문제</p>
+		<div class="card border-dark mb-3" style="width:986px; margin-left: 14%; margin-top: 3%;">
+			<div class="card-header">
+				<div id="question">
+					<h4 class="card-title question">문제 : ${quizAndAnswerVO.quiz_question}</h4>
+				</div>
+			</div>
+			<div class="card-body">
+				<div id="example">
+					<ol>
+						<li class="multiList">
+							<div class="custom-control custom-radio"
+								style="display: contents;">
+								<label class="example_content" for="customRadio1">${exampleList[0].example_content}</label>
+								<input type="hidden" value="${exampleList[0].example_num}">
+								<input type="hidden" name="example_content"
+									value="${exampleList[0].example_content}">
+							</div>
+						</li>
+						<li class="multiList">
+							<div class="custom-control custom-radio"
+								style="display: contents;">
+								<label class="example_content" for="customRadio2">${exampleList[1].example_content}</label>
+								<input type="hidden" value="${exampleList[1].example_num}">
+								<input type="hidden" name="example_content"
+									value="${exampleList[1].example_content}">
+							</div>
+						</li>
+						<li class="multiList">
+							<div class="custom-control custom-radio"
+								style="display: contents;">
+								<label class="example_content">${exampleList[2].example_content}</label>
+								<input type="hidden" value="${exampleList[2].example_num}">
+								<input type="hidden" name="example_content"
+									value="${exampleList[2].example_content}">
+							</div>
+						</li>
+						<li class="multiList">
+							<div class="custom-control custom-radio"
+								style="display: contents;">
+								<label class="example_content" for="customRadio4">${exampleList[3].example_content}</label>
+								<input type="hidden" value="${exampleList[3].example_num}">
+								<input type="hidden" name="example_content"
+									value="${exampleList[3].example_content}">
+							</div>
+						</li>
+						<li class="multiList">
+							<div class="custom-control custom-radio"style="display: contents;">
+								<label class="example_content" for="customRadio5">${exampleList[4].example_content}</label>
+								<input type="hidden" value="${exampleList[4].example_num}">
+								<input type="hidden" name="example_content"
+									value="${exampleList[4].example_content}">
+							</div>
+						</li>
+					</ol>
+				</div>
+				<div id="answer"><div class="card-text"><input type="hidden" id="quiz_answer"  name="quiz_answer" 
 							class="form-control" maxlength="1" oninput="numberMaxLength(this);"
 							onKeyup="this.value=this.value.replace(/[^1-5]/g,'');">
 							
-							<input id="hiddenAnswer" type="hidden" value="${quizAndAnswerVO.quiz_answer}">
+							<input id="hiddenAnswer" type="hidden" value="${quizAndAnswerVO.quiz_answer}"></div></div>
+				<div id="explain"><p class="card-text">해설 : ${quizAndAnswerVO.quiz_explain}</p></div>
+				<input type="hidden" id="quiz_right" name="quiz_right" value="${quizAndAnswerVO.quiz_right}">
+				<input type="hidden" id="quiz_id" value="${quizAndAnswerVO.quiz_id}">
+			</div>
 		</div>
-		<div id="explain">해설 : ${quizAndAnswerVO.quiz_explain}</div>
-		
-		<input type="hidden" id="quiz_right" name="quiz_right" value="${quizAndAnswerVO.quiz_right}">
-		<input type="hidden" id="quiz_id" value="${quizAndAnswerVO.quiz_id}">
-	</div>
+
 	<div id="BtnDiv">
-		<button id="answerBtn" class="btn btn-secondary">정답 확인</button>
-		<button id="nextBtn" class="btn btn-secondary">다음 문제</button>
-		<button id="explainBtn" class="btn btn-secondary">해설보기</button>
+		<button id="answerBtn" class="btn btn-secondary" style="background: black; color: white;">정답 확인</button>
+		<button id="nextBtn" class="btn btn-secondary" style="background: black; color: white;">다음 문제</button>
+		<button id="explainBtn" class="btn btn-secondary" style="background: black; color: white;">해설보기</button>
 	</div>
 </div>
