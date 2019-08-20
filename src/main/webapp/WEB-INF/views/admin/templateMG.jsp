@@ -11,7 +11,7 @@
 		<label	class="mb-2 mr-sm-2" style="margin-left: 20px; margin-top: 10px;">원문</label> 
 		<input type="text" class="form-control mb-2 mr-sm-2" id="templateOriginal" 	name="ctemplate_original"> 
 		
-		<input type="submit"	class="btn" style="background: black; color: white; margin-left: 30px;" value="추가">
+		<button type="button" id="tmpAddBtn" class="btn" style="background: black; color: white; margin-left: 30px;">추가</button>
 	</form>
 
 	<br><br><br><br>
