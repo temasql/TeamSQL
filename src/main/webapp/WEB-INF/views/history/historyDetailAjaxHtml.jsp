@@ -9,7 +9,14 @@
   	<td scope="row">${cVO.action_event }</td>	<!-- 발생이벤트 -->
   	<td scope="row">${cVO.object_type }</td>	<!-- 객체타입 -->
   	<td scope="row">${cVO.object_name }</td>	<!-- 객체명 -->
-  	<td scope="row">${cVO.sql_text }</td>		<!-- 원문 -->
+  	<!-- 원문 -->
+  	<td scope="row">
+<%--   	${cVO.sql_text } --%>
+  	<c:set var="str" value="${cVO.sql_text }" />
+	<c:if test="${str =">
+	    홍길동이 맞습니다.
+	</c:if>
+  	</td>		
   	<td scope="row"><fmt:formatDate value="${cVO.exec_dtm }" pattern="yyyy-MM-dd HH:mm:ss"/></td>	<!-- 변경일시 -->
    </tr>
    </c:forEach>

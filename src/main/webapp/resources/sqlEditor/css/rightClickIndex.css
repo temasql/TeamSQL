@@ -114,3 +114,16 @@
 	background: #dddddd;
     color: black;
 }
+
+/* 인덱스생성 */
+.modal > .index{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 33%;
+    display: block;
+    position: absolute;
+    left: 22%;
+    top: 12%;
+}

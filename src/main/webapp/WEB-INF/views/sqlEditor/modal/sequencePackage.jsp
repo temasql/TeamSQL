@@ -47,7 +47,7 @@
 		    </select>
 			<br>
 			<input type="hidden" id="hiddenSeqName"> 
-			<button type="button" class="btn btn-secondary" id="createSeqBtn">확인</button>
+			<button type="button" class="btn btn-secondary" id="createSeqBtn" style="background: black; color: white;">확인</button>
 			
 		</fieldset>
 	</form>
@@ -80,7 +80,7 @@
 	    <legend id="updateSeqLegend">시퀀스 편집</legend>
 			<div id="updateSequence">
 			</div>
-		<button type="button" class="btn btn-secondary" id="updateSeqBtn">확인</button>
+		<button type="button" class="btn btn-secondary" id="updateSeqBtn" style="background: black; color: white;">확인</button>
 		</fieldset>
 	</form>
   </div>

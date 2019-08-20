@@ -38,3 +38,15 @@
 .sequencePackageMenu li:hover span {
   color: #FFFFFF;
 }
+
+/* 편집 모달창 */
+#updateSeqModal{
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 26%;
+    display: block;
+    position: absolute;
+    left: 22%;
+    top: -28%;
+}

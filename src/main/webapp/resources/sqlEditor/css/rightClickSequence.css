@@ -48,3 +48,29 @@
     margin-left: 31%;
     width: 20%;
 }
+
+/* 생성버튼 우측 정렬*/
+#createSeqBtn{
+    float: right;
+    margin-top: 14px;
+    left: 2px;
+}
+
+/* 편집 버튼 우측 정렬 */
+#updateSeqBtn{
+	float: right;
+    margin-top: 14px;
+    left: 2px;
+}
+
+/* 편집 모달창 */
+.modal>.updateSeqModal{
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    display: block;
+    position: absolute;
+    left: 22%;
+    top: 12%;
+}
