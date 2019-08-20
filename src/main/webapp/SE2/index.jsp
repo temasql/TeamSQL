@@ -42,7 +42,7 @@ $(document).ready(function() {
 
 	// 전송버튼 클릭이벤트
 	$("#savebutton").click(function(){
-		if(confirm("저장하시겠습니까?")) {
+		if(confirm("등록하시겠습니까?")) {
 			// id가 smarteditor인 textarea에 에디터에서 대입
 			oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
 
@@ -59,6 +59,7 @@ $(document).ready(function() {
 			// 여기까지 도달하면 유효성 검사 완료(submit)
 			$("#frm").submit();
 		})
+
 	var count = 1;
 	$("#plusFile").on("click", function() {
 		if(count <=5 ){
@@ -72,6 +73,7 @@ $(document).ready(function() {
 		}
 	});
 });
+
 
 // 필수값 Check
 function validation(){

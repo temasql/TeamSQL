@@ -40,7 +40,7 @@
 				<td class="boardId" style="vertical-align: middle;">${board.board_id }</td>
 				<td style="vertical-align: middle;">${board.board_name}</td>
 
-				<td class="modiSel">
+				<td class="modiSel" style="text-align: -webkit-center;">
 					<select class="form-control updateUse_yn" 	name="use_yn" style="width: 25%;">
 						<c:choose>
 							<c:when test="${board.board_use eq 'Y' }">
