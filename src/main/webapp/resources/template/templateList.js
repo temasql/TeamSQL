@@ -1,7 +1,13 @@
 $(function() {
 	templatePagingListAjaxHtml(1, 10);
 
+	$('#templateOriginal').keydown(function(e) {
+		if (e.keyCode == 13) {
+			postPagingListAjaxHtml(1,10);
+		}
+	});
 
+	
 	$(document).on("click", ".modiBtn", function(){
 					
 		var templateId = $(this).parents("td").prevAll(".templateId").children().val();
@@ -25,6 +31,13 @@ $(function() {
 		$("#delFrm").submit();
 	})
 	
+	$(document).on("click", "#tmpAddBtn", function() {
+		if(validation()) {
+			$("#addTemplateFrm").submit();
+		} else {
+			alert("템플릿 약어와 원문을 입력해 주세요.");
+		}
+	})
 })
 
 
@@ -44,3 +57,12 @@ function templatePagingListAjaxHtml(page, pageSize) {
 	})
 }
 	
+function validation(){
+	var tmpAbb = $("#templateAbb").val();
+	var tmpOrigin = $("#templateOriginal").val();
+	
+	if(tmpAbb == '' || tmpOrigin == '') {
+		return false;
+	}
+	return true;
+}
