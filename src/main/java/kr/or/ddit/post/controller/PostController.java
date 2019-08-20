@@ -243,7 +243,7 @@ public class PostController {
 												MultipartFile[] files, RedirectAttributes redirectAttributes) {
 		
 		int post_id = postService.postMaxCnt();
-		
+		logger.debug("filesSize: {}", files.length);
 		PostVO postVo = new PostVO(post_id, user_id, board_id, post_title, smarteditor, post_id);
 		int insertPost = postService.insertPost(postVo);
 		
@@ -268,9 +268,9 @@ public class PostController {
 						logger.debug("fileOFN : {}", file.getOriginalFilename());
 						TSFileVO fileVo = new TSFileVO(post_id, fileId, file.getOriginalFilename());
 						uploadFileList.add(fileVo);
-						fileService.insertFile(uploadFileList);
 					}
 				}
+				fileService.insertFile(uploadFileList);
 			}
 			redirectAttributes.addAttribute("post_id", post_id);
 			return "redirect:/post/readPost";
