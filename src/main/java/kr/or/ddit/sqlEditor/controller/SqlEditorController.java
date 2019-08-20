@@ -720,10 +720,11 @@ public class SqlEditorController {
 	@RequestMapping(path = "/updateSequence", method = RequestMethod.POST)
 	@ResponseBody
 	public int updateSequence(String query) {
-
+		logger.debug("시퀀스쿼리빠끄 : {}", query);
 		int updateSequence = -1;
 
 		updateSequence = sqlEditorSequenceService.updateSequence(query);
+		logger.debug("시퀀스성공빠끄 : {}",updateSequence);
 		return updateSequence;
 	}
 

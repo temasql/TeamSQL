@@ -1,14 +1,18 @@
 $(function(){
 	postPagingListAjaxHtml(1, 10);
 	
+	$('#searchfor').keydown(function(e) {
+		if (e.keyCode == 13) {
+			postPagingListAjaxHtml(1,10);
+		}
+	});
+	
 	$(document).on("click", ".postTr", function(){
 		var postId = $(this).find(".postId").text();
 		$("#postId").val(postId);
 		
-		var post_yn = $(this).find(".post_yns").val();
-		$("#post_yn").val(post_yn);
-		
-		if ($("#post_yn").val() == "Y") {
+		var post_yn = $(this).prev().val()
+		if (post_yn  == "Y") {
 			$("#frm").submit();
 		}
 	})
@@ -16,6 +20,7 @@ $(function(){
 	$("#btnSearch").on("click", function(){
 		postPagingListAjaxHtml(1,10);
 	})
+	
 })
 
 function postPagingListAjaxHtml(page, pageSize) {

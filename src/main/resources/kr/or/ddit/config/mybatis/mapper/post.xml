@@ -21,23 +21,24 @@
 	
 	
 	<!-- 게시판 게시글 갯수 -->
-	<select id="postCnt" parameterType="int" resultType="int">
+	<select id="postCnt" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM POST P, BOARD B
 		WHERE P.BOARD_ID_FK = #{board_id}
 		AND B.BOARD_ID = #{board_id}
+		AND ${select} LIKE '%'||#{search}||'%'
 	</select>
 
 	
 	<!-- 게시글 페이징 리스트 조회 -->
 	<select id="postPagingList" parameterType="map" resultType="postVo">
 		SELECT *
-		FROM(
-    		SELECT A.*, ROWNUM RN
-    		FROM(
-        		SELECT DISTINCT(PO.POST_ID) POST_ID, PO.PARENT_ID_FK, LPAD(' ', (LEVEL-1)*4) || PO.POST_TITLE  POST_TITLE, LEVEL LV, PO.POST_GROUP_SEQ, PO.POST_DT, PO.USER_ID_FK, PO.POST_USE
-        		FROM POST PO, BOARD BO
-        		WHERE PO.BOARD_ID_FK = #{board_id} AND BO.BOARD_ID = #{board_id}
+		FROM
+			(SELECT A.*, ROWNUM RN
+    		FROM
+    			(SELECT POST_ID, PO.PARENT_ID_FK, LPAD(' ', (LEVEL-1)*4) || PO.POST_TITLE  POST_TITLE, LEVEL LV, PO.POST_GROUP_SEQ, PO.POST_DT, PO.USER_ID_FK, PO.POST_USE
+        		FROM POST PO
+        		WHERE PO.BOARD_ID_FK = #{board_id}
         		AND ${select} LIKE '%'||#{search}||'%'
         		START WITH PO.PARENT_ID_FK IS NULL
         		CONNECT BY PRIOR PO.POST_ID = PO.PARENT_ID_FK
@@ -45,7 +46,6 @@
     		WHERE B.RN &gt;= (#{page}-1)*#{pageSize}+1 
     		AND B.RN &lt;= #{page}*#{pageSize}
 	</select>
-
 
 	<!-- 게시글 등록 -->
 	<insert id="insertPost" parameterType="postVo">
@@ -66,7 +66,7 @@
 	
 	<!-- 마지막 게시글 아이디 조회 -->
 	<select id="postMaxCnt" resultType="int">
-		SELECT MAX(POST_ID) +1
+		SELECT NVL(MAX(POST_ID) +1, 1)
 		FROM POST
 	</select>
 	

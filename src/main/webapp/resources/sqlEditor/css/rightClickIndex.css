@@ -90,8 +90,15 @@
 
 #createIndexBtn{
 	float: right;
+    margin-top: 14px;
+    left: 2px;
 }
 
+#updateIndexBtn{
+	float: right;
+    margin-top: 14px;
+    left: 2px;
+}
 .plustBtn{
 	width: 17px;
 	height: 17px;	
@@ -106,4 +113,17 @@
 #selectedTable_name:disabled{
 	background: #dddddd;
     color: black;
+}
+
+/* 인덱스생성 */
+.modal > .index{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 33%;
+    display: block;
+    position: absolute;
+    left: 22%;
+    top: 12%;
 }

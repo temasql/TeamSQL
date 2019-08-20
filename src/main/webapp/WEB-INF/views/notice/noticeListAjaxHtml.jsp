@@ -4,22 +4,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:forEach items="${postList}" var="postVo">
-	<tr class="postTr">
-		<form>
-			<input type="hidden" class="post_yns" value="${postVo.post_use }"/>
-		</form>
+	<form>
+		<input type="hidden" class="post_yns" value="${postVo.post_use }"/>
+	</form>
+	<tr class="postTr" style="cursor: pointer">
 		<td class="postId">${postVo.post_id }</td>
 			<c:choose>
 				<c:when test="${postVo.lv > 1 }">
-					<td>
+					<td style="text-align: left;">
 						<c:forEach begin="1" end="${postVo.lv}">
-							&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</c:forEach>
 						 └▶ ${postVo.post_title}
 					</td>
 				</c:when>
 				<c:otherwise>
-					<td>${postVo.post_title}</td>
+					<td style="text-align: left;">${postVo.post_title}</td>
 				</c:otherwise>
 			</c:choose>
 		<td>${postVo.user_id_fk }</td>
@@ -40,7 +40,7 @@ SEPERATORSEPERATOR
 	</c:otherwise>
 </c:choose>
 
-<c:forEach var="i" begin="1" end="${paginationSize}">
+<c:forEach var="i" begin="${startPage }" end="${paginationSize}">
 	<li>
 		<c:choose>
 			<c:when test="${pageMap.page == i}">
@@ -54,13 +54,13 @@ SEPERATORSEPERATOR
 </c:forEach>
 
 <c:choose>
-	<c:when test="${pageMap.page  == paginationSize}">
+	<c:when test="${pageMap.page  == lastpaginationSize}">
 		<li class="page-link disabled"><span>next</span></li>
 		<li class="page-link disabled"><span>»</span></li>
 	</c:when>
 	<c:otherwise>
 		<li class="page-link"><a href="javascript:postPagingListAjaxHtml(${pageMap.page + 1 }, ${pageMap.pageSize});">next</a></li>
-		<li class="page-link"><a href="javascript:postPagingListAjaxHtml(${paginationSize}, ${pageMap.pageSize});">»</a></li>
+		<li class="page-link"><a href="javascript:postPagingListAjaxHtml(${lastpaginationSize}, ${pageMap.pageSize});">»</a></li>
 	</c:otherwise>
 </c:choose>
 

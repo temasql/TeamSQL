@@ -35,8 +35,23 @@ public class CommonDomainController {
 	* Method 설명 : 공통 도메인 관리 화면 요청
 	*/
 	@RequestMapping(path =  "/manager", method = RequestMethod.GET)
-	public String domainManager(PageVo pageVo, Model model) {
-		
+	public String domainManager() {
+		return "/admin/domainMG.tiles";
+	}
+	
+	
+	/**
+	* Method : domainList
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param pageVo
+	* @param domainVo
+	* @param model
+	* @return
+	* Method 설명 : 도메인 페이징 리스트 화면
+	*/
+	@RequestMapping(path = "/domainList", method = RequestMethod.POST)
+	public String domainList(PageVo pageVo, CommonDomainVO domainVo, Model model) {
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
 		pageMap.put("page", pageVo.getPage());
@@ -48,10 +63,30 @@ public class CommonDomainController {
 		
 		int paginationSize = (int) resultMap.get("paginationSize");
 		
+		int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+	    if(pageVo.getPage()==1) {
+	    	startPage =1;
+	    }
+	      
+	    if(startPage>=2) {
+	    	startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+	    }
+	      
+	    paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+	         
+	    int lastpaginationSize= (int) resultMap.get("paginationSize");
+	         
+	    if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+	    	paginationSize= lastpaginationSize;
+	    }
+
+	    model.addAttribute("lastpaginationSize", lastpaginationSize);
+	    model.addAttribute("startPage", startPage);
 		model.addAttribute("domainList", domainList);
 		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("paginationSize", paginationSize);
-		return "/admin/domainMG.tiles";
+		
+		return "admin/domainListAjaxHtml";
 	}
 	
 	
@@ -59,7 +94,6 @@ public class CommonDomainController {
 	* Method : addDomain
 	* 작성자 : 이영은
 	* 변경이력 :
-	* @param pageVo
 	* @param cdomain_name
 	* @param cdomain_type
 	* @param model
@@ -67,34 +101,16 @@ public class CommonDomainController {
 	* Method 설명 : 공통 도메인 추가
 	*/
 	@RequestMapping(path = "/addDomain", method = RequestMethod.POST)
-	public String addDomain(PageVo pageVo, CommonDomainVO domainVo, Model model) {
+	public String addDomain(CommonDomainVO domainVo, Model model) {
 		
 		logger.debug("======= commonDomainController_addDomain =======");
 		
 		domainVo.setCdomain_name(domainVo.getCdomain_name().toUpperCase());
 		domainVo.setCdomain_type(domainVo.getCdomain_type().toUpperCase());
 		
-		if(domainService.addDomain(domainVo) == 1) {
+		domainService.addDomain(domainVo);
 
-			Map<String, Object> pageMap = new HashMap<String, Object>();
-			
-			pageMap.put("page", pageVo.getPage());
-			pageMap.put("pageSize", pageVo.getPageSize());
-
-			Map<String, Object> resultMap = domainService.domainPagingList(pageMap);
-			
-			List<CommonDomainVO> domainList = (List<CommonDomainVO>) resultMap.get("domainList");
-			
-			int paginationSize = (int) resultMap.get("paginationSize");
-			
-			model.addAttribute("domainList", domainList);
-			model.addAttribute("pageMap", pageMap);
-			model.addAttribute("paginationSize", paginationSize);
-			
-			return "/admin/domainMG.tiles";
-		} else {
-			return "/admin/domainMG.tiles";
-		}
+		return "/admin/domainMG.tiles";
 	}
 	
 	
@@ -102,41 +118,39 @@ public class CommonDomainController {
 	* Method : modifyDomain
 	* 작성자 : 이영은
 	* 변경이력 :
-	* @param pageVo
 	* @param domainVo
 	* @param model
 	* @return
 	* Method 설명 : 공통 도메인 수정
 	*/
 	@RequestMapping(path = "/modifyDomain", method = RequestMethod.POST)
-	public String modifyDomain(PageVo pageVo, CommonDomainVO domainVo, Model model) {
+	public String modifyDomain(CommonDomainVO domainVo, Model model) {
 		logger.debug("domainVo : {}", domainVo);
-		int updateCnt = domainService.modifyDomain(domainVo);
-
-		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		pageMap.put("page", pageVo.getPage());
-		pageMap.put("pageSize", pageVo.getPageSize());
+		domainVo.setCdomain_name(domainVo.getCdomain_name().toUpperCase());
+		domainVo.setCdomain_type(domainVo.getCdomain_type().toUpperCase());
+		
+		domainService.modifyDomain(domainVo);
 
-		if(updateCnt == 1) {
-			
-			Map<String, Object> resultMap = domainService.domainPagingList(pageMap);
-			
-			List<CommonDomainVO> domainList = (List<CommonDomainVO>) resultMap.get("domainList");
-			
-			int paginationSize = (int) resultMap.get("paginationSize");
-			
-			model.addAttribute("domainList", domainList);
-			model.addAttribute("pageMap", pageMap);
-			model.addAttribute("paginationSize", paginationSize);
-			
-		}
 		return "/admin/domainMG.tiles";
+
 	}
 	
 	
-//	public String deleteDomain(PageVo pageVo, int cdomain_id, Model model) {
-//		
-//	}
+	/**
+	* Method : deleteDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param cdomain_id
+	* @param model
+	* @return
+	* Method 설명 : 공통 도메인 삭제
+	*/
+	@RequestMapping(path = "/deleteDomain", method = RequestMethod.POST)
+	public String deleteDomain(int cdomain_id, Model model) {
+		domainService.deleteDomain(cdomain_id);
+	
+		return "/admin/domainMG.tiles";
+	}
 	
 }

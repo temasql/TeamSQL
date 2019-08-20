@@ -166,12 +166,12 @@ $(document).ready(function() {
 					, data : $("#updateIndexFrm").serialize()
 					, success : function(data){
 						$("#updateIndexModal").css("display","none");
-						alert("인덱스가 생성 되었습니다.")
+						alert("인덱스가 편집 되었습니다.")
 						location.replace("/sqlEditor/sqlEditorMain");
 						$("#data.hidden_tableName").val(data.hidden_tableName);
 						
 					},error : function(){
-						alert("인덱스 생성에 실패하였습니다.")
+						alert("인덱스 편집에 실패하였습니다.")
 					}
 		})
 	});
@@ -553,7 +553,7 @@ $(document).ready(function() {
 				  alert("SQL 오류: ORA-02429: 고유/기본 키 적용을  위한 \n\t인덱스를 삭제할 수 없습니다.");
 				  
 			  }else{
-				  alert("시퀀스 삭제에 성공하였습니다.");
+				  alert("인덱스 삭제에 성공하였습니다.");
 				  location.replace("/sqlEditor/sqlEditorMain");
 			  }
 			  
@@ -616,7 +616,7 @@ $(document).ready(function() {
 		console.log(owner)
 		$("#hidden_owner").val(owner);
 		console.log($("#hidden_owner").val())
-		var index_name= $("#indexName").val().trim();			// 시퀀스명
+		var index_name= $("#indexName").val().trim();			// 인덱스명
 		var idx = table_upperOwner.indexOf("_");
 		var table_owner = table_upperOwner.substring(0, idx);
 		fff = '';

@@ -149,7 +149,7 @@ $(document).ready(function() {
 			,data : "query="+ query
 			,success: function(data){
 				if(data == 0){
-				alert("생성되었습니다.")
+				alert("시퀀스가 생성되었습니다.")
 				location.replace("/sqlEditor/sqlEditorMain");
 				$("#craeteSequenceModal").css("display", "none");
 				}else{
@@ -306,14 +306,14 @@ $(document).ready(function() {
 				  data.sequence_name+"'>" +
 				  "<small class='form-text text-muted' id='updateTableNameHint'>영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>"+
 				  "</div>" +
-				  "<label id='updateLblOption'>속성</label>" +
+				  "<p id='updateLblOption'></p>" +
 				  "<input type='text' class='form-control' id='updateSeqIncrement' name='updateSeqIncrement' value='"+
 				  data.increment_by + "'>" + "<input type='hidden' id='hidden_number' value='"+ data.last_number + "'>" +					  
-				  "<input type='text' class='form-control' id='updateSeqMin' name='updateSeqMin' value='"+
+				  "증분<input type='text' class='form-control' id='updateSeqMin' name='updateSeqMin' value='"+
 				  data.min_value + "'>" +					  
-				  "<input type='text' class='form-control' id='updateSeqMax' name='updateSeqMax' value='"+
-				  data.max_value + "'>" +
-				  "<label for='from-control' id='updateLblCache'>캐시</label>" +
+				  "최소값<input type='text' class='form-control' id='updateSeqMax' name='updateSeqMax' value='"+
+				  data.max_value + "'>최대값" +
+				  "<br><br><label for='from-control' id='updateLblCache'></label>" +
 				  "<select class='form-control' id='updateSeqCache' name='updateSeqCache'>";
 				  if(data.cache_size > 0){
 					  temp += "<option id ='cache' value='CACHE' selected='selected'>캐시</option><option id='nocahe' value='NOCACHE'>캐시없음</option></select>" +
@@ -323,14 +323,14 @@ $(document).ready(function() {
 					  temp += "<option id ='cache' value='CACHE'>캐시</option><option id='nocache' selected='selected' value='NOCACHE'>캐시없음</option></select>" +
 					  "<input type='text' class='form-control' id='updateInputCache' name='updateInputCache' readonly>";
 				  }
-				  temp +="<label for='form-control'>주기</label>" +
+				  temp +="<br><br><label for='form-control'></label>" +
 				  "<select class='form-control' id='updateSeqCycle' name='updateSeqCycle'>";
 				  if(data.cycle_flag == "Y"){
 					  temp += "<option id='cycle' value='CYCLE' selected='selected'>주기</option><option id='nocycle' value='NOCYCLE'>주기없음</option></select>";
 				  }else{
 					  temp += "<option id='cycle' value='CYCLE'>주기</option><option id='nocycle' value='NOCYCLE' selected='selected'>주기없음</option></select>";
 				  }
-				  temp += "<label for='form-control'>정렬</label>"+
+				  temp += "<br><br><label for='form-control'>정렬</label>"+
 				  "<select class='form-control' id='updateSeqOrder' name='updateSeqOrder'>";
 				  if(data.order_flag == "Y"){
 					  temp += "<option id='order' value='ORDER' selected='selected'>정렬</option><option id='noorder' value='NOORDER'>정렬없음</option></select><br>";
@@ -457,14 +457,14 @@ $(document).ready(function() {
 			query = "ALTER SEQUENCE " + seqName + " " + seqIncrement + " " +
 			seqMin + " " + seqMax + " " + seqCache + " " + inputCache + " " + seqCycle + " " + seqOrder;
 		}
-		
+		console.log(query);
 		$.ajax({
 			type : "post"
 		  , url : "/sqlEditor/updateSequence"
 		  , data : "query=" + query
 		  , success : function(data){
 			  if(data == 0){
-				  alert("변경되었습니다.");
+				  alert("시퀀스가 변경되었습니다.");
 				  $("#updateSequenceModal").css("display", "none");
 				  location.replace("/sqlEditor/sqlEditorMain");
 			  }else{

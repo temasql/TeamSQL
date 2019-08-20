@@ -130,7 +130,7 @@
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 2; /* Sit on top */
+    z-index: 9; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -271,4 +271,24 @@
 
 #tempUpdate, #tempUpdateCancle{
 	display: inline;
+}
+
+#addAccountBtn {
+	margin-left: 840px;
+}
+
+#accountDeleteBtn{
+	margin-left: 840px;
+}
+
+#accountPwFindBtn{
+	margin-left: 840px;
+}
+
+#accountPwUpdateBtn{
+	margin-left: 840px;
+}
+
+#createTestDataBtn{
+	margin-left: 840px;
 }

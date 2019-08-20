@@ -14,7 +14,7 @@
 	    <h1 id="signInText">회원가입</h1>
 	    <div class="form-group">
 	      <label for="exampleInputPassword1">ID</label>
-	      <input type="text" class="form-control" value="${userVo.user_id}" name="user_id" placeholder="사용자 ID는 첫문을 영문자,숫자 포함 4~12글자입니다."><h3 style="color : red;"><form:errors path="userVO.user_id"/></h3>
+	      <input type="text" class="form-control" value="${userVo.user_id}" name="user_id" placeholder="사용자 ID는 첫문을 영문자,숫자 포함 5~12글자입니다."><h3 style="color : red;"><form:errors path="userVO.user_id"/></h3>
 	      <a href="${cp}/user/idCheck"><button id="idcheck" class="btn" style="background: black; color: white;">중복체크</button></a>
 	      <input type="hidden" id="idCheckMsg" value="${msg}">
 	      <input type="hidden" id="olduId" value="${userVo.user_id}">
@@ -51,13 +51,13 @@
 	   				  }
 	   			});
 	   			
-	   			$('input[name=user_name]').focusout(function() {
-		   			var nameReg = /^[가-힣]{2,4}$/;
-		   			if(!nameReg.test($("input[name=user_name]").val())){
-		   				alert("이름은 2글자에서 4글자를 입력해주세요")
-		   				return;
-		   			}
-	   			})
+// 	   			$('input[name=user_name]').focusout(function() {
+// 		   			var nameReg = /^[가-힣]{2,4}$/;
+// 		   			if(!nameReg.test($("input[name=user_name]").val())){
+// 		   				alert("이름은 2글자에서 4글자를 입력해주세요")
+// 		   				return;
+// 		   			}
+// 	   			})
 	   			
 	   			
 	      	})

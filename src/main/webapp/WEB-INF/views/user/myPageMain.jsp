@@ -2,32 +2,22 @@
     pageEncoding="UTF-8"%>
 <link href="${cp}/resources/user/css/findUserIdAndPwModal.css" rel="stylesheet">
 <script src="${cp}/resources/user/js/findUserIdAndPw.js"></script>
-<form action="${cp}/user/modifyUser" style=" display: contents;">
-	<input type="hidden" name="user_id" value="${userVo.user_id}">
-	<input type="submit" class="btn" style="background: black; color: white;" value="회원 정보 수정" />
-</form>
-<button id="btnDeleteUser" class="btn" style="background: black; color: white;">회원 탈퇴</button>
 
-    
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<th scope="col">아이디</th>
-			<th scope="col">이름</th>
-			<th scope="col">이메일</th>
-			<th scope="col">프로필 사진</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td scope="row">${userVo.user_id}</td>
-			<td scope="row">${userVo.user_name}</td>
-			<td scope="row">${userVo.user_email}</td>
-			<td scope="row"><img id="thumbnail" src="${cp}/user/profile?user_id=${userVo.user_id}"></td>
-		</tr>
-	</tbody>
-</table>
-
+<div>    
+	<div style=" margin-left: 300px; margin-top: 100px;">
+		<img id="thumbnail" src="${cp}/user/profile?user_id=${userVo.user_id}" style=" width: 400px; height: 400px; margin-right: 100px;display: inline-block;vertical-align: top;margin-top: 100px;">
+		<div style="display: inline-block; text-align-last: center;margin-top: 159px;">
+			<p style="font-size: 2.5em; font-weight: bold;">${userVo.user_id}</p>
+			<p style="font-size: 2.5em;color: #666;">${userVo.user_name}</p>
+			<p style="font-size: 2.5em;color: #666;">${userVo.user_email}</p>
+			<form action="${cp}/user/modifyUser" style=" display: contents;">
+				<input type="hidden" name="user_id" value="${userVo.user_id}">
+				<input type="submit" class="btn" style="background: black; color: white;margin-right: 50px;" value="회원 정보 수정" />
+			</form>
+			<button id="btnDeleteUser" class="btn" style="background: black; color: white;">회원 탈퇴</button>
+		</div>
+	</div> 
+</div>
 <!-- 회원탈퇴 Modal -->
 <div id="deleteUserModal" class="modal">
   <!-- Modal content -->

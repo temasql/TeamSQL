@@ -48,4 +48,16 @@ public interface ICommonDomainService {
 	* Method 설명 : 공통 도메인 수정
 	*/
 	int modifyDomain(CommonDomainVO domainVo);
+	
+	
+	/**
+	* Method : deleteDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param cdomain_id
+	* @return
+	* Method 설명 : 공통 도메인 삭제
+	*/
+	int deleteDomain(int cdomain_id);
+	
 }

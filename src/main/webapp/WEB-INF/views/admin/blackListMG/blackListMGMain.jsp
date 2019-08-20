@@ -37,7 +37,6 @@
 </div>
 
 
-<!-- 아이디 찾기 Modal -->
 <div id="insertBlackListModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
@@ -45,7 +44,7 @@
   	<br><br>
   	<form action="${cp}/blackList/insertBlackList" method="post" id="insertBlackListForm">
 	  <fieldset>
-	    <legend>ID 찾기</legend>
+	    <legend>블랙리스트 추가</legend>
 	    <br><br>
 	    <label for="exampleInputEmail1">아이디</label>
 	    <input type="text" class="form-control" id="user_id_fk" name="user_id_fk" placeholder="블랙리스트에 추가할 계정 아이디">

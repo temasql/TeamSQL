@@ -108,6 +108,25 @@ public class PostController {
 		
 		int paginationSize = (int) resultMap.get("paginationSize");
 		
+		int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+	    if(pageVo.getPage()==1) {
+	    	startPage =1;
+	    }
+	      
+	    if(startPage>=2) {
+	    	startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+	    }
+	      
+	    paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+	         
+	    int lastpaginationSize= (int) resultMap.get("paginationSize");
+	         
+	    if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+	    	paginationSize= lastpaginationSize;
+	    }
+
+	    model.addAttribute("lastpaginationSize", lastpaginationSize);
+	    model.addAttribute("startPage", startPage);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("postList", boardList);
 		model.addAttribute("pageMap", pageMap);
@@ -159,6 +178,25 @@ public class PostController {
 		
 		int paginationSize = (int) resultMap.get("paginationSize");
 		
+		int startPage = ((int)Math.floor((pageVo.getPage()-1)/10)) + 1;
+	    if(pageVo.getPage()==1) {
+	    	startPage =1;
+	    }
+	      
+	    if(startPage>=2) {
+	    	startPage =((int)Math.floor((pageVo.getPage()-1)/10)*10) + 1;
+	    }
+	      
+	    paginationSize = ((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10;
+	         
+	    int lastpaginationSize= (int) resultMap.get("paginationSize");
+	         
+	    if(((int)Math.floor((pageVo.getPage()-1)/10 + 1))*10>lastpaginationSize) {
+	    	paginationSize= lastpaginationSize;
+	    }
+
+	    model.addAttribute("lastpaginationSize", lastpaginationSize);
+	    model.addAttribute("startPage", startPage);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("postList", boardList);
 		model.addAttribute("pageMap", pageMap);
@@ -214,22 +252,24 @@ public class PostController {
 				List<TSFileVO> uploadFileList = new ArrayList<TSFileVO>();
 				
 				for(MultipartFile file : files) {
-					String path = PartUtil.getUploadPath();
-					String ext = PartUtil.getExt(file.getOriginalFilename());
-					String fileName = UUID.randomUUID().toString();
-					String fileId = path + File.separator + fileName + ext;
-					
-					try {
-						file.transferTo(new File(fileId));
-					} catch (IllegalStateException | IOException e ) {
-						e.printStackTrace();					
+					if (file.getSize() > 0) {
+						String path = PartUtil.getUploadPath();
+						String ext = PartUtil.getExt(file.getOriginalFilename());
+						String fileName = UUID.randomUUID().toString();
+						String fileId = path + File.separator + fileName + ext;
+						
+						try {
+							file.transferTo(new File(fileId));
+						} catch (IllegalStateException | IOException e ) {
+							e.printStackTrace();					
+						}
+						logger.debug("post_id : {}", post_id);
+						logger.debug("fileId : {}", fileId);
+						logger.debug("fileOFN : {}", file.getOriginalFilename());
+						TSFileVO fileVo = new TSFileVO(post_id, fileId, file.getOriginalFilename());
+						uploadFileList.add(fileVo);
+						fileService.insertFile(uploadFileList);
 					}
-					logger.debug("post_id : {}", post_id);
-					logger.debug("fileId : {}", fileId);
-					logger.debug("fileOFN : {}", file.getOriginalFilename());
-					TSFileVO fileVo = new TSFileVO(post_id, fileId, file.getOriginalFilename());
-					uploadFileList.add(fileVo);
-					fileService.insertFile(uploadFileList);
 				}
 			}
 			redirectAttributes.addAttribute("post_id", post_id);
@@ -250,6 +290,8 @@ public class PostController {
 	*/
 	@RequestMapping("/readPost")
 	public String readPost(int post_id, Model model) {
+		
+		logger.debug("======= postController readPost =======");
 		PostVO postVo = postService.getPost(post_id);
 		
 		List<TSFileVO> fileList = fileService.getFileList(post_id);
@@ -267,7 +309,12 @@ public class PostController {
 		List<ReplyVO> replyList = replyService.replyList(post_id);
 		model.addAttribute("replyList", replyList);
 		
-		return "/board/boardPostDetail.tiles";
+
+		if(board_id ==1) {
+			return "/notice/noticePostDetail.tiles";
+		} else {
+			return "/board/boardPostDetail.tiles";
+		}
 		
 	}
 	
