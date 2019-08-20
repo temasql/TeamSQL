@@ -288,6 +288,8 @@ public class PostController {
 	*/
 	@RequestMapping("/readPost")
 	public String readPost(int post_id, Model model) {
+		
+		logger.debug("======= postController readPost =======");
 		PostVO postVo = postService.getPost(post_id);
 		
 		List<TSFileVO> fileList = fileService.getFileList(post_id);

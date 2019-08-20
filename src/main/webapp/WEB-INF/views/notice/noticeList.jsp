@@ -8,9 +8,8 @@
 	<form id="frm" action="${cp }/post/readPost">
 		<input type="hidden" id="postId" name="post_id"> 
 		<input type="hidden" id="userId" value="${USER_INFO.user_id }"> 
-		<input type="hidden" id="post_yn" value="${post.post_use}">
-		<input type="hidden" id="zzz" value="${USER_INFO.user_id}">
 	</form>
+	
 	<div>
 			<div id="searchdiv" style="display: inline;">
 				<select class="form-control"  id="select" name="selectBox" style="width: 10%; display: inline;">

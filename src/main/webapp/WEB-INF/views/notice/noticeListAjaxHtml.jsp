@@ -3,11 +3,11 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<form>
-	<input type="hidden" class="post_yns" value="${postVo.post_use }"/>
-</form>
 <c:forEach items="${postList}" var="postVo">
-	<tr class="postTr">
+	<form>
+		<input type="hidden" class="post_yns" value="${postVo.post_use }"/>
+	</form>
+	<tr class="postTr" style="cursor: pointer">
 		<td class="postId">${postVo.post_id }</td>
 			<c:choose>
 				<c:when test="${postVo.lv > 1 }">

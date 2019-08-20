@@ -8,7 +8,6 @@
 	<form id="frm" action="${cp }/post/readPost">
 		<input type="hidden" id="postId" name="post_id"> 
 		<input type="hidden" id="userId" value="${USER_INFO.user_id }"> 
-		<input type="hidden" id="post_yn" value="${post.post_use}">
 	</form>
 	
 	<div>
