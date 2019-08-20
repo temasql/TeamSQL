@@ -32,11 +32,11 @@ public interface IPostDao {
 	* Method : postCnt
 	* 작성자 : 이영은
 	* 변경이력 :
-	* @param board_id
+	* @param map
 	* @return
 	* Method 설명 : 게시글 갯수
 	*/
-	int postCnt(int board_id);
+	int postCnt(Map<String, Object> map);
 	
 	
 	/**
