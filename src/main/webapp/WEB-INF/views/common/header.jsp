@@ -7,6 +7,7 @@
 <div class="header-right">
 <input type="hidden" id="hname" value="${USER_INFO.user_name }">
 <input type="hidden" id="hemail" value="${USER_INFO.user_email }">
+<input type="hidden" id="cp" value="${cp}">
 <div id="te" style="opacity: 0;position: absolute;z-index: 11;transform: translate(1600px, 60px);border: 1px solid #ccc;width: 294.67px;height: 205.818px;background: white;color: #000;line-height: normal;box-shadow: 0 2px 5px;display: none;">
 	<div style="margin: 20px;">
 		<img class="mcl" src="${cp}/user/profile?user_id=${USER_INFO.user_id}"style="width: 100px; height: 100px; margin-right: 20px; position: relative; border-radius: 100%;    display: inline-block; vertical-align: top;float: left;" >
@@ -24,7 +25,7 @@
 		</div>
 	</div>
 </div>
-<img class="mouseEnt" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
+<img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
 </div>
 <!-- 헤더 -->
 <header>

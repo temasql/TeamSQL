@@ -7,12 +7,17 @@ $(document).ready(function(){
 			$("#pname").text($("#hname").val())
 			$("#pemail").text($("#hemail").val())
 			$("#te").css("display", "block")
+			$(".profile").css("box-shadow", "0 2px 5px");
 			as = false;
 		}else{
 			$("#te").animate({opacity: "0"}, 100);
 			$("#te").css("display", "none")
+			$(".profile").css("box-shadow", "");
 			as = true;
 		}
+	})
+	$(".mcl").on("click", function(){
+		location.href=$("#cp").val() + "/user/mypage";
 	})
 //	$("#thumbnail").on("click", function(){
 //	})
