@@ -247,7 +247,7 @@
 		<input type="number" class="form-control" id="dataCnt" name="dataCnt" placeholder="1~100" min="1" max="100">
 		<br><br>
 		<input type="hidden" id="testDataHidden"/>
-		<button type="button" id="createTestDataBtn" class="btn btn-secondary">생성</button>
+		<button type="button" id="createTestDataBtn" class="btn" style="background: black; color: white;">생성</button>
   	 </fieldset>
   	</form>
   </div>
