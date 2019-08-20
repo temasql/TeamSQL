@@ -1,5 +1,21 @@
 $(document).ready(function(){	
-	
+
+	as = true;
+	$("#thumbnail").on("click", function(){
+		if (as) {
+			$("#te").animate({opacity: "1" }, 300);
+			$("#pname").text($("#hname").val())
+			$("#pemail").text($("#hemail").val())
+			$("#te").css("display", "block")
+			as = false;
+		}else{
+			$("#te").animate({opacity: "0"}, 100);
+			$("#te").css("display", "none")
+			as = true;
+		}
+	})
+//	$("#thumbnail").on("click", function(){
+//	})
 	//챗봇클릭이벤트
 	$("#chatBotPopup").click(function(){
 		 window.open("/chatBot/chatBot", "_blank","scrollbar=no, resizeable=no, top=100,left=1015,width=600,height=651");

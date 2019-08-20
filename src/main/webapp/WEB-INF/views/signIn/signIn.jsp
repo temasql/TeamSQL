@@ -51,13 +51,13 @@
 	   				  }
 	   			});
 	   			
-	   			$('input[name=user_name]').focusout(function() {
-		   			var nameReg = /^[가-힣]{2,4}$/;
-		   			if(!nameReg.test($("input[name=user_name]").val())){
-		   				alert("이름은 2글자에서 4글자를 입력해주세요")
-		   				return;
-		   			}
-	   			})
+// 	   			$('input[name=user_name]').focusout(function() {
+// 		   			var nameReg = /^[가-힣]{2,4}$/;
+// 		   			if(!nameReg.test($("input[name=user_name]").val())){
+// 		   				alert("이름은 2글자에서 4글자를 입력해주세요")
+// 		   				return;
+// 		   			}
+// 	   			})
 	   			
 	   			
 	      	})
