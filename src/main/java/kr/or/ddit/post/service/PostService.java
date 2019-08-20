@@ -63,7 +63,7 @@ public class PostService implements IPostService{
 		}
 		List<PostVO> postPagingList = postDao.postPagingList(map);
 		
-		int postCnt = postDao.postCnt((int) map.get("board_id"));
+		int postCnt = postDao.postCnt(map);
 		int pageSize = (int) map.get("pageSize");
 		int pagination = (int) Math.ceil((double)postCnt/pageSize);
 		

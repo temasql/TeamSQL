@@ -252,22 +252,24 @@ public class PostController {
 				List<TSFileVO> uploadFileList = new ArrayList<TSFileVO>();
 				
 				for(MultipartFile file : files) {
-					String path = PartUtil.getUploadPath();
-					String ext = PartUtil.getExt(file.getOriginalFilename());
-					String fileName = UUID.randomUUID().toString();
-					String fileId = path + File.separator + fileName + ext;
-					
-					try {
-						file.transferTo(new File(fileId));
-					} catch (IllegalStateException | IOException e ) {
-						e.printStackTrace();					
+					if (file.getSize() > 0) {
+						String path = PartUtil.getUploadPath();
+						String ext = PartUtil.getExt(file.getOriginalFilename());
+						String fileName = UUID.randomUUID().toString();
+						String fileId = path + File.separator + fileName + ext;
+						
+						try {
+							file.transferTo(new File(fileId));
+						} catch (IllegalStateException | IOException e ) {
+							e.printStackTrace();					
+						}
+						logger.debug("post_id : {}", post_id);
+						logger.debug("fileId : {}", fileId);
+						logger.debug("fileOFN : {}", file.getOriginalFilename());
+						TSFileVO fileVo = new TSFileVO(post_id, fileId, file.getOriginalFilename());
+						uploadFileList.add(fileVo);
+						fileService.insertFile(uploadFileList);
 					}
-					logger.debug("post_id : {}", post_id);
-					logger.debug("fileId : {}", fileId);
-					logger.debug("fileOFN : {}", file.getOriginalFilename());
-					TSFileVO fileVo = new TSFileVO(post_id, fileId, file.getOriginalFilename());
-					uploadFileList.add(fileVo);
-					fileService.insertFile(uploadFileList);
 				}
 			}
 			redirectAttributes.addAttribute("post_id", post_id);

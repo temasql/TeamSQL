@@ -55,7 +55,7 @@
 				<td style="border: 1px solid #dadada;" align="center">첨부파일</td>
 				<td colspan="3">
 				<c:forEach items="${fileList }" var="file">
-					<label class="filelabel">${file.tsfile_filename }</label>
+					<label class="filelabel" style="cursor: pointer;">${file.tsfile_filename }</label>
 					<input type="hidden" class="hiddenFile" name="fileIds" value="${file.tsfile_id }">
 					<br>
 				</c:forEach>

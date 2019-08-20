@@ -53,8 +53,8 @@ public class PostDao implements IPostDao{
 	* Method 설명 : 특정 게시판 게시글 갯수
 	*/
 	@Override
-	public int postCnt(int board_id) {
-		return (Integer)sqlSession.selectOne("post.postCnt", board_id);
+	public int postCnt(Map<String, Object> map) {
+		return (Integer)sqlSession.selectOne("post.postCnt", map);
 	}
 	
 	

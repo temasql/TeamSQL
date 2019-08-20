@@ -1,6 +1,11 @@
 $(function(){
 	postPagingListAjaxHtml(1, 10);
 	
+	$('#searchfor').keydown(function(e) {
+		if (e.keyCode == 13) {
+			postPagingListAjaxHtml(1,10);
+		}
+	});
 	
 	$(document).on("click", ".postTr", function(){
 		var postId = $(this).find(".postId").text();
@@ -15,6 +20,7 @@ $(function(){
 	$("#btnSearch").on("click", function(){
 		postPagingListAjaxHtml(1,10);
 	})
+	
 })
 
 function postPagingListAjaxHtml(page, pageSize) {
