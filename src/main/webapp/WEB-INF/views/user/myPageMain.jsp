@@ -5,14 +5,13 @@
 
 <div>    
 	<div style=" margin-left: 180px; margin-top: 100px;">
-		<div class="card border-dark" style="max-width: 62rem; display: inline-block;margin-left: 130px;margin-top:50px">
-		<div class="card-header" style="text-align: -webkit-center; font-size: 2.0em; font-weight: bold; ">My Page</div>
-			<div class="card-body" style="padding: 40px;">
-				<img id="thumbnail" src="${cp}/user/profile?user_id=${userVo.user_id}" style=" width: 300px; height: 300px; margin-right: 100px;display: inline-block;vertical-align: top;">
-				<div style="display: inline-block; text-align-last: center; margin-top: 20px">
-					<p class="card-title" style="font-size: 2.5em; font-weight: bold;margin-bottom: 20px;">${userVo.user_id}</p>
-					<p class="card-text" style="font-size: 2.0em;color: #666;">${userVo.user_name}</p>
-					<p class="card-text" style="font-size: 2.0em;color: #666;">${userVo.user_email}</p>
+		<div style="max-width: 62rem; display: inline-block;margin-left: 100px;margin-top:50px">
+			<div style="padding: 40px;">
+				<img id="thumbnail" src="${cp}/user/profile?user_id=${userVo.user_id}" style=" width: 400px; height: 400px; margin-right: 100px;display: inline-block;vertical-align: top;">
+				<div style="display: inline-block; text-align-last: center; margin-top: 80px">
+					<p style="font-size: 2.5em; font-weight: bold;margin-bottom: 20px;">${userVo.user_id}</p>
+					<p style="font-size: 2.0em;color: #666;">${userVo.user_name}</p>
+					<p style="font-size: 2.0em;color: #666;">${userVo.user_email}</p>
 					<form action="${cp}/user/modifyUser" style=" display: contents;">
 						<input type="hidden" name="user_id" value="${userVo.user_id}">
 						<input type="submit" class="btn" style="background: black; color: white;margin-right: 10px;" value="회원 정보 수정" />
