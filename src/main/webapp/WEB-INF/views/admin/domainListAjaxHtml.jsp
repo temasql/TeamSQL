@@ -8,12 +8,12 @@
 			<input type="hidden" value="${domain.cdomain_id }">
 		</td>
 			
-		<td class="domainName" style="vertical-align: middle;">
-			<input type="text" style="text-align: center;" class="form-control mb-2 mr-sm-2" value="${domain.cdomain_name }" style="width: 80px;">
+		<td class="domainName" style="vertical-align: middle; text-align: -webkit-center;">
+			<input type="text" style="text-align: center; width: 50%;" class="form-control mb-2 mr-sm-2" value="${domain.cdomain_name }" style="width: 80px;">
 		</td>
 				
-		<td class="domainType" style="vertical-align: middle;">
-			<input type="text" style="text-align: center;" class="form-control mb-2 mr-sm-2" value="${domain.cdomain_type }" style="width: 80px;">
+		<td class="domainType" style="vertical-align: middle; text-align: -webkit-center;">
+			<input type="text" style="text-align: center; width: 50%;" class="form-control mb-2 mr-sm-2" value="${domain.cdomain_type }" style="width: 80px;">
 		</td>
 						
 		<td>
