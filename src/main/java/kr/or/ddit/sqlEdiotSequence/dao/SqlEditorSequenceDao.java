@@ -3,6 +3,9 @@
  */
 package kr.or.ddit.sqlEdiotSequence.dao;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -101,8 +104,29 @@ public class SqlEditorSequenceDao implements ISqlEditorSequenceDao {
 	* Method 설명 : 시퀀스 편집
 	 */
 	@Override
-	public int updateSequence(String query) {
-		return sqlSession.update("sqlEditorSequence.updateSequence", query);
+	public boolean updateSequence(String query, Connection conn) {
+//		return sqlSession.update("sqlEditorSequence.updateSequence", query);
+		
+		Statement stmt = null;
+		
+		boolean result = false;
+		
+		try {
+			stmt = conn.createStatement();
+			result = stmt.execute(query);
+		} catch (SQLException e) {
+			result = false;
+			e.printStackTrace();
+		} finally {
+			if (stmt != null)
+			try {
+				stmt.close();
+			} catch (Exception e2) {
+			}{
+				
+			}
+		}
+		return result;
 	}
 
 	/**

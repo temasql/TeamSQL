@@ -14,7 +14,8 @@
 	  <fieldset>
 	    <legend id="seqLegend">시퀀스 생성</legend>
 			<div class="form-group">
-			<label id="seqSchema"></label>
+			<label for="exampleInputEmail1">스키마</label>
+			<input type="text" id="seqSchema" class="form-control" readonly>
 		    <input type="text" class="form-control" id="seqName" name="seqName" placeholder="시퀀스명">
 		    <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>
 		   	</div>
@@ -79,6 +80,7 @@
 	  <fieldset>
 	    <legend id="updateSeqLegend">시퀀스 편집</legend>
 			<div id="updateSequence">
+			<input type="hidden" id="hidden_owner" name="owner">
 			</div>
 		<button type="button" class="btn btn-secondary" id="updateSeqBtn" style="background: black; color: white;">확인</button>
 		</fieldset>

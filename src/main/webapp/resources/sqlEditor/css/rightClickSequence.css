@@ -3,6 +3,11 @@
 #seqLegend{
 	text-align: center;
 }
+/* 시퀀스편집 */
+#updateSeqLegend{text-align: center;}
+
+/* 스키마명 */
+#updateSeqSchema{font-size: 15px;font-weight: bolder;font-size: 1.5em;}
 
 .sequenceMenu {
   display: none;
@@ -43,12 +48,6 @@
   color: #FFFFFF;
 }
 
-#seqModal{
-    margin-top: 2%;
-    margin-left: 31%;
-    width: 20%;
-}
-
 /* 생성버튼 우측 정렬*/
 #createSeqBtn{
     float: right;
@@ -64,13 +63,11 @@
 }
 
 /* 편집 모달창 */
-.modal>.updateSeqModal{
-    background-color: #fefefe;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    display: block;
+#updateSeqModal{
+	margin-top: 2%;
+    margin-left: 31%;
+    width: 20%;
     position: absolute;
-    left: 22%;
-    top: 12%;
+    left: 10%;
+    top: -4%;
 }

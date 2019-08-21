@@ -3,6 +3,7 @@
  */
 package kr.or.ddit.sqlEdiotSequence.service;
 
+import java.sql.Connection;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -105,8 +106,9 @@ public class SqlEditorSequenceService implements ISqlEditorSequenceService {
 	* Method 설명 : 시퀀스 편집
 	 */
 	@Override
-	public int updateSequence(String query) {
-		return sqlEditorSequenceDao.updateSequence(query);
+	public int updateSequence(String query, Connection conn) {
+		boolean result =sqlEditorSequenceDao.updateSequence(query,conn);
+		return 0;
 	}
 	
 	/**
