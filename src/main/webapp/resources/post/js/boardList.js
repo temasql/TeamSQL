@@ -7,6 +7,10 @@ $(function(){
 		}
 	});
 	
+	$('#searchfor').keyup(function(e) {
+		postPagingListAjaxHtml(1,10);
+	})
+	
 	$(document).on("click", ".postTr", function(){
 		var postId = $(this).find(".postId").text();
 		$("#postId").val(postId);
@@ -21,6 +25,10 @@ $(function(){
 		postPagingListAjaxHtml(1,10);
 	})
 	
+	$("#pageSizeSelect").on("change", function() {
+		var pageSize = $(this).val();
+		postPagingListAjaxHtml(1, pageSize);
+	})
 })
 
 function postPagingListAjaxHtml(page, pageSize) {

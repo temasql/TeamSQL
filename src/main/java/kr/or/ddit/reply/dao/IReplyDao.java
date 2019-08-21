@@ -70,4 +70,6 @@ public interface IReplyDao {
 	* Method 설명 : 댓글 하나의 정보
 	*/
 	ReplyVO getReply(int reply_id);
+	
+	
 }

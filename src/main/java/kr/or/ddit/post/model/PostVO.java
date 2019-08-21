@@ -16,7 +16,9 @@ public class PostVO {
 	private String post_use;        // 게시글사용여부
 	private int post_group_seq;		// 그룹시퀀스
 	private int lv;		// 레벨
+	private int reply_cnt;		// 댓글 갯수
 	
+
 	public PostVO() {	}
 	
 	public PostVO(int post_id, int parent_id_fk, String user_id_fk, int board_id_fk, String post_title,
@@ -120,6 +122,14 @@ public class PostVO {
 
 	public void setLv(int lv) {
 		this.lv = lv;
+	}
+
+	public int getReply_cnt() {
+		return reply_cnt;
+	}
+	
+	public void setReply_cnt(int reply_cnt) {
+		this.reply_cnt = reply_cnt;
 	}
 
 	@Override

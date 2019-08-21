@@ -7,6 +7,10 @@ $(function (){
             $("#deleteForm :last-child").remove();
         }
 	})
+	$(document).on("change", "#pageSizeSelect", function (){
+		var pageSize = $(this).val()
+		adminPagingListAjaxHtml(1,pageSize);
+	});
 	if($("#msg").val() != ""){
 		alert($("#msg").val())
 	}
@@ -30,6 +34,9 @@ $(function (){
 	adminPagingListAjaxHtml(1, 10);
 	
 	$("#btnSearch").on("click", function(){
+		search()
+	})
+	$('#searchfor').keyup(function(e) {
 		search()
 	})
 	$('#searchfor').keydown(function(e) {

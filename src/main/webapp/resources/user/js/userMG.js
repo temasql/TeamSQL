@@ -7,6 +7,10 @@ $(function (){
             $("#deleteForm :last-child").remove();
         }
 	})
+	$(document).on("change", "#pageSizeSelect", function (){
+		var pageSize = $(this).val()
+		userPagingListAjaxHtml(1,pageSize);
+	});
 	
 	$("#deleteUser").on("click", function (){
 		if($(".deleteChecked").length == 0){
@@ -28,7 +32,9 @@ $(function (){
 	$("#btnSearch").on("click", function(){
 		search()
 	})
-	
+	$('#searchfor').keyup(function(e) {
+		search()
+	})
 	$('#searchfor').keydown(function(e) {
         if (e.keyCode == 13) {
         	search();

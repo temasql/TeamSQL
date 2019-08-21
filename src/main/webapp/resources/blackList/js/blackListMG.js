@@ -5,6 +5,11 @@ $(function (){
 		$("#insertBlackListModal").css("display", "block");
 	});
 	
+	$(document).on("change", "#pageSizeSelect", function (){
+		var pageSize = $(this).val()
+		blackListPagingListAjaxHtml(1,pageSize);
+	});
+	
 	// close
 	$(".close").on("click", function() {
 		$("#insertBlackListModal").css("display", "none");
@@ -68,7 +73,9 @@ $(function (){
 	$("#btnSearch").on("click", function(){
 		search()
 	})
-	
+	$('#searchfor').keyup(function(e) {
+		search()
+	})
 	$('#searchfor').keydown(function(e) {
         if (e.keyCode == 13) {
         	search();

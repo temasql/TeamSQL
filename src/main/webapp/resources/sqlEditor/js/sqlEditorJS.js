@@ -1102,6 +1102,7 @@ function sqlRun(dragText) {
 					$("#resultTable").jqGrid('GridUnload');
 					
 					$("#resultTable").jqGrid({
+						caption : 'Result Table',
 						datatype : 'local',
 						styleUI: 'Foundation',
 						data : dataArray,
@@ -1109,8 +1110,12 @@ function sqlRun(dragText) {
 						pager : '#pager',
 						rowNum : 10,
 						rowList : [10,20,30],
-						height : '227px',
-						autowidth: true
+						height : '203px',
+						viewrecords : true,
+						emptyrecords : "데이터 없음",
+						ignoreCase : true,
+						autowidth: true,
+						rownumbers : true
 					});
 				}else {
 					var error = "\n\n작업 실패\n";
@@ -1119,6 +1124,9 @@ function sqlRun(dragText) {
 					$("#scriptViewArea").append(error);
 					$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 				}
+				
+				$("#resultTableDiv").children(0).children(0).children(0).css("background","#cce4f7");
+				
 			}
 		});
 	}else if(dragText.indexOf("create") != -1 || dragText.indexOf("CREATE") != -1 || 

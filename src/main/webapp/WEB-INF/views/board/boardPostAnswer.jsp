@@ -6,8 +6,8 @@
 
 <div class="row">
 	<div class="col-sm-8 blog-main">
-		<h2 class="sub-header">답글 작성</h2>
-
+		<h3 class="sub-header" style="color: black; font-weight: bold;">${boardVo.board_name }</h3>
+		<br>
 		<form id="frm2" class="form-horizontal" role="form"
 			action="${cp }/post/answerPost" method="post"
 			enctype="multipart/form-data">

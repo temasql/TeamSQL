@@ -4,15 +4,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="${cp }/resources/blackList/js/blackListMG.js"></script>
 <link href="${cp }/resources/blackList/css/insertBlackList.css" rel="stylesheet"/>
-					<button type="button" class="btn" id="btnSearch" style="background: black;color: white;float: right;">검색</button>
+<div style="display: inline-block;    width: 100%;">
+	 
+<select class="form-control" style=" width : 7%;margin : 10px; text-align-last: center; display: inline-block;"  id="pageSizeSelect">
+	<option value="10">10개씩 보기</option>
+	<option value="20">20개씩 보기</option>
+	<option value="30">30개씩 보기</option>
+	<option value="50">50개씩 보기</option>
+</select> 
+
 				<input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }"
-					placeholder="    아이디로 검색"style="width: 180px;display: inline;float: right;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 42px;margin-right: 15px;">  <span class="input-group-btn">
-				</span>
-	
-<button id="btnInsertBlackList" class="btn" style="background: black; color: white;">블랙리스트 추가</button>
-<form action="/blackList/deleteBlackList" id="deleteForm" style=" display: contents;" >
-	<button type="button" id="deleteBlackList" class="btn" style="background: black; color: white;">블랙리스트 해제</button>
-</form>
+					placeholder="    아이디로 검색"style="width: 180px;display: inline;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 53px;margin-right: 15px;margin-left: 71%;">
+					<button type="button" class="btn" id="btnSearch" style="background: black;color: white;">검색</button>
+</div>
 <div class="tableContainer">
 	<table class="table table-hover" style="text-align: center;">
 		<thead>
@@ -31,6 +35,10 @@
 	</table>
 </div>
 <div>
+<button id="btnInsertBlackList" class="btn" style="background: black; color: white; margin-left: 80%">블랙리스트 추가</button>
+<form action="/blackList/deleteBlackList" id="deleteForm" style=" display: contents;" >
+	<button type="button" id="deleteBlackList" class="btn" style="background: black; color: white;">블랙리스트 해제</button>
+</form>
 	<!--  내가 현재 몇번째 페이지에 있는가? -->
 	<ul class="pagination">
 	</ul>

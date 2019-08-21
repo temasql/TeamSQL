@@ -14,11 +14,14 @@
 						<c:forEach begin="${startPage }" end="${postVo.lv}">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</c:forEach>
-						 └▶ ${postVo.post_title}
+						 └▶ ${postVo.post_title}  &nbsp;&nbsp;
+							<c:if test="${postVo.reply_cnt > 0 }">[${postVo.reply_cnt }] </c:if> 
 					</td>
 				</c:when>
 				<c:otherwise>
-					<td style="text-align: left;">${postVo.post_title}</td>
+					<td  style="text-align: left;">${postVo.post_title} &nbsp;&nbsp;
+						<c:if test="${postVo.reply_cnt > 0 }">[${postVo.reply_cnt }] </c:if> 
+					</td>
 				</c:otherwise>
 			</c:choose>
 		<td>${postVo.user_id_fk }</td>

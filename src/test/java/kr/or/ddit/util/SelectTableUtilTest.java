@@ -350,4 +350,23 @@ public class SelectTableUtilTest {
 			return 0;
 	}
 	
+//	select empno,
+//    ename,
+//    job
+//	from   emp
+//	where  hiredate = to_date('20050809', 'YYYYMMDD')
+
+	@Test
+	public void sss() {
+		String asd = "empno, ename, job from emp where to_char(hiredate, 'YYYYMMDD') = '20050809';";
+		asd = asd.toUpperCase();
+		asd = asd.replaceAll(" ", "");
+		
+		int st = asd.indexOf("TO_CHAR");
+		asd = asd.substring(st);
+		logger.debug(asd);
+	}
+
+
+	
 }

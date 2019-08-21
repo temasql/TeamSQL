@@ -3,6 +3,10 @@ $(function (){
 		$("#accountSelect").val($(this).val());
 		crewPagingListAjaxHtml(1,10);
 	});
+	$(document).on("change", "#pageSizeSelect", function (){
+		var pageSize = $(this).val()
+		crewPagingListAjaxHtml(1,pageSize);
+	});
 	if($("#msg").val() != ""){
 		alert($("#msg").val())
 	}
@@ -10,7 +14,6 @@ $(function (){
 	$(document).on("click","#btnInviteCrew", function() {
 		$("#inviteModal").css("display", "block");
 	});
-	
 	// close
 	$(".close").on("click", function() {
 		$("#inviteModal").css("display", "none");
@@ -61,7 +64,9 @@ $(function (){
 	$("#btnSearch").on("click", function(){
 		search()
 	})
-	
+	$('#searchfor').keyup(function(e) {
+		search()
+	})
 	$('#searchfor').keydown(function(e) {
         if (e.keyCode == 13) {
         	search();

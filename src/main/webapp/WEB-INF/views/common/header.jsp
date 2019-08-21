@@ -8,7 +8,7 @@
 <input type="hidden" id="hname" value="${USER_INFO.user_name }">
 <input type="hidden" id="hemail" value="${USER_INFO.user_email }">
 <input type="hidden" id="cp" value="${cp}">
-<div id="te" style="opacity: 0;position: absolute;z-index: 11;transform: translate(1600px, 60px);border: 1px solid #ccc;width: 294.67px;height: 205.818px;background: white;color: #000;line-height: normal;box-shadow: 0 2px 5px;display: none;">
+<div id="te" style="opacity: 0;position: absolute;z-index: 11; right:2%; top : 5%; border: 1px solid #ccc;width: 328px;height: 205.818px;background: white;color: #000;line-height: normal;box-shadow: 0 2px 5px;display: none;">
 	<div style="margin: 20px;">
 		<img class="mcl" src="${cp}/user/profile?user_id=${USER_INFO.user_id}"style="width: 100px; height: 100px; margin-right: 20px; position: relative; border-radius: 100%;    display: inline-block; vertical-align: top;float: left;" >
 		<div style="display: inline-block; vertical-align: top; width: 100px; height: 100px; text-align-last: center;margin-top: 25px;margin-right: 13px;">
@@ -25,10 +25,21 @@
 		</div>
 	</div>
 </div>
-<img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
 </div>
 <!-- 헤더 -->
 <header id="header">
+<div id="header-container">
+	<img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
+	<p id="rightImgChatBot">
+	  <a href='javascript:;' class="aRight" id="chatBotPopup">
+		<img class="imgRight" id="imgRightChatBot" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇">
+	  </a>
+	</p>
+	<p id="rightImgGroudChat">
+	  <a href="javascript:;" class="aRight" id="groupChat" >
+		<img class="imgRight" id="imgRightGroupChat" alt="채팅" src="${cp }/resources/img/groupchat.png" title="채팅">
+	  </a>
+	</p>
   <!-- Navigation -->
   <div id="lnb">
  <nav id="lnb"class="navMenu">
@@ -93,28 +104,7 @@
  </nav>
 <div></div>
 </div> 
-
-
-<!-- 챗봇 -->	
-<div class="chatbot">
-	<p class="rightImg">
-		<a href='javascript:;' class="aRight" id="chatBotPopup">
-			<img class="imgRight" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇">
-		</a>
-	</p>
-</div> 
-<!-- 챗봇 -->	
-	
-<!-- 그룹채팅 -->
-<div class="groupchat">
-	<p class="rightImg">
-		<a href="javascript:;" class="aRight" id="groupChat" >
-			<img class="imgRight" alt="채팅" src="${cp }/resources/img/groupchat.png" title="채팅">
-		</a>
-	</p>
 </div>
-<!-- 그룹채팅 -->
-
 
 </header>
 <!-- Navigation -->

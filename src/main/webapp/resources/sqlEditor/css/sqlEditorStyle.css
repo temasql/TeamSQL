@@ -40,16 +40,17 @@
 #leftBar{
 	float: left;
 	width: 22%;
-	height: 745px;
+	height: 756px;
 	border-bottom: 1px solid;
 	border-left: 1px solid;
 	border-top: 1px solid;
+	margin-left: 20px;
 }
 
 #worksheet{
 	float: left;
-	width: 73%;
-	height: 745px;
+	width: 76%;
+	height: 756px;
 	border: 1px solid;
 }
 

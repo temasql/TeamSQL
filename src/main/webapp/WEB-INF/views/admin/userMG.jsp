@@ -3,14 +3,18 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="${cp }/resources/user/js/userMG.js"></script>
-				<button type="button" class="btn" style="background: black;color: white;float: right;"id="btnSearch" >검색</button>
+<div style="display: inline-block; width: 100%;">
+<select class="form-control" style="width : 7%;margin : 10px;text-align-last: center;display: inline-block;padding-bottom: 0px;padding-top: 0px;" id="pageSizeSelect">
+	<option value="10">10개씩 보기</option>
+	<option value="20">20개씩 보기</option>
+	<option value="30">30개씩 보기</option>
+	<option value="50">50개씩 보기</option>  
+</select>
 				<input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }"
-					placeholder="    아이디로 검색"style="width: 180px;display: inline;float: right;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 42px;margin-right: 15px;">  <span class="input-group-btn">
-				</span>
+					placeholder="    아이디로 검색"style="width: 180px;display: inline;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 53px;margin-right: 15px;margin-left: 71%;">
+				<button type="button" class="btn" style="background: black;color: white;"id="btnSearch" >검색</button>
 	
-<form action="/user/deleteUserMG" id="deleteForm">
-	<button type="button" id="deleteUser" class="btn" style="background: black; color: white;">회원 탈퇴</button>
-</form>
+</div>
 <div class="tableContainer">
 	<table class="table table-hover">
 		<thead>
@@ -29,6 +33,9 @@
 </div>
 <div>
 	<!--  내가 현재 몇번째 페이지에 있는가? -->
+<form action="/user/deleteUserMG" id="deleteForm">
+	<button type="button" id="deleteUser" class="btn" style="background: black; color: white;margin-left: 93%;">회원 탈퇴</button>
+</form>
 	<ul class="pagination">
 	</ul>
 </div>
