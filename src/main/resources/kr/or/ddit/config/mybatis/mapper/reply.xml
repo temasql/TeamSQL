@@ -58,4 +58,5 @@
 		FROM	REPLY
 		WHERE REPLY_ID = #{reply_id}
 	</select>
+	
 </mapper>

@@ -70,4 +70,5 @@ public interface IReplyService {
 	* Method 설명 : 댓글 하나의 정보
 	*/
 	ReplyVO getReply(int reply_id);
+
 }

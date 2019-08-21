@@ -37,6 +37,10 @@
 			(SELECT A.*, ROWNUM RN
     		FROM
     			(SELECT POST_ID, PO.PARENT_ID_FK, LPAD(' ', (LEVEL-1)*4) || PO.POST_TITLE  POST_TITLE, LEVEL LV, PO.POST_GROUP_SEQ, PO.POST_DT, PO.USER_ID_FK, PO.POST_USE
+    			, (SELECT  COUNT(*)
+					FROM		REPLY
+					WHERE	POST_ID_FK = POST_ID
+					AND			REPLY_USE = 'Y') AS REPLY_CNT
         		FROM POST PO
         		WHERE PO.BOARD_ID_FK = #{board_id}
         		AND ${select} LIKE '%'||#{search}||'%'
