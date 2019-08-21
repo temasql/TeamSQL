@@ -42,6 +42,7 @@ public class SocketChatHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		String user = getUser(session);
+		String userNM = getUserNM(session);
 		
 		// roomID와 채팅방명 가져오기
 		TeamChatVO teamChatVO = getRoomVO(session);
@@ -55,7 +56,7 @@ public class SocketChatHandler extends TextWebSocketHandler {
 			TeamChatVO teamChatVO2 = (TeamChatVO) map.get("TEAM_INFO");
 			
 			if(teamChatVO.getChat_room_id_fk() == teamChatVO2.getChat_room_id_fk())
-				currentSession.sendMessage(new TextMessage(user + ":님이 입장하셨습니다." ));
+				currentSession.sendMessage(new TextMessage(user + ":" + userNM+"님이 입장하셨습니다." ));
 		}
 		
 		sessionList.add(session);
@@ -115,6 +116,12 @@ public class SocketChatHandler extends TextWebSocketHandler {
 	private String getUser(WebSocketSession session) {
 		UserVO userVO = (UserVO) session.getAttributes().get("USER_INFO");
 		return userVO.getUser_id();
+	}
+	
+	// webSocketSession으로부터 사용자 이름 정보 조회
+	private String getUserNM(WebSocketSession session) {
+		UserVO userVO = (UserVO) session.getAttributes().get("USER_INFO");
+		return userVO.getUser_name();
 	}
 	
 	// webSocketSession으로부터 roomId와 채팅방명 정보 조회

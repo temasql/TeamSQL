@@ -50,7 +50,7 @@
 #accountDiv{
 	display: inline;
     float: right;
-    margin-top: -50px;
+    margin-top: 34px;
 }
 #userId{
 	height: 60px;
@@ -113,4 +113,8 @@
 ::-webkit-scrollbar-thumb{
 	border-radius : 15px;
 	background-color: #0084FF;
+}
+body {
+	font-family: 'NanumSquareRound',sans-serif;
+	font-family: 'Alegreya Sans', sans-serif;
 }
