@@ -42,11 +42,11 @@
 					      		<input id="quiz_multiple4" name="example_content" class="custom-control-label form-control"/>
 						    </div>
 						</li> 
-						<li>&nbsp;&nbsp;
-							<div id="multiple5" class="custom-control custom-radio">
-					      	  <input id="quiz_multiple5" name="example_content" class="custom-control-label form-control"/>
-						    </div>
-						</li>
+<!-- 						<li>&nbsp;&nbsp; -->
+<!-- 							<div id="multiple5" class="custom-control custom-radio"> -->
+<!-- 					      	  <input id="quiz_multiple5" name="example_content" class="custom-control-label form-control"/> -->
+<!-- 						    </div> -->
+<!-- 						</li> -->
 					</ol>
 				</div>
 			</div>

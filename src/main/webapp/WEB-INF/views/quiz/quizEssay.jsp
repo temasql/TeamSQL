@@ -18,7 +18,7 @@
 		</div>
 		<div class="card-body">
 			<div id="answer">
-				<p class="card-text">답 : &nbsp;<textarea id="userAnswer" name="userAnswer" class="form-control" style="font-size: 22px;"></textarea></p>
+				<p class="card-text">답 : &nbsp;<textarea id="userAnswer" name="userAnswer" class="form-control" style="font-size: 22px;height: 400px;"></textarea></p>
 			</div>
 			<div id="explain">
 				<p class="card-text">해설 : &nbsp;<div id="explainAppend">${quizAndAnswerVO.quiz_explain}</div></p>
