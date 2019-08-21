@@ -3,6 +3,7 @@
  */
 package kr.or.ddit.sqlEdiotSequence.dao;
 
+import java.sql.Connection;
 import java.util.Map;
 
 import kr.or.ddit.sqlEdiotSequence.model.DetailSeqVO;
@@ -81,7 +82,7 @@ public interface ISqlEditorSequenceDao {
 	* @return
 	* Method 설명 : 시퀀스 편집
 	 */
-	int updateSequence(String query);
+	boolean updateSequence(String query, Connection conn);
 	
 	/**
 	 * 

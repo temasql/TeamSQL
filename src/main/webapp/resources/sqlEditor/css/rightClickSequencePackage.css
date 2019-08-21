@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+/* 스키마명 */
+#seqSchema{font-size: 15px;font-weight: bolder;font-size: 1.5em;}
+
 .sequencePackageMenu {
   display: none;
   position: absolute;
@@ -39,14 +42,14 @@
   color: #FFFFFF;
 }
 
-/* 편집 모달창 */
-#updateSeqModal{
-    background-color: #fefefe;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 26%;
-    display: block;
+/* 시퀀스 생성 모달 */
+
+#seqModal{
+    margin-top: 2%;
+    margin-left: 31%;
+    width: 20%;
     position: absolute;
-    left: 22%;
-    top: -28%;
+    left: 10%;
+    top: -2%;
 }
+

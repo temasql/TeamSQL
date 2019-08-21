@@ -18,7 +18,7 @@
 	  </div>
 	  <div class="card-body">
 	    <div id="answer">
-	    	<p class="card-text">답 : <input id="quiz_answer" type="text" class="form-control" autofocus="autofocus"></p>
+	    	<p class="card-text">답 : <input id="quiz_answer" type="text" class="form-control" autofocus="autofocus" style="font-size: 22px;"></p>
 	    </div>
 	    <div id="explain">
 	    	<p class="card-text">해설 : ${quizAndAnswerVO.quiz_explain}</p>

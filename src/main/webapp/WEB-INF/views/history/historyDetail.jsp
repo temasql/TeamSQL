@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="${cp}/resources/history/js/historyListJs.js" charset="utf-8"></script>
 <script type="text/javascript" src="${cp}/resources/history/js/historyDetailListJs.js"></script>
+<link href="${cp}/resources/history/css/historyDetail.css" rel="stylesheet">
 
 <!-- DB 상세 변경 이력 테이블 -->
 <div class="tableCon">
@@ -29,3 +31,18 @@
 	</ul>
 </div>
 <input type="hidden" id= "object_owner" value = "${object_owner}">
+
+<!-- 모달창 -->
+<div id="ddlQueryModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" id="modal_query">
+    <span id="close" class="close">&times;</span>   
+	  <fieldset id="queryView">
+	    <legend id="queryLegend">변경 이력 원문</legend>
+	    <div class="form-group" id="textQuery">
+	    </div>
+	  </fieldset>
+  </div>
+</div>
+
+

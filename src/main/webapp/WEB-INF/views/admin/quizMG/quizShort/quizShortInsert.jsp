@@ -11,8 +11,8 @@
 			<div id="question">문제 :&nbsp;&nbsp;<input class="form-control" id="question" name="quiz_question" type="text"></div>
 		</div>
 		<div class="card-body">
-			<div id="answer">답 : &nbsp;&nbsp;<input class="form-control" type="text" name="quiz_answer"></div>
-			<div id="explain">해설 : <textarea class="form-control" id="disabledInput" name="quiz_explain"></textarea></div>
+			<div id="answer"style="margin-left: 2%;">답 : &nbsp;&nbsp;<input class="form-control" type="text" name="quiz_answer"></div>
+			<div id="explain">해설 : <textarea class="form-control" id="disabledInput" name="quiz_explain"style="padding-top: 4%;"></textarea></div>
 		</div>
 	</div>
 		

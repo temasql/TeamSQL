@@ -13,8 +13,8 @@
 		<div class="card-body">
 			<div id="answer">답 : &nbsp;&nbsp;
 			</div>
-				<textarea class="form-control" id="disabledInput" name="quiz_answer">${quizAndAnswerVO.quiz_answer}</textarea>
-			<div id="explain">해설 : &nbsp;&nbsp;<textarea class="form-control" id="disabledInput" name="quiz_explain">${quizAndAnswerVO.quiz_explain}</textarea></div>
+				<textarea class="form-control" id="disabledInput" name="quiz_answer" style="padding-top: 4%;">${quizAndAnswerVO.quiz_answer}</textarea>
+			<div id="explain">해설 : &nbsp;&nbsp;<textarea class="form-control" id="disabledInput" name="quiz_explain" style="padding-top: 4%;">${quizAndAnswerVO.quiz_explain}</textarea></div>
 		</div>
 	</div>
 	

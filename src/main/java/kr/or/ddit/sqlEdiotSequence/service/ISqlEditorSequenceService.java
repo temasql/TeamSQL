@@ -3,6 +3,7 @@
  */
 package kr.or.ddit.sqlEdiotSequence.service;
 
+import java.sql.Connection;
 import java.util.Map;
 
 import kr.or.ddit.sqlEdiotSequence.model.DetailSeqVO;
@@ -79,7 +80,7 @@ public interface ISqlEditorSequenceService {
 	* @return
 	* Method 설명 : 시퀀스 편집
 	 */
-	int updateSequence(String query);
+	int updateSequence(String query, Connection conn);
 	
 	/**
 	 * 
