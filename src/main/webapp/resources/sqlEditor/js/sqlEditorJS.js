@@ -1106,7 +1106,10 @@ function sqlRun(dragText) {
 						styleUI: 'Foundation',
 						data : dataArray,
 						colModel :colModelArray,
-						height : '250px',
+						pager : '#pager',
+						rowNum : 10,
+						rowList : [10,20,30],
+						height : '227px',
 						autowidth: true
 					});
 				}else {
