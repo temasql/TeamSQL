@@ -24,7 +24,7 @@ SEPERATORSEPERATOR
 		<td scope="row">${crewVo.user_id_fk}</td>
 		<td scope="row">${crewVo.user_name}</td>
 		<td scope="row">${crewVo.user_email}</td>
-		<td scope="row"><img id="thumbnail"
+		<td scope="row"><img class="thumbnail"
 			src="${cp}/user/profile?user_id=${crewVo.user_id_fk}"></td>
 	</tr>
 </c:forEach>
