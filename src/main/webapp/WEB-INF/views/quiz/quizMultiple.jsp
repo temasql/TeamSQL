@@ -54,14 +54,14 @@
 									value="${exampleList[3].example_content}">
 							</div>
 						</li>
-						<li class="multiList">
-							<div class="custom-control custom-radio"style="display: contents;">
-								<label class="example_content" for="customRadio5">${exampleList[4].example_content}</label>
-								<input type="hidden" value="${exampleList[4].example_num}">
-								<input type="hidden" name="example_content"
-									value="${exampleList[4].example_content}">
-							</div>
-						</li>
+<!-- 						<li class="multiList"> -->
+<!-- 							<div class="custom-control custom-radio"style="display: contents;"> -->
+<%-- 								<label class="example_content" for="customRadio5">${exampleList[4].example_content}</label> --%>
+<%-- 								<input type="hidden" value="${exampleList[4].example_num}"> --%>
+<!-- 								<input type="hidden" name="example_content" -->
+<%-- 									value="${exampleList[4].example_content}"> --%>
+<!-- 							</div> -->
+<!-- 						</li> -->
 					</ol>
 				</div>
 				<div id="answer"><div class="card-text"><input type="hidden" id="quiz_answer"  name="quiz_answer" 
