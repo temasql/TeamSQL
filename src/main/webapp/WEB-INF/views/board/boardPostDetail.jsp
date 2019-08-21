@@ -84,7 +84,7 @@
 
 		<table class="table table-hover">
 			<tr>
-				<th colspan="3" class="table-active" style="text-align:-webkit-left; cursor: default;"> comments <c:if test="${postVo.reply_cnt > 0 }">'${postVo.reply_cnt }'</c:if></th>
+				<th colspan="3" style="text-align:-webkit-left; background-color: #dadada;"> comments <c:if test="${postVo.reply_cnt > 0 }">'${postVo.reply_cnt }'</c:if></th>
 			</tr>
 			<c:forEach items="${replyList }" var="reply">
 				<tr>
