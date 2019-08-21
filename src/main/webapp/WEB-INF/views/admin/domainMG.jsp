@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="${cp }/resources/domain/domainList.js"></script>
-
 	
 	<h3 class="sub-header">도메인 추가</h3>
 	<form class="form-inline" id="addDomainFrm" action="${cp }/commonDomain/addDomain" method="post">
@@ -11,7 +10,7 @@
 		<label	class="mb-2 mr-sm-2" style="margin-left: 20px; margin-top: 10px;">데이터 타입</label> 
 		<input type="text" class="form-control mb-2 mr-sm-2" id="domainType" 	name="cdomain_type"> 
 		
-		<input type="submit"	class="btn" style="background: black; color: white; margin-left: 30px;" value="추가">
+		<button type="button" id="domAddBtn" class="btn" style="background: black; color: white; margin-left: 30px;">추가</button>
 	</form>
 
 	<br><br><br><br>

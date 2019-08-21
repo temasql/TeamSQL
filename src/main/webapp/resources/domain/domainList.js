@@ -1,7 +1,12 @@
 $(function() {
 	domainPagingListAjaxHtml(1, 10);
 
-
+	$('#domainType').keydown(function(e) {
+		if (e.keyCode == 13) {
+			postPagingListAjaxHtml(1,10);
+		}
+	});
+	
 	$(document).on("click", ".modiBtn", function(){
 					
 		var domainId = $(this).parents("td").prevAll(".domainId").children().val();
@@ -29,6 +34,14 @@ $(function() {
 		$("#delFrm").submit();
 	})
 	
+	
+	$(document).on("click", "#domAddBtn", function() {
+		if(validation()) {
+			$("#addDomainFrm").submit();
+		} else {
+			alert("도메인명과 데이터 타입을 입력해 주세요.");
+		}
+	})
 })
 
 
@@ -48,3 +61,12 @@ function domainPagingListAjaxHtml(page, pageSize) {
 	})
 }
 	
+function validation(){
+	var domainName = $("#domainName").val();
+	var domainType = $("#domainType").val();
+	
+	if(domainName == '' || domainType == '') {
+		return false;
+	}
+	return true;
+}

@@ -1,21 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- DB 상세 변경 이력 테이블 -->
 <c:forEach items="${changedDetailPagingList}" var="cVO">
-   <tr >
+   <tr class="clickEvent">
   	<td scope="row">${cVO.action_event }</td>	<!-- 발생이벤트 -->
   	<td scope="row">${cVO.object_type }</td>	<!-- 객체타입 -->
   	<td scope="row">${cVO.object_name }</td>	<!-- 객체명 -->
   	<!-- 원문 -->
-  	<td scope="row">
-<%--   	${cVO.sql_text } --%>
-  	<c:set var="str" value="${cVO.sql_text }" />
-	<c:if test="${str =">
-	    홍길동이 맞습니다.
-	</c:if>
+  	<td id="str" scope="row">
+  	<c:set var="str" value="${cVO.sql_text}" />
+  	<c:choose> 
+	<c:when test="${str.length() > 115}"> 
+	${fn:substring(str,0,115)}..... 
+	</c:when> 
+	<c:otherwise> 
+    ${str} 
+    </c:otherwise> 
+	</c:choose>  
+	<input type= "hidden" class="hiddenQuery" value="${fn:replace(cVO.sql_text, '\"', '&quot').trim()}">
   	</td>		
   	<td scope="row"><fmt:formatDate value="${cVO.exec_dtm }" pattern="yyyy-MM-dd HH:mm:ss"/></td>	<!-- 변경일시 -->
    </tr>

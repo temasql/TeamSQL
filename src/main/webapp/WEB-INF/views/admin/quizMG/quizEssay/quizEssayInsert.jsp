@@ -9,15 +9,15 @@
 		style="width:986px; margin-left: 14%; margin-top: 3%;">
 		<div class="card-header">
 			<div id="question">
-				<h4 class="card-title question">문제 : </h4><input class="form-control" id="question" name="quiz_question" type="text">
+				<h4 class="card-title question">문제 : </h4><input class="form-control" id="question" name="quiz_question" type="text"style="padding-top: 4%;margin-left: 2%;">
 			</div>
 		</div>
 		<div class="card-body">
-			<div id="answer">
-				<p class="card-text">답 : </p><textarea class="form-control" id="disabledInput" name="quiz_answer"></textarea>
+			<div id="answer" style="margin-left: 2%;">
+				<p class="card-text">답 :</p><textarea class="form-control" id="disabledInput" name="quiz_answer"></textarea>
 			</div>
-			<div id="explain" style="display:inline;">
-				<p class="card-text">해설 : </p><textarea class="form-control" id="disabledInput" name="quiz_explain"></textarea>
+			<div id="explain" style="display:inline;margin-left: 2%;">
+				<p class="card-text">해설 :</p><textarea class="form-control" id="disabledInput" name="quiz_explain"></textarea>
 			</div>
 		</div>
 	</div>

@@ -18,17 +18,17 @@
 	</div>
 	<div style=" background: #f5f5f5; border-top: 1px solid #ccc; border-color: rgba(0,0,0,.2); padding: 10px 0; width: 100%; display: table;padding: 10px; margin-top: -27px;">
 		<div style="text-align: left;display: table-cell;margin: 20px 10px;">
-			<a class="btn" href="${cp}/user/mypage">MyPage</a>
+			<a class="btn" style="background:black; color:white" href="${cp}/user/mypage">MyPage</a>
 		</div>
 		<div style="display: table-cell;text-align: right;">
-			<a class="btn" href="${cp}/user/logout">로그아웃</a>
+			<a class="btn" style="background:black; color:white" href="${cp}/user/logout">로그아웃</a>
 		</div>
 	</div>
 </div>
 <img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
 </div>
 <!-- 헤더 -->
-<header>
+<header id="header">
   <!-- Navigation -->
   <div id="lnb">
  <nav id="lnb"class="navMenu">

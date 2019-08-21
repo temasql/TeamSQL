@@ -64,6 +64,9 @@ $(document).ready(function() {
 					styleUI: 'Foundation',
 					data : dataArray,
 					colModel :colModelArray,
+					pager : '#pager',
+					rowNum : 10,
+					rowList : [10,20,30],
 					height : '250px',
 					autowidth: true
 				});
@@ -86,6 +89,7 @@ $(document).ready(function() {
 </head>
 <body>
 <table id="resultTable2"></table>
+<div id="pager"></div>
 <br><br>
 <input type="hidden" id="dragText" value="${dragText}">
 <input type="hidden" id="account_id" value="${account_id}">

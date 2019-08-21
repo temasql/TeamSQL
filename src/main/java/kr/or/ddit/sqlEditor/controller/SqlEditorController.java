@@ -719,11 +719,18 @@ public class SqlEditorController {
 	 */
 	@RequestMapping(path = "/updateSequence", method = RequestMethod.POST)
 	@ResponseBody
-	public int updateSequence(String query) {
+	public int updateSequence(String owner, String query, HttpSession session) {
+		
 		logger.debug("시퀀스쿼리빠끄 : {}", query);
+
+		logger.debug("계정빠끄 : {}", owner);
+		AccountVO accountVO = accountService.getAccountOne(owner);
+		logger.debug("뷔오빠끄 : {}", accountVO.getAccount_pw());
+		Connection conn = DBUtilForWorksheet.getConnection(owner, accountVO.getAccount_pw(), session);
+		
 		int updateSequence = -1;
 
-		updateSequence = sqlEditorSequenceService.updateSequence(query);
+		updateSequence = sqlEditorSequenceService.updateSequence(query,conn);
 		logger.debug("시퀀스성공빠끄 : {}",updateSequence);
 		return updateSequence;
 	}

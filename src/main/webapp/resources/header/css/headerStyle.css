@@ -1,7 +1,19 @@
 @CHARSET "UTF-8";
+
 #pageSizeSelect:hover{
 	cursor: pointer;
 }
+
+
+body {
+	font-family: 'NanumSquareRound',sans-serif;
+}
+
+#header {
+	font-family: 'NanumSquareRound',sans-serif;
+}
+
+
 ul, ol, dl, li, dd, dt {margin:0; margin:0;}
 a{text-decoration: none;}
 a:link {text-decoration: none;}
