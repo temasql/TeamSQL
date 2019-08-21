@@ -11,7 +11,7 @@
 	<option value="20">20개씩 보기</option>
 	<option value="30">30개씩 보기</option>
 	<option value="50">50개씩 보기</option>
-</select>
+</select> 
 
 				<input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }"
 					placeholder="    아이디로 검색"style="width: 180px;display: inline;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 53px;margin-right: 15px;margin-left: 71%;">
