@@ -60,6 +60,7 @@ $(document).ready(function() {
 				console.log(dataArray);
 				
 				$("#resultTable2").jqGrid({
+					caption : 'Result Table',
 					datatype : 'local',
 					styleUI: 'Foundation',
 					data : dataArray,
@@ -68,7 +69,11 @@ $(document).ready(function() {
 					rowNum : 10,
 					rowList : [10,20,30],
 					height : '250px',
-					autowidth: true
+					viewrecords : true,
+					emptyrecords : "데이터 없음",
+					ignoreCase : true,
+					autowidth: true,
+					rownumbers : true
 				});
 			}else {
 				var error = "<h2>작업 실패<br><br>";
