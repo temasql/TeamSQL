@@ -57,7 +57,7 @@ $(function(){
 			var multiple2 = $("#quiz_multiple2").val();
 			var multiple3 = $("#quiz_multiple3").val();
 			var multiple4 = $("#quiz_multiple4").val();
-			var multiple5 = $("#quiz_multiple5").val();
+//			var multiple5 = $("#quiz_multiple5").val();
 			
 			console.log(multiple4);
 			
@@ -85,10 +85,10 @@ $(function(){
 				alert("4번째 객관식을 입력해주세요.");
 				return;
 			}
-			if(multiple5==""){
-				alert("5번째 객관식을 입력해주세요.");
-				return;
-			}
+//			if(multiple5==""){
+//				alert("5번째 객관식을 입력해주세요.");
+//				return;
+//			}
 			
 			//정답이 비었을때
 			if(answerText==""){

@@ -7,7 +7,7 @@
 <link href="${cp}/resources/chatBot/css/chatBotStyle.css" rel="stylesheet">
 <link href="${cp}/resources/basicLib/css/basicLibStyle.css" rel="stylesheet">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TeamSQL 챗봇</title>
 <head>
 </head>
 <body>
@@ -15,7 +15,7 @@
 <section class="chatBotRoom">
   <header class="chatBotHeader">
   	<div class="chatBotHeaderDiv">
-  	챗봇
+  			<span>챗봇</span>
   	</div>
   </header>
   
@@ -43,7 +43,7 @@
 	  <footer class="chatBotFooter">
 	   <div class="chatBotFooterContainer">
 	     <div class="chatBotFooterBox">
-	      <button class="questionBtn" id="questionBtn" type="button" class="btn btn-secondary">입력</button>
+	      <button class="questionBtn" id="questionBtn" type="button" class="btn btn-secondary"></button>
 	     <textarea class="userInput" id="userInput"></textarea>
 	     </div>
 	   </div>

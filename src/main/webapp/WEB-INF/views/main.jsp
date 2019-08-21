@@ -56,7 +56,7 @@
 	        <div class="carousel-item" style="background-image: url('https://www.firstumc.org/wp-content/uploads/2017/05/prayer-requests.jpg')">
 	          <div class="carousel-caption d-none d-md-block">
 	            <h1>Cooperation</h1>
-	            <h2>팀원들과의 협업을 원할하게</h2>
+	            <h2>팀원들과의 협업을 원활하게</h2>
 	          </div>
 	        </div>
 	        <div class="carousel-item" style="background-image: url('https://www.wearetheweather.co.uk/sites/default/files/blog-header_1.jpg')">

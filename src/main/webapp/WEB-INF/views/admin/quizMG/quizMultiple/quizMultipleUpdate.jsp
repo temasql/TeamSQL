@@ -18,30 +18,30 @@
 					객관식
 					<ol>
 						<li>&nbsp;&nbsp;
-							<div id="multiple1" class="custom-control custom-radio">
+							<div id="quiz_multiple1" class="custom-control custom-radio">
 						      <input name="example_content" class="custom-control-label form-control" value="${exampleList[0].example_content}"/>
 						    </div>
 						</li>
 						<li>&nbsp;&nbsp;
-							<div id="multiple2" class="custom-control custom-radio">
+							<div id="quiz_multiple2" class="custom-control custom-radio">
 					      		<input name="example_content" class="custom-control-label form-control" value="${exampleList[1].example_content}"/>
 						    </div>
 						</li>
 						<li>&nbsp;&nbsp;
-							 <div id="multiple3" class="custom-control custom-radio">
+							 <div id="quiz_multiple3" class="custom-control custom-radio">
 					     		<input name="example_content" class="custom-control-label form-control" value="${exampleList[2].example_content}"/>
 						    </div>
 						</li>
 						<li>&nbsp;&nbsp;
-							<div id="multiple4" class="custom-control custom-radio">
+							<div id="quiz_multiple4" class="custom-control custom-radio">
 					      		<input name="example_content" class="custom-control-label form-control" value="${exampleList[3].example_content}"/>
 						    </div>
 						</li> 
-						<li>&nbsp;&nbsp;
-							<div id="multiple5" class="custom-control custom-radio">
-					      	  <input name="example_content" class="custom-control-label form-control" value="${exampleList[4].example_content}"/>
-						    </div>
-						</li>
+<!-- 						<li>&nbsp;&nbsp; -->
+<!-- 							<div id="quiz_multiple1" class="custom-control custom-radio"> -->
+<%-- 					      	  <input name="example_content" class="custom-control-label form-control" value="${exampleList[4].example_content}"/> --%>
+<!-- 						    </div> -->
+<!-- 						</li> -->
 					</ol>
 				</div>
 			</div>

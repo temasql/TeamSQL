@@ -38,7 +38,7 @@ $(function(){
 				data : "quiz_id="+quiz_id+"&quiz_right="+quiz_right,
 				success : function(data){
 					if(data.msg == "마지막 문제입니다."){
-					alert(data.msg);
+					alert("축하합니다! 모든 문제를 푸셨습니다.");
 					return;
 				}
 					
