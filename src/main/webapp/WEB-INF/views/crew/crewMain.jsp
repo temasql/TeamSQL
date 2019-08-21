@@ -6,30 +6,26 @@
 <link href="${cp }/resources/crew/css/crewMain.css" rel="stylesheet"/>
 <input type="hidden" id="ac_id" value="${selected}">
 <input type="hidden" id="msg" value="${msg}">
-<div>
+
+<div style="display: inline-block;    width: 100%;">
 	<span style="margin : 10px;">계정 명 : </span> 
 <select class="form-control" id="select" style=" text-align-last: center; display: inline-block; width : 10%;margin : 10px;">
 	<c:forEach items="${crewSelectList}" var="crewVo">
 		<option value="${crewVo.account_id_fk }">${crewVo.account_id_fkSlice }</option>
 	</c:forEach>
 </select>
-</div>
-<div style="display: inline-block;    width: 100%;">
-<input type="hidden" id="accountSelect" name="account_id_fk" value="${selected}">
-<script>$("#select").val($("#accountSelect").val());</script>
-<input type="hidden" id="accountVo_id"  name="accountVo_id" value="${accountVo.account_id}">
-<div id="btnDelAndAdd" style=" display: inline-block;">
-
-</div>
-<input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }"
-placeholder="    아이디로 검색" style="width: 180px;display: inline;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 53px;margin-right: 15px;margin-left: 56%;">  
-<button type="button" class="btn"style="background: black;color: white;" id="btnSearch" >검색</button>
 <select class="form-control" style=" width : 7%;margin : 10px; text-align-last: center; display: inline-block;" id="pageSizeSelect">
 	<option value="10">10개씩 보기</option>
 	<option value="20">20개씩 보기</option>
 	<option value="30">30개씩 보기</option>
 	<option value="50">50개씩 보기</option>
 </select>
+<input type="hidden" id="accountSelect" name="account_id_fk" value="${selected}">
+<script>$("#select").val($("#accountSelect").val());</script>
+<input type="hidden" id="accountVo_id"  name="accountVo_id" value="${accountVo.account_id}">
+<input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }"
+placeholder="    아이디로 검색" style="width: 180px;display: inline;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 53px;margin-right: 15px;margin-left: 54%;">  
+<button type="button" class="btn"style="background: black;color: white;" id="btnSearch" >검색</button>
 </div>
 
 <div class="tableContainer">
@@ -48,6 +44,8 @@ placeholder="    아이디로 검색" style="width: 180px;display: inline;paddin
 	</table>
 </div>
 <div>
+<div id="btnDelAndAdd" style="display: inline-block;margin-left: 84%;">
+</div>
 	<!--  내가 현재 몇번째 페이지에 있는가? -->
 	<ul class="pagination">
 	</ul>
