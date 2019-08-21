@@ -1,6 +1,12 @@
 @charset "UTF-8";
 
-.clickEvent.none:hover {
+h4{
+    border: solid 1px #DEDEDE;
+    background: #b1b1b1;
+    color: #222222;
+    padding: 4px;
+}
+.clickEvent:hover {
 	cursor: pointer;
 }
 
@@ -12,3 +18,109 @@
     width: 100%;
     min-height: 709px;
 }
+
+#seqSchema{font-size: 15px;font-weight: bolder;font-size: 1.5em;}
+
+.sequencePackageMenu {
+  display: none;
+  position: absolute;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  background: #FFFFFF;
+  border-radius: 5px;
+  list-style: none;
+  box-shadow:
+    0 15px 35px rgba(50,50,90,0.1),
+    0 5px 15px rgba(0,0,0,0.07);
+  overflow: hidden;
+  z-index: 999999;
+}
+
+.sequencePackageMenu li {
+  border-left: 3px solid transparent;
+  transition: ease .2s;
+}
+
+.sequencePackageMenu li span {
+  display: block;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  transition: ease .2s;
+  cursor: pointer;
+}
+
+.sequencePackageMenu li:hover {
+  background: black;
+  border-left: 3px solid black;
+}
+
+.sequencePackageMenu li:hover span {
+  color: #FFFFFF;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: absolute; /* Stay in place */
+    z-index: 8; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    position: absolute;
+    background-color: #fefefe;
+    /* margin: 15% auto; */
+    left: 25%;
+    top: 25%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;                       
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: right;
+    margin-left: 97%;
+    padding-right: 0.5%;
+}
+
+.close:hover, .close:focus {
+	width : 
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+// 모달창
+#modal_query{
+	position: absolute;
+	top: 12%;
+	left: 22%;
+	z-index: 1050;
+	display: none;
+    width: 60%;
+    height: auto;
+    overflow-y: auto;
+}
+#queryLegend{
+	text-align: center;
+}
+// 창닫기
+#span{line-height: 0.5;text-align: right;opacity: 1;margin-right: 1%; margin-top: 1%;
+    -webkit-transition: all 0.2s;transition: all 0.2s;}
+
+#queryView{padding: 1%;}
+

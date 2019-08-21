@@ -290,6 +290,8 @@ $(document).ready(function() {
 			$("#updateSequence").empty();
 			
 			var owner = $("#sequenceOwner").val().trim();				// DB계정명
+			$("#hidden_owner").val(owner);
+			console.log($("#hidden_owner").val())
 			var sequence_owner = owner.toUpperCase();					// DB계정명 대문자 치환
 			var sequence_name= $("#sequenceName").val().trim();			// 시퀀스명
 			var idx = sequence_owner.indexOf("_");
@@ -301,7 +303,9 @@ $(document).ready(function() {
 			  , data : "sequence_owner=" + sequence_owner + "&sequence_name=" + sequence_name
 			  , success : function(data){
 				  var temp= "<div class='form-group'>" +
-				  "<label id='updateSeqSchema'>"+ owner +"</lable>" + 
+				  "<label for='exampleInputEmail1'>스키마</label>" +
+				  "<input type='text' id='updateSeqSchema' class='form-control' readonly value='"+owner+"'><br><br>"+
+				  "<label for='exampleInputEmail1'>시퀀스명</label>" +
 				  "<input type='text' class='form-control' id='updateSeqName' name='updateSeqName' value='"+
 				  data.sequence_name+"'>" +
 				  "<small class='form-text text-muted' id='updateTableNameHint'>영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>"+
@@ -367,7 +371,7 @@ $(document).ready(function() {
 		var inputCache = $("#updateInputCache").val();		// 캐쉬 입력값
 		var seqCycle = $("#updateSeqCycle").val();			// 주기
 		var seqOrder = $("#updateSeqOrder").val();			// 정렬
-		
+		var owner = $("#hidden_owner").val();
 		// 시퀀스명 정규식
 		var nameReg = /^[a-zA-Z][a-zA-Z0-9#$_]{2,19}$/;
 		
@@ -461,7 +465,7 @@ $(document).ready(function() {
 		$.ajax({
 			type : "post"
 		  , url : "/sqlEditor/updateSequence"
-		  , data : "query=" + query
+		  , data : "query=" + query + "&owner=" + owner
 		  , success : function(data){
 			  if(data == 0){
 				  alert("시퀀스가 변경되었습니다.");

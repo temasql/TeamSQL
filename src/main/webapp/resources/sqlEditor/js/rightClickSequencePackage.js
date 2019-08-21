@@ -22,7 +22,7 @@ $(document).ready(function(){
  	var schema = tempid.substring(0,tempIdx);
  	
  	// 계정명 
- 	$("#seqSchema").text(schema);
+ 	$("#seqSchema").val(schema);
  	
  	// 계정 풀네임
  	$("#hiddenSeqName").val(tempid);
