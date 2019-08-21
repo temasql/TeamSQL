@@ -77,7 +77,12 @@
 	
 	<!-- 게시글 상세 조회 -->
 	<select id="getPost" parameterType="int" resultType="postVo">
-		SELECT*
+		SELECT 
+			POST_ID, PARENT_ID_FK, USER_ID_FK, BOARD_ID_FK, POST_TITLE, POST_CONTENT, POST_DT, 			POST_USE, POST_GROUP_SEQ
+			, (SELECT  COUNT(*)
+				FROM		REPLY
+				WHERE	POST_ID_FK = POST_ID
+				AND			REPLY_USE = 'Y') AS REPLY_CNT
 		FROM POST
 		WHERE POST_ID = #{post_id}
 	</select>
