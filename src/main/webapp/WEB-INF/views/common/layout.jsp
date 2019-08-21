@@ -11,7 +11,6 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
-
 <title>Main</title>
 <!-- css, js -->
 <%@include file="/WEB-INF/views/common/basicLib.jsp" %>
