@@ -29,7 +29,7 @@ placeholder="    아이디로 검색" style="width: 180px;display: inline;paddin
 </div>
 
 <div class="tableContainer">
-	<table class="table table-hover">
+	<table class="table table-hover"> 
 		<thead>
 			<tr>
 				<th scope="col"></th>

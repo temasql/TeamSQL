@@ -5,7 +5,7 @@
 <script src="${cp }/resources/blackList/js/blackListMG.js"></script>
 <link href="${cp }/resources/blackList/css/insertBlackList.css" rel="stylesheet"/>
 <div style="display: inline-block;    width: 100%;">
-	
+	 
 <select class="form-control" style=" width : 7%;margin : 10px; text-align-last: center; display: inline-block;"  id="pageSizeSelect">
 	<option value="10">10개씩 보기</option>
 	<option value="20">20개씩 보기</option>

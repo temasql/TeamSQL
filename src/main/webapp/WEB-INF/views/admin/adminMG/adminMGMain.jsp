@@ -6,7 +6,7 @@
 <div style="display: inline-block;    width: 100%;">
 <select class="form-control" style=" width : 7%;margin : 10px; text-align-last: center;display: inline-block;"  id="pageSizeSelect">
 	<option value="10">10개씩 보기</option>
-	<option value="20">20개씩 보기</option>
+	<option value="20">20개씩 보기</option> 
 	<option value="30">30개씩 보기</option>
 	<option value="50">50개씩 보기</option>
 </select>
