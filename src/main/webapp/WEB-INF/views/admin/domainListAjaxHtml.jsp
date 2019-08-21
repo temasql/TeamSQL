@@ -6,6 +6,7 @@
 	<tr class="domainTr">
 		<td class="domainId" style="display: none;">
 			<input type="hidden" value="${domain.cdomain_id }">
+			
 		</td>
 			
 		<td class="domainName" style="vertical-align: middle; text-align: -webkit-center;">

@@ -28,7 +28,7 @@
 <img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
 </div>
 <!-- 헤더 -->
-<header>
+<header id="header">
   <!-- Navigation -->
   <div id="lnb">
  <nav id="lnb"class="navMenu">
