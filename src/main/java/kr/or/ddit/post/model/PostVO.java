@@ -17,7 +17,9 @@ public class PostVO {
 	private int post_group_seq;		// 그룹시퀀스
 	private int lv;		// 레벨
 	private int reply_cnt;		// 댓글 갯수
+	private int view_cnt;		// 조회수
 	
+
 
 	public PostVO() {	}
 	
@@ -130,6 +132,14 @@ public class PostVO {
 	
 	public void setReply_cnt(int reply_cnt) {
 		this.reply_cnt = reply_cnt;
+	}
+
+	public int getView_cnt() {
+		return view_cnt;
+	}
+	
+	public void setView_cnt(int view_cnt) {
+		this.view_cnt = view_cnt;
 	}
 
 	@Override
