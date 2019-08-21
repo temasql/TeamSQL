@@ -62,6 +62,9 @@ public class PostController {
 //		logger.debug("boardList get() : [{}]", board_id);
 //		model.addAttribute("boardList", boardService.boardList());
 		model.addAttribute("board_id", board_id);
+		BoardVO boardVo = boardService.getBoard(board_id);
+		
+		model.addAttribute("boardVo", boardVo);
 		
 		if(board_id ==1) {
 			return "/notice/noticeList.tiles";
@@ -218,8 +221,11 @@ public class PostController {
 	*/
 	@RequestMapping(path = "/postForm", method = RequestMethod.GET)
 	public String postForm(int board_id, String user_id, Model model) {
+		BoardVO boardVo = boardService.getBoard(board_id);
+
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("user_id", user_id);
+		model.addAttribute("boardVo", boardVo);
 		
 		return "/board/boardPostInsert.tiles";
 	}
@@ -309,6 +315,9 @@ public class PostController {
 		List<ReplyVO> replyList = replyService.replyList(post_id);
 		model.addAttribute("replyList", replyList);
 		
+		boardVo = boardService.getBoard(board_id);
+		model.addAttribute("boardVo", boardVo);
+		
 
 		if(board_id ==1) {
 			return "/notice/noticePostDetail.tiles";
@@ -350,6 +359,10 @@ public class PostController {
 		postVo = postService.getPost(post_id);
 		List<TSFileVO> fileList = fileService.getFileList(post_id);
 		
+		int board_id = postVo.getBoard_id_fk();
+		BoardVO boardVo = boardService.getBoard(board_id);
+		
+		model.addAttribute("boardVo", boardVo);
 		model.addAttribute("post_id", post_id);
 		model.addAttribute("postVo", postVo);
 		model.addAttribute("fileList", fileList);
@@ -430,7 +443,14 @@ public class PostController {
 	*/
 	@RequestMapping(path = "/answerPost", method = RequestMethod.GET)
 	public String answerPostView(String user_id, int post_id, Model model) {
+		PostVO postVo = postService.getPost(post_id);
+		
+		int board_id = postVo.getBoard_id_fk();
+		BoardVO boardVo = boardService.getBoard(board_id);
+		
 		model.addAttribute("post_id", post_id);
+		model.addAttribute("boardVo", boardVo);
+		
 		return "/board/boardPostAnswer.tiles";
 	}
 	

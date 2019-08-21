@@ -24,7 +24,8 @@
 </script>
 
 <div class="tableContainer">
-	<h3 class="sub-header">${boardVo.board_name }</h3>
+	<h3 class="sub-header" style="color: black; font-weight: bold;"><a href="${cp }/post/boardList?board_id=${boardVo.board_id}">${boardVo.board_name }</a></h3>
+	<br>
 	<form id="frm" class="form-horizontal" role="form" action ="${cp }/post/fileDownLoad" method="post">
 		<input type="hidden" id="fileId" name="file_id">
 	</form>

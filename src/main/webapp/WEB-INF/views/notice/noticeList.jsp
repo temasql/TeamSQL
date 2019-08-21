@@ -9,7 +9,9 @@
 		<input type="hidden" id="postId" name="post_id"> 
 		<input type="hidden" id="userId" value="${USER_INFO.user_id }"> 
 	</form>
-	
+
+	<h3 class="sub-header" style="color: black; font-weight: bold;">${boardVo.board_name }</h3>
+	<br>	
 	<div>
 		<div id="pageSelect" style="display: inline;">
 			<select class="form-control" id="pageSizeSelect" style="width: 10%; display: inline;">
@@ -22,7 +24,7 @@
 			
 			
 		<div id="searchdiv" style="display: inline;">
-			<select class="form-control"  id="select" name="selectBox" style="width: 10%; display: inline; margin-left: 60%;">
+			<select class="form-control"  id="select" name="selectBox" style="width: 10%; display: inline; margin-left: 59%;">
 				<option value="post_title">제목으로 검색</option>
 			</select>
 			<input type="text" class="form-control" name="search" id="searchfor" value="${searchVal }" style="width: 15%; display: inline;">

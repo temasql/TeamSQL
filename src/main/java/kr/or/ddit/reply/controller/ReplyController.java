@@ -27,6 +27,18 @@ public class ReplyController {
 	private IReplyService replyService;
 	
 	
+	/**
+	* Method : addReply
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @param reply_content
+	* @param session
+	* @param model
+	* @param redirectAttributes
+	* @return
+	* Method 설명 : 댓글 추가
+	*/
 	@RequestMapping(path = "/addReply", method = RequestMethod.POST)
 	public String addReply(int post_id, String reply_content, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 		UserVO userVo = (UserVO) session.getAttribute("USER_INFO");
