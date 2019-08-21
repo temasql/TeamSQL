@@ -50,6 +50,14 @@ ul a{text-decoration: none;}
     right: 1%;
     top: 13%;
 }
+.thumbnail{
+width: 35px;
+    height: 35px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 100%;
+   }
 
 
 a.aHeader:LINK{
