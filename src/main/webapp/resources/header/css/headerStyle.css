@@ -1,19 +1,5 @@
 @CHARSET "UTF-8";
 
-#pageSizeSelect:hover{
-	cursor: pointer;
-}
-
-
-body {
-	font-family: 'NanumSquareRound',sans-serif;
-}
-
-#header {
-	font-family: 'NanumSquareRound',sans-serif;
-}
-
-
 ul, ol, dl, li, dd, dt {margin:0; margin:0;}
 a{text-decoration: none;}
 a:link {text-decoration: none;}
@@ -32,16 +18,16 @@ ul a{text-decoration: none;}
 	
 }
 .header-right{
-    box-shadow: inset 0 -1px 0 0 #e5e5e5;
-    padding-top: 2px;
-    /* margin-right: 19px; */
-    word-spacing: 11px;
-    padding-right: 0.5%;
-    float: right;
-    text-align: right;
-    clear: both;
-    width: 100%;
-    height: 30px;
+/*     box-shadow: inset 0 -1px 0 0 #e5e5e5; */
+/*     padding-top: 2px; */
+/*     margin-right: 19px; */
+/*     word-spacing: 11px; */
+/*     padding-right: 0.5%; */
+/*     float: right; */
+/*     text-align: right; */
+/*     clear: both; */
+/*     width: 100%; */
+/*     height: 30px; */
 }
 
 /* MyPage, 로그아웃 */
@@ -54,14 +40,15 @@ ul a{text-decoration: none;}
 
 /* 프로필사진 */
 #thumbnail{
-	width : 25px;
-	height : 25px;
-	margin-right : 3px;
-	margin-bottom : 5px;
-	background-size: cover;
-	background-repeat : no-repeat; 
-	background-position: center center;
-	border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 100%;
+    position: absolute;
+    right: 1%;
+    top: 13%;
 }
 
 
@@ -82,23 +69,31 @@ a.aHeader:HOVER{
 a.aHeader:ACTIVE{
 	color:black;
 }
-/* 헤더 최상단 우측 */
+/* 헤더 */
 header {
-	width:100%;
-	display: inline-block;
-   	padding: 0 30px 30px;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-	font-weight: bold;
-	
+    width: 100%;
+    display: inline-block;
+    /* padding: 30px 0 0 0; */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: bold;
+    position: relative;
+}
+
+/* 우측상단 썸네일 */
+#header-container{
+    position: static;
+    width: 100%;
+    box-shadow: inset 0 -1px 0 0 #e5e5e5;
+    height: 50px;
 }
 
 /* 헤더 네비*/
 
-header #lnb { position: absolute; z-index: 8; width: 98%; box-sizing: border-box;}
+header #lnb { position: absolute; top: 90%; z-index: 9; width: 100%; box-sizing: border-box;}
 header #lnb nav {position:relative; border-bottom: 1px solid #e5e5e5; text-align: center; font-size: 0;}
 header #lnb nav > ul { display:inline-block; overflow: hidden; height : 59px; transition : all 0.5s;}
 header #lnb nav > ul:hover{overflow: visible;}
-header #lnb nav + div { position:absolute; left:0; top :0; width:98%; height: 0; background-color: #fff; opacity: 0; box-shadow: inset 0 -1px 0 0 #e5e5e5; transition : all 0.5s;}
+header #lnb nav + div { position:absolute; left:0; top :8%; width:100%; height: 0; background-color: #fff; opacity: 0; box-shadow: inset 0 -1px 0 0 #e5e5e5; transition : all 0.5s;}
 header #lnb nav:hover + div{height: 250px; opacity: 1;}
 header #lnb nav > ul > li {display: inline-block; position: relative;}
 header #lnb nav > ul > li > a{ display:block; position : relative; width: 180px; height : 60px; font-size: 18px; color: black; line-height: 60px; }
@@ -109,23 +104,34 @@ header #lnb nav > ul:hover ul {display: block; opacity: 1;}
 header #lnb nav > ul ul li{line-height: 39px;}
 header #lnb nav > ul ul a{position: relative; font-size: 14px; color : black; transition : all 0.5s;}
 header #lnb nav > ul ul a:hover{color: #e5e5e5;}
-/* 챗봇 */
-.chatbot{
-	position: fixed;
-	bottom : 170px;
-	right: 30px;
-	z-index: 1;
+
+
+
+
+#imgRightChatBot{
+	width: 40px;
+	height: 40px;
 }
 
-
-
-.imgRight{
-	width: 50px;
-	height: 50px;
+#imgRightGroupChat{
+	width: 35px;
+	height: 35px;
 }
 
-.rightImg{
-	cursor :pointer;
+#rightImgChatBot{
+    cursor: pointer;
+    /* right: 0px; */
+    position: absolute;
+    right: 3.7%;
+    top: 7%;
+}
+
+#rightImgGroudChat{
+    cursor: pointer;
+    /* right: 0px; */
+    position: absolute;
+    right: 6.8%;
+    top: 15%;
 }
 
 /* 챗봇,그룹챗 마우스 액션 */

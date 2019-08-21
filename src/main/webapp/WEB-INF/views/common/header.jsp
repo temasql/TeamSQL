@@ -25,10 +25,21 @@
 		</div>
 	</div>
 </div>
-<img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
 </div>
 <!-- 헤더 -->
 <header id="header">
+<div id="header-container">
+	<img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
+	<p id="rightImgChatBot">
+	  <a href='javascript:;' class="aRight" id="chatBotPopup">
+		<img class="imgRight" id="imgRightChatBot" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇">
+	  </a>
+	</p>
+	<p id="rightImgGroudChat">
+	  <a href="javascript:;" class="aRight" id="groupChat" >
+		<img class="imgRight" id="imgRightGroupChat" alt="채팅" src="${cp }/resources/img/groupchat.png" title="채팅">
+	  </a>
+	</p>
   <!-- Navigation -->
   <div id="lnb">
  <nav id="lnb"class="navMenu">
@@ -93,28 +104,7 @@
  </nav>
 <div></div>
 </div> 
-
-
-<!-- 챗봇 -->	
-<div class="chatbot">
-	<p class="rightImg">
-		<a href='javascript:;' class="aRight" id="chatBotPopup">
-			<img class="imgRight" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇">
-		</a>
-	</p>
-</div> 
-<!-- 챗봇 -->	
-	
-<!-- 그룹채팅 -->
-<div class="groupchat">
-	<p class="rightImg">
-		<a href="javascript:;" class="aRight" id="groupChat" >
-			<img class="imgRight" alt="채팅" src="${cp }/resources/img/groupchat.png" title="채팅">
-		</a>
-	</p>
 </div>
-<!-- 그룹채팅 -->
-
 
 </header>
 <!-- Navigation -->
