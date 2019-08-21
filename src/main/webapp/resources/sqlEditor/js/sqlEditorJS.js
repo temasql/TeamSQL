@@ -1124,6 +1124,9 @@ function sqlRun(dragText) {
 					$("#scriptViewArea").append(error);
 					$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 				}
+				
+				$("#resultTableDiv").children(0).children(0).children(0).css("background","#cce4f7");
+				
 			}
 		});
 	}else if(dragText.indexOf("create") != -1 || dragText.indexOf("CREATE") != -1 || 
