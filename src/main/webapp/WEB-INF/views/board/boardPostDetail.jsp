@@ -63,8 +63,7 @@
 				</td>
 			</tr>
 	</table>	
-		<div class="tableContainer">
-			<a href="${cp }/post/answerPost?post_id=${postVo.post_id}" id="answerBtn"  class="btn" style="background: black; color: white;">답글</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="tableContainer" style="margin-left: 83%; display: inline;">
 
 			<c:if test="${USER_INFO.user_id eq postVo.user_id_fk }">
 				<a href="${cp }/post/modifyPost?post_id=${postVo.post_id}" id="updateBtn"
@@ -73,52 +72,41 @@
 				class="btn" style="background: black; color: white;">삭제</a>
 			</c:if>
 		</div>
-	<br><br>
-	<form id="replyFrm" action="${cp }/reply/addReply?post_id=${postVo.post_id}" method="post">
-		<div>
-<%-- 			<input type="hidden" id="userId" name="user_id" value="${USER_INFO.user_id }"/> --%>
-			<input type="text" class="form-control" name="reply_content" style="width: 90%; display: inline;">
-		<button type="button" id="addReply" class="btn" style="background: black; color: white;">댓글등록</button>
-		</div>	
-	</form>
-	<br><br>
+		<div style="width: 70px; float: right;">
+			<a href="${cp }/post/answerPost?post_id=${postVo.post_id}" id="answerBtn"  class="btn" style="background: black; color: white;">답글</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</div>
+	<br><br><br><br>
+
 		<table class="table table-hover">
+			<tr>
+				<th colspan="3" class="table-active" style="text-align:-webkit-left;"> comments <c:if test="${postVo.reply_cnt > 0 }">'${postVo.reply_cnt }'</c:if></th>
+			</tr>
 			<c:forEach items="${replyList }" var="reply">
 				<tr>
 					<td class="reId" style="display: none;">${reply.reply_id }</td>
-					<td><label style="font-weight: bold;">${reply.user_id_fk }</label></td>
-					<td>${reply.reply_content }</td>
-					<td><label style="margin-left: 50px"><fmt:formatDate value="${reply.reply_dt }" pattern="yy-MM-dd hh:mm:ss"/></label>
-						<c:if test="${USER_INFO.user_id eq reply.user_id_fk }">
+					<td><label style="font-weight: bold; vertical-align: middle;">${reply.user_id_fk }</label></td>
+					<td style="text-align: left; vertical-align: middle;">${reply.reply_content }</td>
+					<td>
+						<div style="text-align: -webkit-center; vertical-align: middle; display: inline;"><label><fmt:formatDate value="${reply.reply_dt }" pattern="yy-MM-dd hh:mm:ss"/></label></div>
+							<c:if test="${USER_INFO.user_id eq reply.user_id_fk }">
 								<c:if test="${reply.reply_use != 'N' }">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${cp }/reply/deleteReply?reply_id=${reply.reply_id }"><img src="${cp }/img/deleteBtn.png"></a>
+									<a href="${cp }/reply/deleteReply?reply_id=${reply.reply_id }"><img src="${cp }/img/deleteBtn.png"></a>
 								</c:if>
-						</c:if>
+							</c:if>
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
 	
+		<form id="replyFrm" action="${cp }/reply/addReply?post_id=${postVo.post_id}" method="post">
+		<div>
+			<input type="text" class="form-control" name="reply_content" style="width: 93%; display: inline;">
+			<button type="button" id="addReply" class="btn" style="background: black; color: white;">댓글등록</button>
+		</div>	
+	</form>
+	<br><br>
 	<form id="delFrm" action="${cp }/reply/deleteReply?post_id=${postVo.post_id}">
 		<input type="hidden" id="replyId" name="reply_id">
 	</form>
 	
 </div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

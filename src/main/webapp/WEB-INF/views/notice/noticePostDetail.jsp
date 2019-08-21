@@ -62,7 +62,7 @@
 				</td>
 			</tr>
 	</table>	
-		<div class="tableContainer">
+		<div class="tableContainer" style="margin-left: 89%; " >
 
 			<c:if test="${USER_INFO.user_id eq postVo.user_id_fk }">
 				<a href="${cp }/post/modifyPost?post_id=${postVo.post_id}" id="updateBtn"
@@ -72,10 +72,6 @@
 			</c:if>
 		</div>
 	<br><br>
-	
-	<form id="delFrm" action="${cp }/reply/deleteReply?post_id=${postVo.post_id}">
-		<input type="hidden" id="replyId" name="reply_id">
-	</form>
 	
 </div>
 	
