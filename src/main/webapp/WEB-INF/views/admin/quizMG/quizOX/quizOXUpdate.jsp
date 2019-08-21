@@ -20,11 +20,11 @@
 				<div id="question">문제 :&nbsp;&nbsp;<input class="form-control" id="question" name="quiz_question" type="text" value="${quizAndAnswerVO.quiz_question}"></div>
 			</div>
 			<div class="card-body">
-				<div id="answer">답 : &nbsp;&nbsp;
+				<div id="answer"style="margin-left: 2%;">답 : &nbsp;&nbsp;
 					<input type="radio" id="oRadio" name="quiz_answer" value="O"/>&nbsp;O &nbsp;&nbsp;
 					<input type="radio" id="xRadio" name="quiz_answer" value="X"/>&nbsp;X
 				</div>
-				<div id="explain">해설 : <textarea class="form-control" id="disabledInput" name="quiz_explain">${quizAndAnswerVO.quiz_explain}</textarea></div>
+				<div id="explain">해설 : <textarea class="form-control" id="disabledInput" name="quiz_explain"style="padding-top: 4%;margin-left: 1%;">${quizAndAnswerVO.quiz_explain}</textarea></div>
 			</div>
 		</div>
 		

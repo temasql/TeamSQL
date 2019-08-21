@@ -12,22 +12,20 @@
 				<div id="question">문제 :&nbsp;&nbsp;<input class="form-control" id="question" name="quiz_question" type="text"></div>
 			</div>
 			<div class="card-body">
-				<div id="answer">답 : &nbsp;&nbsp;
-					<input type="radio" name="quiz_answer" value="O" checked/>&nbsp;O &nbsp;&nbsp;
-					<input type="radio" name="quiz_answer" value="X"/>&nbsp;X
+				<div id="answer"style="margin-left: 2%;">답 : &nbsp;&nbsp;
+					<input type="radio" name="quiz_answer" value="O" checked style="width: 17px;height: 17px;"/>&nbsp;O &nbsp;&nbsp;
+					<input type="radio" name="quiz_answer" value="X" style="width: 17px;height: 17px;"/>&nbsp;X
 				</div>
-				<div id="explain">해설 : <textarea class="form-control" id="disabledInput" name="quiz_explain"></textarea></div>
+				<div id="explain">해설 : <textarea class="form-control" id="disabledInput" name="quiz_explain"style="padding-top: 4%;"></textarea></div>
 			</div>
 		</div>
 		<!-- 		<div id="question">문제 :<input class="form-control" id="question" name="quiz_question" type="text"></div> -->
 		<!-- 		<div id="answer">답 : <input type="radio" name="quiz_answer" value="O" checked/>&nbsp;O &nbsp;&nbsp;<input type="radio" name="quiz_answer" value="X"/>&nbsp;X</div> -->
 		<!-- 		<div id="explain">해설 : <textarea class="form-control" id="disabledInput" name="quiz_explain"></textarea></div> -->
 
-		<input type="hidden" id="quiz_right" name="quiz_right"
-			value="${quiz_right}">
+		<input type="hidden" id="quiz_right" name="quiz_right" value="${quiz_right}">
 	</form>
 <!-- </div> -->
 <div id="btnGroup">
-	<input type="button" id="insertBtn" value="퀴즈 추가"
-		class="btn btn-secondary" style="background: black; color: white;">
+	<input type="button" id="insertBtn" value="퀴즈 추가" class="btn btn-secondary" style="margin-left: 82%;background: black; color: white;">
 </div>
