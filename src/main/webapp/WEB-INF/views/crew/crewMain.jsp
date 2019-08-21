@@ -14,15 +14,24 @@
 	</c:forEach>
 </select>
 </div>
+<div style="display: inline-block;    width: 100%;">
 <input type="hidden" id="accountSelect" name="account_id_fk" value="${selected}">
 <script>$("#select").val($("#accountSelect").val());</script>
 <input type="hidden" id="accountVo_id"  name="accountVo_id" value="${accountVo.account_id}">
 <div id="btnDelAndAdd" style=" display: inline-block;">
 
 </div>
-<button type="button" class="btn"style="background: black;color: white;float: right;" id="btnSearch" >검색</button>
 <input type="text" class="form-control" name="searchfor" id="searchfor" value="${searchVal }"
-placeholder="    아이디로 검색" style="width: 180px;display: inline;float: right;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 42px;margin-right: 15px;">  
+placeholder="    아이디로 검색" style="width: 180px;display: inline;padding-bottom: 0px;padding-top: 0px;margin-bottom: 10px;height: 53px;margin-right: 15px;margin-left: 56%;">  
+<button type="button" class="btn"style="background: black;color: white;" id="btnSearch" >검색</button>
+<select class="form-control" style=" width : 7%;margin : 10px; text-align-last: center; display: inline-block;" id="pageSizeSelect">
+	<option value="10">10개씩 보기</option>
+	<option value="20">20개씩 보기</option>
+	<option value="30">30개씩 보기</option>
+	<option value="50">50개씩 보기</option>
+</select>
+</div>
+
 <div class="tableContainer">
 	<table class="table table-hover">
 		<thead>
