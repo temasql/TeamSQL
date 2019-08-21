@@ -25,8 +25,87 @@ $(function(){
 			$("#insertOXDB").submit();
 		})
 		$("#insertBtn").on("click", function(){
+			var questionText = $("[name='quiz_question']").val();
+			var answerText = $("[name='quiz_answer']").val();
+			var explainText = $("[name='quiz_explain']").val();
+			
+			//문제가 비었을때
+			if(questionText==""){
+				alert("문제를 입력해 주세요.");
+				return;
+			}
+			if(answerText==""){
+				alert("정답을 입력해 주세요.");
+				return;
+			}
+			if(explainText==""){
+				alert("해설을 입력해 주세요.");
+				return;
+			}
+			
 			$("#insertOXDB").submit();
 		})
+		
+		//객관식 퀴즈 추가 버튼 클릭시 이벤트
+		$("#multiInsertBtn").on("click", function(){
+			var questionText = $("#multipleQuestion").val();
+			var answerText = $("#quiz_answer").val();
+			var explainText = $("[name='quiz_explain']").val();
+			
+			//객관식 값들 가져오기
+			var multiple1 = $("#quiz_multiple1").val();
+			var multiple2 = $("#quiz_multiple2").val();
+			var multiple3 = $("#quiz_multiple3").val();
+			var multiple4 = $("#quiz_multiple4").val();
+			var multiple5 = $("#quiz_multiple5").val();
+			
+			console.log(multiple4);
+			
+			//문제가 비었을때
+			if(questionText==""){
+				alert("문제를 입력해 주세요.");
+				$("#multipleQuestion").focus();
+				return;
+			}
+			
+			//객관식이 비었을때
+			if(multiple1==""){
+				alert("1번째 객관식을 입력해주세요.");
+				return;
+			}
+			if(multiple2==""){
+				alert("2번째 객관식을 입력해주세요.");
+				return;
+			}
+			if(multiple3==""){
+				alert("3번째 객관식을 입력해주세요.");
+				return;
+			}
+			if(multiple4==""){
+				alert("4번째 객관식을 입력해주세요.");
+				return;
+			}
+			if(multiple5==""){
+				alert("5번째 객관식을 입력해주세요.");
+				return;
+			}
+			
+			//정답이 비었을때
+			if(answerText==""){
+				alert("정답을 입력해 주세요.");
+				$("#quiz_answer").focus();
+				return;
+			}
+			//해설이 비었을때
+			if(explainText==""){
+				$("[name='quiz_explain']").focus();
+				alert("해설을 입력해 주세요.");
+				return;
+			}
+			
+			
+			$("#insertMultipleDB").submit();
+		});
 		
 		$("#multipleUpdateBtn").on("click", function(){
 			$("#multipleFrm").submit();
@@ -63,11 +142,6 @@ $(function(){
 		//  선택한 퀴즈 삭제
 		$("#deleteOXBtn").on("click", function(){
 			$("#deleteQuizFrm").submit();
-		})
-		
-		$(".custom-radio").on("click", function(){
-			var text = $(this).child().next();
-			alert(text);
 		})
 		
 		function numberMaxLength(e){

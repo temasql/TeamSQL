@@ -15,7 +15,7 @@
 			<div class="card-body">
 				<div id="example">
 					<ol>
-						<li>
+						<li class="multiList">
 							<div class="custom-control custom-radio"
 								style="display: contents;">
 								<label class="example_content" for="customRadio1">${exampleList[0].example_content}</label>
@@ -24,7 +24,7 @@
 									value="${exampleList[0].example_content}">
 							</div>
 						</li>
-						<li>
+						<li class="multiList">
 							<div class="custom-control custom-radio"
 								style="display: contents;">
 								<label class="example_content" for="customRadio2">${exampleList[1].example_content}</label>
@@ -33,7 +33,7 @@
 									value="${exampleList[1].example_content}">
 							</div>
 						</li>
-						<li>
+						<li class="multiList">
 							<div class="custom-control custom-radio"
 								style="display: contents;">
 								<label class="example_content">${exampleList[2].example_content}</label>
@@ -42,7 +42,7 @@
 									value="${exampleList[2].example_content}">
 							</div>
 						</li>
-						<li>
+						<li class="multiList">
 							<div class="custom-control custom-radio"
 								style="display: contents;">
 								<label class="example_content" for="customRadio4">${exampleList[3].example_content}</label>
@@ -51,7 +51,7 @@
 									value="${exampleList[3].example_content}">
 							</div>
 						</li>
-						<li>
+						<li class="multiList">
 							<div class="custom-control custom-radio"
 								style="display: contents;">
 								<label class="example_content" for="customRadio5">${exampleList[4].example_content}</label>

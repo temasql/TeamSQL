@@ -116,7 +116,7 @@ ol{
 	margin-top: 1%;
 }
 #multiInsertBtn{
-	margin-left: 68%;
+	margin-left: 81%;
 	margin-top: 1%;
 }
 .example_content{
@@ -131,4 +131,6 @@ ol{
     font-size: 57px;
     color: white;
     padding-top: 43px;
+    padding-right: 40px;
+    font-weight: bold;
 }

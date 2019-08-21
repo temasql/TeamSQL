@@ -6,6 +6,7 @@
 <script src="/resources/quiz/js/quizList.js"></script>
 <script src="/resources/quiz/js/userEssayQuiz.js"></script>
 
+
 <div id="overrite">
 	<p id="quizImg">주관식 퀴즈 문제</p>
 	<div class="card border-dark mb-3"
@@ -17,7 +18,7 @@
 		</div>
 		<div class="card-body">
 			<div id="answer">
-				<p class="card-text">답 : &nbsp;<textarea id="userAnswer" name="userAnswer" class="form-control" ></textarea></p>
+				<p class="card-text">답 : &nbsp;<textarea id="userAnswer" name="userAnswer" class="form-control" style="font-size: 22px;"></textarea></p>
 			</div>
 			<div id="explain">
 				<p class="card-text">해설 : &nbsp;<div id="explainAppend">${quizAndAnswerVO.quiz_explain}</div></p>
