@@ -17,6 +17,11 @@ $(document).ready(function(){
 	$(".close").on("click",function(){
 		$("#ddlQueryModal").css("display","none");
 	});
+	
+	$(document).on("change", "#pageSizeSelect", function (){
+		var pageSize = $(this).val()
+		historyDetailPagingListAjaxHtml(1,pageSize);
+	});
 });
 
 function historyDetailPagingListAjaxHtml(page, pageSize){
