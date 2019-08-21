@@ -16,7 +16,7 @@
 			<input type="text" style="width: 1000px;" class="form-control mb-2 mr-sm-2" value="${template.ctemplate_original}" >
 		</td>
 						
-		<td>
+		<td style="vertical-align: middle;">
 			<button type="button" class="btn modiBtn" style="background: black; color: white;">수정</button>
 			<button type="button" class="btn delBtn" style="background: black; color: white; margin-left: 10px;">삭제</button>
 		</td>
