@@ -11,6 +11,7 @@ $(document).ready(function(){
 //		str = decodeURI(str);
 //		str = str.replace(/\"/gi, "");
 		$("#textQuery").html("<h4>"+str+"</h4>");
+		jQuery("#ddlQueryModal")[0].scrollIntoView(); 
 	});
 	
 	// 모달창 닫기

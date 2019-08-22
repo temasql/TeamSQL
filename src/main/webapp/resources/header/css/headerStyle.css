@@ -46,6 +46,11 @@ ul a{text-decoration: none;}
 	transition: all 0.5s;
 }
 
+#main{
+	width: 176px;
+	height: 81px;
+}
+
 /* 프로필사진 */
 #thumbnail{
     width: 35px;
@@ -105,21 +110,25 @@ header {
 
 /* 헤더 네비*/
 
-header #lnb { position: absolute; top: 90%; z-index: 9; width: 100%; box-sizing: border-box;}
-header #lnb nav {position:relative; border-bottom: 1px solid #e5e5e5; text-align: center; font-size: 0;}
-header #lnb nav > ul { display:inline-block; overflow: hidden; height : 59px; transition : all 0.5s;}
-header #lnb nav > ul:hover{overflow: visible;}
-header #lnb nav + div { position:absolute; left:0; top :8%; width:100%; height: 0; background-color: #fff; opacity: 0; box-shadow: inset 0 -1px 0 0 #e5e5e5; transition : all 0.5s;}
-header #lnb nav:hover + div{height: 250px; opacity: 1;}
-header #lnb nav > ul > li {display: inline-block; position: relative;}
-header #lnb nav > ul > li > a{ display:block; position : relative; width: 180px; height : 60px; font-size: 18px; color: black; line-height: 60px; }
-header #lnb nav > ul > li > a:after {content: ""; position: absolute; left : 50%; bottom: -1px; width: 0; height: 2px; background: black; transition : all 0.5s;}
-header #lnb nav > ul > li:hover > a:after{ left: 0; width: 100%;}
-header #lnb nav > ul ul { position: absolute; width : 100%; height:190px; padding: 22px 0 0; text-align: center; opacity: 0; transition : all 0.5s;}
-header #lnb nav > ul:hover ul {display: block; opacity: 1;}
-header #lnb nav > ul ul li{line-height: 39px;}
-header #lnb nav > ul ul a{position: relative; font-size: 14px; color : black; transition : all 0.5s;}
-header #lnb nav > ul ul a:hover{color: #e5e5e5;}
+header #lnb { position: absolute; left: 0; top: 100%; z-index: 9; padding: 0 232px; width: 100%; box-sizing: border-box;}
+header #lnb nav { position: relative; z-index: 9; border-bottom: 1px solid #E5E5E5; text-align: center; font-size: 0;}
+header #lnb nav > ul { display: inline-block; overflow: hidden; height:70px; transition: all 0.5s;}
+header #lnb nav > ul:hover { overflow: visible;}
+header #lnb nav + div { position: absolute; left: 0; top: 0; z-index: 8; padding: 0 30px; width: 100%; height:0; background: #fff; opacity: 0; transition: all .5s; box-sizing: border-box; background-clip: content-box;}
+header #lnb nav:hover + div { height: 330px; opacity: 1;}
+header #lnb nav > ul > li { display: inline-block; position: relative;}
+header #lnb nav > ul > li > a { display: block; position: relative; width: 160px; height: 69px; font-size: 18px; color:black; line-height: 69px;}
+header #lnb nav > ul > li > a:after { content: ""; position: absolute; left:50%; bottom: -1px; width:0; height: 2px; background: black; transition: all 0.5s;}
+header #lnb nav > ul > li:hover > a:after  { left: 0; width: 100%;}
+
+header #lnb nav > ul ul { position: absolute; width: 100%; height: 230px; padding: 22px 0 0; text-align: center; opacity:0; transition: all 0.5s;}
+header #lnb nav > ul:hover ul { opacity: 1;}
+
+header #lnb nav > ul ul li { line-height: 39px;}
+header #lnb nav > ul ul a { position: relative;font-size: 14px; color:black; transition: all 0.5s;}
+header #lnb nav > ul ul a:hover { color:#e4e4e4; }
+header #lnb nav > ul ul a:after { content: ""; position: absolute; left:50%; bottom: -7px; width:0; height: 2px; background: black; transition: all 0.5s;}
+header #lnb nav > ul ul a:hover:after  { left: 0; width: 100%;}
 
 
 
