@@ -29,7 +29,9 @@
 <!-- 헤더 -->
 <header id="header">
 <div id="header-container">
+
 	<a href="${cp }/main"><img id="main" src="${cp}/resources/img/main.png" alt="메인"  title="메인"></a>
+
 	<img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
 	<p id="rightImgChatBot">
 	  <a href='javascript:;' class="aRight" id="chatBotPopup">
