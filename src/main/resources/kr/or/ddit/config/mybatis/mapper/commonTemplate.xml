@@ -59,4 +59,20 @@
 		FROM		COMMON_TEMPLATE
 		WHERE	CTEMPLATE_ID = #{ctemplate_id}
 	</delete>
+	
+	
+	<!-- 중복된 템플릿명 존재여부 체크 -->
+	<select id="getAbb" parameterType="map" resultType="String">
+		SELECT  CTEMPLATE_ABB
+		FROM		COMMON_TEMPLATE
+		WHERE	CTEMPLATE_ABB = #{ctemplate_abb}
+	</select>
+	
+	
+	<!-- 입력한 템플릿 id와 일치하는 템플릿 약어 검색 -->
+	<select id="findTemplate" parameterType="map" resultType="String">
+		SELECT  CTEMPLATE_ABB
+		FROM		COMMON_TEMPLATE
+		WHERE	CTEMPLATE_ID = #{ctemplate_id}
+	</select>
 </mapper>

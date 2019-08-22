@@ -99,4 +99,31 @@ public class CommonDomainDao implements ICommonDomainDao{
 	}
 
 	
+	/**
+	 * Method : getName
+	 * 작성자 : 이영은
+	 * 변경이력 :
+	 * @param map
+	 * @return
+	 * Method 설명 : 도메인 등록시 해당 도메인명 존재하는지 검색
+	 */
+	@Override
+	public String getName(Map<String, Object> map) {
+		return sqlSession.selectOne("commonDomain.getName", map);
+	}
+
+	
+	/**
+	* Method : findDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 유저가 검색한 도메인명과 일치하는 도메인명을 리턴
+	*/
+	@Override
+	public String findDomain(Map<String, Object> map) {
+		return sqlSession.selectOne("commonDomain.findDomain", map);
+	}
 }
+

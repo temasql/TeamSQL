@@ -9,19 +9,40 @@ $(function() {
 	
 	$(document).on("click", ".modiBtn", function(){
 					
-		var domainId = $(this).parents("td").prevAll(".domainId").children().val();
-		var domainName = $(this).parents("td").prevAll(".domainName").children().val();
-		var domainType = $(this).parents("td").prevAll(".domainType").children().val();
-					
-		$("#updateId").val(domainId);
-		$("#updateName").val(domainName);
-		$("#updateType").val(domainType);
-//		console.log($("#domainId").val())
-//		console.log($("#domainName").val())
-//		console.log($("#domainType").val())
-//		console.log($("#frm").serialize())
-					
-		$("#frm").submit();
+//		console.log( $(this).parent().prev().prev().find("input").val() )
+//		console.log( $(this).parent().prev().find("input").val() )
+		
+		
+		var cdomain_id = $(this).parent().prev().prev().prev().find("input").val()
+		var cdomain_name = $(this).parent().prev().prev().find("input").val()
+		var cdomain_type = $(this).parent().prev().find("input").val()
+		
+		$("#dom_id").val(cdomain_id);
+		$("#inputUpdateName").val(cdomain_name);
+		$("#inputUpdateType").val(cdomain_type);
+
+		if (cdomain_name == "" || cdomain_type == "") {
+			alert("도메인명과 데이터 타입을 입력해 주세요.");
+			return;
+		}
+		console.log($("#domainUpdateFrm").serialize())
+		$.ajax({
+			method : "post",
+			url : "/commonDomain/updateCommonDomain",
+			data : $("#domainUpdateFrm").serialize(),
+			success : function(data) {
+				if(data.msg == "존재하는 도메인") {
+					alert("이미 존재하는 도메인명 입니다.\n 다른 도메인명을 입력해 주세요.");
+					return;
+				}
+				alert("도메인 수정 성공");
+				domainList();
+			},
+			error : function(error) {
+				alert("도메인 수정 실패");
+			}
+		})
+		domainList();
 	})
 			
 			
@@ -36,11 +57,35 @@ $(function() {
 	
 	
 	$(document).on("click", "#domAddBtn", function() {
-		if(validation()) {
-			$("#addDomainFrm").submit();
-		} else {
-			alert("도메인명과 데이터 타입을 입력해 주세요.");
+		var cdomain_name = $("#inputName").val();
+		var cdomain_type = $("#inputType").val();
+		
+		if (cdomain_name == "" || cdomain_type == "") {
+			alert("도메인명과 타입을 입력해 주세요.");
+			return;
 		}
+		
+		$.ajax({
+			method : "post",
+			url : "/commonDomain/insertCommonDomain",
+			data : $("#addDomainFrm").serialize(),
+			success : function(data) {
+				if(data.msg == "존재하는 도메인") {
+					alert("이미 존재하는 도메인명 입니다. \n 다른 도메인명을 입력해 주세요.");
+					return;
+				}
+				
+				alert("도메인 등록 성공");
+				
+				$("#inputName").val("");
+				$("#inputType").val("");
+				
+				domainList();
+			},
+			error : function(error) {
+				alert("등록 실패");
+			}
+		})
 	})
 })
 
@@ -59,14 +104,4 @@ function domainPagingListAjaxHtml(page, pageSize) {
 			$(".pagination").html(html[1]);
 		}
 	})
-}
-	
-function validation(){
-	var domainName = $("#domainName").val();
-	var domainType = $("#domainType").val();
-	
-	if(domainName == '' || domainType == '') {
-		return false;
-	}
-	return true;
 }

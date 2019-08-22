@@ -96,5 +96,32 @@ public class CommonDomainService implements ICommonDomainService{
 	public int deleteDomain(int cdomain_id) {
 		return commonDomainDao.deleteDomain(cdomain_id);
 	}
+	
+	
+	/**
+	* Method : getName
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 도메인 등록 시 도메인명 존재 여부 체크
+	*/
+	@Override
+	public String getName(Map<String, Object> map) {
+		return commonDomainDao.getName(map);
+	}
 
+	
+	/**
+	* Method : findDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 입력한 도메인 아이디와 일치하는 도메인명 검색
+	*/
+	@Override
+	public String findDomain(Map<String, Object> map) {
+		return commonDomainDao.findDomain(map);
+	}
 }

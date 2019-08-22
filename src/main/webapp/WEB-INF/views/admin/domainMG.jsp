@@ -4,11 +4,11 @@
 <script src="${cp }/resources/domain/domainList.js"></script>
 	
 	<h3 class="sub-header">도메인 추가</h3>
-	<form class="form-inline" id="addDomainFrm" action="${cp }/commonDomain/addDomain" method="post">
+	<form class="form-inline" id="addDomainFrm">
 		<label class="mb-2 mr-sm-2" style="margin-top: 10px;">도메인명</label> 
-		<input type="text" class="form-control mb-2 mr-sm-2" id="domainName" 	name="cdomain_name"> 
+		<input type="text" class="form-control mb-2 mr-sm-2" id="inputName" 	name="cdomain_name"> 
 		<label	class="mb-2 mr-sm-2" style="margin-left: 20px; margin-top: 10px;">데이터 타입</label> 
-		<input type="text" class="form-control mb-2 mr-sm-2" id="domainType" 	name="cdomain_type"> 
+		<input type="text" class="form-control mb-2 mr-sm-2" id="inputType" 	name="cdomain_type"> 
 		
 		<button type="button" id="domAddBtn" class="btn" style="background: black; color: white; margin-left: 30px;">추가</button>
 	</form>
@@ -17,10 +17,10 @@
 
 
 <div class="tableContainer">
-	<form id="frm" method="post" action="${cp }/commonDomain/modifyDomain">
-		<input type="hidden" id="updateName" name="cdomain_name" /> 
-		<input type="hidden" id="updateType" name="cdomain_type" />
-		<input type="hidden" id="updateId" name="cdomain_id"/>
+	<form id="domainUpdateFrm">
+		<input type="hidden" id="inputUpdateName" name="cdomain_name" /> 
+		<input type="hidden" id="inputUpdateType" name="cdomain_type" />
+		<input type="hidden" id="dom_id" name="cdomain_id"/>
 	</form>
 	
 	<form id="delFrm" method="post" action="${cp }/commonDomain/deleteDomain">
