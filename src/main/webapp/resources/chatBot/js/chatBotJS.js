@@ -13,9 +13,11 @@ $(document).ready(function() {
 		var questionInput = $(".liList").append("<div class='chatBotBox1'><div class='userBox2'><div class='userResult'><p class='pchatBot'>"+question+"</p></div></div></div>")
 		
 		// 테이블 생성
+		var questionTable= $("#questionTable").find('p').html();
+		// 테이블 생성
 		var tableCreate= $("#tableCreate").find('p').html();
 		// 테이블 삭제
-		var tableDelete= $("#tableDelete").find('p').html();
+		var tableDrop= $("#tableDrop").find('p').html();
 		// 테이블 수정
 		var tableAlt= $("#tableAlt").find('p').html();
 		
@@ -35,7 +37,10 @@ $(document).ready(function() {
 		
 		// 질의응답
 		// 테이블 생성 비교문
-		if(str== 'table생성' || str== 'table생성하기' || str== 'table생성하는방법' || str== 'table생성하는법' 
+		if(str =='테이블'){
+			$(".liList").append("<div class='chatBotBox1'><div></div><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+questionTable+"</p></div></div></div>")
+		}
+		else if(str== 'table생성' || str== 'table생성하기' || str== 'table생성하는방법' || str== 'table생성하는법' 
 			|| str== 'table만들기' || str== 'table만드는법' || str== 'table만드는방법' || str== '테이블생성' 
 			|| str== '테이블생성하기' || str == '테이블생성하는방법' || str == '테이블생성하는법' || str == '테이블만들기'
 			|| str == '테이블만드는법' || str == '테이블만드는방법'
@@ -49,7 +54,7 @@ $(document).ready(function() {
 				|| str == '테이블지우는법' || str == '테이블 지우는방법'
 				)
 				// 같을 경우
-			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableDrop+"</p></div></div></div>")
+			$(".liList").append("<div class='chatBotBox1'><div></div><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableDrop+"</p></div></div></div>")
 				
 		// 테이블 변경 비교문
 		else if(str== 'table변경' || str == 'table변경하기' || str == 'table변경하는법' || str == 'table변경하는방법'

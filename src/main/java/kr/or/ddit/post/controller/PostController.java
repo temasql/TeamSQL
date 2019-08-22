@@ -298,15 +298,18 @@ public class PostController {
 	public String readPost(int post_id, Model model) {
 		
 		logger.debug("======= postController readPost =======");
-		PostVO postVo = postService.getPost(post_id);
 		
+		postService.updateViewCnt(post_id);
+
+		PostVO postVo = postService.getPost(post_id);
+		logger.debug("cnt : {}", postVo.getView_cnt());
 		List<TSFileVO> fileList = fileService.getFileList(post_id);
 		List<BoardVO> boardList = boardService.boardList();
 		
 		model.addAttribute("postVo", postVo);
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("board", boardList);
-		
+
 		int board_id = postVo.getBoard_id_fk();
 		BoardVO boardVo = boardService.getBoard(board_id);
 		

@@ -26,6 +26,7 @@
 			</c:choose>
 		<td>${postVo.user_id_fk }</td>
 		<td><fmt:formatDate value="${postVo.post_dt }" pattern="yyyy-MM-dd a hh:mm:ss" /></td>
+		<td>${postVo.view_cnt }</td>
 	</tr>
 </c:forEach>
 

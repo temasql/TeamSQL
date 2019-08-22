@@ -154,7 +154,19 @@ public class PostDao implements IPostDao{
 		return sqlSession.update("post.deletePost", post_id);
 	}
 
-	
-	
+
+	/**
+	* Method : updateViewCnt
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @return
+	* Method 설명 : 게시글 조회수 증가
+	*/
+	@Override
+	public int updateViewCnt(int post_id) {
+		return sqlSession.update("post.updateViewCnt", post_id);
+	}
+
 
 }

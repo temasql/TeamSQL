@@ -7,7 +7,7 @@
 <link href="${cp}/resources/chatBot/css/chatBotStyle.css" rel="stylesheet">
 <link href="${cp}/resources/basicLib/css/basicLibStyle.css" rel="stylesheet">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TeamSQL 챗봇</title>
 <head>
 </head>
 <body>
@@ -15,7 +15,7 @@
 <section class="chatBotRoom">
   <header class="chatBotHeader">
   	<div class="chatBotHeaderDiv">
-  	챗봇
+  			<span>챗봇</span>
   	</div>
   </header>
   
@@ -43,12 +43,21 @@
 	  <footer class="chatBotFooter">
 	   <div class="chatBotFooterContainer">
 	     <div class="chatBotFooterBox">
-	      <button class="questionBtn" id="questionBtn" type="button" class="btn btn-secondary">입력</button>
+	      <button class="questionBtn" id="questionBtn" type="button" class="btn btn-secondary"></button>
 	     <textarea class="userInput" id="userInput"></textarea>
 	     </div>
 	   </div>
 	  </footer>
 </section>
+
+<div id='questionTable' hidden='hidden'>
+<p>테이블에 대해서 알려드리겠습니다.
+<br>
+<button type="button" class="btn btn-secondary" id="createTableBtn" style="background: black; color: white;">테이블 생성</button>
+<button type="button" class="btn btn-secondary" id="dropTableBtn" style="background: black; color: white;">테이블 삭제</button>
+<button type="button" class="btn btn-secondary" id="updateTableBtn" style="background: black; color: white;">테이블 수정</button>
+</p>
+</div> 
 
 <!-- 테이블 생성 -->
 <div id='tableCreate' hidden="hidden">
@@ -81,7 +90,7 @@ CREATE TABLE 테이블명 (
 
 <!-- 테이블 삭제 -->
 <div id='tableDrop' hidden="hidden">
-<pre >
+<p>
 테이블 삭제하기
 <br>
 --------------------------------------
@@ -95,7 +104,7 @@ DROP TABLE 테이블명 CASCADE CONSTRAINT;
 외래키에 의해 참조되는 기본키를 포함한 테이블일 경우
 <br> 
 기본키를 참조하던  외래 키 조건도 같이 삭제 합니다.
-</pre>
+</p>
 </div>
 
 <!-- 테이블 변경 -->
