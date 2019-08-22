@@ -84,20 +84,22 @@
 
 		<table class="table table-hover">
 			<tr>
-				<th colspan="3" style="text-align:-webkit-left; background-color: #dadada;"> comments <c:if test="${postVo.reply_cnt > 0 }">'${postVo.reply_cnt }'</c:if></th>
+				<th colspan="4" style="text-align:-webkit-left; background-color: #dadada;"> comments <c:if test="${postVo.reply_cnt > 0 }">'${postVo.reply_cnt }'</c:if></th>
 			</tr>
 			<c:forEach items="${replyList }" var="reply">
 				<tr>
 					<td class="reId" style="display: none;">${reply.reply_id }</td>
-					<td><label style="font-weight: bold; vertical-align: middle;">${reply.user_id_fk }</label></td>
-					<td style="text-align: left; vertical-align: middle;">${reply.reply_content }</td>
+					<td><label style="font-weight: bold;">${reply.user_id_fk }</label></td>
+					<td style="text-align: left;">${reply.reply_content }</td>
 					<td>
-						<div style="text-align: -webkit-center; vertical-align: middle; display: inline;"><label><fmt:formatDate value="${reply.reply_dt }" pattern="yy-MM-dd hh:mm:ss"/></label></div>
-							<c:if test="${USER_INFO.user_id eq reply.user_id_fk }">
-								<c:if test="${reply.reply_use != 'N' }">
-									<a href="${cp }/reply/deleteReply?reply_id=${reply.reply_id }"><img src="${cp }/img/deleteBtn.png"></a>
-								</c:if>
+						<label><fmt:formatDate value="${reply.reply_dt }" pattern="yy-MM-dd hh:mm:ss"/></label>
+					</td>
+					<td>
+						<c:if test="${USER_INFO.user_id eq reply.user_id_fk }">
+							<c:if test="${reply.reply_use != 'N' }">
+								<a href="${cp }/reply/deleteReply?reply_id=${reply.reply_id }"><img src="${cp }/img/deleteBtn.png"></a>
 							</c:if>
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>
