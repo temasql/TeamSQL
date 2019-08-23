@@ -150,34 +150,41 @@ public class CommonDomainController {
 		map.put("cdomain_name", domainVo.getCdomain_name());
 		map.put("cdomain_type", domainVo.getCdomain_type());
 		
-		String name = domainService.getName(map);
-		String findName = domainService.findDomain(map);
+		// DB에 있는 도메인명인지 여부 검사
+		String name = "";
+		name = domainService.getName(map);
+		
+		if(name == null) {
+			name = "";
+		}
+		
+		String findName = "";
+		findName = domainService.findDomain(map);
+		
+		if(findName == null) {
+			findName = "";
+		}
 		
 		int result = 0;
 		
-		if(name != null && name.equals(domainVo.getCdomain_name())) {
+		// 선택한 도메인명과 입력한 도메인명이 일치했을 때 업데이트
+		if(findName.equals(domainVo.getCdomain_name())) {
+			result = domainService.modifyDomain(domainVo);
+			return "jsonView";
+		}
+		
+		// 입력한 도메인명이 DB에 없을 시 업데이트
+		if(findName.equals("")) {
+			result = domainService.modifyDomain(domainVo);
+		} else if (name.equals(domainVo.getCdomain_name())) {
 			String msg = "존재하는 도메인";
+			
 			model.addAttribute("msg", msg);
 			return "jsonView";
-			
-		} else if(findName != null) {
+		} else if(!findName.equals(domainVo.getCdomain_name())) {
 			result = domainService.modifyDomain(domainVo);
 		}
-		
-		if(result > 0) {
-			logger.debug(result + "수정 성공");
-		}
-		
 		return "jsonView";
-//		logger.debug("domainVo : {}", domainVo);
-//		
-//		domainVo.setCdomain_name(domainVo.getCdomain_name().toUpperCase());
-//		domainVo.setCdomain_type(domainVo.getCdomain_type().toUpperCase());
-//		
-//		domainService.modifyDomain(domainVo);
-//
-//		return "/admin/domainMG.tiles";
-
 	}
 	
 	
