@@ -38,3 +38,10 @@
 .viewMenu li:hover span {
   color: #FFFFFF;
 }
+
+/* 수정버튼 */
+#updateViewBtn{
+	float: right;
+    margin-top: 14px;
+    left: 2px;	
+}

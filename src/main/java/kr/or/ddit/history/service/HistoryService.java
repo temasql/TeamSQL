@@ -103,8 +103,9 @@ public class HistoryService implements IHistoryService{
 		
 		// 해당 DB변경 이력 수
 		String object_owner = (String) pageMap.get("object_owner");
-		int changedCnt = historyDao.historyCnt(object_owner);
 		
+		int changedCnt = historyDao.historyCnt(pageMap);
+		logger.debug("첸지cnt : {}",changedCnt);
 		// 컨트롤러에서 담아온 pageSize
 		int pageSize = (int) pageMap.get("pageSize");
 		logger.debug("페이지사이즈빠끄 : {}", pageSize);

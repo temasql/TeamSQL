@@ -385,13 +385,20 @@ $(document).ready(function() {
 		var udomain_type = $("#inputType").val();
 		var user_id = $("#userId").val();
 		
+		if (udomain_name == "" || udomain_type == "") {
+			alert("도메인명과 데이터 타입을 입력해 주세요.");
+			return;
+		}
+		
 		$.ajax({
 			method : "post",
 			url : "/userDomain/insertUserDomain",
 			data : $("#domainFrm").serialize(),
 			success : function(data){
+				
+
 				if(data.msg == "존재하는 도메인"){
-					alert("이미 존재하는 도메인명 입니다.\n다른 도메인명을 입력해주세요.");
+					alert("이미 존재하는 도메인명 입니다.\n다른 도메인명을 입력해 주세요.");
 					return;
 				}
 				
@@ -403,7 +410,7 @@ $(document).ready(function() {
 				domainList();
 			},
 			error : function(error){
-				console.log("등록 실패");
+				alert("등록 실패");
 			}
 		})
 		
@@ -448,22 +455,20 @@ $(document).ready(function() {
 	
 	// 도메인 수정화면에서 수정버튼 클릭 이벤트
 	$("#domUpdate").on("click",function(){
-		var domId = $("#domId").val();
-		var name = $("#inputUpdateName").val();
-		var type = $("#inputUpdateType").val();
+		var udomain_id = $("#domId").val();
+		var udomain_name = $("#inputUpdateName").val();
+		var udomain_type = $("#inputUpdateType").val();
 		
-		if(domId == ""){
+		if (udomain_name == "" || udomain_type == "") {
+			alert("도메인명과 데이터 타입을 입력해 주세요.");
+			return;
+		}
+		
+		
+		if(udomain_id == ""){
 			alert("ID 에러");
 		}
-		if(name == ""){
-			alert("도메인명을 입력해주세요.");
-			return;
-		}
-		if(type == ""){
-			alert("데이터 타입을 입력해주세요.");
-			return;
-		}
-		
+			
 		$.ajax({
 			method : "post",
 			url : "/userDomain/updateUserDomain",
@@ -472,12 +477,11 @@ $(document).ready(function() {
 				if(data.msg == "존재하는 도메인"){
 					alert("이미 존재하는 도메인명 입니다.\n다른 도메인명을 입력해주세요.");
 					return;
-				}else{
-					alert("도메인 수정 성공");
-					$("#domainUpdateModal").css("display", "none");
-					
-					domainList();
 				}
+				alert("도메인 수정 성공");
+				$("#domainUpdateModal").css("display", "none");
+					
+				domainList();
 			},
 			error : function(error){
 				alert("도메인 수정 실패");

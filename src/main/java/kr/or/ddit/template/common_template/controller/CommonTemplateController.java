@@ -99,16 +99,35 @@ public class CommonTemplateController {
 	* @return
 	* Method 설명 : 공통 템플릿 추가
 	*/
-	@RequestMapping(path = "/addTemplate", method = RequestMethod.POST)
+	@RequestMapping(path = "/insertCommonTemplate", method = RequestMethod.POST)
 	public String addTemplate(CommonTemplateVO templateVo, Model model) {
 
 		templateVo.setCtemplate_abb(templateVo.getCtemplate_abb().toUpperCase());
 		templateVo.setCtemplate_original(templateVo.getCtemplate_original().toUpperCase());
 		
-		templateService.addTemplate(templateVo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("ctemplate_abb", templateVo.getCtemplate_abb());
 		
-		return "/admin/templateMG.tiles";
+		String abb = templateService.getAbb(map);
+		
+		if(abb != null) {
+			if(abb.contentEquals(templateVo.getCtemplate_abb())) {
+				String msg = "존재하는 템플릿";
+				
+				model.addAttribute("msg", msg);
+				return "jsonView";
+			}
+		}
+		
+		int result = templateService.addTemplate(templateVo);
+		
+		if(result > 0) {
+			logger.debug("템플릿 추가 성공");
+		}
+		
+		return "jsonView";
 	}
+	
 	
 	/**
 	* Method : modifyTemplate
@@ -119,16 +138,53 @@ public class CommonTemplateController {
 	* @return
 	* Method 설명 : 공통 템플릿 수정
 	*/
-	@RequestMapping(path = "/modifyTemplate", method = RequestMethod.POST)
+	@RequestMapping(path = "/updateCommonTemplate", method = RequestMethod.POST)
 	public String modifyDomain(CommonTemplateVO templateVo, Model model) {
 		
 		templateVo.setCtemplate_abb(templateVo.getCtemplate_abb().toUpperCase());
 		templateVo.setCtemplate_original(templateVo.getCtemplate_original().toUpperCase());
 		
-		templateService.modifyTemplate(templateVo);
-
-		return "/admin/templateMG.tiles";
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("ctemplate_id", templateVo.getCtemplate_id());
+		map.put("ctemplate_abb", templateVo.getCtemplate_abb());
+		map.put("ctemplate_original", templateVo.getCtemplate_original());
+		
+		// DB에 있는 템플릿 약어인지 여부 검사
+		String abb = "";
+		abb = templateService.getAbb(map);
+		
+		if(abb == null) {
+			abb = "";
+		}
+		
+		String findAbb = "";
+		findAbb = templateService.findTemplate(map);
+		
+		if(findAbb == null) {
+			findAbb = "";
+		}
+		
+		int result = 0;
+		
+		// 선택한 템플릿의 약어와 입력한 약어가 일치했을 때 업데이트
+		if(findAbb.equals(templateVo.getCtemplate_abb())) {
+			result = templateService.modifyTemplate(templateVo);
+			return "jsonView";
+		}
+		
+		// 입력한 템플릿 약어가 DB에 없을 시 업데이트
+		if(findAbb.equals("")) {
+			result = templateService.modifyTemplate(templateVo);
+		} else if (abb.equals(templateVo.getCtemplate_abb())) {
+			String msg = "존재하는 템플릿";
+			
+			model.addAttribute("msg", msg);
+			return "jsonView";
+			
+		} else if(!findAbb.equals(templateVo.getCtemplate_abb())) {
+			result = templateService.modifyTemplate(templateVo);
+		}
+		return "jsonView";
 	}
 	
 	

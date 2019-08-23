@@ -10,15 +10,36 @@ $(function() {
 	
 	$(document).on("click", ".modiBtn", function(){
 					
-		var templateId = $(this).parents("td").prevAll(".templateId").children().val();
-		var templateAbb = $(this).parents("td").prevAll(".templateAbb").children().val();
-		var templateOriginal = $(this).parents("td").prevAll(".templateOriginal").children().val();
+		var ctemplate_id =  $(this).parent().prev().prev().prev().find("input").val()
+		var ctemplate_abb = $(this).parent().prev().prev().find("input").val()
+		var ctemplate_original = $(this).parent().prev().find("input").val()
 					
-		$("#updateId").val(templateId);
-		$("#updateAbb").val(templateAbb);
-		$("#updateOriginal").val(templateOriginal);
+		$("#temp_id").val(ctemplate_id);
+		$("#inputUpdateAbb").val(ctemplate_abb);
+		$("#inputUpdateOriginal").val(ctemplate_original);
 					
-		$("#frm").submit();
+		if (ctemplate_abb == "" || ctemplate_original == "") {
+			alert("약어와 원문을 입력해 주세요.");
+			return;
+		}
+
+		$.ajax({
+			method : "post",
+			url : "/commonTemplate/updateCommonTemplate",
+			data : $("#templateUpdateFrm").serialize(),
+			success : function(data) {
+				if(data.msg == "존재하는 템플릿") {
+					alert("이미 존재하는 약어 입니다.\n 다른 약어를 입력해 주세요.");
+					return;
+				}
+				alert("템플릿 수정 성공");
+				templateList();
+			},
+			error : function(error) {
+				alert("템플릿 수정 실패");
+			}
+		})
+		templateList();
 	})
 			
 			
@@ -31,12 +52,37 @@ $(function() {
 		$("#delFrm").submit();
 	})
 	
+
 	$(document).on("click", "#tmpAddBtn", function() {
-		if(validation()) {
-			$("#addTemplateFrm").submit();
-		} else {
-			alert("템플릿 약어와 원문을 입력해 주세요.");
+		var ctemplate_abb = $("#inputAbb").val();
+		var ctemplate_original = $("#inputOriginal").val();
+		
+		if (ctemplate_abb == "" || ctemplate_original == "") {
+			alert("약어와 원문을 입력해 주세요.");
+			return;
 		}
+		
+		$.ajax({
+			method : "post",
+			url : "/commonTemplate/insertCommonTemplate",
+			data : $("#addTemplateFrm").serialize(),
+			success : function(data) {
+				if(data.msg == "존재하는 템플릿") {
+					alert("이미 존재하는 약어 입니다. \n 다른 약어를 입력해 주세요.");
+					return;
+				}
+				
+				alert("템플릿 등록 성공");
+				
+				$("#inputAbb").val("");
+				$("#inputOriginal").val("");
+				
+				templateList();
+			},
+			error : function(error) {
+				alert("등록 실패");
+			}
+		})
 	})
 })
 
@@ -57,12 +103,3 @@ function templatePagingListAjaxHtml(page, pageSize) {
 	})
 }
 	
-function validation(){
-	var tmpAbb = $("#templateAbb").val();
-	var tmpOrigin = $("#templateOriginal").val();
-	
-	if(tmpAbb == '' || tmpOrigin == '') {
-		return false;
-	}
-	return true;
-}

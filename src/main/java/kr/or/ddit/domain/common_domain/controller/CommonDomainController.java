@@ -100,17 +100,32 @@ public class CommonDomainController {
 	* @return
 	* Method 설명 : 공통 도메인 추가
 	*/
-	@RequestMapping(path = "/addDomain", method = RequestMethod.POST)
+	@RequestMapping(path = "/insertCommonDomain", method = RequestMethod.POST)
 	public String addDomain(CommonDomainVO domainVo, Model model) {
-		
-		logger.debug("======= commonDomainController_addDomain =======");
-		
 		domainVo.setCdomain_name(domainVo.getCdomain_name().toUpperCase());
 		domainVo.setCdomain_type(domainVo.getCdomain_type().toUpperCase());
 		
-		domainService.addDomain(domainVo);
-
-		return "/admin/domainMG.tiles";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cdomain_name", domainVo.getCdomain_name());
+		
+		String name = domainService.getName(map);
+		
+		if(name != null) {
+			if(name.contentEquals(domainVo.getCdomain_name())) {
+				String msg = "존재하는 도메인";
+				
+				model.addAttribute("msg", msg);
+				return "jsonView";
+			}
+		}
+		
+		int result = domainService.addDomain(domainVo);
+		
+		if(result > 0) {
+			logger.debug("도메인 추가 성공");
+		}
+		
+		return "jsonView";
 	}
 	
 	
@@ -123,17 +138,53 @@ public class CommonDomainController {
 	* @return
 	* Method 설명 : 공통 도메인 수정
 	*/
-	@RequestMapping(path = "/modifyDomain", method = RequestMethod.POST)
+	@RequestMapping(path = "/updateCommonDomain", method = RequestMethod.POST)
 	public String modifyDomain(CommonDomainVO domainVo, Model model) {
-		logger.debug("domainVo : {}", domainVo);
+		logger.debug("updatedomain domainVo: {}", domainVo);
 		
 		domainVo.setCdomain_name(domainVo.getCdomain_name().toUpperCase());
 		domainVo.setCdomain_type(domainVo.getCdomain_type().toUpperCase());
 		
-		domainService.modifyDomain(domainVo);
-
-		return "/admin/domainMG.tiles";
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cdomain_id", domainVo.getCdomain_id());
+		map.put("cdomain_name", domainVo.getCdomain_name());
+		map.put("cdomain_type", domainVo.getCdomain_type());
+		
+		// DB에 있는 도메인명인지 여부 검사
+		String name = "";
+		name = domainService.getName(map);
+		
+		if(name == null) {
+			name = "";
+		}
+		
+		String findName = "";
+		findName = domainService.findDomain(map);
+		
+		if(findName == null) {
+			findName = "";
+		}
+		
+		int result = 0;
+		
+		// 선택한 도메인명과 입력한 도메인명이 일치했을 때 업데이트
+		if(findName.equals(domainVo.getCdomain_name())) {
+			result = domainService.modifyDomain(domainVo);
+			return "jsonView";
+		}
+		
+		// 입력한 도메인명이 DB에 없을 시 업데이트
+		if(findName.equals("")) {
+			result = domainService.modifyDomain(domainVo);
+		} else if (name.equals(domainVo.getCdomain_name())) {
+			String msg = "존재하는 도메인";
+			
+			model.addAttribute("msg", msg);
+			return "jsonView";
+		} else if(!findName.equals(domainVo.getCdomain_name())) {
+			result = domainService.modifyDomain(domainVo);
+		}
+		return "jsonView";
 	}
 	
 	

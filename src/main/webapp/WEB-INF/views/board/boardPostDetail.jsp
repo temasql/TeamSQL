@@ -89,10 +89,10 @@
 			<c:forEach items="${replyList }" var="reply">
 				<tr>
 					<td class="reId" style="display: none;">${reply.reply_id }</td>
-					<td><label style="font-weight: bold;">${reply.user_id_fk }</label></td>
+					<td><label class=replyLabel style="font-weight: bold;">${reply.user_id_fk }</label></td>
 					<td style="text-align: left;">${reply.reply_content }</td>
 					<td>
-						<label><fmt:formatDate value="${reply.reply_dt }" pattern="yy-MM-dd hh:mm:ss"/></label>
+						<label class=replyLabel><fmt:formatDate value="${reply.reply_dt }" pattern="yy-MM-dd hh:mm:ss"/></label>
 					</td>
 					<td>
 						<c:if test="${USER_INFO.user_id eq reply.user_id_fk }">

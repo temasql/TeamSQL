@@ -99,8 +99,8 @@ public class HistoryDao implements IHistoryDao{
 	* Method 설명 : DB 변경 이력 전체수 조회
 	 */
 	@Override
-	public int historyCnt(String object_owner) {
-		return sqlSession.selectOne("history.historyCnt",object_owner);
+	public int historyCnt(Map<String, Object> map) {
+		return sqlSession.selectOne("history.historyCnt",map);
 	}
 
 	/**
