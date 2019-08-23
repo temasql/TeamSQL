@@ -150,6 +150,7 @@ public class CommonDomainController {
 		map.put("cdomain_name", domainVo.getCdomain_name());
 		map.put("cdomain_type", domainVo.getCdomain_type());
 		
+		// DB에 있는 도메인명인지 여부 검사
 		String name = "";
 		name = domainService.getName(map);
 		
@@ -166,11 +167,13 @@ public class CommonDomainController {
 		
 		int result = 0;
 		
+		// 선택한 도메인명과 입력한 도메인명이 일치했을 때 업데이트
 		if(findName.equals(domainVo.getCdomain_name())) {
 			result = domainService.modifyDomain(domainVo);
 			return "jsonView";
 		}
 		
+		// 입력한 도메인명이 DB에 없을 시 업데이트
 		if(findName.equals("")) {
 			result = domainService.modifyDomain(domainVo);
 		} else if (name.equals(domainVo.getCdomain_name())) {

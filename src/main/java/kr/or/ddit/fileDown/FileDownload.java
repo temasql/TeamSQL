@@ -24,7 +24,6 @@ public class FileDownload extends AbstractView {
 	@Resource(name = "TSFileService")
 	private ITSFileService fileService;
 	
-//	@RequestMapping(path = "/download", method = RequestMethod.POST)
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

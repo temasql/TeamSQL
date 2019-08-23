@@ -149,6 +149,7 @@ public class CommonTemplateController {
 		map.put("ctemplate_abb", templateVo.getCtemplate_abb());
 		map.put("ctemplate_original", templateVo.getCtemplate_original());
 		
+		// DB에 있는 템플릿 약어인지 여부 검사
 		String abb = "";
 		abb = templateService.getAbb(map);
 		
@@ -165,11 +166,13 @@ public class CommonTemplateController {
 		
 		int result = 0;
 		
+		// 선택한 템플릿의 약어와 입력한 약어가 일치했을 때 업데이트
 		if(findAbb.equals(templateVo.getCtemplate_abb())) {
 			result = templateService.modifyTemplate(templateVo);
 			return "jsonView";
 		}
 		
+		// 입력한 템플릿 약어가 DB에 없을 시 업데이트
 		if(findAbb.equals("")) {
 			result = templateService.modifyTemplate(templateVo);
 		} else if (abb.equals(templateVo.getCtemplate_abb())) {

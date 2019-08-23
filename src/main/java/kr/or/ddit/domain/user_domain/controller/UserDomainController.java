@@ -112,6 +112,7 @@ public class UserDomainController {
 		map.put("udomain_name", userDomainVo.getUdomain_name());
 		map.put("udomain_type", userDomainVo.getUdomain_type());
 		
+		// DB에 있는 도메인명인지 여부 검사
 		String name = "";
 		name = domainService.getName(map);
 
@@ -128,11 +129,13 @@ public class UserDomainController {
 		
 		int result = 0;
 		
+		// 선택한 도메인명과 입력한 도메인명이 일치했을 때 업데이트
 		if(findName.equals(userDomainVo.getUdomain_name())) {
 			result = domainService.updateUserDomain(userDomainVo);
 			return "jsonView";
 		}
 		
+		// 입력한 도메인명이 DB에 없을 시 업데이트
 		if(findName.equals("")) {
 			result = domainService.updateUserDomain(userDomainVo);
 		} else if (name.equals(userDomainVo.getUdomain_name())) {
