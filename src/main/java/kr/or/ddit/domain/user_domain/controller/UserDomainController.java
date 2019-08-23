@@ -168,6 +168,7 @@ public class UserDomainController {
 		int result = 0;
 		
 		// 선택한 도메인명과 입력한 도메인명이 일치했을 때 업데이트
+		
 		if(findName.equals(userDomainVo.getUdomain_name())) {
 			result = domainService.updateUserDomain(userDomainVo);
 			return "jsonView";
