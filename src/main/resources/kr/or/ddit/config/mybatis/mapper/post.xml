@@ -65,6 +65,7 @@
 			, SYSDATE
 			, 'Y'
 			, #{post_group_seq}
+			, 0
 		)
 	</insert>
 	
