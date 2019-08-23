@@ -52,8 +52,8 @@
 	    	</form>
 	    </div>
 	    
-	    <div id="domBtnDiv">
-		    <div id="domAdd"><button class="btn" style="background: black; color: white;" >추가</button></div>
+	    <div id="domBtnDiv" style="text-align: -webkit-center;">
+		    <div id="domAdd"><button class="btn" style="background: black; color: white; display: inline;" >추가</button></div>
 		    <div id="domCancel"><button class="btn" style="background: black; color: white;" >취소</button></div>
 	    </div>
   	 </fieldset>
@@ -69,7 +69,7 @@
 	  <fieldset>
 	    <legend>도메인 수정</legend>
 	    <br><br>
-	    <div id="domainAddView">
+	    <div id="domainModiView">
 	    	<form id="domainUpdateFrm">
 	    		<input type="hidden" id="domId" name="udomain_id">
 	    		<div id="Text">도메인명 : <input id="inputUpdateName" name="udomain_name" class="form-control"><br>
@@ -78,7 +78,7 @@
 	    	</form>
 	    </div>
 	    
-	    <div id="domBtnDiv">
+	    <div id="domBtnDiv" style="text-align: -webkit-center;">
 		    <div id="domUpdate"><button class="btn" style="background: black; color: white;" >수정</button></div>
 		    <div id="domUpdateCancel"><button class="btn" style="background: black; color: white;" >취소</button></div>
 	    </div>
