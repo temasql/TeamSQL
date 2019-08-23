@@ -142,6 +142,7 @@ public class UserTemplateController {
 		if(sameAbb.equals(userTemplateVO.getUtemplate_abb())){
 			logger.debug("업데이트 실행전 : {}", userTemplateVO);
 			result = service.updateUserTemplate(userTemplateVO);
+			return "jsonView";
 		}
 		
 		//입력한 약어가 DB에 없을때 업데이트
