@@ -110,6 +110,7 @@ header {
 
 /* 헤더 네비*/
 
+
 header #lnb { position: absolute; left: 0; top: 100%; z-index: 9; padding: 0 232px; width: 100%; box-sizing: border-box;}
 header #lnb nav { position: relative; z-index: 9; border-bottom: 1px solid #E5E5E5; text-align: center; font-size: 0;}
 header #lnb nav > ul { display: inline-block; overflow: hidden; height:70px; transition: all 0.5s;}
