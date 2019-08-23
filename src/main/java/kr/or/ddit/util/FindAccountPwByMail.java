@@ -14,8 +14,8 @@ public class FindAccountPwByMail {
 	
 	public void sendMail(String to, String user_id, String account_id, String account_pw) {
 		String host = "smtp.naver.com";
-		final String user = "youbi89@naver.com"; // 보내는 메일의 id
-		final String password = "qjagnl!"; // 보내는 메일의 비밀번호
+		final String user = "diat1450@naver.com"; // 보내는 메일의 id
+		final String password = "js1450@!"; // 보내는 메일의 비밀번호
 //		String to = "";// 수신측의 메일 주소
 		
 		int underBarIdx = account_id.lastIndexOf("_");
