@@ -96,6 +96,34 @@ public class CommonTemplateService implements ICommonTemplateService{
 		return commonTemplateDao.deleteTemplate(ctemplate_id);
 	}
 
+
+	/**
+	* Method : getAbb
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 템플릿 등록 시 템플릿 약어 존재여부 체크
+	*/
+	@Override
+	public String getAbb(Map<String, Object> map) {
+		return commonTemplateDao.getAbb(map);
+	}
+
+
+	/**
+	* Method : findTemplate
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 입력한 템플릿 아이디와 일치하는 약어 검색
+	*/
+	@Override
+	public String findTemplate(Map<String, Object> map) {
+		return commonTemplateDao.findTemplate(map);
+	}
+
 	
 
 }

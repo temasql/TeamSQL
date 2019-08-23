@@ -50,6 +50,15 @@
 	  </footer>
 </section>
 
+<div id='questionTable' hidden='hidden'>
+<p>테이블에 대해서 알려드리겠습니다.
+<br>
+<button type="button" class="btn btn-secondary" id="createTableBtn" style="background: black; color: white;">테이블 생성</button>
+<button type="button" class="btn btn-secondary" id="dropTableBtn" style="background: black; color: white;">테이블 삭제</button>
+<button type="button" class="btn btn-secondary" id="updateTableBtn" style="background: black; color: white;">테이블 수정</button>
+</p>
+</div> 
+
 <!-- 테이블 생성 -->
 <div id='tableCreate' hidden="hidden">
 <p>
@@ -81,7 +90,7 @@ CREATE TABLE 테이블명 (
 
 <!-- 테이블 삭제 -->
 <div id='tableDrop' hidden="hidden">
-<pre >
+<p>
 테이블 삭제하기
 <br>
 --------------------------------------
@@ -95,7 +104,7 @@ DROP TABLE 테이블명 CASCADE CONSTRAINT;
 외래키에 의해 참조되는 기본키를 포함한 테이블일 경우
 <br> 
 기본키를 참조하던  외래 키 조건도 같이 삭제 합니다.
-</pre>
+</p>
 </div>
 
 <!-- 테이블 변경 -->

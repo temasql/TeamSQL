@@ -5,7 +5,7 @@
 <c:forEach items="${domainList }" var="domain">
 	<tr class="domainTr">
 		<td class="domainId" style="display: none;">
-			<input type="hidden" value="${domain.cdomain_id }">
+			<input type="hidden" id="domId" value="${domain.cdomain_id }">
 			
 		</td>
 			
@@ -17,7 +17,7 @@
 			<input type="text" style="text-align: center; width: 50%;" class="form-control mb-2 mr-sm-2" value="${domain.cdomain_type }" style="width: 80px;">
 		</td>
 						
-		<td>
+		<td style="vertical-align: middle;">
 			<button type="button" class="btn modiBtn" style="background: black; color: white;">수정</button>
 			<button type="button" class="btn delBtn" style="background: black; color: white; margin-left: 10px;">삭제</button>
 		</td>

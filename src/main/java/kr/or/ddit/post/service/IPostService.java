@@ -102,4 +102,15 @@ public interface IPostService {
 	* Method 설명 : 게시글 삭제
 	*/
 	int deletePost(int post_id);
+	
+	
+	/**
+	* Method : updateViewCnt
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param post_id
+	* @return
+	* Method 설명 : 게시글 조회수 증가
+	*/
+	int updateViewCnt(int post_id);
 }

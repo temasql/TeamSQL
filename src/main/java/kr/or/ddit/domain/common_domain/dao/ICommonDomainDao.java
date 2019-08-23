@@ -69,4 +69,26 @@ public interface ICommonDomainDao {
 	* Method 설명 : 공통 도메인 삭제
 	*/
 	int deleteDomain(int cdomain_id);
+	
+	
+	 /**
+	* Method : getName
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 중복된 도메인명 존재여부 체크
+	*/
+	String getName(Map<String, Object> map);
+	
+	
+	/**
+	* Method : findDomain
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 입력한 도메인 id와 일치하는 도메인명 검색
+	*/
+	String findDomain(Map<String, Object> map);
 }

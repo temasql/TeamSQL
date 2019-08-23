@@ -41,6 +41,7 @@
 					FROM		REPLY
 					WHERE	POST_ID_FK = POST_ID
 					AND			REPLY_USE = 'Y') AS REPLY_CNT
+					,VIEW_CNT
         		FROM POST PO
         		WHERE PO.BOARD_ID_FK = #{board_id}
         		AND ${select} LIKE '%'||#{search}||'%'
@@ -64,6 +65,7 @@
 			, SYSDATE
 			, 'Y'
 			, #{post_group_seq}
+			, 0
 		)
 	</insert>
 	
@@ -83,6 +85,7 @@
 				FROM		REPLY
 				WHERE	POST_ID_FK = POST_ID
 				AND			REPLY_USE = 'Y') AS REPLY_CNT
+			, NVL(VIEW_CNT, 0) VIEW_CNT
 		FROM POST
 		WHERE POST_ID = #{post_id}
 	</select>
@@ -116,12 +119,18 @@
 	
 	<!-- 게시글 삭제(사용여부만 미사용으로 업데이트 -->
 	<update id="deletePost" parameterType="postVo">
-		UPDATE POST
-		SET	  POST_TITLE = '삭제된 게시글 입니다.'
-				, POST_CONTENT = '삭제된 게시글 입니다.'
-				, POST_USE = 'N'
+		UPDATE  POST
+		SET	  		POST_TITLE = '삭제된 게시글 입니다.'
+					  , POST_CONTENT = '삭제된 게시글 입니다.'
+					  , POST_USE = 'N'
 		WHERE POST_ID = #{post_id}
 	</update>
 	
 	
+	<!-- 게시글 조회수 증가 -->
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE  POST
+        SET 			VIEW_CNT = NVL(VIEW_CNT, 0 ) + 1
+		WHERE	POST_ID = #{post_id}
+	</update>
 </mapper>

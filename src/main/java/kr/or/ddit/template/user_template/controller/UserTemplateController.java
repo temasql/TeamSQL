@@ -120,19 +120,46 @@ public class UserTemplateController {
 		map.put("utemplate_abb", userTemplateVO.getUtemplate_abb());
 		map.put("utemplate_id", userTemplateVO.getUtemplate_id());
 		
-		String abb = service.getAbb(map);
-		String sameAbb = service.sameAbb(map); 
+		//DB에 있는 약어인지 검사
+		String abb = "";
+		abb = service.getAbb(map);
+		if(abb == null)
+			abb = "";
+		
+		String sameAbb = "";
+		sameAbb = service.sameAbb(map);
+		
+		logger.debug("abb : {}", abb);
+		logger.debug("sameAbb : {}", sameAbb);
+		if(sameAbb==null)
+			sameAbb = "";
+		
 		int result = 0;
 		
-		if(sameAbb != null){
+		logger.debug("sameAbb 값은? : {}", sameAbb);
+		
+		//선택한 약어와 입력한 약어가 일치했을때 업데이트
+		if(sameAbb.equals(userTemplateVO.getUtemplate_abb())){
+			logger.debug("업데이트 실행전 : {}", userTemplateVO);
 			result = service.updateUserTemplate(userTemplateVO);
+			return "jsonView";
+		}
+		
+		//입력한 약어가 DB에 없을때 업데이트
+		if(sameAbb.equals("")) {
+			logger.debug("실행됬나? : {}", userTemplateVO);
 			
-		}else if(abb.equals(userTemplateVO.getUtemplate_abb())) {
+			result = service.updateUserTemplate(userTemplateVO);
+		}else if(abb.equals(userTemplateVO.getUtemplate_abb())) { // 중복검사해서 DB에 있는 약어면 update ==> X
 			String msg = "존재하는 약어";
 			
 			model.addAttribute("msg", msg);
 			
 			return "jsonView";
+		}else if(!sameAbb.equals(userTemplateVO.getUtemplate_abb())) { // 선택한 약어와 입력한 약어가 일치하지 않을때 update
+			logger.debug("진짜 수정");
+			
+			result = service.updateUserTemplate(userTemplateVO);
 		}
 		
 		if(result > 0) {
