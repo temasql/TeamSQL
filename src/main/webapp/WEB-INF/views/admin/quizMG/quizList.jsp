@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
 
 <div id="quizAdminHeader">${quizName} 리스트</div>
 
-<table class="table table-hover" style="width:50%; margin:0px auto; margin-top:3%">
+<table class="table table-hover" style="width: 60%; margin:0px auto; margin-top:3%">
   <thead>
     <tr>
       <th scope="col" style="width:5%;">No.</th>

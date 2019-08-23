@@ -47,23 +47,58 @@ public class SocketChatHandler extends TextWebSocketHandler {
 		// roomID와 채팅방명 가져오기
 		TeamChatVO teamChatVO = getRoomVO(session);
 		// 채팅방 유저리스트 가져오기
-		List<CrewVO> crewList = getCrewList(session);
+//		List<CrewVO> crewList = getCrewList(session);
 		
 		Map<String, Object> map = null;
+		
+		
+		sessionList.add(session);
+		
+		String user_id = "";
+		String userTemp = "";
+		for (WebSocketSession currentSession : sessionList) {
+			map = currentSession.getAttributes();
+			TeamChatVO teamChatVO2 = (TeamChatVO) map.get("TEAM_INFO");
+//			List<CrewVO> crewList = (List<CrewVO>) map.get("CREWLIST");
+			UserVO userVO = (UserVO) map.get("USER_INFO");
+			user_id += userVO.getUser_id()+",";
+			
+			//채팅방 번호가 일치할때 메세지 보내기 
+			if(teamChatVO.getChat_room_id_fk() == teamChatVO2.getChat_room_id_fk()) {
+				//사용자가 채팅방 입장시 알림 텍스트 출력
+//				if(!user.equals(userVO.getUser_id()))
+//					currentSession.sendMessage(new TextMessage(user + ":" + userNM+"님이 입장하셨습니다." ));
+				userTemp = user_id.substring(0, user_id.lastIndexOf(","));
+				
+				//사용자가 채팅방 입장시 '현재 접속 인원'의 이미지 바꾸기
+//				currentSession.sendMessage(new TextMessage("accountConnect&" + userTemp));
+//				logger.debug("현재 채팅방 입장 유저 : {}", user_id);
+			}
+		}
 		
 		for (WebSocketSession currentSession : sessionList) {
 			map = currentSession.getAttributes();
 			TeamChatVO teamChatVO2 = (TeamChatVO) map.get("TEAM_INFO");
+//			List<CrewVO> crewList = (List<CrewVO>) map.get("CREWLIST");
+			UserVO userVO = (UserVO) map.get("USER_INFO");
+			user_id += userVO.getUser_id()+",";
 			
-			if(teamChatVO.getChat_room_id_fk() == teamChatVO2.getChat_room_id_fk())
-				currentSession.sendMessage(new TextMessage(user + ":" + userNM+"님이 입장하셨습니다." ));
+			//채팅방 번호가 일치할때 메세지 보내기 
+			if(teamChatVO.getChat_room_id_fk() == teamChatVO2.getChat_room_id_fk()) {
+				//사용자가 채팅방 입장시 알림 텍스트 출력
+				if(!user.equals(userVO.getUser_id()))
+					currentSession.sendMessage(new TextMessage(user + ":" + userNM+"님이 입장하셨습니다." ));
+				
+				//사용자가 채팅방 입장시 '현재 접속 인원'의 이미지 바꾸기
+				currentSession.sendMessage(new TextMessage("accountConnect&" + userTemp));
+				logger.debug("현재 채팅방 입장 유저 : {}", user_id);
+			}
 		}
 		
-		sessionList.add(session);
 		logger.debug("채팅 접속 : {}", user);
 	}
 
-	// 클라이언트가 웹소켓에 메세지를 전송한 경우 : 모든 사용자에게 메세지를 전달
+	// 클라이언트가 웹소켓에 메세지를 전송한 경우 : 채팅방이 동일한 사용자에게 메세지를 전달
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		logger.debug("소켓 session : {}", session);
@@ -93,21 +128,43 @@ public class SocketChatHandler extends TextWebSocketHandler {
 		String user = getUser(session);
 		// roomID와 채팅방명 가져오기
 		
-//		Map<String, Object> map = null;
-//		
+		Map<String, Object> map = null;
+		String userNM = getUserNM(session);
+		// roomID와 채팅방명 가져오기
+		TeamChatVO teamChatVO = getRoomVO(session);
+		
+//		String user_id = "";
+//		String userTemp = "";
 //		for (WebSocketSession currentSession : sessionList) {
 //			map = currentSession.getAttributes();
 //			TeamChatVO teamChatVO2 = (TeamChatVO) map.get("TEAM_INFO");
-//			
-//			TeamChatVO teamChatVO = getRoomVO(session);
+//			UserVO userVO = (UserVO) map.get("USER_INFO");
+//			user_id += userVO.getUser_id()+",";
 //			
 //			if(teamChatVO.getChat_room_id_fk() == teamChatVO2.getChat_room_id_fk()) {
-//				currentSession.sendMessage(new TextMessage(user + ":님의 연결이 종료되었습니다."));
-//				sessionList.remove(session);
+//				userTemp = user_id.substring(0, user_id.lastIndexOf(","));
 //			}
-//			break;
 //		}
+		
+		for (WebSocketSession currentSession : sessionList) {
+			map = currentSession.getAttributes();
+			TeamChatVO teamChatVO2 = (TeamChatVO) map.get("TEAM_INFO");
+//			List<CrewVO> crewList = (List<CrewVO>) map.get("CREWLIST");
+//			UserVO userVO = (UserVO) map.get("USER_INFO");
+//			user_id += userVO.getUser_id()+",";
+			
+			//채팅방 번호가 일치할때 메세지 보내기 
+			if(teamChatVO.getChat_room_id_fk() == teamChatVO2.getChat_room_id_fk()) {
+				//사용자가 채팅방 입장시 알림 텍스트 출력
+//				if(!user.equals(userVO.getUser_id()))
+//					currentSession.sendMessage(new TextMessage(user + ":" + userNM+"님이 입장하셨습니다." ));
 				
+				//사용자가 채팅방 입장시 '현재 접속 인원'의 이미지 바꾸기
+				currentSession.sendMessage(new TextMessage("accountDisConnect&" + user));
+				logger.debug("현재 채팅방 삭제 유저 : {}", user);
+			}
+		}
+		
 		sessionList.remove(session);
 		logger.debug("연결 끊김 : {}", user);
 	}
