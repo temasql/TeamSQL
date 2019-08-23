@@ -816,9 +816,6 @@ public class SqlEditorController {
 		logger.debug("편집type : {}", update_indexType);
 		logger.debug("편집column : {}", update_column[0]);
 		logger.debug("편집order : {}", update_order[0]);
-		
-		
-		
 		logger.debug("편집owner소문자1 : {}", low_owner);
 		AccountVO accountVO = accountService.getAccountOne(low_owner);
 		logger.debug("권한가진VO : {}", accountVO.getAccount_pw());

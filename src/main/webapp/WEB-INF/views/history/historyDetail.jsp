@@ -12,13 +12,26 @@
 <c:set var="owner" value="${fn:substringBefore(object_owner, '_')}"/>
 <h3 class="sub-header" style="color: black; font-weight: bold;"><c:out value="${owner}"></c:out></h3>
 	<br>
-<div id="pageSelect" style="display: inline;">
-	<select class="form-control" id="pageSizeSelect" style="width: 10%; display: inline;">
-		<option value="10">10개씩 보기</option>
-		<option value="20">20개씩 보기</option>
-		<option value="30">30개씩 보기</option>
-		<option value="50">50개씩 보기</option>
-	</select>
+<div>
+	<div id="pageSelect" style="display: inline;">
+		<select class="form-control" id="pageSizeSelect" style="width: 10%; display: inline;">
+			<option value="10">10개씩 보기</option>
+			<option value="20">20개씩 보기</option>
+			<option value="30">30개씩 보기</option>
+			<option value="50">50개씩 보기</option>
+		</select>
+		
+		<div id="searchdiv" style="display: inline;">
+					<select class="form-control"  id="select" name="selectBox" style="width: 10%; display: inline;  margin-left: 59%;">
+						<option value="ACTION_EVENT">발생이벤트</option>
+						<option value="OBJECT_TYPE">객체타입</option>
+						<option value="OBJECT_NAME">객체명</option>
+						<option value="SQL_TEXT">원문</option>
+					</select>
+					<input type="text" class="form-control" name="search" id="searchfor" value="${searchVal }" style="width: 15%; display: inline;">
+					<button type="button" class="btn" style="background: black; color: white;" id="btnSearch">검색</button>
+				</div>
+	</div>
 </div>
 <div class="tableCon">
 <table class="table table-hover" id="tableContainer">

@@ -174,9 +174,9 @@ $(document).ready(function() {
 	// 조회창 생성
 	$("#readSequenceSpan").on("click", function() {
 		$("#selectSequenceModal").css("display", "block");
-		
+		$("#selectSeqCode").prop("selected","selected");
 		$("#readSequenceDiv").empty();	// div 비우기
-		
+		$("#selectSeqCode").on("selected","selected");
 		var selectVal = $("#readSequenceSelect").val().trim();		// 선택된 옵션
 		var owner = $("#sequenceOwner").val().trim();				// DB계정명		
 		var sequence_owner= owner.toUpperCase();					// DB계정명 대문자 치환

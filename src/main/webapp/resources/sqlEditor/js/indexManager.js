@@ -179,7 +179,6 @@ $(document).ready(function() {
 	// 모달창 닫기
 	$(".close").on("click", function() {
 		$("#craeteIndexModal").css("display", "none");
-		$("#selectIdxCode").on("selected","selected");
 		$("#selectIndexModal").css("display", "none");
 		$("#updateIndexModal").css("display", "none");
 	});
@@ -614,8 +613,8 @@ $(document).ready(function() {
 		var owner = $("#tableOwner").val().trim();				// DB계정명
 		var table_upperOwner = owner.toUpperCase();					// DB계정명 대문자 변경
 		console.log(owner)
-		$("#hidden_owner").val(owner);
-		console.log($("#hidden_owner").val())
+		$("#low_owner").val(owner);
+		console.log($("#low_owner").val())
 		var index_name= $("#indexName").val().trim();			// 인덱스명
 		var idx = table_upperOwner.indexOf("_");
 		var table_owner = table_upperOwner.substring(0, idx);

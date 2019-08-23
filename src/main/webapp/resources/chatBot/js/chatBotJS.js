@@ -21,6 +21,8 @@ $(document).ready(function() {
 		// 테이블 수정
 		var tableAlt= $("#tableAlt").find('p').html();
 		
+		// 데이터 
+		var questionData= $("#questionData").find('p').html();
 		// 데이터 입력
 		var dataInsert= $("#dataInsert").find('p').html();
 		// 데이터 수정
@@ -64,7 +66,11 @@ $(document).ready(function() {
 				)
 			// 같을 경우
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableAlt+"</p></div></div></div>")
-			
+
+		//데이터
+		else if(str == '데이터' ){
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+questionData+"</p></div></div></div>")
+		}			
 		// 데이터 입력
 		else if(str== 'data입력' || str== 'data입력하기' || str== 'data입력하는법' || str== 'data입력하는방법'
 				|| str== 'data넣기' || str== 'data넣는법' || str== 'data넣는방법' || str== '데이터입력'
@@ -103,11 +109,56 @@ $(document).ready(function() {
 		else{
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+defined+"</p></div></div></div>");
 		}
-			// 스크롤 자동 하단 이동
-			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
+			
 
 		// textArea 비우기
 		$("#userInput").val("");
+		
+		// 테이블 생성 버튼
+		$("#createTableBtn").click(function(){
+			$(".liList").append("<div class='chatBotBox1'><div></div><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableCreate+"</p></div></div></div>");
+			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
+		})
+		
+		// 테이블 삭제 버튼
+		$("#dropTableBtn").click(function(){
+			$(".liList").append("<div class='chatBotBox1'><div></div><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableDrop+"</p></div></div></div>")
+			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
+		})
+		
+		// 테이블 변경 버튼
+		$("#updateTableBtn").click(function(){
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableAlt+"</p></div></div></div>")
+			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
+		})
+		
+		// 데이터 생성 버튼
+		$("#createDataBtn").click(function(){
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataInsert+"</p></div></div></div>")
+			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
+		})
+		
+		// 데이터 수정 버튼
+		$("#updateDataBtn").click(function(){
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataUpdate+"</p></div></div></div>")
+			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
+		})
+		
+		// 데이터 삭제 버튼
+		$("#dropDataBtn").click(function(){
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataDelete+"</p></div></div></div>")
+			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
+		})
+		
+		// 데이터 조회 버튼
+		$("#searchDataBtn").click(function(){
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataSelect+"</p></div></div></div>");
+			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
+		})
+		
+		
+		// 스크롤 자동 하단 이동
+		$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
 	});
 	
 	// 엔터키 이벤트 전송

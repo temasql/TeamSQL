@@ -127,3 +127,14 @@
     left: 22%;
     top: 12%;
 }
+
+#selectSequenceModal>div{
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    display: block;
+    position: absolute;
+    left: 23%;
+    top: -15%;
+}

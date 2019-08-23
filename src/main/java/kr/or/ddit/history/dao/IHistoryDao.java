@@ -69,11 +69,11 @@ public interface IHistoryDao {
 	* Method : historyCnt
 	* 작성자 : 강호길
 	* 변경이력 :
-	* @param object_owner
+	* @param map
 	* @return
 	* Method 설명 : DB변경 이력 전체수 조회
 	 */
-	int historyCnt(String object_owner);
+	int historyCnt(Map<String, Object> map);
 	
 	/**
 	 * 
