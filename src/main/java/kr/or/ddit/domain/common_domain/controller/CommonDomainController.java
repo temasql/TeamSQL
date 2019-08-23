@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.or.ddit.domain.common_domain.model.CommonDomainVO;
 import kr.or.ddit.domain.common_domain.service.ICommonDomainService;
 import kr.or.ddit.page.model.PageVo;
+import kr.or.ddit.util.DataTypeUtil;
 
 @RequestMapping("/commonDomain")
 @Controller
@@ -110,6 +111,10 @@ public class CommonDomainController {
 		
 		String name = domainService.getName(map);
 		
+		logger.debug("!!!! domainVo : {}", domainVo);
+		logger.debug("!!!! domainVo : {}",domainVo.getCdomain_type().toUpperCase());
+		
+		
 		if(name != null) {
 			if(name.contentEquals(domainVo.getCdomain_name())) {
 				String msg = "존재하는 도메인";
@@ -118,7 +123,24 @@ public class CommonDomainController {
 				return "jsonView";
 			}
 		}
+
+		// 입력 받은 데이터 타입이 유효 여부 체크
+		List<String> dataTypeList = DataTypeUtil.tableDataType();
 		
+		int cnt =0;
+		for (String dataType : dataTypeList) {
+			logger.debug("!!!!!dataType : {}",dataType);
+			logger.debug("!!!!!boolean : {}",domainVo.getCdomain_type().toUpperCase().startsWith(dataType));
+			if(domainVo.getCdomain_type().toUpperCase().startsWith(dataType)==true) {
+				cnt++;
+			}
+		}
+		if(cnt ==0) {
+			String msg = "유효하지 않는 데이터 타입";
+			model.addAttribute("typeMsg", msg);
+			return "jsonView";
+		}
+				
 		int result = domainService.addDomain(domainVo);
 		
 		if(result > 0) {
@@ -163,6 +185,24 @@ public class CommonDomainController {
 		
 		if(findName == null) {
 			findName = "";
+		}
+
+		// 입력 받은 데이터 타입이 유효 여부 체크
+		List<String> dataTypeList = DataTypeUtil.tableDataType();
+		
+		int cnt =0;
+		for (String dataType : dataTypeList) {
+			logger.debug("!!!!!dataType : {}",dataType);
+			logger.debug("!!!!!boolean : {}", domainVo.getCdomain_type().toUpperCase().startsWith(dataType));
+			if(domainVo.getCdomain_type().toUpperCase().startsWith(dataType)==true) {
+				cnt++;
+			}
+		}
+		
+		if(cnt == 0) {
+			String msg = "유효하지 않는 데이터 타입";
+			model.addAttribute("typeMsg", msg);
+			return "jsonView";
 		}
 		
 		int result = 0;

@@ -8,6 +8,41 @@ $(function() {
 	});
 
 	
+	// 템플릿 관리 화면에서 추가버튼 클릭 이벤트
+	$(document).on("click", "#tmpAddBtn", function() {
+		var ctemplate_abb = $("#inputAbb").val();
+		var ctemplate_original = $("#inputOriginal").val();
+		
+		if (ctemplate_abb == "" || ctemplate_original == "") {
+			alert("약어와 원문을 입력해 주세요.");
+			return;
+		}
+		
+		$.ajax({
+			method : "post",
+			url : "/commonTemplate/insertCommonTemplate",
+			data : $("#addTemplateFrm").serialize(),
+			success : function(data) {
+				if(data.msg == "존재하는 템플릿") {
+					alert("이미 존재하는 약어 입니다. \n 다른 약어를 입력해 주세요.");
+					return;
+				}
+				
+				alert("템플릿 등록 성공");
+				
+				$("#inputAbb").val("");
+				$("#inputOriginal").val("");
+				
+				templateList();
+			},
+			error : function(error) {
+				alert("등록 실패");
+			}
+		})
+	})
+	
+
+	// 템플릿 관리 화면에서 수정버튼 클릭 이벤트
 	$(document).on("click", ".modiBtn", function(){
 					
 		var ctemplate_id =  $(this).parent().prev().prev().prev().find("input").val()
@@ -42,7 +77,7 @@ $(function() {
 		templateList();
 	})
 			
-			
+	// 템플릿 관리 화면에서 삭제버튼 클릭 이벤트			
 	$(document).on("click", ".delBtn", function() {
 					
 		var templateId = $(this).parents("td").prevAll(".templateId").children().val();
@@ -53,37 +88,6 @@ $(function() {
 	})
 	
 
-	$(document).on("click", "#tmpAddBtn", function() {
-		var ctemplate_abb = $("#inputAbb").val();
-		var ctemplate_original = $("#inputOriginal").val();
-		
-		if (ctemplate_abb == "" || ctemplate_original == "") {
-			alert("약어와 원문을 입력해 주세요.");
-			return;
-		}
-		
-		$.ajax({
-			method : "post",
-			url : "/commonTemplate/insertCommonTemplate",
-			data : $("#addTemplateFrm").serialize(),
-			success : function(data) {
-				if(data.msg == "존재하는 템플릿") {
-					alert("이미 존재하는 약어 입니다. \n 다른 약어를 입력해 주세요.");
-					return;
-				}
-				
-				alert("템플릿 등록 성공");
-				
-				$("#inputAbb").val("");
-				$("#inputOriginal").val("");
-				
-				templateList();
-			},
-			error : function(error) {
-				alert("등록 실패");
-			}
-		})
-	})
 })
 
 

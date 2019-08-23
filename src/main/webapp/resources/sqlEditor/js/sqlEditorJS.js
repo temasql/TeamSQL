@@ -402,6 +402,11 @@ $(document).ready(function() {
 					return;
 				}
 				
+				if(data.typeMsg == "유효하지 않는 데이터 타입") {
+					alert("유효하지 않는 데이터 타입 입니다.");
+					return;
+				}
+				
 				alert("도메인 등록 성공");
 				
 				$("#inputName").val("");
@@ -478,6 +483,12 @@ $(document).ready(function() {
 					alert("이미 존재하는 도메인명 입니다.\n다른 도메인명을 입력해주세요.");
 					return;
 				}
+				
+				if(data.typeMsg == "유효하지 않는 데이터 타입") {
+					alert("유효하지 않는 데이터 타입 입니다.");
+					return;
+				}
+				
 				alert("도메인 수정 성공");
 				$("#domainUpdateModal").css("display", "none");
 					
