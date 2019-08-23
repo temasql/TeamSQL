@@ -19,6 +19,7 @@ import kr.or.ddit.chat.team_chat.service.ITeamChatService;
 import kr.or.ddit.chat.team_chat_room.model.TeamChatRoomVO;
 import kr.or.ddit.chat.team_chat_room.service.ITeamChatRoomService;
 import kr.or.ddit.crew.model.CrewVO;
+import kr.or.ddit.crew.model.UserAndCrewVO;
 import kr.or.ddit.crew.service.ICrewService;
 import kr.or.ddit.user.model.UserVO;
 
@@ -52,10 +53,16 @@ public class TeamChatController {
 		List<CrewVO> crewList = crewService.crewSelectList(userVO.getUser_id());
 		List<String> crewListCopy = new ArrayList<String>();
 		
+		logger.debug("crewList 이름 : {}", crewList);
+		
 		String account_id = null;
+		CrewVO crewVO = new CrewVO();
+		List<UserAndCrewVO> userCrewList = null;
 		try {
 			// 채팅방 아이디 조회
 			account_id = crewList.get(0).getAccount_id_fk();
+			crewVO.setAccount_id_fk(account_id);
+			userCrewList = crewService.getCrewList(crewVO);
 			logger.debug("복제 안한거 : {}", account_id);
 			teamChatRoomVo = chatRoomService.getChatRoomId(account_id);
 			model.addAttribute("teamChatRoomVo", teamChatRoomVo);
@@ -105,11 +112,21 @@ public class TeamChatController {
 			}
 		}
 		
+		String userList = "";
+		for(UserAndCrewVO userAndCrew : userCrewList) {
+			userList += "<div class='memberEl'><label class='userListNM'>" + userAndCrew.getUser_id_fk() + "</label><span class='connectOF'><img class='onOff' src='/img/chatting/red.png'></span></div>";
+//        	userList += "<div class='memberEl'><label class='userListNM'>" + user_id + "</label><span class='connectOF'></span></div>";
+//        	userList += "<div class='memberEl'><label class='userListNM'>" + user_id + "</label><span class='connectOF'></span></div>";
+//        	userList += "<div class='memberEl'><label class='userListNM'>" + user_id + "</label><span class='connectOF'></span></div>";
+		}
+		
+		
 		model.addAttribute("chat_room_name", teamChatRoomVo.getChat_room_name());
 		model.addAttribute("account_id", account_id);
 		model.addAttribute("crewList", crewList);
 		model.addAttribute("crewListCopy", crewListCopy);
 		model.addAttribute("userChat", temp);
+		model.addAttribute("userList", userList);
 		
 		return "/chatting/chatting";
 	}
