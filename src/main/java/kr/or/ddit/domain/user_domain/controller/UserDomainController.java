@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.or.ddit.domain.user_domain.model.UserDomainVO;
 import kr.or.ddit.domain.user_domain.service.IUserDomainService;
 import kr.or.ddit.user.model.UserVO;
+import kr.or.ddit.util.DataTypeUtil;
 
 @RequestMapping("/userDomain")
 @Controller
@@ -79,6 +80,25 @@ public class UserDomainController {
 				model.addAttribute("msg", msg);
 			}
 		}
+		
+		// 입력 받은 데이터 타입이 유효 여부 체크
+		List<String> dataTypeList = DataTypeUtil.tableDataType();
+		
+		int cnt =0;
+		for (String dataType : dataTypeList) {
+			logger.debug("!!!!!dataType : {}",dataType);
+			logger.debug("!!!!!boolean : {}", userDomainVo.getUdomain_type().toUpperCase().startsWith(dataType));
+			if(userDomainVo.getUdomain_type().toUpperCase().startsWith(dataType)==true) {
+				cnt++;
+			}
+		}
+		
+		if(cnt == 0) {
+			String msg = "유효하지 않는 데이터 타입";
+			model.addAttribute("typeMsg", msg);
+			return "jsonView";
+		}
+		
 		int result = domainService.insertUserDomain(userDomainVo);
 		
 		if(result > 0) {
@@ -127,9 +147,28 @@ public class UserDomainController {
 			findName = "";
 		}
 		
+		// 입력 받은 데이터 타입이 유효 여부 체크
+		List<String> dataTypeList = DataTypeUtil.tableDataType();
+		
+		int cnt =0;
+		for (String dataType : dataTypeList) {
+			logger.debug("!!!!!dataType : {}",dataType);
+			logger.debug("!!!!!boolean : {}", userDomainVo.getUdomain_type().toUpperCase().startsWith(dataType));
+			if(userDomainVo.getUdomain_type().toUpperCase().startsWith(dataType)==true) {
+				cnt++;
+			}
+		}
+		
+		if(cnt == 0) {
+			String msg = "유효하지 않는 데이터 타입";
+			model.addAttribute("typeMsg", msg);
+			return "jsonView";
+		}
+		
 		int result = 0;
 		
 		// 선택한 도메인명과 입력한 도메인명이 일치했을 때 업데이트
+		
 		if(findName.equals(userDomainVo.getUdomain_name())) {
 			result = domainService.updateUserDomain(userDomainVo);
 			return "jsonView";
