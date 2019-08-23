@@ -112,34 +112,43 @@ public class UserDomainController {
 		map.put("udomain_name", userDomainVo.getUdomain_name());
 		map.put("udomain_type", userDomainVo.getUdomain_type());
 		
-		String name = domainService.getName(map);
-		String findName = domainService.findDomain(map);
+		String name = "";
+		name = domainService.getName(map);
+		if(name == null) {
+			name = "";
+		}
+		
+		String findName = "";
+		findName = domainService.findDomain(map);
+		
+		if(findName == null) {
+			findName = "";
+		}
 		
 		int result = 0;
 		
+		if(findName.equals(userDomainVo.getUdomain_name())) {
+			result = domainService.updateUserDomain(userDomainVo);
+			return "jsonView";
+		}
 		
-		logger.debug("userDomainVO : {}", userDomainVo);
-		
-		if(name.equals(userDomainVo.getUdomain_name())) {
+		if(findName.equals("")) {
+			result = domainService.updateUserDomain(userDomainVo);
+		} else if (name.equals(userDomainVo.getUdomain_name())) {
 			String msg = "존재하는 도메인";
+			
 			model.addAttribute("msg", msg);
 			return "jsonView";
-			
-		} else if(findName != null) {
+		} else if(!findName.equals(userDomainVo.getUdomain_name())) {
 			result = domainService.updateUserDomain(userDomainVo);
 		}
-		
-		if(result > 0) {
-			logger.debug(result + "수정 성공");
-		}
-		
 		return "jsonView";
 	}
 	
 	
 	/**
 	* Method : deleteUserDomain
-	* 작성자 : 이영은
+	* 작성자 : 이영은 
 	* 변경이력 :
 	* @param model
 	* @param session
