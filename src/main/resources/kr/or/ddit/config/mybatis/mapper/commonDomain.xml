@@ -59,4 +59,20 @@
 		FROM		COMMON_DOMAIN
 		WHERE	CDOMAIN_ID = #{cdomain_id}
 	</delete>
+	
+	
+	<!-- 중복된 도메인명 존재여부 체크 -->
+	<select id="getName" parameterType="map" resultType="String">
+		SELECT  CDOMAIN_NAME
+		FROM		COMMON_DOMAIN
+		WHERE	CDOMAIN_NAME = #{cdomain_name}
+	</select>
+	
+	
+	<!-- 입력한 도메인 id와 일치하는 도메인명 검색 -->
+	<select id="findDomain" parameterType="map" resultType="String">
+		SELECT  CDOMAIN_NAME
+		FROM		COMMON_DOMAIN
+		WHERE	CDOMAIN_ID = #{cdomain_id}
+	</select>
 </mapper>

@@ -69,4 +69,26 @@ public interface ICommonTemplateDao {
 	* Method 설명 : 공통 템플릿 삭제
 	*/
 	int deleteTemplate(int ctemplate_id);
+	
+	
+	 /**
+	* Method : getAbb
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 중복된 템플릿 약어 존재여부 체크
+	*/
+	String getAbb(Map<String, Object> map);
+	
+	
+	/**
+	* Method : findTemplate
+	* 작성자 : 이영은
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 입력한 템플릿 id와 일치하는 템플릿 약어 검색
+	*/
+	String findTemplate(Map<String, Object> map);
 }

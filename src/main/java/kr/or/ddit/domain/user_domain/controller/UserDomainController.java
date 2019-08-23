@@ -120,13 +120,13 @@ public class UserDomainController {
 		
 		logger.debug("userDomainVO : {}", userDomainVo);
 		
-		if(findName != null) {
-			result = domainService.updateUserDomain(userDomainVo);
-		} else if(name.equals(userDomainVo.getUdomain_name())) {
+		if(name.equals(userDomainVo.getUdomain_name())) {
 			String msg = "존재하는 도메인";
 			model.addAttribute("msg", msg);
-			
 			return "jsonView";
+			
+		} else if(findName != null) {
+			result = domainService.updateUserDomain(userDomainVo);
 		}
 		
 		if(result > 0) {

@@ -5,7 +5,7 @@
 <c:forEach items="${domainList }" var="domain">
 	<tr class="domainTr">
 		<td class="domainId" style="display: none;">
-			<input type="hidden" value="${domain.cdomain_id }">
+			<input type="hidden" id="domId" value="${domain.cdomain_id }">
 			
 		</td>
 			
