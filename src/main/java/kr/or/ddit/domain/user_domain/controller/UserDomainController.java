@@ -114,6 +114,7 @@ public class UserDomainController {
 		
 		String name = "";
 		name = domainService.getName(map);
+
 		if(name == null) {
 			name = "";
 		}
