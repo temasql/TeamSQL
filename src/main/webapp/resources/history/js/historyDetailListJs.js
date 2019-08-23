@@ -23,13 +23,30 @@ $(document).ready(function(){
 		var pageSize = $(this).val()
 		historyDetailPagingListAjaxHtml(1,pageSize);
 	});
+	
+	// 검색어 엔터
+	$('#searchfor').keydown(function(e) {
+		if (e.keyCode == 13) {
+			historyDetailPagingListAjaxHtml(1,10);
+		}
+	});
+	// 입력시 검색
+	$('#searchfor').keyup(function(e) {
+		historyDetailPagingListAjaxHtml(1,10);
+	})
+	
+	// 검색버튼 클릭
+	$("#btnSearch").on("click",function(){
+		historyDetailPagingListAjaxHtml(1,10);
+	})
+	
 });
 
 function historyDetailPagingListAjaxHtml(page, pageSize){
 	$.ajax({
 			url    : "/history/historyDetail"
 			,method : "post"
-			,data   : "page=" + page + "&pageSize=" + pageSize + "&object_owner=" + $("#object_owner").val()
+			,data   : "page=" + page + "&pageSize=" + pageSize + "&object_owner=" + $("#object_owner").val() + "&search=" + $("#searchfor").val() + "&selectBox=" +$("#select").val()
 			,success : function(data){
 				// html
 				var html = data.split("SEPERATORSEPERATOR");

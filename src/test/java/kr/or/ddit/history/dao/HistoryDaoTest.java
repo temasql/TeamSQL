@@ -136,12 +136,15 @@ public class HistoryDaoTest extends LogicTestEnv{
 	@Test
 	public void daoHistoryCntTest() {
 		/***Given***/
+		Map<String, Object> map = new HashMap<String, Object>();
 		String object_owner= "TEAMSQL";
+		map.put("object_owner", object_owner);
+		map.put("select", "sql_text");
+		map.put("search", "");
 		/***When***/
-		int historyCnt = historyDao.historyCnt(object_owner);
+		int historyCnt = historyDao.historyCnt(map);
 		/***Then***/
 		assertNotNull(historyCnt);
-		assertEquals(4, historyCnt);
 	}
 	
 	/**

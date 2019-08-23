@@ -49,6 +49,7 @@ ul a{text-decoration: none;}
 #main{
 	width: 176px;
 	height: 81px;
+    cursor: pointer;
 }
 
 /* 프로필사진 */

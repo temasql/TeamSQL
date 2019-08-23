@@ -104,7 +104,7 @@
 	  <fieldset>
 	    <legend>인덱스 편집</legend>
 	    <div><label id="tblOwner"></label>
-	    <input type="hidden" id="hidden_owner" name="low_owner">
+	    <input type="hidden" id="low_owner" name="low_owner">
 	    </div>
 	    <div class="form-group">
 	      <label id= "upIdxName"> 인덱스 명 :</label>

@@ -64,7 +64,7 @@
 	  	<input type="hidden" id="sequenceOwner">
 	  	<input type="hidden" id="sequenceName">
 	  	<select id="readSequenceSelect" class="form-control">
-	  		<option id="selectSeqCode">코드</option>
+	  		<option id="selectSeqCode" selected="selected">코드</option>
 			<option>세부정보</option>
 	  	</select>
 	  	<div id="readSequenceDiv"></div>

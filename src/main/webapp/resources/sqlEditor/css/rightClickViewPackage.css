@@ -49,3 +49,10 @@
 	margin: 1px;
 	padding: 3px;
 }
+
+/* 생성버튼 */
+#createViewBtn{
+	float: right;
+    margin-top: 14px;
+    left: 2px;	
+}
