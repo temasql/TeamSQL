@@ -29,11 +29,16 @@
 <!-- 헤더 -->
 <header id="header">
 <div id="header-container">
-
 	<div id="mainContainer">
+	<c:choose>
+	<c:when test="${USER_INFO.user_right eq 'C' }">
 	<a href="${cp }/main"><img id="main" src="${cp}/resources/img/main.png" alt="메인"  title="메인"></a>
+	</c:when>
+	<c:otherwise>
+	<a href="#none"><img id="main" src="${cp}/resources/img/main.png" alt="메인"  title="메인"></a>
+	</c:otherwise>
+	</c:choose>
 	</div>
-
 	<img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
 	
 	<c:choose>

@@ -116,8 +116,8 @@ header #lnb { position: absolute; left: 0; top: 100%; z-index: 9; padding: 0 232
 header #lnb nav { position: relative; z-index: 9; border-bottom: 1px solid #E5E5E5; text-align: center; font-size: 0;}
 header #lnb nav > ul { display: inline-block; overflow: hidden; height:70px; transition: all 0.5s;}
 header #lnb nav > ul:hover { overflow: visible;}
-header #lnb nav + div { position: absolute; left: 0; top: 0; z-index: 8; padding: 0 30px; width: 100%; height:0; background: #fff; opacity: 0; transition: all .5s; box-sizing: border-box; background-clip: content-box;}
-header #lnb nav:hover + div { height: 330px; opacity: 1;}
+header #lnb nav + div { position: absolute; left: 0; top: 0; z-index: 8; width: 100%; height:0; background: #fff; opacity: 0; transition: all .5s; box-sizing: border-box; background-clip: content-box;}
+header #lnb nav:hover + div { height: 256px; opacity: 1;}
 header #lnb nav > ul > li { display: inline-block; position: relative;}
 header #lnb nav > ul > li > a { display: block; position: relative; width: 160px; height: 69px; font-size: 18px; color:black; line-height: 69px;}
 header #lnb nav > ul > li > a:after { content: ""; position: absolute; left:50%; bottom: -1px; width:0; height: 2px; background: black; transition: all 0.5s;}

@@ -250,7 +250,7 @@ $(document).ready(function() {
 			  , method : "post"
 			  , data : "table_owner=" + table_owner + "&index_name=" + index_name
 			  , success : function(data){
-				  var temp = "<br><br><table class='table table-hover'>"+
+				  var temp = "<br><br><table class='table table-hover' id='tblDtl'>"+
 				  			"<tbody>" +
 				  				"<tr class='table-active'>" +
 				  				"<th scope='row'>이름</td><th scope='row'>값</td>"+
@@ -505,7 +505,7 @@ $(document).ready(function() {
 			  , method : "post"
 			  , data : "index_name=" + index_name + "&index_owner=" +table_owner
 			  , success : function(data){
-				  var temp = "<br><br><table class='table table-hover'>" +
+				  var temp = "<br><br><table class='table table-hover' id='tblCol'>" +
 				  			 "<tbody>" +
 				  			   "<tr class='table-active'>" +
 					  			 	"<th scope='row'>INDEX_OWNER</th>" +
