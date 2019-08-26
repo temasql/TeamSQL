@@ -254,6 +254,7 @@ public class SqlEditorController {
 		UserVO userVO = userService.getUser(user_id);
 		if(userVO == null) {
 			msg = "일치하는 회원정보가 없습니다.";
+			model.addAttribute("msg", msg);
 			return sqlEditorMain(session, model);
 		}
 		if(userVO.getUser_email().equals(user_email)) {
