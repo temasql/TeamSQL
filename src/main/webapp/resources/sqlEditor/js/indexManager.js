@@ -119,17 +119,30 @@ $(document).ready(function() {
 	// 인덱스 생성 버튼 클릭 이벤트
 	$("#createIndexBtn").on("click",function(){
 		
+		// 인덱스명 정규식
+		var nameReg = /^[a-zA-Z][a-zA-Z0-9#$_]{2,19}$/;
+		
+		// 인덱스명 정규식 조건
+		if(!nameReg.test($("#indexName").val())){
+			alert("잘못 입력되었습니다.");
+			$("#indexName").val("");
+			$("#indexName").focus();
+			return
+		}
+		// 인덱스명 NULL값 비교
 		if($("#indexName").val().trim() <= 0){
 			alert("인덱스 이름을 입력해주세요.");
 			$("#indexName").val("");
 			$("#indexName").focus();
 			return;
 		}
+		
 		if($("#td_indexType_select").val() == "BITMAP"){
 			alert("오류발생 : \n" +
 					"ORA-00439: feature not enabled: Bit-mapped indexes")
 			return;
 		}
+		
 		$.ajax({
 			url : "/sqlEditor/createIndex"
 		  , type : "post"
@@ -149,6 +162,17 @@ $(document).ready(function() {
 	// 인덱스 편집 버튼 클릭 이벤트
 	$("#updateIndexBtn").on("click",function(){
 		
+		// 인덱스명 정규식
+		var nameReg = /^[a-zA-Z][a-zA-Z0-9#$_]{2,19}$/;
+		
+		// 인덱스명 정규식 조건
+		if(!nameReg.test($("#updateIndexName").val())){
+			alert("잘못 입력되었습니다.");
+			$("#updateIndexName").val("");
+			$("#updateIndexName").focus();
+			return
+		}
+		// 인덱스명 NULL값 비교
 		if($("#updateIndexName").val().trim() <= 0){
 			alert("인덱스 이름을 입력해주세요.");
 			$("#updateIndexName").val("");

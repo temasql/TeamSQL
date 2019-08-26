@@ -47,10 +47,10 @@ $(document).ready(function() {
 		var str = gap.toLowerCase();
 		
 		// 질의응답
-		// 테이블 생성 비교문
-		if(str =='테이블'){
+		if(str =='테이블' || str== 'table'){
 			$(".liList").append("<div class='chatBotBox1'><div></div><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+questionTable+"</p></div></div></div>")
 		}
+		// 테이블 생성 비교문
 		else if(str== 'table생성' || str== 'table생성하기' || str== 'table생성하는방법' || str== 'table생성하는법' 
 			|| str== 'table만들기' || str== 'table만드는법' || str== 'table만드는방법' || str== '테이블생성' 
 			|| str== '테이블생성하기' || str == '테이블생성하는방법' || str == '테이블생성하는법' || str == '테이블만들기'
@@ -77,7 +77,7 @@ $(document).ready(function() {
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableAlt+"</p></div></div></div>")
 
 		//데이터
-		else if(str == '데이터' ){
+		else if(str == '데이터' || str== 'data' ){
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+questionData+"</p></div></div></div>")
 		}			
 		// 데이터 입력
@@ -118,8 +118,8 @@ $(document).ready(function() {
 
 		// 회원 탈퇴
 		else if(str== '회원탈퇴' || str== '회원삭제' || str== '회원탈퇴하기' || str== '회원탈퇴하는법'
-			|| str== '회원탈퇴하는방법' || str== '회원삭제하기' || str== '회원삭제하는법' 
-				|| str== '회원삭제하는방법' )
+			|| str== '회원탈퇴하는방법' || str== '회원삭제하기' || str== '회원삭제하는법'|| str== '회원삭제하는방법'
+				|| str== '탈퇴' || str== '탈퇴하기' || str== '탈퇴하는법' || str== '탈퇴하는방법')
 			// 같을 경우
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+memOut+"</p></div></div></div>");
 		
@@ -130,7 +130,7 @@ $(document).ready(function() {
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+sqlEditor+"</p></div></div></div>");
 
 		// DB계정
-		else if(str== '계정')
+		else if(str== '계정' || str== 'db계정' || str== '디비계정')
 			// 같을 경우
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+owner+"</p></div></div></div>");
 		
