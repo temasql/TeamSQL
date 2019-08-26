@@ -1128,7 +1128,7 @@ function sqlRun(dragText) {
 						height : '203px',
 						viewrecords : true,
 						emptyrecords : "데이터 없음",
-						ignoreCase : true,
+//						ignoreCase : true,
 						autowidth: true,
 						rownumbers : true
 					});
@@ -1140,7 +1140,7 @@ function sqlRun(dragText) {
 					$("#scriptViewArea").scrollTop($("#scriptViewArea")[0].scrollHeight);
 				}
 				
-				$("#resultTableDiv").children(0).children(0).children(0).css("background","#cce4f7");
+//				$("#resultTableDiv").children(0).children(0).children(0).css("background","#cce4f7");
 				
 			}
 		});
