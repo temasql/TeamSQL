@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<!-- 폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap" rel="stylesheet">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="${cp}/resources/chatBot/js/chatBotJS.js"></script>
 <link href="${cp}/resources/chatBot/css/chatBotStyle.css" rel="stylesheet">

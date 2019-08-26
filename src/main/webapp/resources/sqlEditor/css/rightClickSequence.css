@@ -1,10 +1,94 @@
 @charset "UTF-8";
 
-#seqLegend{
-	text-align: center;
+@charset "UTF-8";
+
+/* 스키마명 */
+#seqSchema{font-size: 15px;font-weight: bolder;font-size: 1.5em;margin-top: -20px;}
+
+.sequencePackageMenu {
+  display: none;
+  position: absolute;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  background: #FFFFFF;
+  border-radius: 5px;
+  list-style: none;
+  box-shadow:
+    0 15px 35px rgba(50,50,90,0.1),
+    0 5px 15px rgba(0,0,0,0.07);
+  overflow: hidden;
+  z-index: 999999;
 }
-/* 시퀀스편집 */
-#updateSeqLegend{text-align: center;}
+
+.sequencePackageMenu li {
+  border-left: 3px solid transparent;
+  transition: ease .2s;
+}
+
+.sequencePackageMenu li span {
+  display: block;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  transition: ease .2s;
+  cursor: pointer;
+}
+
+.sequencePackageMenu li:hover {
+  background: black;
+  border-left: 3px solid black;
+}
+
+.sequencePackageMenu li:hover span {
+  color: #FFFFFF;
+}
+
+/* 시퀀스 생성 모달 */
+
+#seqModal{
+    margin-top: 2%;
+    margin-left: 35%;
+    width: 20%;
+    position: absolute;
+    left: 10%;
+    top: -2%;
+}
+
+
+/* 캐시 셀렉박스 */
+#seqCache{
+	font-size: 1.5em;
+	font-weight: bolder;
+	margin-top: -20px;
+}
+#inputCache{
+    margin-top: -13px;
+    text-align: right;
+}
+
+
+/* 주기 셀렉박스 */
+#seqCycle{
+    font-size: 1.5em;
+    font-weight: bolder;
+    margin-top: -20px;
+}
+
+/* 정렬 셀렉박스 */
+#seqOrder{
+    font-size: 1.5em;
+    font-weight: bolder;
+    margin-top: -20px;
+}
+
+/* label */
+.lbl{
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+
 
 /* 스키마명 */
 #updateSeqSchema{font-size: 15px;font-weight: bolder;font-size: 1.5em;}
@@ -65,7 +149,7 @@
 /* 편집 모달창 */
 #updateSeqModal{
 	margin-top: 2%;
-    margin-left: 31%;
+    margin-left: 35%;
     width: 20%;
     position: absolute;
     left: 10%;
@@ -81,4 +165,16 @@
     position: absolute;
     left: 23%;
     top: -15%;
+}
+
+.form-control ,.inputs{
+	margin-top: -20px;
+}
+
+.form-control, .selects{
+	font-size: 1.2em;
+}
+
+.form-control, .search{
+	font-size: 1.5em;
 }
