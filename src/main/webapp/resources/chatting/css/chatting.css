@@ -52,7 +52,7 @@
 	display: inline;
 }
 #accountDiv{
-    margin-left: 334px;
+    margin-left: 329px;
     padding-bottom: 33px;
 }
 #userId{
@@ -116,6 +116,7 @@
 #account{
 	border: none;
 	color: black;
+    max-width: 66px;
 }
 
 /* 스크롤바 CSS */
