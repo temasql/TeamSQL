@@ -91,9 +91,16 @@
 	// 필수값 Check
 	function validation() {
 		var contents = $.trim(oEditors[0].getContents());
-		if (contents === '<p>&nbsp;</p>' || contents === '') { // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
+		var title = $("#post_title").val();
+		
+		if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
 			alert("내용을 입력하세요.");
 			oEditors.getById['smarteditor'].exec('FOCUS');
+			return false;
+		}
+		
+		if(title == "") {
+			alert("제목을 입력하세요.");
 			return false;
 		}
 
