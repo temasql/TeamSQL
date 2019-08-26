@@ -182,3 +182,29 @@ p.pchatBot {
 .chatBotBtn:hover{background: #717171;color: white;}
 .chatBotBtn:hover:after{content: "";}
 
+.chatImg{
+	width: 344px;
+	height: 217px;
+}
+.chatImg_sqlEditor{
+    width: 533px;
+    height: 146px;
+}
+
+.editors{
+	width: 446px;
+	height: 124px;
+}
+
+#sqlEditor{
+    width: 35px;
+    height: 35px;
+    border: 7px solid red;
+    position: absolute;
+    left: 39px;
+    top: 373px;
+}
+
+#ownerCreate{width: 100%; height: 100%;}
+
+#rightClick{width: 282px; height: 200px;}
