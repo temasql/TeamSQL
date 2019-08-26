@@ -32,6 +32,15 @@ $(document).ready(function() {
 		// 데이터 조회
 		var dataSelect= $("#dataSelect").find('p').html();
 		
+		// 회원탈퇴
+		var memOut= $("#memOut").find('p').html();
+		
+		// DB계정
+		var owner= $("#owner").find('p').html();
+		
+		// SQL에디터
+		var sqlEditor= $("#sqlEditor").find('p').html();
+		
 		// 공백 제거
 		var gap = question.split(' ').join('');
 		// 소문자 변환
@@ -106,6 +115,25 @@ $(document).ready(function() {
 				)
 			// 같을 경우
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataSelect+"</p></div></div></div>");
+
+		// 회원 탈퇴
+		else if(str== '회원탈퇴' || str== '회원삭제' || str== '회원탈퇴하기' || str== '회원탈퇴하는법'
+			|| str== '회원탈퇴하는방법' || str== '회원삭제하기' || str== '회원삭제하는법' 
+				|| str== '회원삭제하는방법' )
+			// 같을 경우
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+memOut+"</p></div></div></div>");
+		
+		// SQL 에디터
+		else if(str== 'sql에디터' || str== 'SQL에디터 사용' || str== 'SQL에디터 이용' || str== '에스큐엘에디터'
+			|| str== '에스큐엘에디터사용' || str== '에스큐엘에디터이용')
+			// 같을 경우
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+sqlEditor+"</p></div></div></div>");
+
+		// DB계정
+		else if(str== '계정')
+			// 같을 경우
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+owner+"</p></div></div></div>");
+		
 		else{
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+defined+"</p></div></div></div>");
 		}

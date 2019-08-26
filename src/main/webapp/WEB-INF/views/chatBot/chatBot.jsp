@@ -255,5 +255,52 @@ SELECT절 뒤에 *를 사용하면 모든 데이터를 조회합니다.
 을 사용하시면 됩니다.
 </p>
 </div>
+
+<!-- 회원 탈퇴 -->
+<div id='memOut' hidden="hidden">
+<p>
+우측 상단에 프로필 사진을 클릭하여 마이페이지 버튼을 클릭합니다.
+<img class="chatImg" alt="회원탈퇴1" src="${cp}/resources/img/memOut.png">
+<br>
+그 후 회원탈퇴 버튼을 클릭하시면 회원탈퇴를 정상적으로 
+<br>
+완료하실 수 있습니다..
+<br>
+<img class="chatImg" alt="회원탈퇴2" src="${cp}/resources/img/memOut2.png">
+<br> 
+</p>
+</div>
+
+<!-- SQL 에디터 -->
+<div id='sqlEditor' hidden="hidden">
+<p>
+SQL 에디터 이용 방법을 설명 드리겠습니다.
+<br>
+상단 메뉴에서 SQL에디터를 클릭 하시면 이용하실 수 있습니다.
+<img class="chatImg_sqlEditor" alt="SQL에디터" src="${cp}/resources/img/sqlEditor.png">
+</p>
+</div>
+
+<!-- SQL 에디터 -->
+<div id='owner' hidden="hidden">
+<p>
+DB계정에 대해 설명 드리겠습니다.
+<br>
+DB계정 생성은 아래  + 아이콘을 클릭하여 생성하실 수 있습니다.
+<img class="editors" alt="SQL에디터" src="${cp}/resources/img/create.png">
+<br>
+DB계정 , 비밀번호, 채팅방명을 입력후 생성 버튼을 클릭하여 생성을 완료 합니다.
+<br>
+<img class="editors" alt="SQL에디터" src="${cp}/resources/img/ownerCreate.png">
+<br>
+DB계정 삭제, PW찾기, PW변경, 팀 일정관리를 사용하실 수 있습니다.
+<br>
+단 DB계정 삭제, PW찾기, PW변경은 생성자만 가능합니다.
+<br>
+<img id="rightClick" alt="SQL에디터" src="${cp}/resources/img/editorRightClick.png">
+</p>
+</div>
+
+
 </body>
 </html>
