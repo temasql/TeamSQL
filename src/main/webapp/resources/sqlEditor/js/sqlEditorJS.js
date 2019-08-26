@@ -32,7 +32,7 @@ $(document).ready(function() {
 				}
 			},
 			error : function(e) {
-				alert("error");
+				alert("최소 1개의 컬럼을 추가해주세요");
 			}
 		});
 		
