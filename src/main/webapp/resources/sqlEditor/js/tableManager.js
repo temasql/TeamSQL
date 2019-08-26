@@ -109,7 +109,7 @@ $(document).ready(function() {
 //		$("#createTableFrm").submit();
 		var tableName = $("#tableName").val();
 		var tableReg = /^[a-zA-Z][a-zA-Z0-9]{2,5}$/;
-		var columnReg = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
+		var columnReg = /^[a-zA-Z][a-zA-Z0-9_]{1,19}$/;
 		if(tableReg.test(tableName)){
 			var col = $(".col");
 			$(".col").length
@@ -171,7 +171,7 @@ $(document).ready(function() {
 	// 테이블 수정
 	$(document).on("click","#updateTableBtn", function() {
 		var tableName = $("#tableNm").val()
-		var columnReg = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
+		var columnReg = /^[a-zA-Z][a-zA-Z0-9_]{1,19}$/;
 		
 		var col = $(".col");
 		$(".col").length
