@@ -104,7 +104,6 @@
 	  <fieldset>
 	    <legend>인덱스 편집</legend>
 	    <div><label id="tblOwner"></label>
-	    <input type="hidden" id="low_owner" name="low_owner">
 	    </div>
 	    <div class="form-group">
 	      <label id= "upIdxName"> 인덱스 명 :</label>
@@ -112,7 +111,8 @@
 	      <h4>영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</h4>
 	    </div>
 	    <div id="select_table">
-			  <input type="hidden" id="update_owner" name="update_owner">
+		    <input type="hidden" id="update_owner" name="update_owner">
+    		<input type="hidden" id="low_owner" name="low_owner">
 	    	<table id="index_option">
 	    		<tr>
 		    		<td id ="updateTd_tableName" >테이블 :</td>
