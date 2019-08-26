@@ -115,9 +115,6 @@ public class TeamChatController {
 		String userList = "";
 		for(UserAndCrewVO userAndCrew : userCrewList) {
 			userList += "<div class='memberEl'><label class='userListNM'>" + userAndCrew.getUser_id_fk() + "</label><span class='connectOF'><img class='onOff' src='/img/chatting/red.png'></span></div>";
-//        	userList += "<div class='memberEl'><label class='userListNM'>" + user_id + "</label><span class='connectOF'></span></div>";
-//        	userList += "<div class='memberEl'><label class='userListNM'>" + user_id + "</label><span class='connectOF'></span></div>";
-//        	userList += "<div class='memberEl'><label class='userListNM'>" + user_id + "</label><span class='connectOF'></span></div>";
 		}
 		
 		
@@ -145,13 +142,15 @@ public class TeamChatController {
 		logger.debug("chat_room_id : {}", chat_room_id);
 		UserVO userVO = (UserVO) session.getAttribute("USER_INFO");
 		
-//		account_id = account_id + "_" + userVO.getUser_id();
-		
 		List<CrewVO> crewList = crewService.crewSelectList(userVO.getUser_id());
 		List<String> crewListCopy = new ArrayList<String>();
 		
 		TeamChatVO teamChatVO = new TeamChatVO();
 		TeamChatRoomVO teamChatRoomVo = null;
+		CrewVO crewVO = new CrewVO();
+		crewVO.setAccount_id_fk(account_id);
+		
+		List<UserAndCrewVO> userCrewList = crewService.getCrewList(crewVO);
 		
 		teamChatRoomVo = chatRoomService.getChatRoomId(account_id);
 		model.addAttribute("teamChatRoomVo", teamChatRoomVo);
@@ -192,6 +191,11 @@ public class TeamChatController {
 			}
 		}
 		
+		String userList = "";
+		for(UserAndCrewVO userAndCrew : userCrewList) {
+			userList += "<div class='memberEl'><label class='userListNM'>" + userAndCrew.getUser_id_fk() + "</label><span class='connectOF'><img class='onOff' src='/img/chatting/red.png'></span></div>";
+		}
+		
 		logger.debug("채팅 crewListCopy : {}", crewListCopy);
 		
 		model.addAttribute("userId", userVO.getUser_id());
@@ -200,6 +204,7 @@ public class TeamChatController {
 		model.addAttribute("crewList", crewList);
 		model.addAttribute("crewListCopy", crewListCopy);
 		model.addAttribute("userChat", temp);
+		model.addAttribute("userList", userList);
 		
 		return "/chatting/chatting";
 	}
