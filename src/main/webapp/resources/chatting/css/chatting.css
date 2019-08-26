@@ -4,7 +4,7 @@
 	height: 10px;
     text-align: center;
     line-height: 20px;
-    font-size: 14px;
+    font-size: 22px;
     color:#fff;
     font-weight: 900;
     border-bottom: 1px solid #ddd;
@@ -20,6 +20,7 @@
     word-break: break-all;
     margin-right: 14px;
     text-align: left;
+    line-height: 27px;
 }
 .Ymessage{
     background-color: #f1f0f0;;
@@ -27,10 +28,11 @@
     float: left;
     border-radius: 15px;
     padding: 2px 13px 2px 13px;
-    max-width: 40%;
+    max-width: 60%;
     display: inline;
     color: black;
     word-break: break-all;
+    line-height: 27px;
 }
 .myDiv{
 	width: 100%;
@@ -122,12 +124,13 @@
 	background-color: white;
 }
 ::-webkit-scrollbar-thumb{
-	border-radius : 15px;
+	border-radius : 30px;
 	background-color: black;
 }
 body {
 	font-family: 'NanumSquareRound',sans-serif;
 	font-family: 'Alegreya Sans', sans-serif;
+	font-size: 1.2em;
 }
 #memberWrap{
     display: inline;
