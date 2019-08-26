@@ -11,7 +11,7 @@
 <div id="signInFrmDiv">
 <form id="signInForm" action="${cp }/user/insertAdmin" method="post" enctype="multipart/form-data">
   <fieldset>
-    <legend>회원가입</legend>
+    <legend>관리자 추가</legend>
     <div class="form-group">
       <label for="exampleInputPassword1">ID</label>
       <input type="text" class="form-control" value="${userVo.user_id}" name="user_id" placeholder="사용자 ID는 첫문을 영문자,숫자 포함 4~12글자입니다."style=" font-size: 15px; width: 600px;"><h3 style="color : red;"><form:errors path="userVO.user_id"/></h3>
