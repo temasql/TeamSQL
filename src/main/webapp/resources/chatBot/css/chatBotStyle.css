@@ -3,6 +3,18 @@
 body {
 	margin: 0;
 	padding: 0;
+	font-family: 'Alegreya Sans', sans-serif;
+	font-size: 1.2em;
+}
+
+/* 스크롤바 CSS */
+::-webkit-scrollbar{
+	width : 7px;
+	background-color: white;
+}
+::-webkit-scrollbar-thumb{
+	border-radius : 15px;
+	background-color: black;
 }
 
 .chatBotRoom {
@@ -55,10 +67,7 @@ body {
 }
 
 p.pchatBot {
-	margin-top: 5px;
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-bottom: 3px;
+    margin: 5px 8px;
 }
 
 .chatBotDiv {
@@ -71,10 +80,11 @@ p.pchatBot {
 }
 
 .chatBotResult {
-	border-radius: 6px;
+	border-radius: 15px;
 	background-color: black;
 	box-shadow: 2px 3px 12px 3px rgba(0, 0, 0, 0.1);
 	padding: 0 5px;
+    margin : 5px 12px 0 5px;
 	line-height: 25px;
 	letter-spacing: -1.5px;
 	color: white;
@@ -101,17 +111,14 @@ p.pchatBot {
 }
 
 .userResult {
-	border-radius: 6px;
-	background-color: black;
-	box-shadow: -3px 5px 6px 1px rgba(0, 0, 0, 0.1);
-	line-height: 25px;
-	color: white;
-	left: 0;
-	float: right;
-	margin-top: 2%;
-	margin-left: 20%;
-	margin-right: 2%;
-	padding: 0 5px;
+    border-radius: 15px;
+    background-color: black;
+    box-shadow: -3px 5px 6px 1px rgba(0, 0, 0, 0.1);
+    line-height: 25px;
+    color: white;
+    left: 0;
+    float: right;
+    margin: 2% 14px 0 20%;
 }
 
 .chatBotFooter {
@@ -168,9 +175,10 @@ p.pchatBot {
     padding: 10px 10px;
     text-align: center;
     border: none;
-    transition: all 0.2s;
+    transition: all 0.5s;
 }
 
 /* 버튼 호버 이벤트 */
-.chatBotBtn:hover{background : #EAEAEA;}
+.chatBotBtn:hover{background: #717171;color: white;}
 .chatBotBtn:hover:after{content: "";}
+
