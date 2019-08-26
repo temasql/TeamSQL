@@ -3,7 +3,8 @@
  */
 package kr.or.ddit.validation;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -13,9 +14,9 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import kr.or.ddit.testenv.ControllerTestEnv;
 import kr.or.ddit.user.model.UserVO;
 
 /**
@@ -51,7 +52,7 @@ private Validator validator; 	// Validation체크
 	* @throws Exception
 	* Method 설명 : 사용자 회원가입 유효성 검사 성공 테스트
 	*/
-	@Test
+	@Test@Ignore
 	public void signInValidationSuccessTest(){
 		/***Given***/
 		// 유효성 검사에서 성공할 객체
@@ -82,7 +83,7 @@ private Validator validator; 	// Validation체크
 	 * @throws Exception
 	 * Method 설명 : 사용자 회원가입 유효성 검사 실패 테스트
 	 */
-	@Test
+	@Test@Ignore
 	public void signInValidationFailTest(){
 		/***Given***/
 		// 유효성 검사에서 실패할 객체
@@ -105,5 +106,6 @@ private Validator validator; 	// Validation체크
 		/***Then***/
 		assertFalse(failViolations.isEmpty());
 	}
+	
 
 }
