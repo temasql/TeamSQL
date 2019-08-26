@@ -581,6 +581,14 @@ $(document).ready(function() {
 		var utemplate_original = $("#inputOriArea").val();
 		var user_id = $("#userId").val();
 		
+		if(utemplate_abb == ''){
+			alert("약어를 입력해주세요");
+			return;
+		}else if(utemplate_original == ''){
+			alert("원문을 입력해주세요.");
+			return;
+		}
+		
 		$.ajax({
 			method : "post",
 			url : "/userTemplate/insertUserTemplate",
