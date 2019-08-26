@@ -71,6 +71,11 @@ var newEvent = function (start, end, eventType) {
             alert('일정명은 필수입니다.');
             return false;
         }
+        
+        if (eventData.description === ''){
+        	alert('설명은 필수 입니다.');
+        	return false;
+        }
 
         var realEndDay;
 

@@ -291,17 +291,17 @@ var calendar = $('#calendar').fullCalendar({
         hours: today.hours(),
         minute: today.minutes()
       });
-      startDate = moment(startDate).format('YYYY-MM-DD 00:00');
+      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
       endDate = moment(endDate).subtract(1, 'days');
 
       endDate.set({
         hours: today.hours() + 1,
         minute: today.minutes()
       });
-      endDate = moment(endDate).format('YYYY-MM-DD 00:00');
+      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
     } else {
-      startDate = moment(startDate).format('YYYY-MM-DD 00:00');
-      endDate = moment(endDate).format('YYYY-MM-DD 00:00');
+      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
+      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
     }
 
     //날짜 클릭시 카테고리 선택메뉴
