@@ -567,7 +567,7 @@ $(document).ready(function() {
 		var owner = $("#table_owner").val().trim();				// DB계정명
 		var table_owner= owner.toUpperCase();					// DB계정명 대문자 변경
 		var table_name = $("#td_select").val();
-		
+
 		cnt += 1;
 		console.log(cnt)
 		
@@ -576,8 +576,8 @@ $(document).ready(function() {
 				, type : "post"
 					, data : "owner=" + table_owner + "&table_name=" + table_name 
 					, success : function(data){
-						
 						// 컬럼 개수 지정
+						console.log(data.length)
 						var trCnt = $(".tableColumnTr").length;
 						if(data.length <= trCnt) {
 							alert("테이블에 컬럼을 추가해주세요.");
@@ -655,6 +655,7 @@ $(document).ready(function() {
 			  var idx = table_upperOwner.indexOf("_");	// 구분자
 			  var table_owner = table_upperOwner.substring(0, idx);	// 구분자부터 끝까지 짜르기
 			  
+			  $("#low_owner").val(owner);
 			  $("#update_owner").val(table_upperOwner);
 			  $("#tblOwner").text(table_owner); // db계정명
 			  $("#updateIndexName").val(data.idxVO[0].index_name); // 인덱스명
@@ -672,7 +673,6 @@ $(document).ready(function() {
 			  var beforeCol = "";
 			  
 			  for(var i = 0; i < data.idxVO.length; i++){
-				  console.log("idxVO[i] : " +   data.idxVO[i].column_name)
 				  beforeCol += "<tr class='tableColmunTr' id='updateTableColumnTr"+i +"'>" +
 				  "<td class='beforeSelecCol'><select class='form-control update_column' id='update_column' name='update_column'>";
 				  for(var j = 0; j < data.col_name.length; j++){
@@ -710,10 +710,11 @@ $(document).ready(function() {
 	colCnt = 0;
 	// 업데이트 인덱스 컬럼 추가
 	function updateAppendIndexAjax(){
-		var owner = $("#tblOwner").text().trim();				// DB계정명
+		var owner = $("#low_owner").val().trim();			// DB계정명
 		var table_owner= owner.toUpperCase();					// DB계정명 대문자 변환
 		var table_name = $("#selectedTable_name").val();
-		
+		console.log("db계정 : "+ owner)
+		console.log("테이블이름 : "+table_name)
 		
 		
 		$.ajax({
@@ -721,14 +722,19 @@ $(document).ready(function() {
 				, type : "post"
 					, data : "owner=" + table_owner + "&table_name=" + table_name 
 					, success : function(data){
-						var optionCnt = $(".update_column").length;
+						console.log("컬럼길이"+data.length)
+						
+						// 테이블컬럼개수 - 편집전 컬럼개수
+						var optionCnt = $(".tableColmunTr").length;
 						optionCnt = data.length - optionCnt;
 						// 컬럼 개수 지정
-						var trCnt = $(".updateTableColumnTr").length;
-						if(optionCnt <= trCnt) {
+						var addCOl = $(".updateTableColumnTr").length;
+						console.log("추가컬럼"+addCOl)
+						if(optionCnt <= addCOl) {
 							alert("테이블에 컬럼을 추가해주세요.");
 							return;
 						}
+						
 						var rowIndex = "<tr class='updateTableColumnTr' id='addTableColumnTr"+ colCnt++ +"'>" +
 						"<td class='updateSelecCol'><select class='form-control' id='updateColumn' name='update_column'>";
 						for (var i = 0; i < data.length; i++) {
@@ -742,7 +748,7 @@ $(document).ready(function() {
 						"<option value='ASC'>ASC</option>" +
 						"<option value='DESC'>DESC</option>"+
 						"</select>"
-						"<input type='hidden' id = 'trCnt' value='"+trCnt +"'>";
+						"<input type='hidden' id = 'trCnt' value='"+addCOl +"'>";
 						$("#updateIndex_tableBody").append(rowIndex);
 						
 					}
