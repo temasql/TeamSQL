@@ -121,7 +121,7 @@
 	    <label for="exampleInputEmail1">이메일</label>
 	    <input type="text" class="form-control" id="find_id_user_email" name="user_email" placeholder="계정의 생성자 이메일"/>
 	    <br><br>
-	    <button type="button" id="btnUserIdModalOk" class="btn btn-secondary">확인</button>
+	    <button type="button" id="btnUserIdModalOk" class="btn" style="background-color: black;color: white;">확인</button>
   	 </fieldset>
 	</form>
   </div>
@@ -142,7 +142,7 @@
 	    <label for="exampleInputEmail1">이메일</label>
 	    <input type="text" class="form-control" id="find_pw_user_email" name="user_email" placeholder="계정의 생성자 이메일"/>
 	    <br><br>
-	    <button type="button" id="btnUserPwModalOk" class="btn btn-secondary">확인</button>
+	    <button type="button" id="btnUserPwModalOk" class="btn" style="background-color: black; color: white;">확인</button>
   	 </fieldset>
 	</form>
   </div>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.history.model.HistoryVO;
 import kr.or.ddit.history.service.IHistoryService;
@@ -103,17 +104,18 @@ public class HistoryController {
 	}
 	
 	
-	
 	/**
 	 * 
 	* Method : dbChangedDetail
 	* 작성자 : 강호길
 	* 변경이력 :
 	* @return
-	* Method 설명 : DB변경 상세 이력 페이지
+	* Method 설명 : DB변경 상세 이력 페이지 응답 화면
 	 */
 	@RequestMapping(path = "/historyDetail",method = RequestMethod.POST)
-	public String dbChangedDetail(String object_owner,PageVo pageVo, HistoryVO hVo, Model model) {
+	public String dbChangedDetail(String object_owner,PageVo pageVo, HistoryVO hVo, Model model,
+			@RequestParam(name = "selectBox", defaultValue = "sql_text")String  selectBox
+			, @RequestParam(name = "search", defaultValue = "") String search) {
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 		logger.debug("소문자 : {}", object_owner);
 		object_owner = object_owner.toUpperCase();
@@ -128,6 +130,11 @@ public class HistoryController {
 		// 한 페이지에 출력할 게시글 수
 		pageMap.put("pageSize", pageVo.getPageSize());
 		logger.debug("페이지수 : {}",pageVo.getPageSize());
+		// 셀렉박스 선택한 값
+		pageMap.put("select", selectBox);
+		// 검색어
+		pageMap.put("search", search);
+		
 		// 페이징리스트에 담기
 		Map<String, Object> resultMap = historyService.changedDetailPagingList(pageMap);
 		
@@ -156,7 +163,6 @@ public class HistoryController {
 		// 파라미터 보내기
 		model.addAttribute("object_owner",object_owner);
 		model.addAttribute("changedDetailPagingList",changedDetailPagingList);
-		logger.debug("변경일시 : {}", changedDetailPagingList.get(0).getExec_dtm());
 		model.addAttribute("pageMap",pageMap);
 		model.addAttribute("paginationSize",paginationSize);
 		logger.debug("페이지빠끄 : {}",paginationSize);

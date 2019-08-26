@@ -52,10 +52,11 @@
 	</select>
 	
 	<!-- 	DB변경이력 전체수 조회 -->
-	<select id="historyCnt" parameterType="String" resultType="int">
+	<select id="historyCnt" parameterType="Map" resultType="int">
 		select count(*)
 		from ddl_history
 		where object_owner = #{object_owner}
+		AND ${select} LIKE upper('%'||#{search}||'%') 
 	</select>
 	
 	<!-- DB계정 상세 변경 페이징 리스트 -->
@@ -72,6 +73,7 @@
 	              exec_dtm
         	from DDL_HISTORY 
         	where object_owner = upper(#{object_owner})
+			AND ${select} LIKE upper('%'||#{search}||'%')
         	order by exec_dtm desc)a)
 		where rn >= (#{page}-1) *#{pageSize} + 1 and rn <= #{page}*#{pageSize}
 		]]>

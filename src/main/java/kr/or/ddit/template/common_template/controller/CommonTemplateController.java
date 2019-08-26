@@ -149,22 +149,40 @@ public class CommonTemplateController {
 		map.put("ctemplate_abb", templateVo.getCtemplate_abb());
 		map.put("ctemplate_original", templateVo.getCtemplate_original());
 		
-		String abb = templateService.getAbb(map);
-		String findTemplate = templateService.findTemplate(map);
+		// DB에 있는 템플릿 약어인지 여부 검사
+		String abb = "";
+		abb = templateService.getAbb(map);
+		
+		if(abb == null) {
+			abb = "";
+		}
+		
+		String findAbb = "";
+		findAbb = templateService.findTemplate(map);
+		
+		if(findAbb == null) {
+			findAbb = "";
+		}
 		
 		int result = 0;
 		
-		if(abb != null && abb.equals(templateVo.getCtemplate_abb())) {
+		// 선택한 템플릿의 약어와 입력한 약어가 일치했을 때 업데이트
+		if(findAbb.equals(templateVo.getCtemplate_abb())) {
+			result = templateService.modifyTemplate(templateVo);
+			return "jsonView";
+		}
+		
+		// 입력한 템플릿 약어가 DB에 없을 시 업데이트
+		if(findAbb.equals("")) {
+			result = templateService.modifyTemplate(templateVo);
+		} else if (abb.equals(templateVo.getCtemplate_abb())) {
 			String msg = "존재하는 템플릿";
+			
 			model.addAttribute("msg", msg);
 			return "jsonView";
 			
-		} else if(findTemplate != null) {
+		} else if(!findAbb.equals(templateVo.getCtemplate_abb())) {
 			result = templateService.modifyTemplate(templateVo);
-		}
-		
-		if(result > 0) {
-			logger.debug(result + "수정 성공");
 		}
 		return "jsonView";
 	}

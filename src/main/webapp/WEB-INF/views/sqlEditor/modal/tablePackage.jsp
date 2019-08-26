@@ -98,19 +98,19 @@
 	<form action="${cp}/sqlEditor/tableExport" method="post" >
 	  <fieldset>
 	    <legend id="tableExportTitle"></legend>
-	    	<div class="ckDiv"style="margin-left: 55px;">
+	    	<div class="ckDiv"style="margin-left: 55px;padding-top: 6px;">
     			<input type="checkbox" name="exportChecked" value="CONSTRAINT"> 제약조건
     		</div>
 <!--     		<div class="ckDiv"> -->
 <!--     			<input type="checkbox" name="exportChecked" value="INDEX"> 인덱스 -->
 <!--     		</div> -->
-    		<div class="ckDiv">
+    		<div class="ckDiv" style="padding-top: 6px;">
     			<input type="checkbox" name="exportChecked" value="VIEW"> 뷰
     		</div>
-    		<div class="ckDiv"style="margin-left: 55px;">
+    		<div class="ckDiv"style="margin-left: 55px;padding-top: 6px;">
     			<input type="checkbox" name="exportChecked" value="TRIGGER"> 트리거
     		</div>
-    		<div class="ckDiv">
+    		<div class="ckDiv"style="padding-top: 6px;">
     			<input type="checkbox" name="exportChecked" value="DATA"> 데이터
     		</div>
     		<input type="hidden" id="exportChk">

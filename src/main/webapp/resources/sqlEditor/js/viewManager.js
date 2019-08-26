@@ -43,6 +43,7 @@ $(document).ready(function() {
 		var tableName = $("#viewNm").val();
 		var tableReg = /^[a-zA-Z][a-zA-Z0-9]{2,5}$/;
 		var columnReg = /^[a-zA-Z][a-zA-Z0-9]{2,19}$/;
+		alert("뷰가 생성되었습니다.")
 		$("#createViewFrm").submit();
 	});
 	$(document).on("click","#updateViewBtn", function() {
@@ -51,12 +52,14 @@ $(document).ready(function() {
 		var tableName = $("#updateViewName").val();
 		var tableReg = /^[a-zA-Z][a-zA-Z0-9]{2,5}$/;
 		var columnReg = /^[a-zA-Z][a-zA-Z0-9]{2,19}$/;
+		alert("뷰가 수정되었습니다.")
 		$("#updateViewFrm").submit();
 	});
 	
 	$("#deleteViewSpan").on("click", function(){
 		var viewName = $("#viewNm").val();
 		var ac_id = $("#acco_id").val()
+		alert("뷰를 삭제합니다.")
 		location.href="/sqlEditor/deleteView?view_name=" + viewName + "&sc_id= " + ac_id; 
 	})
 	

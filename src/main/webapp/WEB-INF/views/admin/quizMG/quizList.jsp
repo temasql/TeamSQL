@@ -7,13 +7,13 @@ pageEncoding="UTF-8"%>
 
 <div id="quizAdminHeader">${quizName} 리스트</div>
 
-<table class="table table-hover" style="width:50%; margin:0px auto; margin-top:3%">
+<table class="table table-hover" style="width: 100%; margin:0px auto; margin-top:3%; font-size: 20px;">
   <thead>
     <tr>
       <th scope="col" style="width:5%;">No.</th>
       <th scope="col" style="width:50%; text-align: center">문제</th>
-      <th scope="col" style="width:20%; text-align: center">퀴즈 작성자</th>
-      <th scope="col" style="width:20%; text-align: center">작성 날짜</th>
+      <th scope="col" style="width:7%; text-align: center">퀴즈 작성자</th>
+      <th scope="col" style="width:9%; text-align: center">작성 날짜</th>
     </tr>
   </thead>
   <tbody id="tableQuizList">

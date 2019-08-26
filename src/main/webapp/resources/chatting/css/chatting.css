@@ -4,13 +4,13 @@
 	height: 10px;
     text-align: center;
     line-height: 20px;
-    font-size: 14px;
+    font-size: 22px;
     color:#fff;
     font-weight: 900;
     border-bottom: 1px solid #ddd;
 }
 .Mmessage{
-    background-color: #0084FF;
+    background-color: black;
     margin-top: 4px;
     float: right;
     border-radius: 15px;
@@ -18,6 +18,9 @@
     max-width: 60%;
     display: inline;
     word-break: break-all;
+    margin-right: 14px;
+    text-align: left;
+    line-height: 27px;
 }
 .Ymessage{
     background-color: #f1f0f0;;
@@ -29,6 +32,7 @@
     display: inline;
     color: black;
     word-break: break-all;
+    line-height: 27px;
 }
 .myDiv{
 	width: 100%;
@@ -48,18 +52,23 @@
 	display: inline;
 }
 #accountDiv{
-	display: inline;
-    float: right;
-    margin-top: 34px;
+    margin-left: 334px;
+    padding-bottom: 33px;
 }
 #userId{
-	height: 60px;
+	height: 54px;
     text-align: center;
     line-height: 60px;
     font-size: 25px;
     font-weight: 900;
-    margin-left: 45%;
-    display: inline;
+    position: absolute;
+    border-left: 1px solid #f1f0f0;
+	border-right: 1px solid #f1f0f0;
+	border-top: 1px solid #f1f0f0;
+    z-index: -5;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #f1f0f0;
 }
 .myDt{
 	font-size: 12px;
@@ -74,7 +83,7 @@
 	margin-right: 10px;
 }
 #message{
-	width: 89%;
+	width: 85%;
     height: calc(100% - 1px);
     border: none;
     padding-bottom: 9px;
@@ -89,11 +98,15 @@
 	border-left: 1px solid #f1f0f0;
 	border-right: 1px solid #f1f0f0;
 	border-bottom: 1px solid #f1f0f0;
+	width: 463px;
+   	border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 #sendBtn{
 	border: none;
 	background: white;
 	color: #0084FF;
+/* 	width:576px; */
 }
 .youId{
 	text-align: left;
@@ -102,7 +115,7 @@
 }
 #account{
 	border: none;
-	color: #0084FF;
+	color: black;
 }
 
 /* 스크롤바 CSS */
@@ -111,10 +124,46 @@
 	background-color: white;
 }
 ::-webkit-scrollbar-thumb{
-	border-radius : 15px;
-	background-color: #0084FF;
+	border-radius : 30px;
+	background-color: black;
 }
 body {
 	font-family: 'NanumSquareRound',sans-serif;
 	font-family: 'Alegreya Sans', sans-serif;
+	font-size: 1.2em;
+}
+#memberWrap{
+    display: inline;
+}
+#memberList {
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+    width: 200px;
+}
+#memberHeader {
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    font-weight: 600;
+    text-align: center;
+    background: #f0f0f0;
+}
+.memberEl {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+.connectOF{
+    width: 20px;
+    height: 20px;
+    border-radius: 34px;
+/*     background-color: red; */
+    display: -webkit-inline-box;
+    float: right;
+}
+.onOff{
+	width: 20px;
+    height: 20px;
 }

@@ -103,3 +103,31 @@
 	margin-bottom: 50px;
 	margin-top: 170px;
 }
+
+/* id찾기버튼 */
+#btnUserIdModalOk{
+	float: right;
+    margin-top: 14px;
+    left: 2px;	
+}
+
+/* ID찾기 닫기 버튼 */
+.close{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    right: 15px;
+    top: 10px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    text-align: center;
+}
+
+/* PW찾기 닫기 버튼 */
+#btnUserPwModalOk{
+	float: right;
+    margin-top: 14px;
+    left: 2px;	
+}

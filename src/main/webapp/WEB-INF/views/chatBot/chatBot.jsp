@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<!-- 폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap" rel="stylesheet">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="${cp}/resources/chatBot/js/chatBotJS.js"></script>
 <link href="${cp}/resources/chatBot/css/chatBotStyle.css" rel="stylesheet">
@@ -51,11 +54,17 @@
 </section>
 
 <div id='questionTable' hidden='hidden'>
-<p>테이블에 대해서 알려드리겠습니다.
+<p>테이블에 대하여 궁금하신 점을 질문해주세요.
 <br>
-<button type="button" class="btn btn-secondary" id="createTableBtn" style="background: black; color: white;">테이블 생성</button>
-<button type="button" class="btn btn-secondary" id="dropTableBtn" style="background: black; color: white;">테이블 삭제</button>
-<button type="button" class="btn btn-secondary" id="updateTableBtn" style="background: black; color: white;">테이블 수정</button>
+아래 버튼을 클릭 하시면 테이블에 대한 정보를 답해드립니다.
+<br>
+크게 생성과 수정, 삭제가 가능합니다.
+<br>
+아래 버튼을 클릭하시면 자세한 내용을 확인 하실 수 있습니다.
+<br>
+<button type="button" class="chatBotBtn" id="createTableBtn" >테이블 생성</button>
+<button type="button" class="chatBotBtn" id="dropTableBtn" >테이블 삭제</button>
+<button type="button" class="chatBotBtn" id="updateTableBtn" >테이블 수정</button>
 </p>
 </div> 
 
@@ -138,6 +147,21 @@ ALTER TABLE 테이블명 DROP PRIMARY KEY
 </p>
 </div>
 
+<div id='questionData' hidden='hidden'>
+<p>데이터에 대하여 궁금하신 점을 질문해주세요.
+<br>
+아래 버튼을 클릭 하시면 데이터에 대한 정보를 답해드립니다.
+<br>
+크게 생성과 수정, 삭제, 조회가 가능합니다.
+<br>
+아래 버튼을 클릭하시면 자세한 내용을 확인 하실 수 있습니다.
+<br>
+<button type="button" class="chatBotBtn" id="createDataBtn" >데이터 생성</button>
+<button type="button" class="chatBotBtn" id="dropDataBtn" >데이터 삭제</button>
+<button type="button" class="chatBotBtn" id="updateDataBtn" >데이터 수정</button>
+<button type="button" class="chatBotBtn" id="searchDataBtn" >데이터 조회</button>
+</p>
+</div> 
 <!-- 데이터 입력 -->
 <div id='dataInsert' hidden="hidden">
 <p>
@@ -189,7 +213,7 @@ WHERE 수정 할 대상 조건 컬럼 = '값'
 </div>
 
 <!-- 데이터 삭제 -->
-<div id='dataDelte' hidden="hidden">
+<div id='dataDelete' hidden="hidden">
 <p>
 데이터 삭제하기
 <br>

@@ -29,20 +29,33 @@
 <!-- 헤더 -->
 <header id="header">
 <div id="header-container">
-
+	<div id="mainContainer">
+	<c:choose>
+	<c:when test="${USER_INFO.user_right eq 'C' }">
 	<a href="${cp }/main"><img id="main" src="${cp}/resources/img/main.png" alt="메인"  title="메인"></a>
-
+	</c:when>
+	<c:otherwise>
+	<a href="#none"><img id="main" src="${cp}/resources/img/main.png" alt="메인"  title="메인"></a>
+	</c:otherwise>
+	</c:choose>
+	</div>
 	<img class="profile" id="thumbnail" src="${cp}/user/profile?user_id=${USER_INFO.user_id}" >
-	<p id="rightImgChatBot">
-	  <a href='javascript:;' class="aRight" id="chatBotPopup">
-		<img class="imgRight" id="imgRightChatBot" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇">
-	  </a>
-	</p>
-	<p id="rightImgGroudChat">
-	  <a href="javascript:;" class="aRight" id="groupChat" >
-		<img class="imgRight" id="imgRightGroupChat" alt="채팅" src="${cp }/resources/img/groupchat.png" title="채팅">
-	  </a>
-	</p>
+	
+	<c:choose>
+	<c:when test="${USER_INFO.user_right eq 'C' }">
+		<p id="rightImgChatBot">
+		  <a href='javascript:;' class="aRight" id="chatBotPopup">
+			<img class="imgRight" id="imgRightChatBot" alt="챗봇" src="${cp }/resources/img/chatbot.png" title="챗봇">
+		  </a>
+		</p>
+		<p id="rightImgGroudChat">
+		  <a href="javascript:;" class="aRight" id="groupChat" >
+			<img class="imgRight" id="imgRightGroupChat" alt="채팅" src="${cp }/resources/img/groupchat.png" title="채팅">
+		  </a>
+		</p>
+	</c:when>
+	<c:otherwise></c:otherwise>
+	</c:choose>
   <!-- Navigation -->
   <div id="lnb">
  <nav class="navMenu">

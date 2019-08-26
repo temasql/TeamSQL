@@ -179,7 +179,6 @@ $(document).ready(function() {
 	// 모달창 닫기
 	$(".close").on("click", function() {
 		$("#craeteIndexModal").css("display", "none");
-		$("#selectIdxCode").on("selected","selected");
 		$("#selectIndexModal").css("display", "none");
 		$("#updateIndexModal").css("display", "none");
 	});
@@ -251,7 +250,7 @@ $(document).ready(function() {
 			  , method : "post"
 			  , data : "table_owner=" + table_owner + "&index_name=" + index_name
 			  , success : function(data){
-				  var temp = "<br><br><table class='table table-hover'>"+
+				  var temp = "<br><br><table class='table table-hover' id='tblDtl'>"+
 				  			"<tbody>" +
 				  				"<tr class='table-active'>" +
 				  				"<th scope='row'>이름</td><th scope='row'>값</td>"+
@@ -506,7 +505,7 @@ $(document).ready(function() {
 			  , method : "post"
 			  , data : "index_name=" + index_name + "&index_owner=" +table_owner
 			  , success : function(data){
-				  var temp = "<br><br><table class='table table-hover'>" +
+				  var temp = "<br><br><table class='table table-hover' id='tblCol'>" +
 				  			 "<tbody>" +
 				  			   "<tr class='table-active'>" +
 					  			 	"<th scope='row'>INDEX_OWNER</th>" +
@@ -614,8 +613,8 @@ $(document).ready(function() {
 		var owner = $("#tableOwner").val().trim();				// DB계정명
 		var table_upperOwner = owner.toUpperCase();					// DB계정명 대문자 변경
 		console.log(owner)
-		$("#hidden_owner").val(owner);
-		console.log($("#hidden_owner").val())
+		$("#low_owner").val(owner);
+		console.log($("#low_owner").val())
 		var index_name= $("#indexName").val().trim();			// 인덱스명
 		var idx = table_upperOwner.indexOf("_");
 		var table_owner = table_upperOwner.substring(0, idx);

@@ -10,14 +10,14 @@
   <!-- Modal content -->
   <div class="modal-content index" id="modal_index">
     <span class="close">&times;</span>   
-    <br><br>                  
+    <br>
 	<form action="${cp}/sqlEditor/createIndex" method="post" id="createIndexFrm">
 	  <fieldset>
 	    <legend>인덱스 생성</legend>
 	    <label id="owner"></label>
 	    <div class="form-group">
 	      <input type="text" class="form-control" id="indexName" name="param_name" placeholder="인덱스명">
-	      <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>
+	      <h4>영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</h4>
 	    </div>
 	    <div id="select_table">
 			  <input type="hidden" id="table_owner" name="param_owner">
@@ -82,7 +82,7 @@
 	<!-- Modal content -->
 	<div class="modal-content">
 	  	<span class="close">&times;</span>
-	  	<br><br>
+	  	<br>
 	  	<input type="hidden" id="tableOwner">
 	  	<input type="hidden" id="indexName">
 	  	<select  id="readIndexSelect" class="form-control">
@@ -99,17 +99,17 @@
   <!-- Modal content -->
   <div class="modal-content index" id="updateModal_index">
     <span class="close">&times;</span>   
-    <br><br>                  
+    <br>
 	<form action="${cp}/sqlEditor/updateIndex" method="post" id="updateIndexFrm">
 	  <fieldset>
 	    <legend>인덱스 편집</legend>
 	    <div><label id="tblOwner"></label>
-	    <input type="hidden" id="hidden_owner" name="low_owner">
+	    <input type="hidden" id="low_owner" name="low_owner">
 	    </div>
 	    <div class="form-group">
 	      <label id= "upIdxName"> 인덱스 명 :</label>
 	      <input type="text" class="form-control indexText" id="updateIndexName" name="update_name" placeholder="인덱스명">
-	      <small class="form-text text-muted" id="tableNameHint">영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</small>
+	      <h4>영문으로 시작하여 특수문자(#,$,_)포함 3~20글자 사이입니다.</h4>
 	    </div>
 	    <div id="select_table">
 			  <input type="hidden" id="update_owner" name="update_owner">

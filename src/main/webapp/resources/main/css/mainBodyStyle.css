@@ -13,7 +13,7 @@
 #leftTopLayout{
 	width: 100%;
 	height: 300px;
-	margin-top: 60px;
+    font-size: 1.2em;
 }
 
 #bottomDiv{
@@ -23,6 +23,8 @@
 #leftBottomLayout{
 	width: 100%;
 	height: 300px;
+    font-size: 1.2em;
+    margin-top : 10%;
 }
 #rightLayout{
 /* 	background-color: red; */

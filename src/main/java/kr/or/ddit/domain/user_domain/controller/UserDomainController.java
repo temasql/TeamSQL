@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.or.ddit.domain.user_domain.model.UserDomainVO;
 import kr.or.ddit.domain.user_domain.service.IUserDomainService;
 import kr.or.ddit.user.model.UserVO;
+import kr.or.ddit.util.DataTypeUtil;
 
 @RequestMapping("/userDomain")
 @Controller
@@ -79,6 +80,25 @@ public class UserDomainController {
 				model.addAttribute("msg", msg);
 			}
 		}
+		
+		// 입력 받은 데이터 타입이 유효 여부 체크
+		List<String> dataTypeList = DataTypeUtil.tableDataType();
+		
+		int cnt =0;
+		for (String dataType : dataTypeList) {
+			logger.debug("!!!!!dataType : {}",dataType);
+			logger.debug("!!!!!boolean : {}", userDomainVo.getUdomain_type().toUpperCase().startsWith(dataType));
+			if(userDomainVo.getUdomain_type().toUpperCase().startsWith(dataType)==true) {
+				cnt++;
+			}
+		}
+		
+		if(cnt == 0) {
+			String msg = "유효하지 않는 데이터 타입";
+			model.addAttribute("typeMsg", msg);
+			return "jsonView";
+		}
+		
 		int result = domainService.insertUserDomain(userDomainVo);
 		
 		if(result > 0) {
@@ -112,34 +132,66 @@ public class UserDomainController {
 		map.put("udomain_name", userDomainVo.getUdomain_name());
 		map.put("udomain_type", userDomainVo.getUdomain_type());
 		
-		String name = domainService.getName(map);
-		String findName = domainService.findDomain(map);
+		// DB에 있는 도메인명인지 여부 검사
+		String name = "";
+		name = domainService.getName(map);
+
+		if(name == null) {
+			name = "";
+		}
+		
+		String findName = "";
+		findName = domainService.findDomain(map);
+		
+		if(findName == null) {
+			findName = "";
+		}
+		
+		// 입력 받은 데이터 타입이 유효 여부 체크
+		List<String> dataTypeList = DataTypeUtil.tableDataType();
+		
+		int cnt =0;
+		for (String dataType : dataTypeList) {
+			logger.debug("!!!!!dataType : {}",dataType);
+			logger.debug("!!!!!boolean : {}", userDomainVo.getUdomain_type().toUpperCase().startsWith(dataType));
+			if(userDomainVo.getUdomain_type().toUpperCase().startsWith(dataType)==true) {
+				cnt++;
+			}
+		}
+		
+		if(cnt == 0) {
+			String msg = "유효하지 않는 데이터 타입";
+			model.addAttribute("typeMsg", msg);
+			return "jsonView";
+		}
 		
 		int result = 0;
 		
+		// 선택한 도메인명과 입력한 도메인명이 일치했을 때 업데이트
 		
-		logger.debug("userDomainVO : {}", userDomainVo);
+		if(findName.equals(userDomainVo.getUdomain_name())) {
+			result = domainService.updateUserDomain(userDomainVo);
+			return "jsonView";
+		}
 		
-		if(name.equals(userDomainVo.getUdomain_name())) {
+		// 입력한 도메인명이 DB에 없을 시 업데이트
+		if(findName.equals("")) {
+			result = domainService.updateUserDomain(userDomainVo);
+		} else if (name.equals(userDomainVo.getUdomain_name())) {
 			String msg = "존재하는 도메인";
+			
 			model.addAttribute("msg", msg);
 			return "jsonView";
-			
-		} else if(findName != null) {
+		} else if(!findName.equals(userDomainVo.getUdomain_name())) {
 			result = domainService.updateUserDomain(userDomainVo);
 		}
-		
-		if(result > 0) {
-			logger.debug(result + "수정 성공");
-		}
-		
 		return "jsonView";
 	}
 	
 	
 	/**
 	* Method : deleteUserDomain
-	* 작성자 : 이영은
+	* 작성자 : 이영은 
 	* 변경이력 :
 	* @param model
 	* @param session

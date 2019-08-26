@@ -155,6 +155,7 @@ $(document).ready(function() {
 						
 					}
 					,error: function(data){
+						alert("테이블이 생성되었습니다.")
 						location.replace("/sqlEditor/sqlEditorMain");
 					}
 				});
@@ -216,6 +217,7 @@ $(document).ready(function() {
 									
 								}
 			,error: function(data){
+				alert("테이블이 수정되었습니다.")
 				location.replace("/sqlEditor/sqlEditorMain");
 			}
 			});

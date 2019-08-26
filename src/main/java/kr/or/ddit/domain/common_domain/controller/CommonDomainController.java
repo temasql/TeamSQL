@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.or.ddit.domain.common_domain.model.CommonDomainVO;
 import kr.or.ddit.domain.common_domain.service.ICommonDomainService;
 import kr.or.ddit.page.model.PageVo;
+import kr.or.ddit.util.DataTypeUtil;
 
 @RequestMapping("/commonDomain")
 @Controller
@@ -110,6 +111,10 @@ public class CommonDomainController {
 		
 		String name = domainService.getName(map);
 		
+		logger.debug("!!!! domainVo : {}", domainVo);
+		logger.debug("!!!! domainVo : {}",domainVo.getCdomain_type().toUpperCase());
+		
+		
 		if(name != null) {
 			if(name.contentEquals(domainVo.getCdomain_name())) {
 				String msg = "존재하는 도메인";
@@ -118,7 +123,24 @@ public class CommonDomainController {
 				return "jsonView";
 			}
 		}
+
+		// 입력 받은 데이터 타입이 유효 여부 체크
+		List<String> dataTypeList = DataTypeUtil.tableDataType();
 		
+		int cnt =0;
+		for (String dataType : dataTypeList) {
+			logger.debug("!!!!!dataType : {}",dataType);
+			logger.debug("!!!!!boolean : {}",domainVo.getCdomain_type().toUpperCase().startsWith(dataType));
+			if(domainVo.getCdomain_type().toUpperCase().startsWith(dataType)==true) {
+				cnt++;
+			}
+		}
+		if(cnt ==0) {
+			String msg = "유효하지 않는 데이터 타입";
+			model.addAttribute("typeMsg", msg);
+			return "jsonView";
+		}
+				
 		int result = domainService.addDomain(domainVo);
 		
 		if(result > 0) {
@@ -150,34 +172,59 @@ public class CommonDomainController {
 		map.put("cdomain_name", domainVo.getCdomain_name());
 		map.put("cdomain_type", domainVo.getCdomain_type());
 		
-		String name = domainService.getName(map);
-		String findName = domainService.findDomain(map);
+		// DB에 있는 도메인명인지 여부 검사
+		String name = "";
+		name = domainService.getName(map);
+		
+		if(name == null) {
+			name = "";
+		}
+		
+		String findName = "";
+		findName = domainService.findDomain(map);
+		
+		if(findName == null) {
+			findName = "";
+		}
+
+		// 입력 받은 데이터 타입이 유효 여부 체크
+		List<String> dataTypeList = DataTypeUtil.tableDataType();
+		
+		int cnt =0;
+		for (String dataType : dataTypeList) {
+			logger.debug("!!!!!dataType : {}",dataType);
+			logger.debug("!!!!!boolean : {}", domainVo.getCdomain_type().toUpperCase().startsWith(dataType));
+			if(domainVo.getCdomain_type().toUpperCase().startsWith(dataType)==true) {
+				cnt++;
+			}
+		}
+		
+		if(cnt == 0) {
+			String msg = "유효하지 않는 데이터 타입";
+			model.addAttribute("typeMsg", msg);
+			return "jsonView";
+		}
 		
 		int result = 0;
 		
-		if(name != null && name.equals(domainVo.getCdomain_name())) {
+		// 선택한 도메인명과 입력한 도메인명이 일치했을 때 업데이트
+		if(findName.equals(domainVo.getCdomain_name())) {
+			result = domainService.modifyDomain(domainVo);
+			return "jsonView";
+		}
+		
+		// 입력한 도메인명이 DB에 없을 시 업데이트
+		if(findName.equals("")) {
+			result = domainService.modifyDomain(domainVo);
+		} else if (name.equals(domainVo.getCdomain_name())) {
 			String msg = "존재하는 도메인";
+			
 			model.addAttribute("msg", msg);
 			return "jsonView";
-			
-		} else if(findName != null) {
+		} else if(!findName.equals(domainVo.getCdomain_name())) {
 			result = domainService.modifyDomain(domainVo);
 		}
-		
-		if(result > 0) {
-			logger.debug(result + "수정 성공");
-		}
-		
 		return "jsonView";
-//		logger.debug("domainVo : {}", domainVo);
-//		
-//		domainVo.setCdomain_name(domainVo.getCdomain_name().toUpperCase());
-//		domainVo.setCdomain_type(domainVo.getCdomain_type().toUpperCase());
-//		
-//		domainService.modifyDomain(domainVo);
-//
-//		return "/admin/domainMG.tiles";
-
 	}
 	
 	
