@@ -18,7 +18,7 @@
 	    <legend>테이블 생성</legend>
 	    <div class="form-group">
 	      <input type="text" class="form-control" id="tableName" name="table_name" placeholder="테이블명">
-	      <small class="form-text text-muted" id="tableNameHint" style="font-size: 1.5em;" >영문자, 숫자 포함 3~6자이며 첫 글자는 영문자로 시작</small>
+	      <small class="form-text text-muted" id="tableNameHint" style="font-size: 1.5em;" >영문 시작 ,숫자 포함가능 3~6자로 입력해주세요</small>
 	    </div>
 	    <br><br>
 	    <img class="plustBtn" id="appendData" style="margin : 5px;" src="${cp}/resources/img/add.png"/>&nbsp;&nbsp;

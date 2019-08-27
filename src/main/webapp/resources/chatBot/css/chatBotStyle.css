@@ -176,6 +176,7 @@ p.pchatBot {
     text-align: center;
     border: none;
     transition: all 0.5s;
+    cursor: pointer;
 }
 
 /* 버튼 호버 이벤트 */
@@ -196,14 +197,7 @@ p.pchatBot {
 	height: 124px;
 }
 
-#sqlEditor{
-    width: 35px;
-    height: 35px;
-    border: 7px solid red;
-    position: absolute;
-    left: 39px;
-    top: 373px;
-}
+#sqlEditor{	width: 280px; height: 138px;}
 
 #ownerCreate{width: 100%; height: 100%;}
 

@@ -278,10 +278,12 @@ SQL 에디터 이용 방법을 설명 드리겠습니다.
 <br>
 상단 메뉴에서 SQL에디터를 클릭 하시면 이용하실 수 있습니다.
 <img class="chatImg_sqlEditor" alt="SQL에디터" src="${cp}/resources/img/sqlEditor.png">
+<br>
+<img id="sqlEditor" alt="SQL에디터" src="${cp}/resources/img/sqlEditor2.png">
 </p>
 </div>
 
-<!-- SQL 에디터 -->
+<!-- DB계정 -->
 <div id='owner' hidden="hidden">
 <p>
 DB계정에 대해 설명 드리겠습니다.

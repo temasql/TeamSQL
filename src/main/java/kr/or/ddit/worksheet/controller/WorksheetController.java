@@ -96,7 +96,7 @@ public class WorksheetController {
 					resultList.get(i).remove(j);
 					resultList.get(i).add(j, "(null)");
 				}else if(temp.contains("ORA")) {
-					logger.debug("에로로로 : {}", temp);
+					logger.debug("temp : {}", temp);
 					model.addAttribute("errorMsg", temp);
 				}
 			}

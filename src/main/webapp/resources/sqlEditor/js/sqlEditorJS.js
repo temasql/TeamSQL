@@ -17,7 +17,6 @@ $(document).ready(function() {
 			$("#dataCnt").focus();
 			return;
 		}
-		
 		$.ajax({
 			url : "/sqlEditor/createTestData",
 			method : "post",
