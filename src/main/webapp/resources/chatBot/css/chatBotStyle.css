@@ -176,6 +176,7 @@ p.pchatBot {
     text-align: center;
     border: none;
     transition: all 0.5s;
+    cursor: pointer;
 }
 
 /* 버튼 호버 이벤트 */
