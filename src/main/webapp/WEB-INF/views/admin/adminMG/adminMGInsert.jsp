@@ -24,7 +24,10 @@
       			if ($("#olduId").val() != $("input[name=user_id]").val()) {
 	      			alert("아이디 중복체크를 다시 해주세요")
 	      			return;
-				}else{
+				}else if($(this).val() != $("#pw").val()){
+ 					  alert("입력하신 비밀번호와 비밀번호 재확인이 다릅니다.")
+ 					  return;
+   				}else{
 					$("#signInForm").submit();
 				}
       		})
@@ -58,6 +61,7 @@
 	   				return;
 	   			}
    			})
+   			
       	})
       </script>
     <div class="form-group">
@@ -82,7 +86,7 @@
       <input type="hidden" id="path" value="${userVo.user_path}" name="user_path"/>
     </div>
     <c:if test="${btnSignIn eq 'true'}">
-    	<input id="btnSignIn" type="submit" class="btn" style="background: black; color: white;" value="관리자 추가"/>
+    	<input id="btnSignIn" type="button" class="btn" style="background: black; color: white;" value="관리자 추가"/>
     </c:if>
   </fieldset>
 </form>

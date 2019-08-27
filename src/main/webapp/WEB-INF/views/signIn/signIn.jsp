@@ -24,7 +24,10 @@
 	      			if ($("#olduId").val() != $("input[name=user_id]").val()) {
 		      			alert("아이디 중복체크를 다시 해주세요")
 		      			return;
-					}else{
+					}else if($(this).val() != $("#pw").val()){
+	 					  alert("입력하신 비밀번호와 비밀번호 재확인이 다릅니다.")
+	 					  return;
+	   				}else{
 						$("#signInForm").submit();
 					}
 	      		})
@@ -50,17 +53,23 @@
 	   					  return;
 	   				  }
 	   			});
-	   			
-// 	   			$('input[name=user_name]').focusout(function() {
-// 		   			var nameReg = /^[가-힣]{2,4}$/;
-// 		   			if(!nameReg.test($("input[name=user_name]").val())){
-// 		   				alert("이름은 2글자에서 4글자를 입력해주세요")
-// 		   				return;
-// 		   			}
-// 	   			})
-	   			
-	   			
 	      	})
+	      	
+   	function fileTypeCheck(obj) {
+		pathpoint = obj.value.lastIndexOf('.');
+		filepoint = obj.value.substring(pathpoint+1,obj.length);
+		filetype = filepoint.toLowerCase();
+		if(filetype=='jpg' || filetype=='gif' || filetype=='png' || filetype=='jpeg' || filetype=='bmp') {
+			
+		} else {
+			alert('이미지 파일만 넣어주세요!');
+			parentObj  = obj.parentNode
+			node = parentObj.replaceChild(obj.cloneNode(true),obj);
+			$("#file").val("")
+			return false;
+	
+		}
+	}
 	      </script>
 	    <div class="form-group">
 	      <label for="exampleInputPassword1">Password</label>
@@ -85,7 +94,7 @@
 	    </div>
 	    <div class="form-group">
 	      <label for="exampleInputFile">프로필 사진</label>
-	      <input type="file" class="form-control-file" name="profile" >
+	      <input type="file" onchange="fileTypeCheck(this)" accept=".jpg, .jpeg, .png" id="file" class="form-control-file" name="profile" >
 	    </div>
 	    <c:if test="${btnSignIn eq 'true'}">
 	    	<input id="btnSignIn" type="button" class="btn" style="background: black; color: white;" value="가입"/>
@@ -93,3 +102,4 @@
 	  </fieldset>
 	</form>
 </div>
+
