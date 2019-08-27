@@ -24,7 +24,7 @@
 	      			if ($("#olduId").val() != $("input[name=user_id]").val()) {
 		      			alert("아이디 중복체크를 다시 해주세요")
 		      			return;
-					}else if($(this).val() != $("#pw").val()){
+					}else if($("#pwCheck").val() != $("#pw").val()){
 	 					  alert("입력하신 비밀번호와 비밀번호 재확인이 다릅니다.")
 	 					  return;
 	   				}else{

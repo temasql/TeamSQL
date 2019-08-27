@@ -29,11 +29,11 @@
    			});
    			
    			$("#btnSignIn").on("click", function(){
-      			if($(this).val() != $("#pw").val()){
+      			if($("#pwCheck").val() != $("#pw").val()){
  					  alert("입력하신 비밀번호와 비밀번호 재확인이 다릅니다.")
  					  return;
    				}else{
-					$("#signInForm").submit();
+					$("#modifyUserForm").submit();
 				}
       		})
       	})
