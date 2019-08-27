@@ -507,8 +507,8 @@ public class PostController {
 					logger.debug("fileOFN : {}", file.getOriginalFilename());
 					TSFileVO fileVo = new TSFileVO(post_id, fileId, file.getOriginalFilename());
 					uploadFileList.add(fileVo);
-					fileService.insertFile(uploadFileList);
 				}
+				fileService.insertFile(uploadFileList);
 			}
 			redirectAttributes.addAttribute("post_id", post_id);
 			return "redirect:/post/readPost";
