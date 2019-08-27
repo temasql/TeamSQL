@@ -40,6 +40,7 @@
     float: left;
     margin-right: 20px;
     margin-left: 20px;
+    max-height: 160px;
 }
 .itNewsTitle{
 	color: black;
