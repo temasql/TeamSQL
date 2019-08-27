@@ -24,7 +24,7 @@
   	<br><br>
 	<form id="createProcedureFrm">
 		<fieldset>
-			<legend>함수 생성</legend>
+			<legend>프로시저 생성</legend>
 			<input type="hidden" id="procedureAcc" name="account_id"/>
 			<br><br>
 			<label for="exampleInputEmail1">스키마</label>
