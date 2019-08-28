@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.sqlEditorIndex.dao.ISqlEditorIndexDao;
+import kr.or.ddit.sqlEditorIndex.model.ColCheckVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexColVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexDetailVO;
 
@@ -160,5 +161,50 @@ public class SqlEditorIndexService implements ISqlEditorIndexService{
 	public String beforeIndexType(Map<String, String> map) {
 		return sqlEditorIndexDao.beforeIndexType(map);
 	}
+	
+	/**
+	 * 
+	* Method : indexName
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param owner
+	* @param index_name
+	* @return
+	* Method 설명 : 인덱스명 중복 검사
+	 */
+	@Override
+	public String indexName(Map<String, String> map) {
+		return sqlEditorIndexDao.indexName(map);
+	}
+
+	
+	/**
+	 * 
+	* Method : colCheck
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 인덱스 컬럼 중복검사
+	 */
+	@Override
+	public List<ColCheckVO> colCheck(Map<String, String> map) {
+		return sqlEditorIndexDao.colCheck(map);
+	}
+	
+	/**
+	 * 
+	* Method : nameList
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 테이블 내 인덱스명 조회 리스트
+	 */
+	@Override
+	public List<String> nameList(Map<String, String> map) {
+		return sqlEditorIndexDao.nameList(map);
+	}
+	
 
 }

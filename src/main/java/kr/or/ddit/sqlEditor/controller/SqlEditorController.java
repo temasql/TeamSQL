@@ -39,6 +39,7 @@ import kr.or.ddit.sqlEdiotView.service.ISqlEditorViewService;
 import kr.or.ddit.sqlEditor.service.ISqlEditorService;
 import kr.or.ddit.sqlEditorFunction.model.FunctionDetailVO;
 import kr.or.ddit.sqlEditorFunction.service.ISqlEditorFunctionService;
+import kr.or.ddit.sqlEditorIndex.model.ColCheckVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexColVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexDetailVO;
 import kr.or.ddit.sqlEditorIndex.service.ISqlEditorIndexService;
@@ -773,19 +774,128 @@ public class SqlEditorController {
 	 */
 	@RequestMapping(path = "/createIndex", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
-	public int createIndex(String param_owner, String param_name, String param_table, String param_indexType,
+	public String createIndex(String param_owner, String param_name, String param_table, String param_indexType,
 		String[] param_column, String[] param_order, HttpSession session, Model model) {
-
+		// DB계정명 대문자 변환
+		String owner = param_owner.toUpperCase();
+		// 인덱스명 대문자 변환
+		String index_name = param_name.toUpperCase();
+		//테이블명 대문자 변환
+		String table_name = param_table.toUpperCase();
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("owner", owner);
+		map.put("index_owner", owner);
+		map.put("index_name", index_name);
+		map.put("table_name", table_name);
+		
+		// 테이블 내 인덱스 조회 리스트
+		List<String> nameList = sqlEditorIndexService.nameList(map);
+		
+		// 컬럼명, 정렬 리스트
+		List<List<ColCheckVO>> columnCheck = new ArrayList<List<ColCheckVO>>();
+		
+		
+		for(String test : param_column) {
+			logger.debug("컬럼명이다: {}", test);
+		}
+			
+		for (int i = 0; i < nameList.size(); i++) {
+			Map<String, String> tempMap = new HashMap<String, String>();
+			tempMap.put("owner", owner);
+			tempMap.put("table_name", table_name);
+			tempMap.put("index_name", nameList.get(i));
+			
+			columnCheck.add(sqlEditorIndexService.colCheck(tempMap));
+		}
+		String msg = null;
+		
+//		// 컬럼 중복검사
+//		for (int i = 0; i < nameList.size(); i++) {
+//			for(int j = 0; j < columnCheck.get(i).size(); j++) {
+//				for(int k =0; k <param_column.length; k++) {
+//					
+//				}
+//				if(param_column[j].equals(columnCheck.get(j).get(j).getColumn_name())) {
+//					msg= "NO";
+//					logger.debug("중복입니다.");
+//					return msg;
+//				}
+//				else{
+//					logger.debug("성공입니다.");
+//					msg = "YES";
+//				}
+//			}
+//			
+//		}
+		int count = 0;
+			for (int i = 0; i < param_column.length; i++) {
+				for (int j = 0; j < columnCheck.size(); j++) {
+					if(param_column[i].equals(columnCheck.get(j).get(j).getColumn_name())) {
+						count++;
+						break;
+					}
+				}
+				if(count == param_column.length) {
+					msg = "NO";
+					return msg;
+				}
+			}
+			
+//			if(param_column.length == columnCheck.get(i).size()) {
+//				for (int j = 0; j < param_column.length; j++) {
+//					if(param_column[i] == columnCheck.get(i).get(i).getColumn_name()) {
+//						msg = "NO";
+//						return msg;
+//					}
+//				}
+				
+//			}
+//		}
+		
+		
+//		if(param_column[i].equals(columnCheck.get(i).get(i).getColumn_name())) {
+		
+//		}
+		
+		
+		
+//		if(param_column[i].equals(columnCheck.get(i).get(i).getColumn_name()) && param_order[i].equals(columnCheck.get(i).get(i).getDescend())) {
+//			check = "NO";
+//			logger.debug("중복입니다.");
+//			return check;
+//		}else {
+			
+//		}
+		
+		
+		// 인덱스명 중복검사
+		String dupleCheck = sqlEditorIndexService.indexName(map);
+		logger.debug("인덱스명 : {}", dupleCheck);
+		
+		int createCnt = -1;
+		
+		if(dupleCheck == null){
+			msg = "YES";
+		}else {
+			msg = "NO";
+			return msg;
+		}
+		
+		
 		AccountVO accountVO = accountService.getAccountOne(param_owner);
 		logger.debug("인덱스생성계정 : {}", param_owner);
-		Connection conn = DBUtilForWorksheet.getConnection(param_owner, accountVO.getAccount_pw(), session);
-
-		String query = new IndexUtil().createIndex(param_name, param_table, param_indexType, param_column, param_order);
-		int createCnt = sqlEditorIndexService.createIndex(query, conn);
-
-		model.addAttribute("ddlQuery", query);
 		
-		return createCnt;
+		Connection conn = DBUtilForWorksheet.getConnection(param_owner, accountVO.getAccount_pw(), session);
+		
+		String query = new IndexUtil().createIndex(param_name, param_table, param_indexType, param_column, param_order);
+		logger.debug("인덱스생성쿼리 : {}", query);
+		
+		createCnt = sqlEditorIndexService.createIndex(query, conn);
+		logger.debug("생성확인 : {}", createCnt);
+		
+		model.addAttribute("ddlQuery", query);
+		return msg;
 
 	}
 		

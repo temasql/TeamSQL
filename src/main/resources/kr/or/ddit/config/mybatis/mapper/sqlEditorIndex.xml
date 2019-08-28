@@ -81,4 +81,30 @@
 	WHERE TABLE_OWNER = UPPER(#{table_owner})
 	AND INDEX_NAME = #{index_name}
 	</select>
+	
+	<!-- 인덱스명 중복검사 -->
+	<select id="indexName" parameterType="String" resultType="String">
+	SELECT DISTINCT(INDEX_NAME)
+	FROM ALL_IND_COLUMNS
+	WHERE index_owner = #{owner}
+	AND index_name=#{index_name}
+	</select>
+	
+	<!-- 테이블 내 인덱스명 조회 리스트 -->
+	<select id="nameList" parameterType="Map" resultType="String">
+	SELECT DISTINCT(index_name)
+	FROM ALL_IND_COLUMNS
+	WHERE index_owner = #{owner}
+	AND table_name= #{table_name}
+	</select>
+	
+	<!-- 인덱스 컬럼 중복 검사 -->
+	<select id="colCheck" parameterType="Map" resultType="colCheckVO">
+	SELECT COLUMN_NAME
+         , DESCEND
+	FROM ALL_IND_COLUMNS
+	WHERE index_owner = #{owner}
+	AND table_name= #{table_name}
+	and index_name= #{index_name}
+	</select>
 </mapper>

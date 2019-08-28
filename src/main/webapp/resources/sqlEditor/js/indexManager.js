@@ -129,6 +129,7 @@ $(document).ready(function() {
 			$("#indexName").focus();
 			return
 		}
+		
 		// 인덱스명 NULL값 비교
 		if($("#indexName").val().trim() <= 0){
 			alert("인덱스 이름을 입력해주세요.");
@@ -148,6 +149,20 @@ $(document).ready(function() {
 		  , type : "post"
 		  , data : $("#createIndexFrm").serialize()
 		  , success : function(data){
+			  console.log(data);
+			  
+			  if(data == "N"){
+				  alert("이미 사용중인 인덱스명입니다.");
+				  $("#indexName").val("");
+				  $("#indexName").focus();
+				  return;
+			  }
+			  
+			  if(data == "NO"){
+				  alert("현재 있는 인덱스와 컬럼이 중복됩니다.");
+				  return;
+			  }
+			  
 			  $("#craeteIndexModal").css("display","none");
 			  alert("인덱스가 생성 되었습니다.")
 			  location.replace("/sqlEditor/sqlEditorMain");
@@ -616,7 +631,7 @@ $(document).ready(function() {
 						
 						rowIndex += "</select>"+
 						"</td>" +
-						"<td>"+
+						"<td class='selecCol'>"+
 						"<select class='form-control' class= 'columnOrder' id='columnOrder' name='param_order'>" +
 						"<option value='지정되지 않음'>지정되지 않음</option>"+ 
 						"<option value='ASC'>ASC</option>" +
@@ -635,10 +650,10 @@ $(document).ready(function() {
 	$("#updateIndexSpan").on("click",function(){
 		
 		var owner = $("#tableOwner").val().trim();				// DB계정명
-		var table_upperOwner = owner.toUpperCase();					// DB계정명 대문자 변경
 		console.log(owner)
 		$("#low_owner").val(owner);
 		console.log($("#low_owner").val())
+		var table_upperOwner = owner.toUpperCase();					// DB계정명 대문자 변경
 		var index_name= $("#indexName").val().trim();			// 인덱스명
 		var idx = table_upperOwner.indexOf("_");
 		var table_owner = table_upperOwner.substring(0, idx);
@@ -679,7 +694,7 @@ $(document).ready(function() {
 			  var idx = table_upperOwner.indexOf("_");	// 구분자
 			  var table_owner = table_upperOwner.substring(0, idx);	// 구분자부터 끝까지 짜르기
 			  
-			  $("#low_owner").val(owner);
+//			  $("#low_owner").val(owner);
 			  $("#update_owner").val(table_upperOwner);
 			  $("#tblOwner").text(table_owner); // db계정명
 			  $("#updateIndexName").val(data.idxVO[0].index_name); // 인덱스명
@@ -708,7 +723,7 @@ $(document).ready(function() {
 				  }
 				  beforeCol +="</select>";
 				  beforeCol +="</td>" +
-					  "<td>" +
+					  "<td class='beforeSelecCol'>" +
 						  "<select class='form-control updateColumnorder' id='updateColumnorder' name='update_order'>";
 					   	if (data.idxVO[i].descend == 'ASC'){ 	
 							  beforeCol +="<option value='ASC' selected>ASC</option>";
@@ -766,7 +781,7 @@ $(document).ready(function() {
 						}
 						rowIndex += "</select>"+
 						"</td>" +
-						"<td>"+
+						"<td class='updateSelecCol'>"+
 						"<select class='form-control' class= 'columnOrder' id='columnOrder' name='update_order'>" +
 						"<option value='지정되지 않음'>지정되지 않음</option>"+ 
 						"<option value='ASC'>ASC</option>" +
