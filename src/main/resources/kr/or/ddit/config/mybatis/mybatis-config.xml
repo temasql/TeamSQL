@@ -45,6 +45,7 @@
 		<typeAlias type="kr.or.ddit.sqlEditorProcedure.model.ProcedureDetailVO" alias="procedureDetailVO" />
 		<typeAlias type="kr.or.ddit.sqlEditorIndex.model.IndexDetailVO" alias="indexDetailVO" />
 		<typeAlias type="kr.or.ddit.sqlEditorIndex.model.IndexColVO" alias="indexColVO" />
+		<typeAlias type="kr.or.ddit.sqlEditorIndex.model.ColCheckVO" alias="colCheckVO" />
 	</typeAliases>
 	
 	<mappers>
