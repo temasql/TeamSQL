@@ -27,7 +27,31 @@
 		   			}
 	   			})
    			});
+   			
+   			$("#btnSignIn").on("click", function(){
+      			if($("#pwCheck").val() != $("#pw").val()){
+ 					  alert("입력하신 비밀번호와 비밀번호 재확인이 다릅니다.")
+ 					  return;
+   				}else{
+					$("#modifyUserForm").submit();
+				}
+      		})
       	})
+   			
+		function fileTypeCheck(obj) {
+			pathpoint = obj.value.lastIndexOf('.');
+			filepoint = obj.value.substring(pathpoint+1,obj.length);
+			filetype = filepoint.toLowerCase();
+			if(filetype=='jpg' || filetype=='gif' || filetype=='png' || filetype=='jpeg' || filetype=='bmp') {
+				
+			} else {
+				alert('이미지 파일만 넣어주세요!');
+				parentObj  = obj.parentNode
+				node = parentObj.replaceChild(obj.cloneNode(true),obj);
+				$("#file").val("")
+				return false;
+			}
+		}
       </script>
       <label for="exampleInputPassword1">Password</label>
       <input type="password" class="form-control" id="pw" name="user_pw" placeholder="비밀번호는 문자,숫자, 1개이상의 특수문자를 포함하여 8~16글자로 작성가능합니다." style=" font-size: 15px; width: 600px;"><h3 style="color : red;"><form:errors path="userVO.user_pw"/></h3>
@@ -49,9 +73,9 @@
     </div>
     <div class="form-group">
       <label for="exampleInputFile">프로필 사진</label>
-      <input type="file" class="form-control-file" name="profile" >
+      <input type="file" onchange="fileTypeCheck(this)" accept=".jpg, .jpeg, .png" id="file" class="form-control-file" name="profile" >
     </div>
-   	<input id="btnSignIn" type="submit" class="btn" style="background: black; color: white;" value="수정"/>
+   	<input id="btnSignIn" type="button" class="btn" style="background: black; color: white;" value="수정"/>
   </fieldset>
 </form>
 

@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.sqlEditorIndex.model.ColCheckVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexColVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexDetailVO;
 
@@ -121,6 +122,11 @@ public class SqlEditorIndexDao implements ISqlEditorIndexDao {
 		} catch (SQLException e) {
 			result = false;
 			e.printStackTrace();
+			try {
+				throw e;
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		} finally {
 			if (stmt != null)
 				try {
@@ -186,5 +192,51 @@ public class SqlEditorIndexDao implements ISqlEditorIndexDao {
 
 		return result;
 	}
+
+	
+	/**
+	 * 
+	* Method : indexName
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param owner
+	* @param index_name
+	* @return
+	* Method 설명 : 인덱스명 중복 검사
+	 */
+	@Override
+	public String indexName(Map<String, String> map) {
+		return sqlSession.selectOne("sqlEditorIndex.indexName", map);
+	}
+
+	/**
+	 * 
+	 * Method : nameList
+	 * 작성자 : 강호길
+	 * 변경이력 :
+	 * @param map
+	 * @return
+	 * Method 설명 : 테이블 내 인덱스명 조회 리스트
+	 */
+	@Override
+	public List<String> nameList(Map<String, String> map) {
+		return sqlSession.selectList("sqlEditorIndex.nameList",map);
+	}
+	
+	/**
+	 * 
+	* Method : colCheck
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 인덱스 컬럼 중복검사
+	 */
+	@Override
+	public List<ColCheckVO> colCheck(Map<String, String> map) {
+		return sqlSession.selectList("sqlEditorIndex.colCheck", map);
+	}
+
+	
 
 }

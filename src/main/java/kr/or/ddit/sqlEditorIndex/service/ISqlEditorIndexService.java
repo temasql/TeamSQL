@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.sqlEditorIndex.model.ColCheckVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexColVO;
 import kr.or.ddit.sqlEditorIndex.model.IndexDetailVO;
 
@@ -137,4 +138,38 @@ public interface ISqlEditorIndexService {
 	* Method 설명 : 인덱스 편집
 	 */
 	int updateIndex(String deleteQuery, Connection conn);
+	
+	/**
+	 * 
+	* Method : indexName
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param owner
+	* @param index_name
+	* @return
+	* Method 설명 : 인덱스명 중복 검사
+	 */
+	String indexName(Map<String, String> map);
+	
+	/**
+	 * 
+	* Method : nameList
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 테이블 내 인덱스명 조회 리스트
+	 */
+	List<String> nameList(Map<String, String> map);
+	
+	/**
+	 * 
+	* Method : colCheck
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 인덱스 컬럼 중복검사
+	 */
+	List<ColCheckVO> colCheck(Map<String, String> map);
 }
