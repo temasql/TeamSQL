@@ -137,14 +137,14 @@
     font-weight: bolder;
     font-size: 1.2em;
 }
-
 #update_column{
 	font-weight: bolder;
-    font-size: 1.2em;
+}
+#updateColumn{
+	font-weight: bolder;
 }
 #updateColumnorder{
 	font-weight: bolder;
-    font-size: 1.2em;
 }
 #pAndm{
 	float: right;

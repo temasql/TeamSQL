@@ -631,7 +631,7 @@ $(document).ready(function() {
 						
 						rowIndex += "</select>"+
 						"</td>" +
-						"<td>"+
+						"<td class='selecCol'>"+
 						"<select class='form-control' class= 'columnOrder' id='columnOrder' name='param_order'>" +
 						"<option value='지정되지 않음'>지정되지 않음</option>"+ 
 						"<option value='ASC'>ASC</option>" +
@@ -723,7 +723,7 @@ $(document).ready(function() {
 				  }
 				  beforeCol +="</select>";
 				  beforeCol +="</td>" +
-					  "<td>" +
+					  "<td class='beforeSelecCol'>" +
 						  "<select class='form-control updateColumnorder' id='updateColumnorder' name='update_order'>";
 					   	if (data.idxVO[i].descend == 'ASC'){ 	
 							  beforeCol +="<option value='ASC' selected>ASC</option>";
@@ -781,7 +781,7 @@ $(document).ready(function() {
 						}
 						rowIndex += "</select>"+
 						"</td>" +
-						"<td>"+
+						"<td class='updateSelecCol'>"+
 						"<select class='form-control' class= 'columnOrder' id='columnOrder' name='update_order'>" +
 						"<option value='지정되지 않음'>지정되지 않음</option>"+ 
 						"<option value='ASC'>ASC</option>" +
