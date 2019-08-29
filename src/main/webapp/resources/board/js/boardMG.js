@@ -1,6 +1,6 @@
 $(document).ready(
 	function() {
-		if ($("#updateUse_yn").val == "") {
+		if ($("#updateUse_yn").val() == "") {
 			$("#updateUse_yn").val("Y");
 	}
 
@@ -10,6 +10,8 @@ $(document).ready(
 	});
 
 	$(".modiBtn").on("click", function() {
+		var updateUser_yn = $(this).parents("td").prevAll(".modiSel").find(".updateUse_yn").val();
+		$("#updateUse_yn").val(updateUser_yn);
 		var boardId = $(this).parents("td").prevAll(".boardId").html();
 		$("#boardId").val(boardId);
 		$("#frm").submit();
