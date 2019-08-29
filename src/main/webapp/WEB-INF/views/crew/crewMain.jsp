@@ -65,7 +65,7 @@ placeholder="    아이디로 검색" style="width: 180px;display: inline;paddin
 	    <label for="exampleInputEmail1">아이디</label>
 	    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="초대할 계정 아이디">
 	    <br><br>
-	    <button type="button" id="btnInviteCrewOk" class="btn btn-secondary">초대</button>
+	    <button type="button" id="btnInviteCrewOk" class="btn"style="background: black;color: white;" >초대</button>
   	 </fieldset>
 	</form>
   </div>
