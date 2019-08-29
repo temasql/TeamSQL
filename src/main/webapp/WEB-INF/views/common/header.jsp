@@ -35,7 +35,7 @@
 	<a href="${cp }/main"><img id="main" src="${cp}/resources/img/main.png" alt="메인"  title="메인"></a>
 	</c:when>
 	<c:otherwise>
-	<a href="#none"><img id="main" src="${cp}/resources/img/main.png" alt="메인"  title="메인"></a>
+	<img id="main" src="${cp}/resources/img/main.png" alt="메인"  title="메인">
 	</c:otherwise>
 	</c:choose>
 	</div>
