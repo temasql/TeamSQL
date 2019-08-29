@@ -98,31 +98,6 @@
 			</table> 
 	  </div>
 	  
-<!-- 	  <!-- DB변경이력 asd-->
-<!-- 	  <div id="leftBottomLayout"> -->
-<!-- 	  	<div id="bottomDiv"> -->
-<!-- 		   <table class="table table-hover" id="tableContainer"> -->
-<!-- 	 			<thead> -->
-<!-- 	    			<tr> -->
-<!-- 				      <th scope="col">계정명</th> -->
-<!-- 				      <th scope="col">마지막 변경 일시</th> -->
-<!-- 				      <th scope="col">생성자</th> -->
-<!-- 	   				</tr> -->
-<!-- 				</thead> -->
-<!-- 				<tbody id="changedMainBody"> -->
-<%-- 				  <c:forEach items="${changedMainList}" var="cVO"> --%>
-<!-- 				  	<tr class="table-active clickEvent"> -->
-<%-- 				  	  <td class="object_owner" scope="row">${cVO.object_ownerSlice}<input type="hidden" class="original_owners" value="${cVO.object_owner }"/></td> --%>
-<%-- 					  <td scope="row"><fmt:formatDate value="${cVO.exec_dtm}" pattern="yyyy-MM-dd a hh:mm:ss"/></td> --%>
-<%-- 					  <td scope="row">${cVO.user_name}</td> --%>
-<!-- 				  	</tr> -->
-<%-- 				  </c:forEach> --%>
-<!-- 				</tbody> -->
-<!-- 			</table>  -->
-<!-- 	  	</div> -->
-<!-- 	  </div> -->
-<!-- 	</div> -->
-	
 	  <!-- DB변경이력 -->
 	  <div id="leftBottomLayout">
 	  	<div id="bottomDiv">

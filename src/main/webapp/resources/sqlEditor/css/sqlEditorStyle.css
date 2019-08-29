@@ -294,3 +294,5 @@
 #createTestDataBtn{
 	margin-left: 840px;
 }
+
+#dbAccountView{height: 694px; overflow: auto;}
