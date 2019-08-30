@@ -121,7 +121,9 @@ public class WorksheetController {
 	 */
 	@RequestMapping(path = "/anotherRun", method = RequestMethod.GET)
 	public String anotherRun(String dragText, String account_id, Model model, HttpSession session) {
+		logger.debug("어카운트 아이디 : {}", account_id);
 		AccountVO accountVO = accountServcie.getAccountOne(account_id);
+		logger.debug("어카운트 브이오 : {}", accountVO);
 		Connection conn = DBUtilForWorksheet.getConnection(account_id, accountVO.getAccount_pw(), session);
 		
 		if(dragText.contains(";")) {
