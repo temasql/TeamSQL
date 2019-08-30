@@ -49,7 +49,7 @@
 	    <div id="tempAddView">
 	    	<form id="templateFrm">
 		    	<div id="Text">약어 : <input id="inputAbb" name="utemplate_abb" class="form-control" placeholder="약어 입력란(영문만 가능)"  onkeyup="this.value=this.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣-; , 0-9]/g, '');"><br>
-		    		  원문 : <textarea id="inputOriArea" name="utemplate_original" class="form-control" rows="5" placeholder="원문 입력란(영문만 가능)" onkeyup="this.value=this.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣-; , 0-9]/g, '');"></textarea>
+		    		  원문 : <textarea id="inputOriArea" name="utemplate_original" class="form-control" rows="5" placeholder="원문 입력란" ></textarea>
 		    	</div>
 	    	</form>
 	    </div>
