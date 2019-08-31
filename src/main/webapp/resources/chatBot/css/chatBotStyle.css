@@ -3,7 +3,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	font-family: 'Alegreya Sans', sans-serif;
+	font-family: 'NanumSquareRound',sans-serif;
 	font-size: 1.2em;
 }
 
@@ -85,7 +85,7 @@ p.pchatBot {
 	box-shadow: 2px 3px 12px 3px rgba(0, 0, 0, 0.1);
 	padding: 0 5px;
     margin : 5px 12px 0 5px;
-	line-height: 25px;
+	line-height: 31px;
 	letter-spacing: -1.5px;
 	color: white;
 	left: 0;
@@ -167,7 +167,7 @@ p.pchatBot {
 }
 
 /* 챗봇 버튼 */
-.chatBotBtn{
+.createTableBtn, .dropTableBtn, .updateTableBtn, .createDataBtn, .updateDataBtn, .dropDataBtn, .searchDataBtn{
     border-radius: 10px;
     background: white;
     color: black;
@@ -180,8 +180,8 @@ p.pchatBot {
 }
 
 /* 버튼 호버 이벤트 */
-.chatBotBtn:hover{background: #717171;color: white;}
-.chatBotBtn:hover:after{content: "";}
+.createTableBtn:hover, .dropTableBtn:hover, .updateTableBtn:hover, .createDataBtn:hover, .updateDataBtn:hover, .dropDataBtn:hover, .searchDataBtn:hover{background: #717171;color: white;}
+.createTableBtn:hover:after, .dropTableBtn:hover:after, .updateTableBtn:hover:after, .createDataBtn:hover:after, .updateDataBtn:hover:after, .dropDataBtn:hover:after, .searchDataBtn:hover:after{content: "";}
 
 .chatImg{
 	width: 344px;
@@ -201,4 +201,8 @@ p.pchatBot {
 
 #ownerCreate{width: 100%; height: 100%;}
 
-#rightClick{width: 282px; height: 200px;}
+.rightClick{width: 282px; height: 200px;}
+
+.qr1{width: 71%;}
+.qr2{width: 85%;}
+.qr3{width: 85%;}

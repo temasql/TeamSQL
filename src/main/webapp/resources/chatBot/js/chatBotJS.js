@@ -41,6 +41,9 @@ $(document).ready(function() {
 		// SQL에디터
 		var sqlEditor= $("#sqlEditor").find('p').html();
 		
+		// 쿼리매니저
+		var qrManager= $("#qrManager").find('p').html();
+		
 		// 공백 제거
 		var gap = question.split(' ').join('');
 		// 소문자 변환
@@ -122,13 +125,17 @@ $(document).ready(function() {
 				|| str== '탈퇴' || str== '탈퇴하기' || str== '탈퇴하는법' || str== '탈퇴하는방법')
 			// 같을 경우
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+memOut+"</p></div></div></div>");
-		
 		// SQL 에디터
-		else if(str== 'sql에디터' || str== 'SQL에디터 사용' || str== 'SQL에디터 이용' || str== '에스큐엘에디터'
-			|| str== '에스큐엘에디터사용' || str== '에스큐엘에디터이용')
+		else if(str== 'sql에디터' || str== 'SQL에디터사용' || str== 'SQL에디터이용' || str== '에스큐엘에디터'
+			|| str== '에스큐엘에디터사용' || str== '에스큐엘에디터이용' || str== 'sql')
 			// 같을 경우
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+sqlEditor+"</p></div></div></div>");
-
+		
+		// 쿼리 매니저
+		else if(str.includes("query") == true || str.includes("쿼리") == true )
+			// 같을 경우
+			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+qrManager+"</p></div></div></div>");
+		
 		// DB계정
 		else if(str== '계정' || str== 'db계정' || str== '디비계정')
 			// 같을 경우
@@ -143,43 +150,43 @@ $(document).ready(function() {
 		$("#userInput").val("");
 		
 		// 테이블 생성 버튼
-		$("#createTableBtn").click(function(){
+		$(".createTableBtn").click(function(){
 			$(".liList").append("<div class='chatBotBox1'><div></div><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableCreate+"</p></div></div></div>");
 			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
 		})
 		
 		// 테이블 삭제 버튼
-		$("#dropTableBtn").click(function(){
+		$(".dropTableBtn").click(function(){
 			$(".liList").append("<div class='chatBotBox1'><div></div><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableDrop+"</p></div></div></div>")
 			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
 		})
 		
 		// 테이블 변경 버튼
-		$("#updateTableBtn").click(function(){
+		$(".updateTableBtn").click(function(){
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+tableAlt+"</p></div></div></div>")
 			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
 		})
 		
 		// 데이터 생성 버튼
-		$("#createDataBtn").click(function(){
+		$(".createDataBtn").click(function(){
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataInsert+"</p></div></div></div>")
 			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
 		})
 		
 		// 데이터 수정 버튼
-		$("#updateDataBtn").click(function(){
+		$(".updateDataBtn").click(function(){
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataUpdate+"</p></div></div></div>")
 			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
 		})
 		
 		// 데이터 삭제 버튼
-		$("#dropDataBtn").click(function(){
+		$(".dropDataBtn").click(function(){
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataDelete+"</p></div></div></div>")
 			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
 		})
 		
 		// 데이터 조회 버튼
-		$("#searchDataBtn").click(function(){
+		$(".searchDataBtn").click(function(){
 			$(".liList").append("<div class='chatBotBox1'><img class='chatBotImg' title='chatBot' alt='chatBot' src='/resources/img/chatbot.png'><div class='chatBotBox2'><span class='chatBotSpan'>챗봇</span><div class='chatBotResult'><p class='pchatBot'>"+dataSelect+"</p></div></div></div>");
 			$(".chatBotArticle").scrollTop($(".chatBotArticle")[0].scrollHeight);
 		})
