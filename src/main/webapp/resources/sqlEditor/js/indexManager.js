@@ -116,6 +116,35 @@ $(document).ready(function() {
 		
 	})
 	
+	// 업데이트 DDL 쿼리 출력
+	$("#updateSelect_1").on("change", function(){
+		if($("#updateSelect_1").val()== "DDL"){
+			if($("#update_column").length >= 1){
+				$.ajax({
+					url : "/sqlEditor/updateDdlQuery"
+						, type : "post"
+							, data : $("#updateIndexFrm").serialize()
+							, success : function(data){
+								$("#hidden_updateTable").empty();
+								var temp = "<br><br><h5>" + data.trim() + "</h5>";
+								$("#hidden_updateTable").append(temp);
+								$("#updateIndex_table").hide();
+							},error : function(){
+								alert("인덱스 표현식을 하나 이상 지정해야 합니다.");
+								$("#updateDefine").prop("selected", true);
+							}
+				});
+			}else{
+				alert("인덱스 표현식을 하나 이상 지정해야 합니다.");
+				$("#updateDefine").prop("selected", true);
+			}
+		}else{
+			$("#hidden_updateTable").empty();
+			$("#updateIndex_table").show();
+		}
+		
+	})
+	
 	// 인덱스 생성 버튼 클릭 이벤트
 	$("#createIndexBtn").on("click",function(){
 		
@@ -180,13 +209,13 @@ $(document).ready(function() {
 		// 인덱스명 정규식
 		var nameReg = /^[a-zA-Z][a-zA-Z0-9#$_]{2,19}$/;
 		
-		// 인덱스명 정규식 조건
-		if(!nameReg.test($("#updateIndexName").val())){
-			alert("잘못 입력되었습니다.");
-			$("#updateIndexName").val("");
-			$("#updateIndexName").focus();
-			return
-		}
+//		// 인덱스명 정규식 조건
+//		if(!nameReg.test($("#updateIndexName").val())){
+//			alert("잘못 입력되었습니다.");
+//			$("#updateIndexName").val("");
+//			$("#updateIndexName").focus();
+//			return
+//		}
 		// 인덱스명 NULL값 비교
 		if($("#updateIndexName").val().trim() <= 0){
 			alert("인덱스 이름을 입력해주세요.");

@@ -994,11 +994,38 @@ public class SqlEditorController {
 			String[] param_column, String[] param_order, HttpSession session, Model model) {
 
 		String query = new IndexUtil().createIndex(param_name, param_table, param_indexType, param_column, param_order);
-		
+		logger.debug("편집DDL : {}", query);
 		return query;
 
 	}
-
+	
+	/**
+	 * 
+	* Method : updateDdlQuery
+	* 작성자 : 강호길
+	* 변경이력 :
+	* @param update_owner
+	* @param update_name
+	* @param update_table
+	* @param update_indexType
+	* @param update_column
+	* @param update_order
+	* @param session
+	* @param model
+	* @return
+	* Method 설명 : 인덱스 DDL 출력
+	 */
+	@RequestMapping(path = "/updateDdlQuery", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateDdlQuery(String update_owner, String update_name, String update_table, String update_indexType,
+			String[] update_column, String[] update_order, HttpSession session, Model model) {
+		
+		String query = new IndexUtil().createIndex(update_name, update_table, update_indexType, update_column, update_order);
+		logger.debug("편집DDL : {}", query);
+		return query;
+		
+	}
+	
 	/**
 	 * 
 	* Method : readIndexQuery

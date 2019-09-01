@@ -62,9 +62,9 @@
 <br>
 아래 버튼을 클릭하시면 자세한 내용을 확인 하실 수 있습니다.
 <br>
-<button type="button" class="chatBotBtn" id="createTableBtn" >테이블 생성</button>
-<button type="button" class="chatBotBtn" id="dropTableBtn" >테이블 삭제</button>
-<button type="button" class="chatBotBtn" id="updateTableBtn" >테이블 수정</button>
+<button type="button" class="createTableBtn" id="createTableBtn" >테이블 생성</button>
+<button type="button" class="dropTableBtn" id="dropTableBtn" >테이블 삭제</button>
+<button type="button" class="updateTableBtn" id="updateTableBtn" >테이블 수정</button>
 </p>
 </div> 
 
@@ -156,10 +156,10 @@ ALTER TABLE 테이블명 DROP PRIMARY KEY
 <br>
 아래 버튼을 클릭하시면 자세한 내용을 확인 하실 수 있습니다.
 <br>
-<button type="button" class="chatBotBtn" id="createDataBtn" >데이터 생성</button>
-<button type="button" class="chatBotBtn" id="dropDataBtn" >데이터 삭제</button>
-<button type="button" class="chatBotBtn" id="updateDataBtn" >데이터 수정</button>
-<button type="button" class="chatBotBtn" id="searchDataBtn" >데이터 조회</button>
+<button type="button" class="createDataBtn" id="createDataBtn" >데이터 생성</button>
+<button type="button" class="dropDataBtn" id="dropDataBtn" >데이터 삭제</button>
+<button type="button" class="updateDataBtn" id="updateDataBtn" >데이터 수정</button>
+<button type="button" class="searchDataBtn" id="searchDataBtn" >데이터 조회</button>
 </p>
 </div> 
 <!-- 데이터 입력 -->
@@ -299,7 +299,32 @@ DB계정 삭제, PW찾기, PW변경, 팀 일정관리를 사용하실 수 있습
 <br>
 단 DB계정 삭제, PW찾기, PW변경은 생성자만 가능합니다.
 <br>
-<img id="rightClick" alt="SQL에디터" src="${cp}/resources/img/editorRightClick.png">
+<img class="rightClick" alt="SQL에디터" src="${cp}/resources/img/editorRightClick.png">
+</p>
+</div>
+
+<!-- 쿼리 매니저 -->
+<div id='qrManager' hidden="hidden">
+<p>
+쿼리 매니저에 대해 설명 드리겠습니다.
+<br>
+아래 아이콘이 쿼리 매니저입니다.
+<br>
+<img class="qr1" alt="쿼리매니저" src="${cp}/resources/img/qrmanager.png">
+<br>
+쿼리 매니저를 실행하기 전 쿼리를 작성하여 드래그 해주십시오.
+<br>
+<br>
+<img class="qr2" alt="쿼리매니저" src="${cp}/resources/img/qrmanager2.png">
+<br>
+쿼리매니저가 쿼리를 검사하여 개선 사항 유무를 확인합니다.
+<br>
+개선 사항이 있을 시 그에 관한 설명과 수정 쿼리를
+<br>
+에디터에 추가할 수 있습니다.
+<br>
+<br>
+<img class="qr3" alt="쿼리매니저" src="${cp}/resources/img/qrmanager3.png">
 </p>
 </div>
 

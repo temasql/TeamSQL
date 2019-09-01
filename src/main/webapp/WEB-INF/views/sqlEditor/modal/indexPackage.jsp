@@ -14,6 +14,8 @@
 	<form action="${cp}/sqlEditor/createIndex" method="post" id="createIndexFrm">
 	  <fieldset>
 	    <legend>인덱스 생성</legend>
+	    <label for="exampleInputEmail1">스키마</label>
+	    <br>
 	    <label id="owner"></label>
 	    <div class="form-group">
 	      <input type="text" class="form-control" id="indexName" name="param_name" placeholder="인덱스명">
@@ -103,6 +105,8 @@
 	<form action="${cp}/sqlEditor/updateIndex" method="post" id="updateIndexFrm">
 	  <fieldset>
 	    <legend>인덱스 편집</legend>
+	    <label for="exampleInputEmail1">스키마</label>
+	    <br>
 	    <div><label id="tblOwner"></label>
 	    </div>
 	    <div class="form-group">
@@ -150,7 +154,7 @@
 	    <div class="table_scroll">
 	    <div id="hidden_updateTable"></div>
 		    <input type="hidden" id="updateDeleteHidden"/>
-	    <table class="table table-hover index" id="index_table">
+	    <table class="table table-hover index" id="updateIndex_table">
 			<thead>
 				<tr>
 					<th id="expression" scope="col">표현식</th>
