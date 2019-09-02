@@ -112,7 +112,6 @@ var newEvent = function (start, end, eventType) {
         	success: function (response) {
         		$('#calendar').fullCalendar('removeEvents');
         		$('#calendar').fullCalendar('refetchEvents');
-        		alert("등록 했쑝");
         	}
         });
     });

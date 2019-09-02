@@ -83,7 +83,7 @@
 	    </div>
       <br><br><br>
 	<div id="leftLayout">
-		<span id="infoSpan">Summary</span>
+		<span class="infoSpan">My Account</span>
 	   <!-- DB계정 -->	
 	  <div id="leftTopLayout">	  
 	  <table class="table table-hover">
@@ -98,6 +98,7 @@
 			</table> 
 	  </div>
 	  
+		<span class="infoSpan">Account History</span>
 	  <!-- DB변경이력 -->
 	  <div id="leftBottomLayout">
 	  	<div id="bottomDiv">

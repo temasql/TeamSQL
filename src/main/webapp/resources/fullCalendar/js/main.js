@@ -222,7 +222,6 @@ var calendar = $('#calendar').fullCalendar({
         //....
       },
       success: function (response) {
-        alert('일정 변경 : ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
     });
   },
@@ -264,7 +263,7 @@ var calendar = $('#calendar').fullCalendar({
       contentType: "application/json",
   	  dataType : "json",
       success: function (response) {
-        alert('수정했쑝: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+//        alert('수정했쑝: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
     });
   },
