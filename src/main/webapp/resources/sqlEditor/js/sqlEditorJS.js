@@ -991,7 +991,6 @@ $(document).ready(function() {
 			url : "/worksheet/accountChange",
 			method : "get",
 			success : function(data) {
-				alert("계정이 변경되었습니다.");
 			}
 		});
 	});

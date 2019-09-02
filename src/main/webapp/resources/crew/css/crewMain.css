@@ -25,10 +25,16 @@
 
 /* The Close Button */
 .close {
-    color: #aaa;
-    float: right;
+ 	color: #aaa;
     font-size: 28px;
     font-weight: bold;
+    position: absolute;
+    right: 2%;
+    top: 6%;
+    text-align: center;
+    width: 30px;
+    height: 25;
+    line-height: 29px;
 }
 
 .close:hover, .close:focus {

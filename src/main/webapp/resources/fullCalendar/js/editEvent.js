@@ -94,7 +94,6 @@ var editEvent = function (event, element, view) {
             contentType: "application/json",
             dataType:"json",
             success: function (response) {
-                alert('수정했쑝');
             }
         });
     });
@@ -115,7 +114,6 @@ var editEvent = function (event, element, view) {
 //        	contentType: "application/json",
 //        	dataType : "json",
             success: function (response) {
-                alert('삭제됬쑝');
             }
         });
     });
