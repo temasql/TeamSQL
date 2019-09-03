@@ -63,6 +63,16 @@
 	color: black;
 	border-bottom: 1px solid;
 }
+
+.infoAccount{
+	font-weight: bold;
+	font-size: 4.0em;
+	color: black;
+	border-bottom: 1px solid;
+	position: absolute;
+    left: 17%;
+    top: 128%;
+}
 #itNewsSpan{
 	font-weight: bold;
 	font-size: 5.0em;
