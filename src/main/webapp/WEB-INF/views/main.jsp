@@ -98,7 +98,7 @@
 			</table> 
 	  </div>
 	  
-		<span class="infoSpan">Account History</span>
+		<span class="infoAccount">Account History</span>
 	  <!-- DB변경이력 -->
 	  <div id="leftBottomLayout">
 	  	<div id="bottomDiv">
